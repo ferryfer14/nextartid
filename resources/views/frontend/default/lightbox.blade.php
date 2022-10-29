@@ -543,8 +543,8 @@
                                     </div>
                                 </div>
                                 @if(config('settings.allow_artist_claim', 1))
-                                    <p class="checkbox-container">
-                                        <input class="hide custom-checkbox" type="checkbox" name="artist" id="im-artist">
+                                    <p class="checkbox-container d-none">
+                                        <input class="hide custom-checkbox" checked type="checkbox" name="artist" id="im-artist">
                                         <label class="cbx" for="im-artist"></label>
                                         <label class="lbl" for="im-artist" data-translate-text="IM_AN_ARTIST_SIGNUP">{{ __('web.IM_AN_ARTIST_SIGNUP') }}</label>
                                     </p>

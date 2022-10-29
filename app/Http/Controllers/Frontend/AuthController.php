@@ -67,8 +67,14 @@ class AuthController
             'name' => 'required|string|min:3|max:30',
             'password' => 'required|confirmed|min:6',
             'artist1' => 'required|string|min:3|max:30',
+            'artist-phone1' => 'required|string|min:5|max:15',
+            'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
+            'artist-affiliation1' => 'required|string',
+            'artist2' => 'nullable|string|min:3|max:30',
+            'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
+            'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
+            'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
-        
         if(config('settings.dob_signup')) {
             $this->request->validate([
                 'country' => 'required|string|max:3',
@@ -129,7 +135,15 @@ class AuthController
             'name' => 'required|string|min:3|max:30',
             'username' => 'required|string|alpha_dash|min:4|max:50|unique:users',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string|confirmed'
+            'password' => 'required|string|confirmed',
+            'artist1' => 'required|string|min:3|max:30',
+            'artist-phone1' => 'required|string|min:5|max:15',
+            'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
+            'artist-affiliation1' => 'required|string',
+            'artist2' => 'nullable|string|min:3|max:30',
+            'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
+            'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
+            'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         
         $verifyCoder = Str::random(32);
