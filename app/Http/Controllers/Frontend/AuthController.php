@@ -192,19 +192,48 @@ class AuthController
         $user->save();
         
         /** Send activation email if registration method is advanced */
-        if(config('settings.registration_method') == 1) {
+        //if(config('settings.registration_method') == 1) {
             
-            if( $this->request->input('isArtist')  == 'on') {
-                DB::table('artist_requests')->insert(['user_id' => $user->id]);
-            }
+            //if( $this->request->input('isArtist')  == 'on') {
+                //DB::table('artist_requests')->insert(['user_id' => $user->id]);
+                /** Insert artist request to user database */
+                $artist = new Artist();
+                $artist->name = $this->request->input('artist1');
+                $artist->verified = 1;
+                $artist->save();
+                User::where('id',$user->id)->update(['artist_id'=>$artist->id]);
+                $artistRequest = new ArtistRequest();
+                $artistRequest->user_id = $user->id;
+                $artistRequest->artist_id = $artist->id;
+                $artistRequest->artist_name = $this->request->input('artist1');
+                $artistRequest->phone = $this->request->input('artist-phone1');
+                $artistRequest->ext = $this->request->input('artist-phone-ext1');
+                $artistRequest->affiliation = $this->request->input('artist-affiliation1');
+                $artistRequest->save();
+                if($this->request->input('artist2') != ''){
+                    $artist = new Artist();
+                    $artist->name = $this->request->input('artist2');
+                    $artist->verified = 1;
+                    $artist->save();
+    
+                    $artistRequest = new ArtistRequest();
+                    $artistRequest->user_id = $user->id;
+                    $artistRequest->artist_id = $artist->id;
+                    $artistRequest->artist_name = $this->request->input('artist2');
+                    $artistRequest->phone = $this->request->input('artist-phone2');
+                    $artistRequest->ext = $this->request->input('artist-phone-ext2');
+                    $artistRequest->affiliation = $this->request->input('artist-affiliation2');
+                    $artistRequest->save();
+                }
+            //}
             
-            (new Email)->verifyAccount($user, route('frontend.account.verify', ['code' => $verifyCoder]));
+            //(new Email)->verifyAccount($user, route('frontend.account.verify', ['code' => $verifyCoder]));
             
             return response()->json([
-                'activation' => true,
+                'artistRequest' => $artistRequest->id,
                 'email' => 'sent'
             ]);
-        }
+        //}
         
         /** If registration method is simplified then login the user right away  */
         $login = [
