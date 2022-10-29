@@ -470,7 +470,6 @@
                                         <input type="text" id="artist-phone-ext2" name="artist-phone-ext2" value="">
                                     </div>
                                 </div>
-                            </div>
                                 @if(config('settings.dob_signup'))
                                     <div class="row">
                                         <div class="control control-group col-lg-6 col-12">
