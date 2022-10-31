@@ -68,10 +68,16 @@ class ArtistManagementController extends Controller
             ->where('user_id', auth()->user()->id)
             ->first();
 
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
         if( $this->request->is('api*') )
         {
             return response()->json(array(
                 'artist' => $this->artist,
+                'my_artist' => $my_artist,
                 'albums' => $this->artist->albums,
                 'songs' => $this->artist->songs,
                 'songs_revenue' => $songs_revenue,
@@ -84,6 +90,7 @@ class ArtistManagementController extends Controller
             ->with('songs', $this->artist->songs)
             ->with('albums', $this->artist->albums)
             ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist)
             ->with('songs_revenue', $songs_revenue)
             ->with('episodes_revenue', $episodes_revenue)
             ->with('counts', $counts);
@@ -644,8 +651,14 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->paginate(20));
 
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
         $view = View::make('artist-management.albums')
-            ->with('artist', $this->artist);
+            ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -665,7 +678,12 @@ class ArtistManagementController extends Controller
         $this->request->validate([
             'title' => 'required|string|max:50',
             'type' => 'required|numeric|between:1,10',
+            'primary-artist' => 'required|string|max:50',
             'description' => 'nullable|string|max:1000',
+            'genre' => 'required|array',
+            'display_artist' => 'required',
+            'second_genre' => 'nullable|array',
+            'group_genre' => 'required|array',
             'copyright' => 'nullable|string|max:100',
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
@@ -674,15 +692,19 @@ class ArtistManagementController extends Controller
 
         $album = new Album();
 
-        $album->title       = $this->request->input('title');
-        $album->artistIds   = auth()->user()->artist_id;
-        $genre              = $this->request->input('genre');
-        $mood               = $this->request->input('mood');
-        $album->type        = $this->request->input('type');
-        $album->description = $this->request->input('description');
-        $album->copyright   = $this->request->input('copyright');
-        $album->visibility  = $this->request->input('visibility');
-        $album->user_id     = auth()->user()->id;
+        $album->title               = $this->request->input('title');
+        $album->artistIds           = auth()->user()->artist_id;
+        $album->display_artist      = $this->request->input('display_artist');
+        $genre                      = $this->request->input('genre');
+        $second_genre               = $this->request->input('second_genre');
+        $group_genre                = $this->request->input('group_genre');
+        $mood                       = $this->request->input('mood');
+        $album->type                = $this->request->input('type');
+        $album->primary_artist      = $this->request->input('primary_artist');
+        $album->description         = $this->request->input('description');
+        $album->copyright           = $this->request->input('copyright');
+        $album->visibility          = $this->request->input('visibility');
+        $album->user_id             = auth()->user()->id;
 
         if($this->request->input('released_at'))
         {
@@ -697,6 +719,16 @@ class ArtistManagementController extends Controller
         if(is_array($genre))
         {
             $album->genre = implode(",", $this->request->input('genre'));
+        }
+
+        if(is_array($second_genre))
+        {
+            $album->second_genre = implode(",", $this->request->input('second_genre'));
+        }
+        
+        if(is_array($group_genre))
+        {
+            $album->genre = implode(",", $this->request->input('group_genre'));
         }
 
         if(is_array($mood))
@@ -734,9 +766,19 @@ class ArtistManagementController extends Controller
         } else {
             $album->selling = 0;
         }
-
+        
         $album->save();
 
+        if($this->request->input('additional-artist') != ''){
+            $i = 0;
+            foreach($this->request->input('additional-artist') as $name){
+                DB::table('album_artist')->insert([
+                    'album_id' => $album->id,
+                    'artist_role' => $this->request->input('roles')[$i],
+                    'artist_name' => $name,
+                ]);
+            }
+        }
         return $album->makeVisible(['approved']);
     }
 
@@ -748,8 +790,14 @@ class ArtistManagementController extends Controller
         $album->makeVisible(['description']);
         $album->setRelation('songs', $album->songs()->withoutGlobalScopes()->get());
 
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist)
             ->with('album', $album);
 
         if($this->request->ajax()) {
@@ -930,18 +978,20 @@ class ArtistManagementController extends Controller
                 } else {
                     $album->selling = 0;
                 }
-                if($this->request->input('roles') != ''){
-                    DB::table('artists_roles')->insert([
-                        'album_id' => $this->request->input('album_id'),
-                        'roles' => $this->request->input('roles'),
-                        'composer' => $this->request->input('composer'),
-                        'lyric' => $this->request->input('lyric'),
-                        'arranger' => $this->request->input('arranger'),
-                    ]);
-                }
 
                 $album->save();
 
+                if($this->request->input('additional-artist') != ''){
+                    $i = 0;
+                    foreach($this->request->input('additional-artist') as $name){
+                        DB::table('album_artist')->insert([
+                            'album_id' => $album->id,
+                            'artist_role' => $this->request->input('roles')[$i],
+                            'artist_name' => $name,
+                        ]);
+                      $i++;
+                    }
+                }
                 return response()->json($album);
             }
         } else {

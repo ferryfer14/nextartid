@@ -1559,12 +1559,17 @@
                                         </label>
                                         <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
                                     </div>
-                                    <div class="control field">
-                                        <label for="name">
-                                            <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
-                                        </label>
-                                        <input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
-                                    </div>
+                                    @if(isset($my_artist))
+                                        <div class="control field">
+                                            <label for="name">
+                                                <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
+                                            </label>
+                                            
+                                        <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
+                                        </select>
+                                        <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
+                                        </div>
+                                    @endif
                                     <div class="control field" mb-0>
                                         <label for="artist-job">
                                             <span data-translate-text="FORM_ARTISTS_ROLES">{{ ('FORM_ARTISTS_ROLES') }}</span>
@@ -1577,29 +1582,11 @@
                                                 <input name="primary-artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" value="Composer" readonly="">
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input name="composer" type="text" placeholder="Composer Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" value="Lyricist" readonly="">
-                                            </div>                                            
-                                            <div class="col-md-7">
-                                                <input name="lyricist" type="text" placeholder="Lyricist Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" class="form-control" value="Arranger" readonly="">                                            </div>
-                                            <div class="col-md-7">
-                                                <input name="arranger" type="text" placeholder="Arranger Name" autocomplete="off">
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <label for="name">
+                                        <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
+                                    </label>
+                                    <div class="control field" mb-0>
                                         <div class="row">
                                             <div class="col-md-5">
                                             {!! makeDropDown(array(
@@ -1613,19 +1600,19 @@
                                                 8 => __('Featuring'),
                                                 9 => __('with'),
                                                 10 => __('Arranger'),
-                                            ), 'type', null, true) !!}
+                                            ), 'roles[]', null, true) !!}
                                             </div>
-                                            <div class="col-md-7">
-                                                <input name="additional-artist" type="text" placeholder="Additional Artist Role Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5" no-padding-left>                                        
-                                                <button type="button" class="btn btn-mini btn-success btn-add-artist" data-index="1">
-                                                                <i class="fa fa-plus btn-add-artist" data-index="1"></i>
+                                            <div class="col-md-7 d-flex align-items-center">
+                                                <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
+                                                <button class="text-success btn-add-artist p-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                    </svg>
                                                 </button>
                                             </div>
-                                        </div>
+                                         </div>
+                                         <div id="additional_artist">
+                                         </div>
                                     </div>
                                     <div class="control field">
                                         <label>
@@ -1638,14 +1625,14 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="second_genre[]" placeholder="Select genres" multiple autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
@@ -1854,47 +1841,34 @@
                                         </label>
                                         <input name="album_version" type="text" placeholder="Remix or Version" autocomplete="off">
                                     </div>
-                                    <div class="control field">
-                                        <label for="name">
-                                            <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
-                                        </label>
-                                        <input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
-                                    </div>
+                                    @if(isset($my_artist))
+                                        <div class="control field">
+                                            <label for="name">
+                                                <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
+                                            </label>
+                                            
+                                        <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
+                                        </select>
+                                            <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
+                                        </div>
+                                    @endif
                                     <div class="control field" mb-0>
                                         <label for="artist-job">
-                                            <span data-translate-text="FORM_ARTIST_JOB">{{ ('FORM_ARTIST_JOB') }}</span>
+                                            <span data-translate-text="FORM_ARTISTS_ROLES">{{ ('FORM_ARTISTS_ROLES') }}</span>
                                         </label>
                                         <div class="row">
                                             <div class="col-md-5">
-                                                <input type="text" name="check" placeholder="Primary Artist" class="form-control" value="Primary Artist" readonly="">
+                                                <input type="text" class="form-control" value="Primary Artist" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="roles" type="text" placeholder="Primary Artist Name" autocomplete="off">
+                                                <input name="primary-artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" name="check" placeholder="Composer" class="form-control" value="Composer" readonly="">
-                                            </div>
-                                            <div class="col-md-7">
-                                                <input name="composer" type="text" placeholder="Composer Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" name="check" placeholder="Lyricist" class="form-control" value="Lyricist" readonly="">
-                                            </div>                                            
-                                            <div class="col-md-7">
-                                                <input name="lyric" type="text" placeholder="Lyricist Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                                <input type="text" name="check" placeholder="Arranger" class="form-control" value="Arranger" readonly="">                                            </div>
-                                            <div class="col-md-7">
-                                                <input name="arranger" type="text" placeholder="Arranger Name" autocomplete="off">
-                                            </div>
-                                        </div>
+                                    </div>
+                                    <label for="name">
+                                        <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
+                                    </label>
+                                    <div class="control field" mb-0>
                                         <div class="row">
                                             <div class="col-md-5">
                                             {!! makeDropDown(array(
@@ -1908,22 +1882,19 @@
                                                 8 => __('Featuring'),
                                                 9 => __('with'),
                                                 10 => __('Arranger'),
-                                            /*    8 => __('web.ALBUM_TYPE_LIVE'),
-                                                9 => __('web.ALBUM_TYPE_REMIX'),
-                                                10 => __('web.ALBUM_TYPE_OTHER'), */
-                                            ), 'type', null, true) !!}
+                                            ), 'roles[]', null, true) !!}
                                             </div>
-                                            <div class="col-md-7">
-                                                <input name="display-artist" type="text" placeholder="Additional Artist Role Name" autocomplete="off">
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-5" no-padding-left>                                        
-                                                <button type="button" class="btn btn-mini btn-success btn-add-artist" data-index="1">
-                                                                <i class="fa fa-plus btn-add-artist" data-index="1"></i>
+                                            <div class="col-md-7 d-flex align-items-center">
+                                                <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
+                                                <button class="text-success btn-add-artist p-1">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                    </svg>
                                                 </button>
                                             </div>
-                                        </div>
+                                         </div>
+                                         <div id="additional_artist">
+                                         </div>
                                     </div>
                                     <div class="control field">
                                         <label>
@@ -1936,14 +1907,14 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="second_genre[]" placeholder="Select genres" multiple autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">

@@ -199,6 +199,7 @@ class AuthController
                 /** Insert artist request to user database */
                 $artist = new Artist();
                 $artist->name = $this->request->input('artist1');
+                $artist->user_id = $user->id;
                 $artist->verified = 1;
                 $artist->save();
                 User::where('id',$user->id)->update(['artist_id'=>$artist->id]);
@@ -750,6 +751,12 @@ class AuthController
             $user->can_stream_high_quality = auth()->user()->can_stream_high_quality;
             $user->track_skip_limit = auth()->user()->track_skip_limit;
             $user->allow_genres = Genre::where('discover', 1)->get()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
+            $artists = Artist::where('user_id', auth()->user()->id)->get()->makeHidden(['impression','user_id','genre','mood','bio','location','website','facebook','twitter','soundcloud','instagram','youtube','loves','allow_comments','comment_count','created_at','updated_at','verified','visibility']);
+            $my_artist = array();
+            foreach($artists as $ar){
+                array_push($my_artist,$ar['name']);
+            }
+            $user->my_artist = $artists;
             $user->allow_moods = Mood::all()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
             $user->should_subscribe = ! isset($user->group->role_id) || $user->group->role_id == config('settings.default_usergroup', 5);
             $user->can_download = !! Role::getValue('option_download');

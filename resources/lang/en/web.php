@@ -1506,6 +1506,7 @@ return [
     "FORM_SOUNDCLOUD_LINK" => "SounCloud profile url:",
     "FORM_BPM" => "BPM (beats per minute)",
     "FORM_DISPLAY_ARTIST" => "Display Artist:",
+    "FORM_ARTISTS_ROLES" => "Artists:",
     "FORM_ARTIST_JOB" => "Artist(s):",
     "FORM_GENRES" => "Genre(s):",
     "FORM_GENRES1" => "Primary Genre:",

@@ -783,6 +783,7 @@
             $('#create-album-form').find('.collapse').collapse('hide');
             Artist.loadGenres($('.lightbox-create-album select[name="genre[]"]'), "album", null);
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
+            $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $('#create-album-form').find('.datepicker').datepicker();
             $('#create-album-form').ajaxForm({
                 beforeSubmit: function (data, $form, options) {
@@ -844,15 +845,32 @@
             Artist.editAlbumForm.find("[name='title']").val(album.title);
             Artist.editAlbumForm.find("[name='description']").val(album.description);
             Artist.editAlbumForm.find("input[name='copyright']").val(album.copyright);
+            Artist.editAlbumForm.find("input[name='primary-artist']").val(album.primary_artist);
             Artist.editAlbumForm.find(".edit-artwork").attr("data-type", "album").attr("data-id", album.id);
             Artist.editAlbumForm.find(".img-container img").attr("src", album.artwork_url);
             Artist.editAlbumForm.find(".img-container img").attr("rel", "artwork-album-" + album.id)
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=genre\\[\\]]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=second_genre\\[\\]]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=group_genre\\[\\]]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=mood\\[\\]]'), User.userInfo.allow_moods);
             if (album.genre) {
                 album.genre.split(',').forEach(function (i) {
                     Artist.editAlbumForm.find('select[name=genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
                 })
+            }
+            if (album.second_genre) {
+                album.second_genre.split(',').forEach(function (i) {
+                    Artist.editAlbumForm.find('select[name=second_genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
+                })
+            }
+            if (album.group_genre) {
+                album.group_genre.split(',').forEach(function (i) {
+                    Artist.editAlbumForm.find('select[name=group_genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
+                })
+            }
+            if (album.display_artist) {
+                Artist.editAlbumForm.find('select[name=display_artist] option[value="' + album.display_artist + '"]').attr('selected', 'selected')
             }
             if (album.mood) {
                 album.mood.split(',').forEach(function (i) {

@@ -33,6 +33,7 @@ mix.scripts([
     'public/js/artistCore.js',
     'public/js/uploadApp.js',
     'public/js/cart.js',
+    'public/js/add_fields.js',
     'public/skins/default/js/custom.js',
     'public/js/video/plyr.polyfilled.min.js',
     'public/js/video/slick.min.js',

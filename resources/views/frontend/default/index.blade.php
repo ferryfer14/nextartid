@@ -54,8 +54,10 @@
             ad_support: {{ intval(\App\Models\Role::getValue('ad_support')) }},
             ad_frequency: {{ intval(\App\Models\Role::getValue('ad_frequency')) }},
             hd_stream: {{ intval(\App\Models\Role::getValue('option_hd_stream')) }},
-            allow_artist_claim: {{ intval(config('settings.allow_artist_claim', 1)) }}
+            allow_artist_claim: {{ intval(config('settings.allow_artist_claim', 1)) }},
         };
+        var dropDownArtist = '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', null, true) !!}';
+    
     </script>
     <script src="{{ asset('js/core.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 </head>
@@ -592,6 +594,7 @@
 <script src="{{ asset('js/artistCore.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/uploadApp.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/cart.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
+<script src="{{ asset('js/add_fields.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('skins/default/js/custom.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('embed/embed.js?skin=embedplayer10&icon_set=radius&version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 
