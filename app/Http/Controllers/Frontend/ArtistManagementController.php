@@ -700,15 +700,22 @@ class ArtistManagementController extends Controller
         $group_genre                = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
         $album->type                = $this->request->input('type');
-        $album->primary_artist      = $this->request->input('primary_artist');
+        $album->primary_artist      = $this->request->input('primary-artist');
+        $album->grid                = $this->request->input('grid-code');
+        $album->language            = $this->request->input('language');
         $album->description         = $this->request->input('description');
+        $album->price_category      = $this->request->input('price_category');
         $album->copyright           = $this->request->input('copyright');
+        $album->license_year        = $this->request->input('license_year');
+        $album->license_name        = $this->request->input('license_name');
+        $album->recording_year      = $this->request->input('recording_year');
+        $album->recording_name      = $this->request->input('recording_name');
         $album->visibility          = $this->request->input('visibility');
         $album->user_id             = auth()->user()->id;
 
         if($this->request->input('released_at'))
         {
-            $album->created_at = Carbon::parse($this->request->input('released_at'));
+            $album->released_at = Carbon::parse($this->request->input('released_at'));
         }
 
         if($this->request->input('created_at'))
@@ -728,7 +735,7 @@ class ArtistManagementController extends Controller
         
         if(is_array($group_genre))
         {
-            $album->genre = implode(",", $this->request->input('group_genre'));
+            $album->group_genre = implode(",", $this->request->input('group_genre'));
         }
 
         if(is_array($mood))
@@ -767,16 +774,24 @@ class ArtistManagementController extends Controller
             $album->selling = 0;
         }
         
+        if($this->request->input('upc') != ''){
+            $album->upc = $this->request->input('upc');
+        }
+        if($this->request->input('ref') != ''){
+            $album->ref = $this->request->input('ref');
+        }
         $album->save();
 
         if($this->request->input('additional-artist') != ''){
             $i = 0;
             foreach($this->request->input('additional-artist') as $name){
-                DB::table('album_artist')->insert([
-                    'album_id' => $album->id,
-                    'artist_role' => $this->request->input('roles')[$i],
-                    'artist_name' => $name,
-                ]);
+                if($name != ''){
+                    DB::table('album_artist')->insert([
+                        'album_id' => $album->id,
+                        'artist_role' => $this->request->input('roles')[$i],
+                        'artist_name' => $name,
+                    ]);
+                }
             }
         }
         return $album->makeVisible(['approved']);
@@ -938,17 +953,47 @@ class ArtistManagementController extends Controller
                 $album->description = $this->request->input('description');
                 $album->visibility = $this->request->input('visibility');
                 $genre = $this->request->input('genre');
+                $group_genre = $this->request->input('group_genre');
+                $second_genre = $this->request->input('second_genre');
                 $mood = $this->request->input('mood');
                 $album->type = $this->request->input('type');
                 $album->description = $this->request->input('description');
                 $album->copyright = $this->request->input('copyright');
                 $album->display_artist = $this->request->input('display_artist');
+                $album->license_year        = $this->request->input('license_year');
+                $album->license_name        = $this->request->input('license_name');
+                $album->recording_year      = $this->request->input('recording_year');
+                $album->recording_name      = $this->request->input('recording_name');
+                $album->grid                = $this->request->input('grid-code');
+                $album->language            = $this->request->input('language');
+                $album->price_category            = $this->request->input('price_category');
+
+                if($this->request->input('upc') != ''){
+                    $album->upc = $this->request->input('upc');
+                }
+                if($this->request->input('ref') != ''){
+                    $album->ref = $this->request->input('ref');
+                }
 
                 if(is_array($genre))
                 {
                     $album->genre = implode(",", $this->request->input('genre'));
                 } else {
                     $album->genre = null;
+                }
+
+                if(is_array($group_genre))
+                {
+                    $album->group_genre = implode(",", $this->request->input('group_genre'));
+                } else {
+                    $album->group_genre = null;
+                }
+
+                if(is_array($second_genre))
+                {
+                    $album->second_genre = implode(",", $this->request->input('second_genre'));
+                } else {
+                    $album->second_genre = null;
                 }
 
                 if(is_array($mood))
@@ -980,6 +1025,15 @@ class ArtistManagementController extends Controller
                     $album->selling = 0;
                 }
 
+                if($this->request->input('released_at'))
+                {
+                    $album->released_at = Carbon::parse($this->request->input('released_at'));
+                }
+        
+                if($this->request->input('created_at'))
+                {
+                    $album->created_at = Carbon::parse($this->request->input('created_at'));
+                }
                 $album->save();
                 DB::table('album_artist')
                 ->where('album_id',$this->request->input('id'))

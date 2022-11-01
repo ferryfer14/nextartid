@@ -58,7 +58,17 @@
         };
         var dropDownArtist = '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', null, true) !!}';
         function selectDownArtist(select){
-            return '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', '+select+', true) !!}';
+            return '{!! makeDropDown(array( 1 => __("Primary Artist"), 2 => __("Performer"), 3 => __("Producer"),4 => __("Remixer"),5 => __("Composer"),6 => __("Lyricist"),7 => __("Publisher"),8 => __("Featuring"),9 => __("with"),10 => __("Arranger"),), "roles[]", "Arranger", true) !!}';
+        }
+        function formatTimeStamp(dateOld){
+            var date = dateOld.substring(0, 10);
+            var yourdate = date.split("-").reverse();
+            var tmp = yourdate[0];
+            var Mtmp = yourdate[1];
+            yourdate[1] = tmp;
+            yourdate[0] = Mtmp;
+            yourdate = yourdate.join("/");
+            return yourdate;
         }
     </script>
     <script src="{{ asset('js/core.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>

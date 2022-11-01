@@ -1642,7 +1642,7 @@
                                         {!! makeDropDown(array(
                                             1 => __('Indonesia'),
                                             2 => __('English'),
-                                        ), 'type', null, true) !!}
+                                        ), 'language', null, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
@@ -1688,7 +1688,7 @@
                                             2 => __('Mid'),
                                             3 => __('Full'),
                                             4 => __('Premium'),
-                                        ), 'type', null, true) !!}
+                                        ), 'price_category', null, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="created_at">
@@ -1714,10 +1714,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input type="text" name="check" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input type="text" name="license_year" required placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                <input name="license-holder" type="text" placeholder="License Holder Name" autocomplete="off">
+                                                <input name="license_name" type="text" required placeholder="License Holder Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1727,10 +1727,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input title="The Year of the recording" type="text" name="check" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input title="The Year of the recording" type="text" name="recording_year" placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                    <input title="The Record Company Name" name="license-recording" type="text" placeholder="Recording Name" autocomplete="off">
+                                                    <input title="The Record Company Name" name="recording_name" type="text" placeholder="Recording Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1823,8 +1823,8 @@
                                             <span data-translate-text="FORM_TYPE">{{ __('web.FORM_TYPE') }}</span>
                                         </label>
                                         {!! makeDropDown(array(
-                                            1 => __('web.ALBUM_TYPE_LP'),
-                                            2 => __('web.ALBUM_TYPE_SINGLE'),
+                                            1 => __('web.ALBUM_TYPE_SINGLE'),
+                                            2 => __('web.ALBUM_TYPE_LP'),
                                             3 => __('web.ALBUM_TYPE_EP'),
                                         /*    4 => __('web.ALBUM_TYPE_COMPILATION'),
                                             5 => __('web.ALBUM_TYPE_SOUNDTRACK'),
@@ -1949,7 +1949,7 @@
                                         {!! makeDropDown(array(
                                             1 => __('Indonesia'),
                                             2 => __('English'),
-                                        ), 'type', null, true) !!}
+                                        ), 'language', null, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
@@ -1995,7 +1995,7 @@
                                             2 => __('Mid'),
                                             3 => __('Full'),
                                             4 => __('Premium'),
-                                        ), 'type', null, true) !!}
+                                        ), 'price_category', null, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="created_at">
@@ -2021,10 +2021,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input type="text" name="check" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input type="text" name="license_year" placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                <input name="license-holder" type="text" placeholder="License Holder Name" autocomplete="off">
+                                                <input name="license_name" type="text" placeholder="License Holder Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -2034,10 +2034,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input title="The Year of the recording" type="text" name="check" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input title="The Year of the recording" type="text" name="recording_year" placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                    <input title="The Record Company Name" name="license-recording" type="text" placeholder="Recording Name" autocomplete="off">
+                                                    <input title="The Record Company Name" name="recording_name" type="text" placeholder="Recording Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>

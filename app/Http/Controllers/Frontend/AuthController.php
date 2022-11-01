@@ -753,10 +753,18 @@ class AuthController
             $user->allow_genres = Genre::where('discover', 1)->get()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
             $artists = Artist::where('user_id', auth()->user()->id)->get()->makeHidden(['impression','user_id','genre','mood','bio','location','website','facebook','twitter','soundcloud','instagram','youtube','loves','allow_comments','comment_count','created_at','updated_at','verified','visibility']);
             $my_artist = array();
-            foreach($artists as $ar){
-                array_push($my_artist,$ar['name']);
-            }
+            array_push($my_artist,array("id" => 1, "name" => 'Primary Artist'));
+            array_push($my_artist,array("id" => 2, "name" => 'Performer'));
+            array_push($my_artist,array("id" => 3, "name" => 'Producer'));
+            array_push($my_artist,array("id" => 4, "name" => 'Remixer'));
+            array_push($my_artist,array("id" => 5, "name" => 'Composer'));
+            array_push($my_artist,array("id" => 6, "name" => 'Lyricist'));
+            array_push($my_artist,array("id" => 7, "name" => 'Publisher'));
+            array_push($my_artist,array("id" => 8, "name" => 'Featuring'));
+            array_push($my_artist,array("id" => 9, "name" => 'with'));
+            array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
             $user->my_artist = $artists;
+            $user->artists_roles = $my_artist;
             $user->allow_moods = Mood::all()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
             $user->should_subscribe = ! isset($user->group->role_id) || $user->group->role_id == config('settings.default_usergroup', 5);
             $user->can_download = !! Role::getValue('option_download');
