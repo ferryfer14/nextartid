@@ -789,7 +789,7 @@ class ArtistManagementController extends Controller
         $album = Album::withoutGlobalScopes()->findOrFail($this->request->route('id'));
         $album->makeVisible(['description']);
         $album->setRelation('songs', $album->songs()->withoutGlobalScopes()->get());
-
+        $artist_roles = DB::table('album_artist')->where('album_id', $this->request->route('id'))->get();
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
@@ -798,6 +798,7 @@ class ArtistManagementController extends Controller
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
+            ->with('artist_roles', $artist_roles)
             ->with('album', $album);
 
         if($this->request->ajax()) {
@@ -980,7 +981,9 @@ class ArtistManagementController extends Controller
                 }
 
                 $album->save();
-
+                DB::table('album_artist')
+                ->where('album_id',$this->request->input('id'))
+                ->delete();
                 if($this->request->input('additional-artist') != ''){
                     $i = 0;
                     foreach($this->request->input('additional-artist') as $name){

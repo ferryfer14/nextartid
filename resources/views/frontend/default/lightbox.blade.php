@@ -1869,32 +1869,56 @@
                                         <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
                                     </label>
                                     <div class="control field" mb-0>
-                                        <div class="row">
-                                            <div class="col-md-5">
-                                            {!! makeDropDown(array(
-                                                1 => __('Primary Artist'),
-                                                2 => __('Performer'),
-                                                3 => __('Producer'),
-                                                4 => __('Remixer'),
-                                                5 => __('Composer'),
-                                                6 => __('Lyricist'),
-                                                7 => __('Publisher'),
-                                                8 => __('Featuring'),
-                                                9 => __('with'),
-                                                10 => __('Arranger'),
-                                            ), 'roles[]', null, true) !!}
-                                            </div>
-                                            <div class="col-md-7 d-flex align-items-center">
-                                                <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
-                                                <button class="text-success btn-add-artist p-1">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                         </div>
-                                         <div id="additional_artist">
-                                         </div>
+                                        @if(isset($artist_roles))
+                                            @php 
+                                                $i = 0; 
+                                            @endphp
+                                            @foreach($artist_roles as $ar)
+                                                @if($i == 0)
+                                                    <div class="row">
+                                                @else
+                                                    <div class="row removeclass{{$i}}">
+                                                @endif
+                                                        <div class="col-md-5">
+                                                    {!! makeDropDown(array(
+                                                        1 => __('Primary Artist'),
+                                                        2 => __('Performer'),
+                                                        3 => __('Producer'),
+                                                        4 => __('Remixer'),
+                                                        5 => __('Composer'),
+                                                        6 => __('Lyricist'),
+                                                        7 => __('Publisher'),
+                                                        8 => __('Featuring'),
+                                                        9 => __('with'),
+                                                        10 => __('Arranger'),
+                                                    ), 'roles[]', $ar->artist_role, true) !!}
+                                                    </div>
+                                                    <div class="col-md-7 d-flex align-items-center">
+                                                        <input name="additional-artist[]" type="text" value="{{$ar->artist_name}}" placeholder="Additional Artist Role Name" autocomplete="off">          
+                                                        @if($i == 0)
+                                                            <a class="bg-success text-white edit-btn-add-artist p-1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                                </svg>
+                                                            </a>
+                                                        @else
+                                                            <a data-id="{{$i}}" class="bg-white text-danger remove_add_fields p-1">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                                </svg>
+                                                            </a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                @php 
+                                                    $i++; 
+                                                @endphp
+                                            @endforeach
+                                        @endif
+                                        <input type="hidden" id="room" value="{{$i ?? '0'}}">
+                                        <div id="additional_artist_edit">
+                                        </div>
                                     </div>
                                     <div class="control field">
                                         <label>

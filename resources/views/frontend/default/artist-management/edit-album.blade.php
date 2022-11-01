@@ -2,6 +2,7 @@
 @section('content')
     @include('artist-management.nav', ['artist' => $artist])
     <script>var album_data_{{ $album->id }} = {!! json_encode($album->makeHidden('songs')) !!}</script>
+    <script>var artist_roles_{{ $album->id }} = {!! json_encode($artist_roles) !!}</script>
     <div id="page-content">
         <div class="container">
             <div class="page-header artist-management main">
