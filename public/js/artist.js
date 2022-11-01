@@ -787,6 +787,9 @@
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $('#create-album-form').find('.datepicker').datepicker();
+            $('#create-album-form').find("select[name=display_artist]").change(function() {
+                $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
+            });
             $('#create-album-form').find("[name='upc-code']").change(function() {
                 if(this.checked) {
                     $('#create-album-form').find("[name='upc']").val('');

@@ -1579,7 +1579,7 @@
                                                 <input type="text" class="form-control" value="Primary Artist" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="primary-artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
+                                                <input name="primary-artist" readonly type="text" placeholder="Primary Artist Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1600,7 +1600,7 @@
                                                 8 => __('Featuring'),
                                                 9 => __('with'),
                                                 10 => __('Arranger'),
-                                            ), 'roles[]', null, true) !!}
+                                            ), 'roles[]', 1, true) !!}
                                             </div>
                                             <div class="col-md-7 d-flex align-items-center">
                                                 <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
