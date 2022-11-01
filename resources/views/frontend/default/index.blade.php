@@ -57,7 +57,9 @@
             allow_artist_claim: {{ intval(config('settings.allow_artist_claim', 1)) }},
         };
         var dropDownArtist = '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', null, true) !!}';
-    
+        function selectDownArtist(select){
+            return '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', '+select+', true) !!}';
+        }
     </script>
     <script src="{{ asset('js/core.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 </head>

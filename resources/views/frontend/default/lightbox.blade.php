@@ -1869,7 +1869,7 @@
                                         <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
                                     </label>
                                     <div class="control field" mb-0>
-                                        @if(isset($artist_roles))
+                                        <!--@if(isset($artist_roles))
                                             @php 
                                                 $i = 0; 
                                             @endphp
@@ -1916,6 +1916,7 @@
                                                 @endphp
                                             @endforeach
                                         @endif
+                                            -->
                                         <input type="hidden" id="room" value="{{$i ?? '0'}}">
                                         <div id="additional_artist_edit">
                                         </div>
