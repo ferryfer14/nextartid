@@ -1864,7 +1864,7 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_ALBUM_VERSION') }}">{{ __('Remix or Version (optional)') }}</span>
                                         </label>
-                                        <input name="album_version" type="text" placeholder="Remix or Version" autocomplete="off">
+                                        <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
                                     </div>
                                     @if(isset($my_artist))
                                         <div class="control field">

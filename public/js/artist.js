@@ -877,6 +877,7 @@
             Artist.editAlbumForm.find("input[name='composer']").val(album.composer);
             Artist.editAlbumForm.find("input[name='arranger']").val(album.arranger);
             Artist.editAlbumForm.find("input[name='lyricist']").val(album.lyricist);
+            Artist.editAlbumForm.find("input[name='remix_version']").val(album.remix_version);
             Artist.editAlbumForm.find("input[name='upc']").val(album.upc);
             Artist.editAlbumForm.find("input[name='ref']").val(album.ref);
             Artist.editAlbumForm.find("input[name='grid-code']").val(album.grid);
