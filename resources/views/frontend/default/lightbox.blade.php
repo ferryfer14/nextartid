@@ -1652,12 +1652,14 @@
                                         <select class="select2" name="second_genre" disabled placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
-                                    <div class="control field">
-                                        <label>
-                                            <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
-                                        </label>
-                                        {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
-                                    </div>
+                                    @if(isset($group_genre))
+                                        <div class="control field">
+                                            <label>
+                                                <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
+                                            </label>
+                                            {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
+                                        </div>
+                                    @endif
                                     <div class="control field">
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
@@ -1982,14 +1984,16 @@
                                         <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
-                                    <div class="control field">
-                                        <label>
-                                            <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
-                                        </label>
-                                        {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
-                                        <!--<select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
-                                        </select>-->
-                                    </div>
+                                    @if(isset($group_genre))
+                                        <div class="control field">
+                                            <label>
+                                                <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
+                                            </label>
+                                            {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
+                                            <!--<select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                            </select>-->
+                                        </div>
+                                    @endif
                                     <div class="control field">
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
