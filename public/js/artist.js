@@ -781,14 +781,19 @@
         createAlbum: function () {
             $.engineLightBox.show("lightbox-create-album");
             $('#create-album-form').find('.collapse').collapse('hide');
-            Artist.loadGenres($('.lightbox-create-album select[name="genre[]"]'), "album", null);
-            Artist.loadGenres($('.lightbox-create-album select[name="second_genre[]"]'), "album", null);
-            Artist.loadGenres($('.lightbox-create-album select[name="group_genre[]"]'), "album", null);
+            Artist.loadGenres($('.lightbox-create-album select[name="genre"]'), "album", null);
+            //Artist.loadGenres($('.lightbox-create-album select[name="group_genre[]"]'), "album", null);
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $('#create-album-form').find('.datepicker').datepicker();
             $('#create-album-form').find("select[name=display_artist]").change(function() {
                 $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
+            });
+            $('#create-album-form').find("select[name='genre']").change(function() {
+                $('#create-album-form').find("select[name='second_genre']").html('');
+                var options = $('#create-album-form').find("select[name='genre']").find("option:not(:selected)").clone();
+                $('#create-album-form').find("select[name='second_genre']").removeAttr("disabled");
+                $('#create-album-form').find("select[name='second_genre']").append(options);
             });
             $('#create-album-form').find("[name='upc-code']").change(function() {
                 if(this.checked) {
@@ -806,6 +811,7 @@
                     $('#create-album-form').find("[name='ref']").removeAttr("readonly");
                 }
             });
+            $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
             $('#create-album-form').ajaxForm({
                 beforeSubmit: function (data, $form, options) {
                     var error = 0;
@@ -868,10 +874,13 @@
             Artist.editAlbumForm.find("[name='description']").val(album.description);
             Artist.editAlbumForm.find("input[name='copyright']").val(album.copyright);
             Artist.editAlbumForm.find("input[name='primary-artist']").val(album.primary_artist);
+            Artist.editAlbumForm.find("input[name='composer']").val(album.composer);
+            Artist.editAlbumForm.find("input[name='arranger']").val(album.arranger);
+            Artist.editAlbumForm.find("input[name='lyricist']").val(album.lyricist);
             Artist.editAlbumForm.find("input[name='upc']").val(album.upc);
             Artist.editAlbumForm.find("input[name='ref']").val(album.ref);
             Artist.editAlbumForm.find("input[name='grid-code']").val(album.grid);
-            Artist.editAlbumForm.find("input[name='released_at']").val(album.released_at);
+            Artist.editAlbumForm.find("input[name='released_at']").val(formatTimeStamp(album.released_at));
             Artist.editAlbumForm.find("input[name='created_at']").val(formatTimeStamp(album.created_at));
             Artist.editAlbumForm.find("input[name='license_year']").val(album.license_year);
             Artist.editAlbumForm.find("input[name='license_name']").val(album.license_name);
@@ -880,25 +889,21 @@
             Artist.editAlbumForm.find(".edit-artwork").attr("data-type", "album").attr("data-id", album.id);
             Artist.editAlbumForm.find(".img-container img").attr("src", album.artwork_url);
             Artist.editAlbumForm.find(".img-container img").attr("rel", "artwork-album-" + album.id)
-            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=genre\\[\\]]'), User.userInfo.allow_genres);
-            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=second_genre\\[\\]]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=genre]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=second_genre]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=group_genre\\[\\]]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=mood\\[\\]]'), User.userInfo.allow_moods);
             if (album.genre) {
-                album.genre.split(',').forEach(function (i) {
-                    Artist.editAlbumForm.find('select[name=genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
-                })
+                Artist.editAlbumForm.find('select[name=genre] option[value="' + album.genre + '"]').attr('selected', 'selected');
             }
             if (album.second_genre) {
-                album.second_genre.split(',').forEach(function (i) {
-                    Artist.editAlbumForm.find('select[name=second_genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
-                })
+                Artist.editAlbumForm.find('select[name=second_genre] option[value="' + album.genre + '"]').remove();
+                Artist.editAlbumForm.find('select[name=second_genre] option[value="' + album.second_genre + '"]').attr('selected', 'selected');
             }
             if (album.group_genre) {
-                album.group_genre.split(',').forEach(function (i) {
-                    Artist.editAlbumForm.find('select[name=group_genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
-                })
+                Artist.editAlbumForm.find('select[name=group_genre] option[value="' + album.group_genre + '"]').attr('selected', 'selected');
+            
             }
             if (album.display_artist) {
                 Artist.editAlbumForm.find('select[name=display_artist] option[value="' + album.display_artist + '"]').attr('selected', 'selected')
@@ -944,6 +949,15 @@
                 Artist.editAlbumForm.find('.collapse').collapse('hide');
             }
 
+            Artist.editAlbumForm.find("select[name=display_artist]").change(function() {
+                Artist.editAlbumForm.find("[name='primary-artist']").val(Artist.editAlbumForm.find("select[name=display_artist]").find('option:selected').text());
+            });
+            Artist.editAlbumForm.find("select[name='genre']").change(function() {
+                Artist.editAlbumForm.find("select[name='second_genre']").html('');
+                var options = Artist.editAlbumForm.find("select[name='genre']").find("option:not(:selected)").clone();
+                Artist.editAlbumForm.find("select[name='second_genre']").removeAttr("disabled");
+                Artist.editAlbumForm.find("select[name='second_genre']").append(options);
+            });
             Artist.editAlbumForm.find('.datepicker').datepicker();
             Artist.editAlbumForm.find("[name='upc-code']").change(function() {
                 if(this.checked) {
@@ -975,7 +989,7 @@
             });
             if(artist_roles.length > 0){
                 var objTo = document.getElementById('additional_artist_edit');
-                objTo.innerHTML = '';
+                $('#additional_artist_edit').html('');
                 for(var i=0;i<artist_roles.length;i++){
                     if(i==0){
                         var divtest = document.createElement("div");
@@ -1019,6 +1033,7 @@
                     }
                 }
             }else{
+                $('#additional_artist_edit').html('');
                 var objTo = document.getElementById('additional_artist_edit');
                 var divtest = document.createElement("div");
                 divtest.setAttribute("class", "row");

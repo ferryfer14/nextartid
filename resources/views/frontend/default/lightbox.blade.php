@@ -1582,6 +1582,30 @@
                                                 <input name="primary-artist" readonly type="text" placeholder="Primary Artist Name" autocomplete="off">
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Composer" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="composer" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Arranger" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="arranger" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Lyricist" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="lyricist" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
                                     </div>
                                     <label for="name">
                                         <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
@@ -1618,22 +1642,21 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('FORM_GENRES1') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
                                         </label>
-                                        <select class="select2" name="second_genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="second_genre" disabled placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
                                         </label>
-                                        <select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
-                                        </select>
+                                        {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="language">
@@ -1864,6 +1887,30 @@
                                                 <input name="primary-artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Composer" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="composer" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Arranger" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="arranger" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                                <input type="text" class="form-control" value="Lyricist" readonly="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input name="lyricist" type="text" placeholder="Artist Name" autocomplete="off">
+                                            </div>
+                                        </div>
                                     </div>
                                     <label for="name">
                                         <span data-translate-text="LABEL_OPTIONAL">{{ __('LABEL_OPTIONAL') }}</span>
@@ -1925,22 +1972,23 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('FORM_GENRES1') }}</span>
                                         </label>
-                                        <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
                                         </label>
-                                        <select class="select2" name="second_genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
                                         </label>
-                                        <select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
-                                        </select>
+                                        {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
+                                        <!--<select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                        </select>-->
                                     </div>
                                     <div class="control field">
                                         <label for="language">

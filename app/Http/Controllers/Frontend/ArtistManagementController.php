@@ -91,6 +91,7 @@ class ArtistManagementController extends Controller
             ->with('albums', $this->artist->albums)
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre())
             ->with('songs_revenue', $songs_revenue)
             ->with('episodes_revenue', $episodes_revenue)
             ->with('counts', $counts);
@@ -645,7 +646,16 @@ class ArtistManagementController extends Controller
 
         ));
     }
-
+    private function groupGenre(){
+        $group_genre = array();
+        array_push($group_genre,'Dangdut');
+        array_push($group_genre,'Pop daerah');
+        array_push($group_genre,'Minang');
+        array_push($group_genre,'Sunda');
+        array_push($group_genre,'Koplo');
+        array_push($group_genre,'Melayu');
+        return $group_genre;
+    }
     public function albums()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
@@ -658,7 +668,8 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.albums')
             ->with('artist', $this->artist)
-            ->with('my_artist', $my_artist);
+            ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre());
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -680,10 +691,10 @@ class ArtistManagementController extends Controller
             'type' => 'required|numeric|between:1,10',
             'primary-artist' => 'required|string|max:50',
             'description' => 'nullable|string|max:1000',
-            'genre' => 'required|array',
+            'genre' => 'required',
             'display_artist' => 'required',
-            'second_genre' => 'nullable|array',
-            'group_genre' => 'required|array',
+            'second_genre' => 'required',
+            'group_genre' => 'required',
             'copyright' => 'nullable|string|max:100',
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
@@ -695,12 +706,15 @@ class ArtistManagementController extends Controller
         $album->title               = $this->request->input('title');
         $album->artistIds           = auth()->user()->artist_id;
         $album->display_artist      = $this->request->input('display_artist');
-        $genre                      = $this->request->input('genre');
-        $second_genre               = $this->request->input('second_genre');
-        $group_genre                = $this->request->input('group_genre');
+        $album->genre               = $this->request->input('genre');
+        $album->second_genre        = $this->request->input('second_genre');
+        $album->group_genre         = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
         $album->type                = $this->request->input('type');
         $album->primary_artist      = $this->request->input('primary-artist');
+        $album->composer            = $this->request->input('composer');
+        $album->arranger            = $this->request->input('arranger');
+        $album->lyricist            = $this->request->input('lyricist');
         $album->grid                = $this->request->input('grid-code');
         $album->language            = $this->request->input('language');
         $album->description         = $this->request->input('description');
@@ -723,7 +737,7 @@ class ArtistManagementController extends Controller
             $album->created_at = Carbon::parse($this->request->input('created_at'));
         }
 
-        if(is_array($genre))
+        /*if(is_array($genre))
         {
             $album->genre = implode(",", $this->request->input('genre'));
         }
@@ -736,7 +750,7 @@ class ArtistManagementController extends Controller
         if(is_array($group_genre))
         {
             $album->group_genre = implode(",", $this->request->input('group_genre'));
-        }
+        }*/
 
         if(is_array($mood))
         {
@@ -813,6 +827,7 @@ class ArtistManagementController extends Controller
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre())
             ->with('artist_roles', $artist_roles)
             ->with('album', $album);
 
@@ -925,6 +940,10 @@ class ArtistManagementController extends Controller
             'type' => 'required|numeric|between:1,10',
             'description' => 'nullable|string|max:1000',
             'copyright' => 'nullable|string|max:100',
+            'genre' => 'required',
+            'display_artist' => 'required',
+            'second_genre' => 'required',
+            'group_genre' => 'required',
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
         ]);
@@ -952,10 +971,14 @@ class ArtistManagementController extends Controller
                 $album->title = $this->request->input('title');
                 $album->description = $this->request->input('description');
                 $album->visibility = $this->request->input('visibility');
-                $genre = $this->request->input('genre');
-                $group_genre = $this->request->input('group_genre');
-                $second_genre = $this->request->input('second_genre');
+                $album->genre = $this->request->input('genre');
+                $album->group_genre = $this->request->input('group_genre');
+                $album->second_genre = $this->request->input('second_genre');
                 $mood = $this->request->input('mood');
+                $album->primary_artist      = $this->request->input('primary-artist');
+                $album->composer            = $this->request->input('composer');
+                $album->arranger            = $this->request->input('arranger');
+                $album->lyricist            = $this->request->input('lyricist');
                 $album->type = $this->request->input('type');
                 $album->description = $this->request->input('description');
                 $album->copyright = $this->request->input('copyright');
@@ -975,7 +998,7 @@ class ArtistManagementController extends Controller
                     $album->ref = $this->request->input('ref');
                 }
 
-                if(is_array($genre))
+                /*if(is_array($genre))
                 {
                     $album->genre = implode(",", $this->request->input('genre'));
                 } else {
@@ -994,7 +1017,7 @@ class ArtistManagementController extends Controller
                     $album->second_genre = implode(",", $this->request->input('second_genre'));
                 } else {
                     $album->second_genre = null;
-                }
+                }*/
 
                 if(is_array($mood))
                 {
@@ -1041,11 +1064,13 @@ class ArtistManagementController extends Controller
                 if($this->request->input('additional-artist') != ''){
                     $i = 0;
                     foreach($this->request->input('additional-artist') as $name){
-                        DB::table('album_artist')->insert([
-                            'album_id' => $album->id,
-                            'artist_role' => $this->request->input('roles')[$i],
-                            'artist_name' => $name,
-                        ]);
+                        if($name != ''){
+                            DB::table('album_artist')->insert([
+                                'album_id' => $album->id,
+                                'artist_role' => $this->request->input('roles')[$i],
+                                'artist_name' => $name,
+                            ]);
+                        }
                       $i++;
                     }
                 }
