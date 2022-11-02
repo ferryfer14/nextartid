@@ -707,6 +707,7 @@ class ArtistManagementController extends Controller
         $album->artistIds           = auth()->user()->artist_id;
         $album->display_artist      = $this->request->input('display_artist');
         $album->genre               = $this->request->input('genre');
+        $album->remix_version       = $this->request->input('remix_version');
         $album->second_genre        = $this->request->input('second_genre');
         $album->group_genre         = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
@@ -972,6 +973,7 @@ class ArtistManagementController extends Controller
                 $album->description = $this->request->input('description');
                 $album->visibility = $this->request->input('visibility');
                 $album->genre = $this->request->input('genre');
+                $album->remix_version       = $this->request->input('remix_version');
                 $album->group_genre = $this->request->input('group_genre');
                 $album->second_genre = $this->request->input('second_genre');
                 $mood = $this->request->input('mood');
