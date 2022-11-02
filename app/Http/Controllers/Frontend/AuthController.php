@@ -214,6 +214,7 @@ class AuthController
                 if($this->request->input('artist2') != ''){
                     $artist = new Artist();
                     $artist->name = $this->request->input('artist2');
+                    $artist->user_id = $user->id;
                     $artist->verified = 1;
                     $artist->save();
     
