@@ -1559,17 +1559,15 @@
                                         </label>
                                         <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
                                     </div>
-                                    @if(isset($my_artist))
-                                        <div class="control field">
-                                            <label for="name">
-                                                <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
-                                            </label>
-                                            
-                                        <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
-                                        </select>
-                                        <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
-                                        </div>
-                                    @endif
+                                    <div class="control field">
+                                        <label for="name">
+                                            <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
+                                        </label>
+                                        
+                                    <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
+                                    </select>
+                                    <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
+                                    </div>
                                     <div class="control field" mb-0>
                                         <label for="artist-job">
                                             <span data-translate-text="FORM_ARTISTS_ROLES">{{ ('FORM_ARTISTS_ROLES') }}</span>
@@ -1652,14 +1650,13 @@
                                         <select class="select2" name="second_genre" disabled placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
-                                    @if(isset($group_genre))
-                                        <div class="control field">
-                                            <label>
-                                                <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
-                                            </label>
-                                            {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
-                                        </div>
-                                    @endif
+                                    <div class="control field">
+                                        <label>
+                                            <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
+                                        </label>
+                                        <select class="select2" name="group_genre" placeholder="Select genres" autocomplete="off">
+                                        </select>
+                                    </div>
                                     <div class="control field">
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
@@ -1984,16 +1981,13 @@
                                         <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
-                                    @if(isset($group_genre))
-                                        <div class="control field">
-                                            <label>
-                                                <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
-                                            </label>
-                                            {!! makeDropDown($group_genre, 'group_genre', null, true) !!}
-                                            <!--<select class="select2" name="group_genre[]" placeholder="Select genres" multiple autocomplete="off">
-                                            </select>-->
-                                        </div>
-                                    @endif
+                                    <div class="control field">
+                                        <label>
+                                            <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
+                                        </label>
+                                        <select class="select2" name="group_genre" placeholder="Select genres" autocomplete="off">
+                                        </select>
+                                    </div>
                                     <div class="control field">
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>

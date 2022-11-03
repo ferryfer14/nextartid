@@ -696,8 +696,8 @@ class ArtistManagementController extends Controller
             'second_genre' => 'required',
             'group_genre' => 'required',
             'copyright' => 'nullable|string|max:100',
-            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
-            'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
+            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
             'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
         ]);
 
@@ -932,7 +932,14 @@ class ArtistManagementController extends Controller
 
         return response()->json(array("success" => true));
     }
-
+    private function minDateRelease(){
+        $day = Carbon::parse(Carbon::now())->format('l');
+        if($day == 'Friday' && $day == 'Saturday'){
+            return 9;
+        }else{
+            return 8;
+        }
+    }
 
     public function editAlbum()
     {
@@ -945,8 +952,8 @@ class ArtistManagementController extends Controller
             'display_artist' => 'required',
             'second_genre' => 'required',
             'group_genre' => 'required',
-            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
-            'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
+            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
         ]);
 
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {

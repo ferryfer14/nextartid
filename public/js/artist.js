@@ -785,7 +785,8 @@
             //Artist.loadGenres($('.lightbox-create-album select[name="group_genre[]"]'), "album", null);
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
-            $('#create-album-form').find('.datepicker').datepicker();
+            $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
+            $('#create-album-form').find(".datepicker").datepicker();
             $('#create-album-form').find("select[name=display_artist]").change(function() {
                 $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
             });
@@ -892,8 +893,8 @@
             Artist.editAlbumForm.find(".img-container img").attr("rel", "artwork-album-" + album.id)
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=genre]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=second_genre]'), User.userInfo.allow_genres);
-            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=group_genre\\[\\]]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=mood\\[\\]]'), User.userInfo.allow_moods);
             if (album.genre) {
                 Artist.editAlbumForm.find('select[name=genre] option[value="' + album.genre + '"]').attr('selected', 'selected');

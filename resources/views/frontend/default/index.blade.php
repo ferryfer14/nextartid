@@ -56,9 +56,20 @@
             hd_stream: {{ intval(\App\Models\Role::getValue('option_hd_stream')) }},
             allow_artist_claim: {{ intval(config('settings.allow_artist_claim', 1)) }},
         };
+        const current = new Date();
         var dropDownArtist = '{!! makeDropDown(array( 1 => __('Primary Artist'), 2 => __('Performer'), 3 => __('Producer'),4 => __('Remixer'),5 => __('Composer'),6 => __('Lyricist'),7 => __('Publisher'),8 => __('Featuring'),9 => __('with'),10 => __('Arranger'),), 'roles[]', 1) !!}';
-        function selectDownArtist(select){
-            return '{!! makeDropDown(array( 1 => __("Primary Artist"), 2 => __("Performer"), 3 => __("Producer"),4 => __("Remixer"),5 => __("Composer"),6 => __("Lyricist"),7 => __("Publisher"),8 => __("Featuring"),9 => __("with"),10 => __("Arranger"),), "roles[]", "Arranger", true) !!}';
+        function getDayName(locale)
+        {
+            var date = new Date();
+            return date.toLocaleDateString(locale, { weekday: 'long' });        
+        }
+        function minDate(){
+            var dayName = getDayName('en-EN');
+            if(dayName == 'Friday' && dayName == 'Saturday'){
+                return 9;
+            }else{
+                return 8;
+            }
         }
         function formatTimeStamp(dateOld){
             var date = dateOld.substring(0, 10);

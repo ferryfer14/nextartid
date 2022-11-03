@@ -725,6 +725,16 @@ class AuthController
      *
      * @return [json] user object
      */
+    private function groupGenre(){
+        $group_genre = array();
+        array_push($group_genre,array("id" => 1, "name" =>'Dangdut'));
+        array_push($group_genre,array("id" => 2, "name" =>'Pop daerah'));
+        array_push($group_genre,array("id" => 3, "name" =>'Minang'));
+        array_push($group_genre,array("id" => 4, "name" =>'Sunda'));
+        array_push($group_genre,array("id" => 5, "name" =>'Koplo'));
+        array_push($group_genre,array("id" => 6, "name" =>'Melayu'));
+        return $group_genre;
+    }
     public function user()
     {
         $user = $this->request->user();
@@ -765,6 +775,7 @@ class AuthController
             array_push($my_artist,array("id" => 9, "name" => 'with'));
             array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
             $user->my_artist = $artists;
+            $user->group_genre = $this->groupGenre();
             $user->artists_roles = $my_artist;
             $user->allow_moods = Mood::all()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
             $user->should_subscribe = ! isset($user->group->role_id) || $user->group->role_id == config('settings.default_usergroup', 5);
