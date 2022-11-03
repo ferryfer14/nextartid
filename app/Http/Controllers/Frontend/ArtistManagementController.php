@@ -286,7 +286,7 @@ class ArtistManagementController extends Controller
             'description' => 'nullable|string|max:280',
             'selling' => 'nullable',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
-            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
+            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
         ]);
 
         /**
