@@ -72,6 +72,7 @@
                     .addClass('processing');
                 $('.uploaded-files').append(data.context);
 
+                $('#upload-file-button').addClass('d-none');
                 //return false;
                 that._forceReflow(data.context);
                 that._transition(data.context);
@@ -146,6 +147,7 @@
                         that._transition($(this)).done(
 
                             function () {
+                                var $thisForm = $(this);
                                 var song = data.result;
                                 $(this).find('.template-upload').attr('data-id', song.id);
                                 $(this).find('input[name="id"]').val(song.id);
@@ -159,7 +161,11 @@
                                     placeholder: "Select one or multi",
                                     maximumSelectionLength: 4
                                 });
-
+                                $.engineUtils.makeSelectOption($(this).find('select[name=display_artist]'), User.userInfo.my_artist);
+                                $(this).find("select[name='display_artist']").change(function() {
+                                    $thisForm.find("[name='primary-artist']").val($(this).find("option:selected").text());
+                                });
+                                $thisForm.find("[name='primary-artist']").val($thisForm.find("select[name=display_artist]").find('option:selected').text());
                                 if($(this).find('.artist-selection').length) {
                                     for (var i=0; i < song.artists.length; i++)  {
                                         if($(this).find('.artist-selection option[value=' + song.artists[i].id + ']').length) {

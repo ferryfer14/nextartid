@@ -43,7 +43,8 @@
                         </div>
                     </div>
                 </form>
-                <div class="uploaded-files card-columns card-2-columns"></div>
+                <!--<div class="uploaded-files card-columns card-2-columns"></div>-->
+                <div class="uploaded-files"></div>
                 <p class="text-center desktop">{!! __('web.LB_UPLOAD_NOTICE') !!}</p>
             @endif
         </div>

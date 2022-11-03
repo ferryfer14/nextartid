@@ -138,7 +138,6 @@
                     .data('data', data)
                     .addClass('processing');
                 $('.uploaded-files').append(data.context);
-
                 setTimeout(function(){
                     $('.upload-edit-song-form').ajaxForm({
                         beforeSubmit: function(data, $form, options) {
