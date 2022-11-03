@@ -154,7 +154,7 @@ class Upload
                         }
                     } else {
                         if($album_id) {
-                            $album = Album::find($album_id);
+                            $album = Album::withoutGlobalScopes()->findOrFail($album_id);
                             $album->user_id = auth()->user()->id;
                             $song->artistIds = $album->artistIds;
                             $song->genre = $album->genre;
@@ -244,7 +244,7 @@ class Upload
                     'priority' => (intval(Carbon::parse($_SERVER['REQUEST_TIME_FLOAT'])->format('disu')) / 1000)
                 ]);
 
-                $album = Album::find($album_id);
+                $album = Album::withoutGlobalScopes()->findOrFail($album_id);
                 $song->artistIds = $album->artistIds;
                 $song->genre = $album->genre;
                 $song->mood = $album->mood;

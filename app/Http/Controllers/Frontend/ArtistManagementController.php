@@ -1122,7 +1122,7 @@ class ArtistManagementController extends Controller
             abort(403);
         }
 
-        $res = (new Upload)->handle($this->request, $artistIds = auth()->user()->artist_id, $album->id);
+        $res = (new Upload)->handle($this->request, $artistIds = auth()->user()->artist_id,$album_id = $album->id);
 
         return response()->json($res);
     }
