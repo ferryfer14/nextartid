@@ -22,5 +22,5 @@ Route::group(['middleware' => 'role:admin_albums'], function() {
     Route::get('albums/upload/{id}', 'AlbumsController@upload')->name('albums.upload');
     Route::post('albums/reject/{id}', 'AlbumsController@reject')->name('albums.edit.reject.post');
     Route::get('albums/export-excel', 'AlbumsController@exportIntoExcel')->name('albums.export.excel');
-    Route::get('albums/export-csv', 'AlbumsController@exportIntoCSV')->name('albums.export.csv');
+    Route::get('albums/export-csv/{id}', 'AlbumsController@exportIntoCSV')->name('albums.export.csv');
 });
