@@ -669,8 +669,10 @@
             Artist.editSongForm.find(".edit-artwork").attr("data-type", "song").attr("data-id", song.id);
             Artist.editSongForm.find(".img-container img").attr("src", song.artwork_url);
             Artist.editSongForm.find(".img-container img").attr("rel", "artwork-song-" + song.id);
-            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=genre\\[\\]]'), User.userInfo.allow_genres);
-            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=mood\\[\\]]'), User.userInfo.allow_moods);
+            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=display_artist]'), User.userInfo.my_artist);
+            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=genre]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=second_genre]'), User.userInfo.allow_genres);
+            $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=group_genre]'), User.userInfo.group_genre);
 
             Artist.editSongForm.find('.select2-container').remove();
             Artist.editSongForm.find('.select2')
@@ -679,17 +681,41 @@
                 .removeAttr('placeholder');
             Artist.editSongForm.find('.select2-tags').empty();
 
+            Artist.editSongForm.find("input[name='primary-artist']").val(song.primary_artist);
+            Artist.editSongForm.find("input[name='composer']").val(song.composer);
+            Artist.editSongForm.find("input[name='arranger']").val(song.arranger);
+            Artist.editSongForm.find("input[name='lyricist']").val(song.lyricist);
+            Artist.editSongForm.find("input[name='label']").val(song.label);
+            Artist.editSongForm.find("input[name='isrc']").val(song.isrc);
+            Artist.editSongForm.find("input[name='remix_version']").val(song.remix_version);
             if (song.genre) {
-                song.genre.split(',').forEach(function (i) {
-                    Artist.editSongForm.find('select[name=genre\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
-                })
+                Artist.editSongForm.find('select[name=genre] option[value="' + song.genre + '"]').attr('selected', 'selected');
             }
-            if (song.mood) {
-                song.mood.split(',').forEach(function (i) {
-                    Artist.editSongForm.find('select[name=mood\\[\\]] option[value="' + i + '"]').attr('selected', 'selected')
-                })
+            if (song.second_genre) {
+                Artist.editSongForm.find('select[name=second_genre] option[value="' + song.genre + '"]').remove();
+                Artist.editSongForm.find('select[name=second_genre] option[value="' + song.second_genre + '"]').attr('selected', 'selected');
             }
-
+            if (song.group_genre) {
+                Artist.editSongForm.find('select[name=group_genre] option[value="' + song.group_genre + '"]').attr('selected', 'selected');
+            
+            }
+            Artist.editSongForm.find("select[name='genre']").change(function() {
+                Artist.editSongForm.find("select[name='second_genre']").html('');
+                var options = Artist.editSongForm.find("select[name='genre']").find("option:not(:selected)").clone();
+                Artist.editSongForm.find("select[name='second_genre']").removeAttr("disabled");
+                Artist.editSongForm.find("select[name='second_genre']").append(options);
+            });
+            if (song.display_artist) {
+                console.log(song.type_song)
+                Artist.editSongForm.find('select[name=display_artist] option[value="' + song.display_artist + '"]').attr('selected', 'selected');
+                if(song.type_song == "1"){
+                    Artist.editSongForm.find('select[name=display_artist]').find("option:not(:selected)").attr('disabled', true);
+                    Artist.editSongForm.find('select[name=display_artist]').attr('readonly', true);
+                }
+            }
+            if (song.language) {
+                Artist.editSongForm.find('select[name=language] option[value="' + song.language + '"]').attr('selected', 'selected')
+            }
             if(song.bpm !== undefined) {
                 Artist.editSongForm.find(".bpm-control").removeClass('d-none');
                 Artist.editSongForm.find(".attachment-control").removeClass('d-none');
@@ -763,6 +789,14 @@
 
             Artist.editSongSaveBtn.one('click', function () {
                 Artist.editSongForm.submit();
+            });
+            Artist.editSongForm.find("[name='isrc-code']").change(function() {
+                if(this.checked) {
+                    Artist.editSongForm.find("[name='isrc']").val('');
+                    Artist.editSongForm.find("[name='isrc']").attr("readonly", "readonly");
+                }else{
+                    Artist.editSongForm.find("[name='isrc']").removeAttr("readonly");
+                }
             });
             Artist.editSongForm.find('.datepicker').datepicker();
             Artist.editSongForm.find('.edit-artwork-input').change(function () {

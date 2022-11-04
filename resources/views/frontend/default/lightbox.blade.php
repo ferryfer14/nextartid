@@ -1246,45 +1246,54 @@
                                 </div>
                                 <div class="control field">
                                     <label for="name">
-                                        <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
+                                        <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('web.FORM_DISPLAY_ARTIST') }}</span>
                                     </label>
-                                    <input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">
+                                    
+                                <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
+                                </select>
+                                <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
                                 </div>
                                 <div class="control field" mb-0>
                                     <label for="artist-job">
-                                        <span data-translate-text="FORM_ARTIST_JOB">{{ ('FORM_ARTIST_JOB') }}</span>
+                                        <span data-translate-text="FORM_ARTISTS_ROLES">{{ __('web.FORM_ARTISTS_ROLES') }}</span>
                                     </label>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="text" name="check" placeholder="Primary Artist" class="form-control" value="Primary Artist" readonly="">
+                                            <input type="text" class="form-control" value="Primary Artist" readonly="">
                                         </div>
                                         <div class="col-md-7">
-                                            <input name="roles" type="text" placeholder="Primary Artist Name" autocomplete="off">
+                                            <input name="primary-artist" readonly type="text" placeholder="Primary Artist Name" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="text" name="check" placeholder="Composer" class="form-control" value="Composer" readonly="">
+                                            <input type="text" class="form-control" value="Composer" readonly="">
                                         </div>
                                         <div class="col-md-7">
-                                            <input name="composer" type="text" placeholder="Composer Name" autocomplete="off">
+                                            <input name="composer" type="text" placeholder="Artist Name" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="text" name="check" placeholder="Lyricist" class="form-control" value="Lyricist" readonly="">
-                                        </div>                                            
+                                            <input type="text" class="form-control" value="Arranger" readonly="">
+                                        </div>
                                         <div class="col-md-7">
-                                            <input name="lyric" type="text" placeholder="Lyricist Name" autocomplete="off">
+                                            <input name="arranger" type="text" placeholder="Artist Name" autocomplete="off">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-5">
-                                            <input type="text" name="check" placeholder="Arranger" class="form-control" value="Arranger" readonly="">                                            </div>
+                                            <input type="text" class="form-control" value="Lyricist" readonly="">
+                                        </div>
                                         <div class="col-md-7">
-                                            <input name="arranger" type="text" placeholder="Arranger Name" autocomplete="off">
+                                            <input name="lyricist" type="text" placeholder="Artist Name" autocomplete="off">
                                         </div>
                                     </div>
+                                </div>
+                                <label for="name">
+                                    <span data-translate-text="LABEL_OPTIONAL">{{ __('web.LABEL_OPTIONAL') }}</span>
+                                </label>
+                                <div class="control field" mb-0>
                                     <div class="row">
                                         <div class="col-md-5">
                                         {!! makeDropDown(array(
@@ -1298,48 +1307,45 @@
                                             8 => __('Featuring'),
                                             9 => __('with'),
                                             10 => __('Arranger'),
-                                        /*    8 => __('web.ALBUM_TYPE_LIVE'),
-                                            9 => __('web.ALBUM_TYPE_REMIX'),
-                                            10 => __('web.ALBUM_TYPE_OTHER'), */
-                                        ), 'type', null, true) !!}
+                                        ), 'roles[]', 1, true) !!}
                                         </div>
-                                        <div class="col-md-7">
-                                            <input name="display-artist" type="text" placeholder="Additional Artist Role Name" autocomplete="off">
+                                        <div class="col-md-7 d-flex align-items-center">
+                                            <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
+                                            <a class="bg-success text-white btn-add-artist p-1">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                                                </svg>
+                                            </a>
                                         </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-5" no-padding-left>                                        
-                                            <button type="button" class="btn btn-mini btn-success btn-add-artist" data-index="1">
-                                                            <i class="fa fa-plus btn-add-artist" data-index="1"></i>
-                                            </button>
-                                        </div>
-                                    </div>
+                                     </div>
+                                     <div id="additional_artist">
+                                     </div>
                                 </div>
                                 <div class="control field">
                                     <label for="name">
-                                        <span data-translate-text="FORM_LABEL">{{ __('FORM_LABEL') }}</span>
+                                        <span data-translate-text="FORM_LABEL">{{ __('web.FORM_LABEL') }}</span>
                                     </label>
                                     <input name="label" type="text" placeholder="Label's Name" autocomplete="off">
                                 </div>
                                 <div class="control field">
                                     <label>
-                                        <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('FORM_GENRES1') }}</span>
+                                        <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('web.FORM_GENRES1') }}</span>
                                     </label>
-                                    <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                    <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
                                     </select>
                                 </div>
                                 <div class="control field">
                                     <label>
-                                        <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
+                                        <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('web.FORM_GENRES2') }}</span>
                                     </label>
-                                    <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                    <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
                                     </select>
                                 </div>
                                 <div class="control field">
                                     <label>
-                                        <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('FORM_GENRES3') }}</span>
+                                        <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('web.FORM_GENRES3') }}</span>
                                     </label>
-                                    <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
+                                    <select class="select2" name="group_genre" placeholder="Select genres" autocomplete="off">
                                     </select>
                                 </div>
                                 <div class="control field">
@@ -1377,23 +1383,23 @@
                                 </div>
                                 <div class="control field mb-0">
                                     <div class="row ml-0 mr-0 mt-2 explicit-check-box">
-                                        <input class="hide custom-checkbox" type="checkbox" name="explicit" id="edit-song-explicit">
+                                        <input class="hide custom-checkbox" type="checkbox" value="1" name="explicit" id="edit-song-explicit">
                                         <label class="cbx" for="edit-song-explicit"></label>
                                         <label class="lbl" for="edit-song-explicit">{{ __('web.SONG_EXPLICIT') }}</label>
                                     </div>
                                 </div>
                                 <div class="control field">
                                     <label for="language">
-                                        <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
+                                        <span data-translate-text="FORM_LANGUAGE">{{ __('web.FORM_LANGUAGE') }}</span>
                                     </label>
                                     {!! makeDropDown(array(
                                         1 => __('Indonesia'),
                                         2 => __('English'),
-                                    ), 'type', null, true) !!}
+                                    ), 'language', null, true) !!}
                                 </div>
                                 <div class="control field mb-0">
                                     <div class="row ml-0 mr-0 mt-2 separately-check-box">
-                                        <input class="hide custom-checkbox" type="checkbox" name="separately" id="edit-song-separately">
+                                        <input class="hide custom-checkbox" type="checkbox" value="1" name="separately" id="edit-song-separately">
                                         <label class="cbx" for="edit-song-separately"></label>
                                         <label class="lbl" for="edit-song-separately">{{ __('web.FORM_SEPARATELY') }}</label>
                                     </div>

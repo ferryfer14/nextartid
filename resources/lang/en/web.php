@@ -1508,6 +1508,7 @@ return [
     "FORM_DISPLAY_ARTIST" => "Display Artist:",
     "FORM_ARTISTS_ROLES" => "Artists:",
     "FORM_ARTIST_JOB" => "Artist(s):",
+    "FORM_LABEL" => "Label's:",
     "FORM_GENRES" => "Genre(s):",
     "FORM_GENRES1" => "Primary Genre:",
     "FORM_GENRES2" => "Secondary Genre:",

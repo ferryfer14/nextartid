@@ -279,6 +279,8 @@ class ArtistManagementController extends Controller
         $this->request->validate([
             'id' => 'required|numeric',
             'title' => 'required|max:100',
+            'label' => 'nullable|string|max:50',
+            'isrc' => 'nullable|string|max:50',
             'primary-artist' => 'required|string|max:50',
             'composer' => 'required|string|max:50',
             'arranger' => 'required|string|max:50',
@@ -290,10 +292,11 @@ class ArtistManagementController extends Controller
             'tag' => 'nullable|array',
             'copyright' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:280',
+            'lirik' => 'nullable|string|max:1000',
             'selling' => 'nullable',
             'language' => 'required',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
-            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
         ]);
 
         /**
@@ -342,16 +345,25 @@ class ArtistManagementController extends Controller
                         ->toMediaCollection('attachment', config('settings.storage_audio_location', 'public'));
                 }
 
+                $song->type_song           = $this->request->input('type');
                 $song->title               = $this->request->input('title');
                 $song->display_artist      = $this->request->input('display_artist');
                 $song->primary_artist      = $this->request->input('primary-artist');
                 $song->composer            = $this->request->input('composer');
                 $song->arranger            = $this->request->input('arranger');
                 $song->lyricist            = $this->request->input('lyricist');
+                $song->label               = $this->request->input('label');
+                $song->isrc               = $this->request->input('isrc');
+                $song->iswc               = $this->request->input('iswc');
                 $song->genre               = $this->request->input('genre');
                 $song->second_genre        = $this->request->input('second_genre');
                 $song->group_genre         = $this->request->input('group_genre');
                 $song->language            = $this->request->input('language');
+                $song->lirik                = $this->request->input('lirik');
+                $song->explicit                = $this->request->input('explicit');
+                $song->separately                = $this->request->input('separately');
+                $song->publisher_year        = $this->request->input('publisher_year');
+                $song->publisher_name        = $this->request->input('publisher_name');
 
                 if($this->request->input('created_at'))
                 {

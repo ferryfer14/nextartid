@@ -112,6 +112,12 @@
                              </div>
                         </div>
                         <div class="control field">
+                            <label for="name">
+                                <span data-translate-text="FORM_LABEL">{{ __('web.FORM_LABEL') }}</span>
+                            </label>
+                            <input name="label" type="text" placeholder="Label's Name" autocomplete="off">
+                        </div>
+                        <div class="control field">
                             <label>
                                 <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('web.FORM_GENRES1') }}</span>
                             </label>
@@ -133,6 +139,48 @@
                             </select>
                         </div>
                         <div class="control field">
+                            <label for="isrc-code">
+                                <span data-translate-text="FORM_ISRC_CODE">{{ __('web.FORM_ISRC_CODE') }}</span>
+                            </label>
+                            <input name="isrc" type="text" placeholder="Your ISRC Code" readonly>
+                            <input name="isrc-code" type="checkbox" checked="checked">
+                            I don't have one, assign a UPC code to this release automatically
+                        </div>
+                        <div class="control field">
+                            <label for="iswc-code">
+                                <span data-translate-text="FORM_ISWC_CODE">{{ __('web.FORM_ISWC_CODE') }}</span>
+                            </label>
+                            <input name="iswc" type="text" placeholder="Your ISWC Code">
+                        </div>
+                        <div class="control field" mb-0>
+                            <label for="license-recording">
+                                <span data-translate-text="FORM_PUBLISHING">{{ __('web.FORM_PUBLISHING') }}</span>
+                            </label>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <input title="The Year of publish" value="{{date('Y')}}" type="text" name="publisher_year" placeholder="Year" class="form-control" autocomplete="off">
+                                </div>
+                                <div class="col-md-9">
+                                        <input title="Publisher Name" value="Nextart" name="publisher_name" type="text" placeholder="Publisher Name" autocomplete="off">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control field">
+                            <label>
+                                <span data-translate-text="FORM_LYRIC">{{ __('web.FORM_LYRIC') }}</span>
+                            </label>
+                            <textarea type="text" name="lirik" maxlength="180"></textarea>
+                        </div>
+                        <div class="control field row mb-0">
+                            <div class="col-12">
+                                <div class="row ml-0 mr-0 mt-2 explicit-check-box">
+                                    <input class="hide custom-checkbox" type="checkbox" value="1" name="explicit" id="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">
+                                    <label class="cbx" for="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}"></label>
+                                    <label class="lbl" for="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">{{ __('web.SONG_EXPLICIT') }}</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="control field">
                             <label for="language">
                                 <span data-translate-text="FORM_LANGUAGE">{{ __('web.FORM_LANGUAGE') }}</span>
                             </label>
@@ -141,13 +189,20 @@
                                 2 => __('English'),
                             ), 'language', null, true) !!}
                         </div>
+                        <div class="control field mb-0">
+                            <div class="row ml-0 mr-0 mt-2 separately-check-box">
+                                <input class="hide custom-checkbox" type="checkbox" value="1" name="separately" id="edit-song-separately">
+                                <label class="cbx" for="edit-song-separately"></label>
+                                <label class="lbl" for="edit-song-separately">{{ __('web.FORM_SEPARATELY') }}</label>
+                            </div>
+                        </div>
+                        <!--
                         <div class="control field">
                             <label for="created_at">
                                 <span data-translate-text="FORM_SCHEDULE_PUBLISH">{{ __('web.FORM_SCHEDULE_PUBLISH') }}</span>
                             </label>
                             <input class="datepicker" name="created_at" type="text" placeholder="{{ __('web.IMMEDIATELY') }}" autocomplete="off">
                         </div>
-                        <!--
                         <div class="control field">
                             <label for="copyright">
                                 <span data-translate-text="FORM_COPYRIGHT">{{ __('web.FORM_COPYRIGHT') }}</span>
@@ -207,15 +262,6 @@
                         </div>
                         <div class="control field row mb-0">
                             <div class="col-12">
-                                <div class="row ml-0 mr-0 mt-2 explicit-check-box">
-                                    <input class="hide custom-checkbox" type="checkbox" name="explicit" id="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">
-                                    <label class="cbx" for="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}"></label>
-                                    <label class="lbl" for="upload-explicit-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">{{ __('web.SONG_EXPLICIT') }}</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="control field row mb-0">
-                            <div class="col-12">
                                 <div class="row ml-0 mr-0 mt-2 selling-check-box" data-toggle="collapse" href="#collapse-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}" role="button" aria-expanded="false" aria-controls="collapse-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">
                                     <input class="hide custom-checkbox" type="checkbox" name="selling" id="upload-selling-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}">
                                     <label class="cbx" for="upload-selling-id-{%=btoa(unescape(encodeURIComponent(file.name))).replace(/=/g, '')%}"></label>
@@ -255,6 +301,7 @@
                 </div>
                 <div class="upload-info-footer hide">
                 <input name="id" type="hidden">
+                <input name="type" type="hidden">
                 <button class="btn btn-primary save" type="submit" data-translate-text="SAVE">{{ __('SAVE') }}</button>
                 </div>
             </div>

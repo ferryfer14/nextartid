@@ -157,6 +157,7 @@
                                 $(this).find('.song-info-container-overlay').addClass('hide');
                                 $(this).find('.img-container img').attr('src', song.artwork_url);
                                 $(this).find('.song-name-input').val(song.title);
+                                $(this).find('input[name="type"]').val(song.album.type);
                                 $.engineUtils.makeSelectOption($(this).find('select[name=display_artist]'), User.userInfo.my_artist);
                                 $.engineUtils.makeSelectOption($(this).find('select[name=genre]'), User.userInfo.allow_genres);
                                 $.engineUtils.makeSelectOption($(this).find('select[name=second_genre]'), User.userInfo.allow_genres);
@@ -196,6 +197,9 @@
                                     }
                                 }
                                 $thisForm.find("[name='primary-artist']").val($thisForm.find("select[name=display_artist]").find('option:selected').text());
+                                $thisForm.find("[name='composer']").val(song.album.composer);
+                                $thisForm.find("[name='arranger']").val(song.album.arranger);
+                                $thisForm.find("[name='lyricist']").val(song.album.lyricist);
                                 if (song.album.genre) {
                                     $thisForm.find('select[name=genre] option[value="' + song.album.genre + '"]').attr('selected', 'selected');
                                 }
@@ -209,6 +213,14 @@
                                 if (song.album.language) {
                                     $thisForm.find('select[name=language] option[value="' + song.album.language + '"]').attr('selected', 'selected');
                                 }
+                                $thisForm.find("[name='isrc-code']").change(function() {
+                                    if(this.checked) {
+                                        $thisForm.find("[name='isrc']").val('');
+                                        $thisForm.find("[name='isrc']").attr("readonly", "readonly");
+                                    }else{
+                                        $thisForm.find("[name='isrc']").removeAttr("readonly");
+                                    }
+                                });
                                 $('.upload-edit-song-form').ajaxForm({
                                     beforeSubmit: function(data, $form, options) {
                                         var error = 0;
