@@ -349,6 +349,7 @@ class ArtistManagementController extends Controller
                 $song->title               = $this->request->input('title');
                 $song->display_artist      = $this->request->input('display_artist');
                 $song->primary_artist      = $this->request->input('primary-artist');
+                $song->remix_version            = $this->request->input('remix_version');
                 $song->composer            = $this->request->input('composer');
                 $song->arranger            = $this->request->input('arranger');
                 $song->lyricist            = $this->request->input('lyricist');
@@ -728,6 +729,7 @@ class ArtistManagementController extends Controller
             'title' => 'required|string|max:50',
             'type' => 'required|numeric|between:1,10',
             'primary-artist' => 'required|string|max:50',
+            'label' => 'nullable|string|max:50',
             'composer' => 'required|string|max:50',
             'arranger' => 'required|string|max:50',
             'lyricist' => 'required|string|max:50',
@@ -750,6 +752,7 @@ class ArtistManagementController extends Controller
         $album->display_artist      = $this->request->input('display_artist');
         $album->genre               = $this->request->input('genre');
         $album->remix_version       = $this->request->input('remix_version');
+        $album->label               = $this->request->input('label');
         $album->second_genre        = $this->request->input('second_genre');
         $album->group_genre         = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
@@ -991,6 +994,7 @@ class ArtistManagementController extends Controller
             'description' => 'nullable|string|max:1000',
             'copyright' => 'nullable|string|max:100',
             'genre' => 'required',
+            'label' => 'nullable|string|max:50',
             'display_artist' => 'required',
             'primary-artist' => 'required|string|max:50',
             'composer' => 'required|string|max:50',
@@ -1028,6 +1032,7 @@ class ArtistManagementController extends Controller
                 $album->genre = $this->request->input('genre');
                 $album->remix_version       = $this->request->input('remix_version');
                 $album->group_genre = $this->request->input('group_genre');
+                $album->label               = $this->request->input('label');
                 $album->second_genre = $this->request->input('second_genre');
                 $mood = $this->request->input('mood');
                 $album->primary_artist      = $this->request->input('primary-artist');

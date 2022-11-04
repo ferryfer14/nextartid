@@ -1567,6 +1567,12 @@
                                     </div>
                                     <div class="control field">
                                         <label for="name">
+                                            <span data-translate-text="FORM_LABEL">{{ __('web.FORM_LABEL') }}</span>
+                                        </label>
+                                        <input name="label" type="text" placeholder="Label's Name" autocomplete="off">
+                                    </div>
+                                    <div class="control field">
+                                        <label for="name">
                                             <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
                                         </label>
                                         
@@ -1868,6 +1874,12 @@
                                             <span data-translate-text="{{ __('FORM_ALBUM_VERSION') }}">{{ __('Remix or Version (optional)') }}</span>
                                         </label>
                                         <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
+                                    </div>
+                                    <div class="control field">
+                                        <label for="name">
+                                            <span data-translate-text="FORM_LABEL">{{ __('web.FORM_LABEL') }}</span>
+                                        </label>
+                                        <input name="label" type="text" placeholder="Label's Name" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="name">
@@ -2604,6 +2616,12 @@
                                     <span data-translate-text="FORM_TITLE">{{ __('web.FORM_EPISODE_TITLE') }}</span>
                                 </label>
                                 <input class="song-name-input form-control" name="title" type="text" autocomplete="off" required>
+                            </div>
+                            <div class="control field">
+                                <label>
+                                    <span data-translate-text="{{ __('FORM_ALBUM_VERSION') }}">{{ __('Remix or Version (optional)') }}</span>
+                                </label>
+                                <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
                             </div>
                             <div class="control field">
                                 <label for="copyright">

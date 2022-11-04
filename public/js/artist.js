@@ -665,6 +665,7 @@
             $.engineLightBox.show("lightbox-edit-song");
             Artist.editSongForm.find(".title").html(song.title);
             Artist.editSongForm.find("input[name='title']").val(song.title);
+            Artist.editSongForm.find("input[name='remix_version']").val(song.remix_version);
             Artist.editSongForm.find("input[name='id']").val(song.id);
             Artist.editSongForm.find(".edit-artwork").attr("data-type", "song").attr("data-id", song.id);
             Artist.editSongForm.find(".img-container img").attr("src", song.artwork_url);
@@ -919,6 +920,7 @@
             Artist.editAlbumForm.find(".title").html(album.title);
             Artist.editAlbumForm.find("[name='id']").val(album.id);
             Artist.editAlbumForm.find("[name='title']").val(album.title);
+            Artist.editAlbumForm.find("[name='label']").val(album.label);
             Artist.editAlbumForm.find("[name='description']").val(album.description);
             Artist.editAlbumForm.find("input[name='copyright']").val(album.copyright);
             Artist.editAlbumForm.find("input[name='primary-artist']").val(album.primary_artist);

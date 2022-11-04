@@ -238,6 +238,7 @@
                                     },
                                     success: function(response, textStatus, xhr, $form) {
                                         Artist.upload.edit(response, $form);
+                                        $('#upload-file-button').removeClass('d-none');
                                         $form.find("[type='submit']").removeClass("btn-loading");
                                     },
                                     error: function(e, textStatus, xhr, $form) {
