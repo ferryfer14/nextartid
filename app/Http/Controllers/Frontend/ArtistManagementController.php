@@ -279,12 +279,19 @@ class ArtistManagementController extends Controller
         $this->request->validate([
             'id' => 'required|numeric',
             'title' => 'required|max:100',
-            'genre' => 'nullable|array',
-            'mood' => 'nullable|array',
+            'primary-artist' => 'required|string|max:50',
+            'composer' => 'required|string|max:50',
+            'arranger' => 'required|string|max:50',
+            'lyricist' => 'required|string|max:50',
+            'display_artist' => 'required',
+            'genre' => 'required',
+            'second_genre' => 'required',
+            'group_genre' => 'required',
             'tag' => 'nullable|array',
             'copyright' => 'nullable|string|max:100',
             'description' => 'nullable|string|max:280',
             'selling' => 'nullable',
+            'language' => 'required',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
         ]);
@@ -335,16 +342,35 @@ class ArtistManagementController extends Controller
                         ->toMediaCollection('attachment', config('settings.storage_audio_location', 'public'));
                 }
 
-                $song->title = $this->request->input('title');
-                $genre = $this->request->input('genre');
-                $mood = $this->request->input('mood');
+                $song->title               = $this->request->input('title');
+                $song->display_artist      = $this->request->input('display_artist');
+                $song->primary_artist      = $this->request->input('primary-artist');
+                $song->composer            = $this->request->input('composer');
+                $song->arranger            = $this->request->input('arranger');
+                $song->lyricist            = $this->request->input('lyricist');
+                $song->genre               = $this->request->input('genre');
+                $song->second_genre        = $this->request->input('second_genre');
+                $song->group_genre         = $this->request->input('group_genre');
+                $song->language            = $this->request->input('language');
 
                 if($this->request->input('created_at'))
                 {
                     $song->created_at = Carbon::parse($this->request->input('created_at'));
                 }
 
-                if(is_array($genre))
+                if($this->request->input('additional-artist') != ''){
+                    $i = 0;
+                    foreach($this->request->input('additional-artist') as $name){
+                        if($name != ''){
+                            DB::table('album_artist')->insert([
+                                'song_id' => $this->request->input('id'),
+                                'artist_role' => $this->request->input('roles')[$i],
+                                'artist_name' => $name,
+                            ]);
+                        }
+                    }
+                }
+                /*if(is_array($genre))
                 {
                     $song->genre = implode(",", $this->request->input('genre'));
                 } else {
@@ -356,7 +382,7 @@ class ArtistManagementController extends Controller
                     $song->mood = implode(",", $this->request->input('mood'));
                 } else {
                     $song->mood = null;
-                }
+                }*/
 
                 $tags = $this->request->input('tag');
 
@@ -690,9 +716,13 @@ class ArtistManagementController extends Controller
             'title' => 'required|string|max:50',
             'type' => 'required|numeric|between:1,10',
             'primary-artist' => 'required|string|max:50',
+            'composer' => 'required|string|max:50',
+            'arranger' => 'required|string|max:50',
+            'lyricist' => 'required|string|max:50',
             'description' => 'nullable|string|max:1000',
             'genre' => 'required',
             'display_artist' => 'required',
+            'language' => 'required',
             'second_genre' => 'required',
             'group_genre' => 'required',
             'copyright' => 'nullable|string|max:100',
@@ -950,6 +980,10 @@ class ArtistManagementController extends Controller
             'copyright' => 'nullable|string|max:100',
             'genre' => 'required',
             'display_artist' => 'required',
+            'primary-artist' => 'required|string|max:50',
+            'composer' => 'required|string|max:50',
+            'arranger' => 'required|string|max:50',
+            'lyricist' => 'required|string|max:50',
             'second_genre' => 'required',
             'group_genre' => 'required',
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
@@ -1123,7 +1157,7 @@ class ArtistManagementController extends Controller
         }
 
         $res = (new Upload)->handle($this->request, $artistIds = auth()->user()->artist_id,$album_id = $album->id);
-
+        $res->album = $album;
         return response()->json($res);
     }
 

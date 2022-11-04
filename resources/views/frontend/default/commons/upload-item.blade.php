@@ -113,19 +113,33 @@
                         </div>
                         <div class="control field">
                             <label>
-                                <span data-translate-text="FROM_DEFAULT_GENRE">{{ __('web.FROM_DEFAULT_GENRE') }}</span>
+                                <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('web.FORM_GENRES1') }}</span>
                             </label>
-                            <select class="genre-selection" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
-                                {!! genreSelection(isset(auth()->user()->artist) ? explode(',', auth()->user()->artist->genre) : 0) !!}}
+                            <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
                             </select>
                         </div>
                         <div class="control field">
                             <label>
-                                <span data-translate-text="FROM_DEFAULT_MOOD">{{ __('web.FROM_DEFAULT_MOOD') }}</span>
+                                <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('web.FORM_GENRES2') }}</span>
                             </label>
-                            <select class="mood-selection" name="mood[]" multiple autocomplete="off">
-                                 {!! moodSelection(isset(auth()->user()->artist) ? explode(',', auth()->user()->artist->mood) : 0) !!}}
+                            <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
                             </select>
+                        </div>
+                        <div class="control field">
+                            <label>
+                                <span data-translate-text="{{ __('FORM_GENRES3') }}">{{ __('web.FORM_GENRES3') }}</span>
+                            </label>
+                            <select class="select2" name="group_genre" placeholder="Select genres" autocomplete="off">
+                            </select>
+                        </div>
+                        <div class="control field">
+                            <label for="language">
+                                <span data-translate-text="FORM_LANGUAGE">{{ __('web.FORM_LANGUAGE') }}</span>
+                            </label>
+                            {!! makeDropDown(array(
+                                1 => __('Indonesia'),
+                                2 => __('English'),
+                            ), 'language', null, true) !!}
                         </div>
                         <div class="control field">
                             <label for="created_at">

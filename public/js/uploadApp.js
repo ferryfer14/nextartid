@@ -157,15 +157,13 @@
                                 $(this).find('.song-info-container-overlay').addClass('hide');
                                 $(this).find('.img-container img').attr('src', song.artwork_url);
                                 $(this).find('.song-name-input').val(song.title);
-                                $(this).find('.genre-selection, .mood-selection').select2({
-                                    placeholder: "Select one or multi",
-                                    maximumSelectionLength: 4
-                                });
                                 $.engineUtils.makeSelectOption($(this).find('select[name=display_artist]'), User.userInfo.my_artist);
+                                $.engineUtils.makeSelectOption($(this).find('select[name=genre]'), User.userInfo.allow_genres);
+                                $.engineUtils.makeSelectOption($(this).find('select[name=second_genre]'), User.userInfo.allow_genres);
+                                $.engineUtils.makeSelectOption($(this).find('select[name=group_genre]'), User.userInfo.group_genre);
                                 $(this).find("select[name='display_artist']").change(function() {
                                     $thisForm.find("[name='primary-artist']").val($(this).find("option:selected").text());
                                 });
-                                $thisForm.find("[name='primary-artist']").val($thisForm.find("select[name=display_artist]").find('option:selected').text());
                                 if($(this).find('.artist-selection').length) {
                                     for (var i=0; i < song.artists.length; i++)  {
                                         if($(this).find('.artist-selection option[value=' + song.artists[i].id + ']').length) {
@@ -190,7 +188,27 @@
                                 }
 
                                 $(this).find('.datepicker').datepicker();
-
+                                if (song.album.display_artist) {
+                                    $thisForm.find('select[name=display_artist] option[value="' + song.album.display_artist + '"]').attr('selected', 'selected');
+                                    if(song.album.type == "1"){
+                                        $thisForm.find('select[name=display_artist]').find("option:not(:selected)").attr('disabled', true);
+                                        $thisForm.find('select[name=display_artist]').attr('readonly', true);
+                                    }
+                                }
+                                $thisForm.find("[name='primary-artist']").val($thisForm.find("select[name=display_artist]").find('option:selected').text());
+                                if (song.album.genre) {
+                                    $thisForm.find('select[name=genre] option[value="' + song.album.genre + '"]').attr('selected', 'selected');
+                                }
+                                if (song.album.second_genre) {
+                                    $thisForm.find('select[name=second_genre] option[value="' + song.album.genre + '"]').remove();
+                                    $thisForm.find('select[name=second_genre] option[value="' + song.album.second_genre + '"]').attr('selected', 'selected');
+                                }
+                                if (song.album.group_genre) {
+                                    $thisForm.find('select[name=group_genre] option[value="' + song.album.group_genre + '"]').attr('selected', 'selected');
+                                }
+                                if (song.album.language) {
+                                    $thisForm.find('select[name=language] option[value="' + song.album.language + '"]').attr('selected', 'selected');
+                                }
                                 $('.upload-edit-song-form').ajaxForm({
                                     beforeSubmit: function(data, $form, options) {
                                         var error = 0;
