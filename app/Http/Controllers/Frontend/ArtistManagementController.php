@@ -977,9 +977,9 @@ class ArtistManagementController extends Controller
     private function minDateRelease(){
         $day = Carbon::parse(Carbon::now())->format('l');
         if($day == 'Friday' && $day == 'Saturday'){
-            return 9;
+            return 1;
         }else{
-            return 8;
+            return 1;
         }
     }
 

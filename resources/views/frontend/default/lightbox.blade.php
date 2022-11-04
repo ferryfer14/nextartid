@@ -1722,13 +1722,13 @@
                                         <label for="created_at">
                                             <span data-translate-text="FORM_RELEASED_AT">{{ __('FORM_RELEASED_AT') }}</span>
                                         </label>
-                                        <input class="datepicker" name="released_at" type="text" placeholder="Today" autocomplete="off">
+                                        <input name="released_at" type="text" placeholder="Today" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="released_at">
                                             <span data-translate-text="FORM_SCHEDULE_PUBLISH">{{ __('FORM_SCHEDULE_PUBLISH') }}</span>
                                         </label>
-                                        <input class="datepicker" name="created_at" type="text" placeholder="Immediately" autocomplete="off">
+                                        <input name="created_at" type="text" placeholder="Immediately" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="name">
@@ -2051,13 +2051,13 @@
                                         <label for="created_at">
                                             <span data-translate-text="FORM_RELEASED_AT">{{ __('FORM_RELEASED_AT') }}</span>
                                         </label>
-                                        <input class="datepicker" name="released_at" type="text" placeholder="Today" autocomplete="off">
+                                        <input name="released_at" type="text" placeholder="Today" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="released_at">
                                             <span data-translate-text="FORM_SCHEDULE_PUBLISH">{{ __('FORM_SCHEDULE_PUBLISH') }}</span>
                                         </label>
-                                        <input class="datepicker" name="created_at" type="text" placeholder="Immediately" autocomplete="off">
+                                        <input name="created_at" type="text" placeholder="Immediately" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="name">

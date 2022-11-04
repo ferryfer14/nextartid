@@ -64,11 +64,12 @@
             return date.toLocaleDateString(locale, { weekday: 'long' });        
         }
         function minDate(){
+            var date = new Date();
             var dayName = getDayName('en-EN');
             if(dayName == 'Friday' && dayName == 'Saturday'){
-                return 9;
+                return date.setDate(date.getDate() + 9);
             }else{
-                return 8;
+                return date.setDate(date.getDate() + 8);
             }
         }
         function formatTimeStamp(dateOld){

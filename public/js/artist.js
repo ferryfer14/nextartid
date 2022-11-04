@@ -830,7 +830,10 @@
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
-            $('#create-album-form').find(".datepicker").datepicker();
+            $('#create-album-form').find("[name='released_at']").datepicker();
+            $('#create-album-form').find("[name='created_at']").datepicker({
+                minDate : new Date(minDate())
+            });
             $('#create-album-form').find("select[name=display_artist]").change(function() {
                 $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
             });
@@ -1004,7 +1007,10 @@
                 Artist.editAlbumForm.find("select[name='second_genre']").removeAttr("disabled");
                 Artist.editAlbumForm.find("select[name='second_genre']").append(options);
             });
-            Artist.editAlbumForm.find('.datepicker').datepicker();
+            Artist.editAlbumForm.find("[name='released_at']").datepicker();
+            Artist.editAlbumForm.find("[name='created_at']").datepicker({
+                minDate : new Date(minDate()),
+            });
             Artist.editAlbumForm.find("[name='upc-code']").change(function() {
                 if(this.checked) {
                     Artist.editAlbumForm.find("[name='upc']").val('');
