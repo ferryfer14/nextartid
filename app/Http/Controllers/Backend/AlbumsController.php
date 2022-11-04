@@ -226,7 +226,8 @@ class AlbumsController
 
     public function exportIntoCSV()
     {
-        return Excel::download(new AlbumsExport($this->request->input('id')), 'Album.csv');
+        $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+        return Excel::download(new AlbumsExport($this->request->input('id')), date('Ymd').$album->title.'.csv');
     }
 
     public function edit()
