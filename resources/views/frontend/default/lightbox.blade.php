@@ -1863,17 +1863,15 @@
                                         </label>
                                         <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
                                     </div>
-                                    @if(isset($my_artist))
-                                        <div class="control field">
-                                            <label for="name">
-                                                <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
-                                            </label>
-                                            
-                                        <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
-                                        </select>
-                                            <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
-                                        </div>
-                                    @endif
+                                    <div class="control field">
+                                        <label for="name">
+                                            <span data-translate-text="FORM_DISPLAY_ARTIST">{{ __('FORM_DISPLAY_ARTIST') }}</span>
+                                        </label>
+                                        
+                                    <select class="select2" name="display_artist" placeholder="Select artist" autocomplete="off">
+                                    </select>
+                                        <!--<input name="display_artist" type="text" placeholder="Primary Artist Name" autocomplete="off">-->
+                                    </div>
                                     <div class="control field" mb-0>
                                         <label for="artist-job">
                                             <span data-translate-text="FORM_ARTISTS_ROLES">{{ ('FORM_ARTISTS_ROLES') }}</span>

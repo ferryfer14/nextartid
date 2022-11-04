@@ -882,8 +882,8 @@
             Artist.editAlbumForm.find("input[name='upc']").val(album.upc);
             Artist.editAlbumForm.find("input[name='ref']").val(album.ref);
             Artist.editAlbumForm.find("input[name='grid-code']").val(album.grid);
-            Artist.editAlbumForm.find("input[name='released_at']").val(formatTimeStamp(album.released_at));
-            Artist.editAlbumForm.find("input[name='created_at']").val(formatTimeStamp(album.created_at));
+            Artist.editAlbumForm.find("input[name='released_at']").val(album.released_at != null ? formatTimeStamp(album.released_at) : '');
+            Artist.editAlbumForm.find("input[name='created_at']").val(album.created_at != null ? formatTimeStamp(album.created_at) : '');
             Artist.editAlbumForm.find("input[name='license_year']").val(album.license_year);
             Artist.editAlbumForm.find("input[name='license_name']").val(album.license_name);
             Artist.editAlbumForm.find("input[name='recording_year']").val(album.recording_year);
