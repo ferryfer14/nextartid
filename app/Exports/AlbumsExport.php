@@ -105,11 +105,9 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
         }
         $song = Song::leftJoin('album_songs', 'album_songs.song_id', '=', (new Song)->getTable() . '.id')
             ->select((new Song)->getTable() . '.*', 'album_songs.id as host_id','g.name as genre_name','sg.name as second_genre_name')
-            ->join('genres as g','g.id',(new Song)->getTable() . '.genre')
-            ->join('genres as sg','sg.id',(new Song)->getTable() . '.second_genre')
+            ->leftJoin('genres as g','g.id',(new Song)->getTable() . '.genre')
+            ->leftJoin('genres as sg','sg.id',(new Song)->getTable() . '.second_genre')
             ->where('album_songs.album_id', $this->id)
-            ->orderBy('album_songs.priority', 'asc')
-            ->orderBy('album_songs.id', 'asc')
             ->get();    
         foreach ($song as $s) {
             $song_roles = DB::table('album_artist')
@@ -191,7 +189,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
             ],
             [
                 '',
-                $song->album->upc,
+                $song->album->upc ?? 'auto',
                 '',
                 $song->album->grid,
                 $song->album->title,
@@ -203,7 +201,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->album->second_genre_name,
                 $song->album->language == '1' ? 'Indonesia' : 'English',
                 'no',
-                $this->priceCategory($song->album->price_category),
+                'Premium',
                 date('m/d/Y', strtotime($song->album->created_at)),
                 date('m/d/Y', strtotime($song->album->released_at)),
                 '(c)',
@@ -232,7 +230,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
         $new_result = [
             [
                 '',
-                $song->album->upc,
+                $song->album->upc ?? 'auto',
                 '',
                 $song->album->grid,
                 $song->album->title,
@@ -244,7 +242,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->album->second_genre_name,
                 $song->album->language == '1' ? 'Indonesia' : 'English',
                 'no',
-                $this->priceCategory($song->album->price_category),
+                'Premium',
                 date('m/d/Y', strtotime($song->album->created_at)),
                 date('m/d/Y', strtotime($song->album->released_at)),
                 '(c)',
@@ -273,9 +271,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
         if($this->index == 0){
             $this->index++;
             return $result;
-        }else{
-            $this->index++;
-            return $new_result;
         }
+        return $new_result;
     }
 }
