@@ -1368,10 +1368,10 @@
                                     </label>
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <input title="The Year of publish" type="text" name="check" placeholder="Year" class="form-control" autocomplete="off">
+                                            <input title="The Year of publish" type="text" name="publisher_year" placeholder="Year" class="form-control" autocomplete="off">
                                         </div>
                                         <div class="col-md-9">
-                                                <input title="Publisher Name" name="publisher" type="text" placeholder="Publisher Name" autocomplete="off">
+                                                <input title="Publisher Name" name="publisher_name" type="text" placeholder="Publisher Name" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -1379,7 +1379,7 @@
                                     <label>
                                         <span data-translate-text="FORM_LYRIC">{{ __('FORM_LYRIC') }}</span>
                                     </label>
-                                    <textarea type="text" name="lyric" maxlength="180"></textarea>
+                                    <textarea type="text" name="lirik" maxlength="180"></textarea>
                                 </div>
                                 <div class="control field mb-0">
                                     <div class="row ml-0 mr-0 mt-2 explicit-check-box">

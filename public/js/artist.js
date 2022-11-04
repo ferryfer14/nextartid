@@ -687,9 +687,19 @@
             Artist.editSongForm.find("input[name='lyricist']").val(song.lyricist);
             Artist.editSongForm.find("input[name='label']").val(song.label);
             Artist.editSongForm.find("input[name='isrc']").val(song.isrc);
+            Artist.editSongForm.find("input[name='iswc']").val(song.iswc);
+            Artist.editSongForm.find("input[name='publisher_name']").val(song.publisher_name);
+            Artist.editSongForm.find("input[name='publisher_year']").val(song.publisher_year);
+            Artist.editSongForm.find("textarea[name='lirik']").val(song.lirik);
             Artist.editSongForm.find("input[name='remix_version']").val(song.remix_version);
             if (song.genre) {
                 Artist.editSongForm.find('select[name=genre] option[value="' + song.genre + '"]').attr('selected', 'selected');
+            }
+            if(song.explicit){
+                Artist.editSongForm.find("input[name='explicit']").attr('checked', 'checked');
+            }
+            if(song.separately){
+                Artist.editSongForm.find("input[name='separately']").attr('checked', 'checked');
             }
             if (song.second_genre) {
                 Artist.editSongForm.find('select[name=second_genre] option[value="' + song.genre + '"]').remove();
