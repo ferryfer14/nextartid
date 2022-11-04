@@ -381,6 +381,7 @@ class ArtistManagementController extends Controller
                                 'artist_name' => $name,
                             ]);
                         }
+                        $i++;
                     }
                 }
                 /*if(is_array($genre))
@@ -852,6 +853,7 @@ class ArtistManagementController extends Controller
                         'artist_name' => $name,
                     ]);
                 }
+                $i++;
             }
         }
         return $album->makeVisible(['approved']);
