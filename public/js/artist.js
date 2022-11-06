@@ -812,7 +812,7 @@
             if(song.roles_song.length > 0){
                 //var objTo = document.getElementById('additional_artist_edit');
                 Artist.editSongForm.find('#additional_artist').html('');
-                for(var i=0;i<artist_roles.length;i++){
+                for(var i=0;i<song.roles_song.length;i++){
                     if(i==0){
                         var divtest = document.createElement("div");
                         divtest.setAttribute("class", "row");
