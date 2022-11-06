@@ -227,7 +227,7 @@ class AlbumsController
     public function exportIntoCSV()
     {
         $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
-        return Excel::download(new AlbumsExport($this->request->input('id')), date('Ymd').$album->title.'.csv');
+        return Excel::download(new AlbumsExport($this->request->input('id')), date('Ymd').str_replace(' ','_',$album->title).'.csv');
     }
 
     public function edit()

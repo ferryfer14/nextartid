@@ -187,11 +187,15 @@ class Upload
 
                 }
             }
-            $song->originalfile = $request->file('file')->getClientOriginalName();
+            $file = $request->file('file')->getClientOriginalName();
+            $filename = pathinfo($file, PATHINFO_FILENAME);
+            $extension = pathinfo($file, PATHINFO_EXTENSION);
+            $file_uri = $filename.date('YmdHis').$extension;
+            $song->originalfile = $file_uri;
             $song->save();
 
             //$tempPath = Str::random(32);
-            $tempPath = $request->file('file')->getClientOriginalName();
+            $tempPath = $file_uri;
             File::copy($request->file('file')->getPathName(), Storage::disk('public')->path($tempPath));
             $audio = new \stdClass();
             $audio->path = Storage::disk('public')->path($tempPath);

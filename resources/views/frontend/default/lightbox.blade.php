@@ -1331,7 +1331,7 @@
                                     <label>
                                         <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('web.FORM_GENRES1') }}</span>
                                     </label>
-                                    <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
+                                    <select name="genre" placeholder="Select genres" autocomplete="off">
                                     </select>
                                 </div>
                                 <div class="control field">
