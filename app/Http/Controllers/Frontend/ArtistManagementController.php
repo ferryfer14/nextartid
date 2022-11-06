@@ -872,6 +872,12 @@ class ArtistManagementController extends Controller
         foreach($artists as $ar){
             array_push($my_artist,$ar['name']);
         }
+        foreach ($album->songs as $s) {
+            $song_roles = DB::table('album_artist')
+            ->where('song_id',$s->id)
+            ->get();
+            $s->roles_song = $song_roles;
+        }
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)

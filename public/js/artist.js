@@ -809,6 +809,59 @@
                     Artist.editSongForm.find("[name='isrc']").removeAttr("readonly");
                 }
             });
+            if(song.roles_song.length > 0){
+                //var objTo = document.getElementById('additional_artist_edit');
+                Artist.editSongForm.find('#additional_artist').html('');
+                for(var i=0;i<artist_roles.length;i++){
+                    if(i==0){
+                        var divtest = document.createElement("div");
+                        divtest.setAttribute("class", "row");
+                        var divsel = document.createElement("div");
+                        divsel.setAttribute("class", "col-md-5");
+                        var select = document.createElement("select");
+                        select.setAttribute("class", "select2");
+                        select.setAttribute("name", "roles[]");
+                        select.setAttribute("id", "roles"+i);
+                        divsel.appendChild(select);
+                        var divput = document.createElement("div");
+                        divput.setAttribute("class", "col-md-7 d-flex align-items-center");
+                        divput.innerHTML = '<input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" value="'+song.roles_song[i].artist_name+'" autocomplete="off"><a class="bg-success text-white edit-btn-add-artist p-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></a>';
+                        //var select = selectDownArtist(artist_roles[i].artist_role);
+                        console.log(select)
+                        divtest.append(divsel, divput);  
+                        Artist.editSongForm.find('#additional_artist').html(divtest);
+                        $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('#roles'+i), User.userInfo.artists_roles);
+                        Artist.editAlbumForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
+                    }else{
+                        var divtest = document.createElement("div");
+                        divtest.setAttribute("class", "row removeclass"+i);
+                        var divsel = document.createElement("div");
+                        divsel.setAttribute("class", "col-md-5");
+                        var select = document.createElement("select");
+                        select.setAttribute("class", "select2");
+                        select.setAttribute("name", "roles[]");
+                        select.setAttribute("id", "roles"+i);
+                        divsel.appendChild(select);
+                        var divput = document.createElement("div");
+                        divput.setAttribute("class", "col-md-7 d-flex align-items-center");
+                        divput.innerHTML = '<input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" value="'+song.roles_song[i].artist_name+'" autocomplete="off"><a data-id="'+i+'" class="bg-white text-danger remove_add_fields p-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16"><path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/><path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/></svg></a>';
+                        //var select = selectDownArtist(artist_roles[i].artist_role);
+                        console.log(select)
+                        divtest.append(divsel, divput);  
+                        Artist.editSongForm.find('#additional_artist').append(divtest);
+                        $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('#roles'+i), User.userInfo.artists_roles);
+                        Artist.editAlbumForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
+                    
+                    }
+                }
+            }else{
+                $('#additional_artist_edit').html('');
+                var objTo = document.getElementById('additional_artist_edit');
+                var divtest = document.createElement("div");
+                divtest.setAttribute("class", "row");
+                divtest.innerHTML = '<div class="col-md-5">'+dropDownArtist+'</div><div class="col-md-7 d-flex align-items-center"><input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off"><a class="bg-success text-white edit-btn-add-artist p-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></a></div>';
+                Artist.editSongForm.find('#additional_artist').html(divtest);
+            }
             Artist.editSongForm.find('.datepicker').datepicker();
             Artist.editSongForm.find('.edit-artwork-input').change(function () {
                 var input = this;
