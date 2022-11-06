@@ -1177,6 +1177,7 @@ class ArtistManagementController extends Controller
 
         $res = (new Upload)->handle($this->request, $artistIds = auth()->user()->artist_id,$album_id = $album->id);
         $res->album = $album;
+        $res->artist_roles = DB::table('album_artist')->where('album_id', $this->request->route('id'))->get();
         return response()->json($res);
     }
 

@@ -84,7 +84,7 @@
                             <span data-translate-text="LABEL_OPTIONAL">{{ __('web.LABEL_OPTIONAL') }}</span>
                         </label>
                         <div class="control field" mb-0>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-md-5">
                                 {!! makeDropDown(array(
                                     1 => __('Primary Artist'),
@@ -107,7 +107,7 @@
                                         </svg>
                                     </a>
                                 </div>
-                             </div>
+                             </div> -->
                              <div id="additional_artist">
                              </div>
                         </div>
