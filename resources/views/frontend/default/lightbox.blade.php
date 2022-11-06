@@ -1395,7 +1395,7 @@
                                     {!! makeDropDown(array(
                                         1 => __('Indonesia'),
                                         2 => __('English'),
-                                    ), 'language', null, true) !!}
+                                    ), 'language', null, false) !!}
                                 </div>
                                 <div class="control field mb-0">
                                     <div class="row ml-0 mr-0 mt-2 separately-check-box">
@@ -1551,7 +1551,7 @@
                                             8 => __('web.ALBUM_TYPE_LIVE'),
                                             9 => __('web.ALBUM_TYPE_REMIX'),
                                             10 => __('web.ALBUM_TYPE_OTHER'), */
-                                        ), 'type', null, true) !!}
+                                        ), 'type', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="title">
@@ -1652,7 +1652,7 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('FORM_GENRES1') }}</span>
                                         </label>
-                                        <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
+                                        <select name="genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
@@ -1676,7 +1676,7 @@
                                         {!! makeDropDown(array(
                                             1 => __('Indonesia'),
                                             2 => __('English'),
-                                        ), 'language', null, true) !!}
+                                        ), 'language', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
@@ -1722,7 +1722,7 @@
                                             2 => __('Mid'),
                                             3 => __('Full'),
                                             4 => __('Premium'),
-                                        ), 'price_category', null, true) !!}
+                                        ), 'price_category', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="created_at">
@@ -1867,7 +1867,7 @@
                                             8 => __('web.ALBUM_TYPE_LIVE'),
                                             9 => __('web.ALBUM_TYPE_REMIX'),
                                             10 => __('web.ALBUM_TYPE_OTHER'), */
-                                        ), 'type', null, true) !!}
+                                        ), 'type', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label>
@@ -1987,7 +1987,7 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES1') }}">{{ __('FORM_GENRES1') }}</span>
                                         </label>
-                                        <select class="select2" name="genre" placeholder="Select genres" autocomplete="off">
+                                        <select name="genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
@@ -2011,7 +2011,7 @@
                                         {!! makeDropDown(array(
                                             1 => __('Indonesia'),
                                             2 => __('English'),
-                                        ), 'language', null, true) !!}
+                                        ), 'language', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
@@ -2057,7 +2057,7 @@
                                             2 => __('Mid'),
                                             3 => __('Full'),
                                             4 => __('Premium'),
-                                        ), 'price_category', null, true) !!}
+                                        ), 'price_category', null, false) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="created_at">

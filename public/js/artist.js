@@ -895,7 +895,7 @@
                 $('#create-album-form').find("select[name='second_genre']").html('');
                 var options = $('#create-album-form').find("select[name='genre']").find("option:not(:selected)").clone();
                 $('#create-album-form').find("select[name='second_genre']").removeAttr("disabled");
-                $('#create-album-form').find("select[name='second_genre']").append(options);
+                $('#create-album-form').find("select[name='second_genre']").append(options).trigger('change');
             });
             $('#create-album-form').find("[name='upc-code']").change(function() {
                 if(this.checked) {
@@ -1060,7 +1060,7 @@
                 Artist.editAlbumForm.find("select[name='second_genre']").html('');
                 var options = Artist.editAlbumForm.find("select[name='genre']").find("option:not(:selected)").clone();
                 Artist.editAlbumForm.find("select[name='second_genre']").removeAttr("disabled");
-                Artist.editAlbumForm.find("select[name='second_genre']").append(options);
+                Artist.editAlbumForm.find("select[name='second_genre']").append(options).trigger('change');
             });
             Artist.editAlbumForm.find("[name='released_at']").datepicker();
             Artist.editAlbumForm.find("[name='created_at']").datepicker({
