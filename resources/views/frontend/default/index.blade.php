@@ -82,11 +82,15 @@
             yourdate = yourdate.join("/");
             return yourdate;
         }
-        async function createFile(url){
-            let response = await fetch(url);
-            let data = await response.blob();
-            // ... do something with the file or return it
-            return data;
+        
+        function getImgURL(url, callback){
+        var xhr = new XMLHttpRequest();
+        xhr.onload = function() {
+            callback(xhr.response);
+        };
+        xhr.open('GET', url);
+        xhr.responseType = 'blob';
+        xhr.send();
         }
     </script>
     <script src="{{ asset('js/core.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
