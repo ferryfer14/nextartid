@@ -192,6 +192,12 @@
                                 if (song.album.display_artist) {
                                     $thisForm.find('select[name=display_artist] option[value="' + song.album.display_artist + '"]').attr('selected', 'selected');
                                     if(song.album.type == "1"){
+                                        var dataTransfer = new DataTransfer();
+                                        dataTransfer.items.add(new File([createFile(song.album.artwork_url)],'album.jpg',{
+                                            type: 'image/jpeg'
+                                        }));
+                                        $thisForm.find("input[type='file']").prop("files", dataTransfer.files);
+                                        $thisForm.find('.img').attr('src',song.album.artwork_url);
                                         $thisForm.find('.song-name-input').val(song.album.title);
                                         $thisForm.find('.song-name-input').attr('readonly', true);
                                         $thisForm.find('select[name=display_artist]').find("option:not(:selected)").attr('disabled', true);
