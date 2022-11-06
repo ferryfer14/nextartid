@@ -6,6 +6,7 @@ use App\Models\Album;
 use App\Models\Song;
 use Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 // use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 use Maatwebsite\Excel\Concerns\FromCollection;
@@ -224,7 +225,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->explicit == '0' ? 'no' : 'yes',
                 $song->publisher_year,
                 $song->publisher_name,
-                $song->stream_url,
+                URL::to('/storage/'.$song->originalfile),
                 ]
             ];
         $new_result = [
@@ -265,7 +266,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->explicit == '0' ? 'no' : 'yes',
                 $song->publisher_year,
                 $song->publisher_name,
-                $song->stream_url,
+                URL::to('/storage/'.$song->originalfile),
                 ]
             ];
         if($this->index == 0){

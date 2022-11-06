@@ -192,10 +192,16 @@
                                 if (song.album.display_artist) {
                                     $thisForm.find('select[name=display_artist] option[value="' + song.album.display_artist + '"]').attr('selected', 'selected');
                                     if(song.album.type == "1"){
+                                        $thisForm.find('.song-name-input').val(song.album.title);
+                                        $thisForm.find('.song-name-input').attr('readonly', true);
                                         $thisForm.find('select[name=display_artist]').find("option:not(:selected)").attr('disabled', true);
                                         $thisForm.find('select[name=display_artist]').attr('readonly', true);
                                     }
                                 }
+                                $thisForm.find("[name='remix_version']").val(song.album.remix_version);
+                                $thisForm.find("[name='label']").val(song.album.label);
+                                $thisForm.find("[name='label']").val(song.album.recording_year);
+                                $thisForm.find("[name='publisher_year']").val(song.album.recording_name);
                                 $thisForm.find("[name='primary-artist']").val($thisForm.find("select[name=display_artist]").find('option:selected').text());
                                 $thisForm.find("[name='composer']").val(song.album.composer);
                                 $thisForm.find("[name='arranger']").val(song.album.arranger);

@@ -187,10 +187,11 @@ class Upload
 
                 }
             }
-
+            $song->originalfile = $request->file('file')->getClientOriginalName();
             $song->save();
 
-            $tempPath = Str::random(32);
+            //$tempPath = Str::random(32);
+            $tempPath = $request->file('file')->getClientOriginalName();
             File::copy($request->file('file')->getPathName(), Storage::disk('public')->path($tempPath));
             $audio = new \stdClass();
             $audio->path = Storage::disk('public')->path($tempPath);
