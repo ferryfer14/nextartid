@@ -830,8 +830,8 @@
                         console.log(select)
                         divtest.append(divsel, divput);  
                         Artist.editSongForm.find('#additional_artist').html(divtest);
-                        $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('#roles'+i), User.userInfo.artists_roles);
-                        Artist.editAlbumForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
+                        $.engineUtils.makeSelectOption(Artist.editSongForm.find('#roles'+i), User.userInfo.artists_roles);
+                        Artist.editSongForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
                     }else{
                         var divtest = document.createElement("div");
                         divtest.setAttribute("class", "row removeclass"+i);
@@ -849,8 +849,8 @@
                         console.log(select)
                         divtest.append(divsel, divput);  
                         Artist.editSongForm.find('#additional_artist').append(divtest);
-                        $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('#roles'+i), User.userInfo.artists_roles);
-                        Artist.editAlbumForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
+                        $.engineUtils.makeSelectOption(Artist.editSongForm.find('#roles'+i), User.userInfo.artists_roles);
+                        Artist.editSongForm.find('#roles'+i+' option[value="' + song.roles_song[i].artist_role + '"]').attr('selected', 'selected')
                     
                     }
                 }
