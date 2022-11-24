@@ -49,6 +49,8 @@ return [
     "PURCHASE" => "Purchase",
     "PURCHASED" => "Purchased",
     "ARTIST_DIDNT_RELEASE_ANYTHING_YET" => ":name didn't release any album yet.",
+    "ARTIST_DIDNT_PAID_ANYTHING_YET" => ":name didn't paid any album yet.",
+    "ARTIST_DIDNT_UNPAID_ANYTHING_YET" => ":name didn't unpaid any album yet.",
     "YOU_DIDNT_BOUGHT_ANYTHING_YET" => "You haven't bought anything yet.",
     "YOU_DIDNT_BOUGHT_TIP" => "Discover the most popular songs and album available or browse our hottest new items.",
     "COUNTRY" => "Country",

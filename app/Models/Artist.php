@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url', 'favorite', 'permalink_url'];
+    protected $appends = ['artwork_url', 'favorite', 'permalink_url','album_count_paid','album_count_unpaid'];
 
     protected static function boot()
     {
@@ -101,6 +101,27 @@ class Artist extends Model implements HasMedia
         }
     }
 
+    public function getAlbumCountPaidAttribute($value)
+    {
+        if ($this->id < 1000) {
+            return Album::where('artistIds', 'REGEXP', '(^|,)(' . $this->id . ')(,|$)')->
+            where('paid','1')->count();
+        } else {
+            return Album::whereRaw("artistIds LIKE CONCAT('". $this->id . "', '%')")->
+            where('paid','1')->count();
+        }
+    }
+
+    public function getAlbumCountUnpaidAttribute($value)
+    {
+        if ($this->id < 1000) {
+            return Album::where('artistIds', 'REGEXP', '(^|,)(' . $this->id . ')(,|$)')->
+            where('paid','0')->count();
+        } else {
+            return Album::whereRaw("artistIds LIKE CONCAT('". $this->id . "', '%')")->
+            where('paid','0')->count();
+        }
+    }
     public function getLovedAttribute()
     {
         if(auth()->user()) {

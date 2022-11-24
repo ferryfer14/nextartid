@@ -38,29 +38,77 @@
                             </div>
                         </div>
                     </div>
-                    <div id="grid" class="row">
-                        @foreach($artist->albums as $album)
-                            <script>var album_data_{{ $album->id }} = {!! json_encode($album) !!}</script>
-                            <div class="module module-cell small grid-item">
-                                <div class="img-container">
-                                    <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
-                                    <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
-                                    <div class="actions primary">
-                                        <a class="btn btn-secondary btn-icon-only btn-options" data-toggle="contextmenu" data-trigger="left" data-type="album" data-id="{{ $album->id }}">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                                        </a>
-                                        <a class="btn btn-secondary btn-icon-only btn-rounded btn-play play-or-add play-object" data-type="album" data-id="{{ $album->id }}">
-                                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="26" width="20"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                                        </a>
+                    @php $all_album = $artist->albums; @endphp
+                    <p class="headline">Unpaid</p>
+                    <hr class="mt-0 mb-2"/>
+                    @if($artist->album_count_unpaid > 0)
+                        <div id="grid" class="row">
+                            @foreach($all_album as $album)
+                                @if($album->paid == 0)
+                                    <script>var album_data_{{ $album->id }} = {!! json_encode($album) !!}</script>
+                                    <div class="module module-cell small grid-item">
+                                        <div class="img-container">
+                                            <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
+                                            <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
+                                            <div class="actions primary">
+                                                <a class="btn btn-secondary btn-icon-only btn-options" data-toggle="contextmenu" data-trigger="left" data-type="album" data-id="{{ $album->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                                                </a>
+                                                <a class="btn btn-secondary btn-icon-only btn-rounded btn-play play-or-add play-object" data-type="album" data-id="{{ $album->id }}">
+                                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="26" width="20"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="module-inner">
+                                            <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline">{!! $album->title !!}</a>
+                                            <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="module-inner">
-                                    <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline">{!! $album->title !!}</a>
-                                    <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
-                                </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="empty-page followers">
+                            <div class="empty-inner">
+                                <h2>{{ __('web.ARTIST_DIDNT_UNPAID_ANYTHING_YET', ['name' => $artist->name]) }}</h2>
                             </div>
-                        @endforeach
-                    </div>
+                        </div>
+                    @endif
+                    <p class="headline">Paid</p>
+                    <hr class="mt-0 mb-2"/>
+                    @if($artist->album_count_paid > 0)
+                        <div id="grid" class="row">
+                            @foreach($all_album as $album)
+                                @if($album->paid == 1)
+                                    <script>var album_data_{{ $album->id }} = {!! json_encode($album) !!}</script>
+                                    <div class="module module-cell small grid-item">
+                                        <div class="img-container">
+                                            <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
+                                            <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
+                                            <div class="actions primary">
+                                                <a class="btn btn-secondary btn-icon-only btn-options" data-toggle="contextmenu" data-trigger="left" data-type="album" data-id="{{ $album->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                                                </a>
+                                                <a class="btn btn-secondary btn-icon-only btn-rounded btn-play play-or-add play-object" data-type="album" data-id="{{ $album->id }}">
+                                                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="26" width="20"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="module-inner">
+                                            <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline">{!! $album->title !!}</a>
+                                            <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
+                                        </div>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="empty-page followers">
+                            <div class="empty-inner">
+                                <h2>{{ __('web.ARTIST_DIDNT_PAID_ANYTHING_YET', ['name' => $artist->name]) }}</h2>
+                            </div>
+                        </div>
+                    @endif
                 @else
                     <div class="empty-page followers">
                         <div class="empty-inner">
