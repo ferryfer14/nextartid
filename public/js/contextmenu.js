@@ -1156,8 +1156,9 @@
                     items: {
                         "settings": {name: Language.text.SETTINGS, disabled: !User.isLogged()},
                         "language": {name: Language.text.LANGUAGE},
-                        "feedback": {name: Language.text.FEEDBACK},
-                        "invite": {name: Language.text.INVITE_FRIENDS, disabled: !User.isLogged()},
+                        // Edit by Lindo
+                        // "feedback": {name: Language.text.FEEDBACK},
+                        // "invite": {name: Language.text.INVITE_FRIENDS, disabled: !User.isLogged()},
                         "claim_artist": {
                             name: Language.text.CLAIM_ARTIST,
                             disabled: !GLOBAL.allow_artist_claim || !User.isLogged() || Boolean(Number(User.userInfo.artist_id))
@@ -1477,9 +1478,10 @@
                             name: Language.text.CONTEXT_ARTIST_MANAGER,
                             disabled: !Boolean(Number(User.userInfo.artist_id))
                         },
-                        "my_music": {name: Language.text.MY_MUSIC},
-                        "my_playlists": {name: Language.text.PLAYLISTS},
-                        "my_purchased": {name: Language.text.PURCHASED},
+                        // Edit by Lindo
+                        // "my_music": {name: Language.text.MY_MUSIC},
+                        // "my_playlists": {name: Language.text.PLAYLISTS},
+                        // "my_purchased": {name: Language.text.PURCHASED},
                         "sep1": "---------",
                         "my_admin": {name: 'Admin Panel', disabled: ! User.userInfo.admin_panel},
                         "signout": {name: Language.text.SIGN_OUT},

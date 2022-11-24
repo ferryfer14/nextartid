@@ -123,7 +123,8 @@
                         </div>
                     </div>
                     <h2 class="mt-5" data-translate-text="WITHDRAW_PAYMENT_METHOD">Withdrawal Payment method</h2>
-                    <div class="content row">
+                    {{-- Edit by Lindo --}}
+                    {{-- <div class="content row">
                         <div class="fields col-lg-6 col-12">
                             <div class="control">
                                 <div class="d-flex">
@@ -137,7 +138,7 @@
                         <div class="description col-lg-6 col-12 desktop">
                             <p>Please fill your Paypal email.</p>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="content row border-0">
                         <div class="fields col-lg-6 col-12">
                             <div class="control">

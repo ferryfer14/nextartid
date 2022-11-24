@@ -90,9 +90,14 @@ class Album extends Model implements HasMedia
 
     public function getGenresAttribute($value)
     {
-        return Genre::whereIn('id', explode(',', $this->attributes['genre']))->limit(4)->get();
+        return Genre::where('id', $this->attributes['genre'])->get();
     }
 
+    public function getSecondGenresAttribute($value)
+    {
+        return Genre::where('id', $this->attributes['second_genre'])->get();
+    }
+    
     public function getPermalinkUrlAttribute($value)
     {
         return route('frontend.album', ['id' => $this->attributes['id'], 'slug' => str_slug(html_entity_decode($this->attributes['title'])) ? str_slug(html_entity_decode($this->attributes['title'])) : str_replace(' ', '-', html_entity_decode($this->attributes['title']))]);

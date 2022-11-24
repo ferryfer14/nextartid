@@ -42,7 +42,8 @@
                     <div class="card-header p-0 position-relative">
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link active" href="#overview" data-toggle="pill"><i class="fas fa-fw fa-newspaper"></i> Overview</a></li>
-                            <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li>
+                            {{-- Edit by Lindo --}}
+                            {{-- <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li> --}}
                         </ul>
                     </div>
                     <div class="card-body">

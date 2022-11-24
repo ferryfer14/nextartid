@@ -373,6 +373,9 @@ class ArtistManagementController extends Controller
 
                 if($this->request->input('additional-artist') != ''){
                     $i = 0;
+                    DB::table('album_artist')
+                    ->where('song_id',$this->request->input('id'))
+                    ->delete();
                     foreach($this->request->input('additional-artist') as $name){
                         if($name != ''){
                             DB::table('album_artist')->insert([

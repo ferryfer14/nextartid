@@ -32,12 +32,14 @@
                     <div class="card-header p-0 position-relative">
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link active" href="#overview" data-toggle="pill"><i class="fas fa-fw fa-newspaper"></i> Overview</a></li>
-                            <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li>
+                            {{-- Edit by Lindo --}}
+                            {{-- <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li> --}}
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content mt-2" id="myTabContent">
-                            <div id="overview" class="tab-pane fade show active">
+                            {{-- Edit by Lindo --}}
+                            {{-- <div id="overview" class="tab-pane fade show active">
                                 @csrf
                                 <div class="form-group multi-artists">
                                     <label>Artists</label>
@@ -121,7 +123,7 @@
                                         <label class="pl-6 col-form-label">Approve this album</label>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div id="streamable" class="tab-pane fade">
                                 <div class="alert alert-info">Note: You can configure additional song playable and downloadable parameters for different groups in this section.</div>
                                 @if(cache()->has('usergroup'))

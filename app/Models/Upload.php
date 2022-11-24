@@ -190,7 +190,7 @@ class Upload
             $file = $request->file('file')->getClientOriginalName();
             $filename = pathinfo($file, PATHINFO_FILENAME);
             $extension = pathinfo($file, PATHINFO_EXTENSION);
-            $file_uri = $filename.date('YmdHis').$extension;
+            $file_uri = $filename.'_'.date('YmdHis').'.'.$extension;
             $song->originalfile = $file_uri;
             $song->save();
 

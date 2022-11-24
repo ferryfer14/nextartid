@@ -99,9 +99,12 @@
 <div id="fb-root"></div>
 <div id="header-container">
     <div id="logo" class="desktop">
-        <a href="{{ route('frontend.homepage') }}" class="logo-link"></a>
+        {{-- Edit by Lindo --}}
+        {{-- <a href="{{ route('frontend.homepage') }}" class="logo-link"></a> --}}
+        <a href="{{ env('APP_URL') }}/artist-management/albums" class="logo-link"></a>
     </div>
-    <div id="header-search-container" class="desktop">
+    {{-- Edit by Lindo --}}
+    {{-- <div id="header-search-container" class="desktop">
         <form id="header-search">
             <span class="prediction"></span>
             <input class="search" name="q" value="" autocomplete="off" type="text" placeholder="{{ __('web.SEARCH_FOR_MUSIC') }}">
@@ -112,7 +115,7 @@
                 <div id="search-suggest-content-container"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div id="header-user-assets" class="session desktop">
         <div id="header-account-group" class="user-asset hide">
             <a id="profile-button" class="">
@@ -131,12 +134,13 @@
                         <path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3.5-1.57-3.5-3.5s1.57-3.5 3.5-3.5 3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5z"/>
                     </svg>
                 </a>
-                <a id="upload-button" href="{{ route('frontend.auth.upload') }}" class="btn upload-music hide">
+                {{-- Edit by Lindo --}}
+                {{-- <a id="upload-button" href="{{ route('frontend.auth.upload') }}" class="btn upload-music hide">
                     <svg height="29" viewBox="0 0 24 24" width="15" xmlns="http://www.w3.org/2000/svg">
                         <path d="M0 0h24v24H0z" fill="none"/>
                         <path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/>
                     </svg>
-                </a>
+                </a> --}}
                 <a id="notification-button" class="btn hide">
                     <span id="header-notification-pill" class="notification-pill hide">
                         <span id="header-notification-count" class="notification-count">0</span>
@@ -240,17 +244,20 @@
     </div>
     <ul id="aside_ul">
         <li class="side-menu-home desktop">
-            <a href="{{ route('frontend.homepage') }}">
+            {{-- Edit by Lindo --}}
+            {{-- <a href="{{ route('frontend.homepage') }}"> --}}
+            <a href="{{ env('APP_URL') }}/artist-management/albums">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
                 <span data-translate-text="HOME">{{ __('web.HOME') }}</span>
             </a>
         </li>
-        <li class="side-menu-discover">
+        {{-- Edit by Lindo --}}
+        {{-- <li class="side-menu-discover">
             <a href="{{ route('frontend.discover') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 10c-3.86 0-7 3.14-7 7h2c0-2.76 2.24-5 5-5s5 2.24 5 5h2c0-3.86-3.14-7-7-7zm0-4C5.93 6 1 10.93 1 17h2c0-4.96 4.04-9 9-9s9 4.04 9 9h2c0-6.07-4.93-11-11-11z"/></svg>
                 <span data-translate-text="DISCOVER">{{ __('web.DISCOVER') }}</span>
             </a>
-        </li>
+        </li> --}}
         @if(config('settings.module_community', true))
             <li class="side-menu-community">
                 <a href="{{ route('frontend.community') }}">
@@ -267,12 +274,13 @@
                 </a>
             </li>
         @endif
-        <li class="side-menu-trending">
+        {{-- Edit by Lindo --}}
+        {{-- <li class="side-menu-trending">
             <a href="{{ route('frontend.trending') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
                 <span data-translate-text="TRENDING">{{ __('web.TRENDING') }}</span>
             </a>
-        </li>
+        </li> --}}
         @if(config('settings.module_store', true))
             <li class="side-menu-store">
                 <a href="{{ route('frontend.store') }}">
@@ -308,7 +316,8 @@
             @endforeach
         @endif
     </ul>
-    <div id="sidebar" class="scrollable">
+    {{-- Edit by Lindo --}}
+    {{-- <div id="sidebar" class="scrollable">
         <div id="sidebar-playlists">
             <div id="sidebar-playlists-title" class="sidebar-title">
                 <span data-translate-text="PLAYLISTS">{{ __('web.PLAYLISTS') }}</span>
@@ -369,9 +378,10 @@
                 <div id="sidebar-subbed-playlists-grid" class="collapsable"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </aside>
-<div class="contact-sidebar">
+{{-- Edit by Lindo --}}
+{{-- <div class="contact-sidebar">
     <div id="sidebar-community">
         <div class="sidebar-title">
             <span class="community-link" data-translate-text="COMMUNITY">{{ __('web.COMMUNITY') }}</span>
@@ -423,7 +433,7 @@
             <svg class="icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 8V4l8 8-8 8v-4H4V8z"/></svg>
         </a>
     </div>
-</div>
+</div> --}}
 <div id="user-settings-menu" class="mobile">
     <div class="user-section">
         <div class="inner-us">
