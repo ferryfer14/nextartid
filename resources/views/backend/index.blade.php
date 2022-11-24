@@ -191,6 +191,8 @@
             </li>
         @endif
         <hr class="sidebar-divider">
+        @include('backend.commons.sidebar-menu', ['name' => 'Price Song', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_pricing', 'route' => 'backend.pricing.edit', 'params' => ['id' => '1']])
+        <hr class="sidebar-divider">
         @if(\App\Models\Role::getValue('admin_users'))
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="false" aria-controls="collapseUser">

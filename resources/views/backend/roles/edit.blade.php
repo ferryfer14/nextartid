@@ -882,6 +882,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">
+                                                <label class="col-sm-8 col-9 mb-0">Allow the management of Song Price
+                                                    <p class="small text-danger mb-0">This option provide the access to Edit song price.</p>
+                                                </label>
+                                                <div class="col-sm-4 col-3">
+                                                    <label class="switch"><input type="checkbox" name="save_role[admin_pricing]" value="1" @if(array_get($role->permissions, 'admin_pricing')) checked="checked" @endif><span class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row border-bottom mb-0 pt-3 pb-3">
                                                 <label class="col-sm-8 col-9 mb-0">Allow to manage promotional materials in the Administration Panel
                                                     <p class="small text-danger mb-0">This option allows users with access to Administration Panel create, edit and delete promotional materials in the Administration Panel.</p>
                                                 </label>
@@ -983,14 +991,6 @@
                                                 </label>
                                                 <div class="col-sm-4 col-3">
                                                     <label class="switch"><input type="checkbox" name="save_role[admin_albums]" value="1" @if(array_get($role->permissions, 'admin_albums')) checked="checked" @endif><span class="slider round"></span></label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row border-bottom mb-0 pt-3 pb-3">
-                                                <label class="col-sm-8 col-9 mb-0">Allow the management of Songs
-                                                    <p class="small mb-0">This option allows users with access to create, edit and delete Songs.</p>
-                                                </label>
-                                                <div class="col-sm-4 col-3">
-                                                    <label class="switch"><input type="checkbox" name="save_role[admin_songs]" value="1" @if(array_get($role->permissions, 'admin_songs')) checked="checked" @endif><span class="slider round"></span></label>
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">
