@@ -68,6 +68,24 @@
                             </span>
                             <span class="label" data-translate-text="">Status Payment</span>
                         </li>
+                        @if($album->song_count > 0)
+                            <li>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-8">
+                                                <p class="d-flex justify-content-center">{{ $album->song_count }} Songs x {{ number_format((float)($album->price->harga), 0, ',', '.') }} : </p>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <s class="num d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</s>
+                                                <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="mt-1 w-100 btn btn-primary">Bayar Sekarang</a>
+                                    </div>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

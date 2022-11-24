@@ -27,7 +27,7 @@ class Album extends Model implements HasMedia
 {
     use InteractsWithMedia, SanitizedRequest;
 
-    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url'];
+    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price'];
 
     protected $hidden = ['media', 'user_id', 'artistIds', 'approved', 'updated_at'];
 
@@ -106,6 +106,11 @@ class Album extends Model implements HasMedia
     public function getSongCountAttribute($value)
     {
         return AlbumSong::where('album_id', $this->id)->count();
+    }
+
+    public function getPriceAttribute($value)
+    {
+        return Pricing::where('id', '1')->first();
     }
 
     public function getSalesAttribute()
