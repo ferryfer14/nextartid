@@ -62,6 +62,12 @@
                             </span>
                             <span class="label" data-translate-text="">Status</span>
                         </li>
+                        <li>
+                            <span class="num">
+                                @if($album->paid) Paid @else <span class="badge badge-warning basic-tooltip" tooltip="To get this album paid, you have to pay this album.">Unpaid</span> @endif
+                            </span>
+                            <span class="label" data-translate-text="">Status Payment</span>
+                        </li>
                     </ul>
                 </div>
             </div>
