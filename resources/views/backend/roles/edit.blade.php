@@ -914,6 +914,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">
+                                                <label class="col-sm-8 col-9 mb-0">Allow the management of Patners
+                                                    <p class="small mb-0">This option allows users with access to create, edit and delete patner.</p>
+                                                </label>
+                                                <div class="col-sm-4 col-3">
+                                                    <label class="switch"><input type="checkbox" name="save_role[admin_patners]" value="1" @if(array_get($role->permissions, 'admin_genres')) checked="checked" @endif><span class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row border-bottom mb-0 pt-3 pb-3">
                                                 <label class="col-sm-8 col-9 mb-0">Allow the management of Genres
                                                     <p class="small mb-0">This option allows users with access to create, edit and delete genre.</p>
                                                 </label>

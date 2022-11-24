@@ -78,6 +78,7 @@
         </li>
         @endif
         <hr class="sidebar-divider">
+        @include('backend.commons.sidebar-menu', ['name' => 'Manage patners', 'icon' => 'fa-tags', 'permission' => 'admin_patners', 'route' => 'backend.patners'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage genres', 'icon' => 'fa-tags', 'permission' => 'admin_genres', 'route' => 'backend.genres'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage moods', 'icon' => 'fa-smile', 'permission' => 'admin_moods', 'route' => 'backend.moods'])
         <hr class="sidebar-divider">
