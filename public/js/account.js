@@ -235,6 +235,7 @@
                 success: function () {
                     User.SignIn.me();
                     $.engineLightBox.hide();
+                    window.location.href = "/artist-management";
                     if(window.location.pathname === route.route('frontend.homepage')) {
                         $(window).trigger({
                             type: "engineReloadCurrentPage"
