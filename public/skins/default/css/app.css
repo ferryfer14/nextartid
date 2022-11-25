@@ -2380,7 +2380,7 @@ section {
 }
 
 .signed-in #main {
-    /*margin-right: 230px;*/
+    margin-right: 230px;
 }
 .signed-in.sidebar-minimum #main {
     margin-right: 54px;
