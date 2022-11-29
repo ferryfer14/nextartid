@@ -34,6 +34,7 @@ use Carbon\Carbon;
 use Image;
 use App\Models\Role;
 use App\Models\Country;
+use App\Models\Patner;
 
 class ArtistManagementController extends Controller
 {
@@ -934,6 +935,7 @@ class ArtistManagementController extends Controller
         $album->setRelation('songs', $album->songs()->withoutGlobalScopes()->get());
         $artist_roles = DB::table('album_artist')->where('album_id', $this->request->route('id'))->get();
         $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $patners = Patner::withoutGlobalScopes()->get();
         $my_artist = array();
         foreach($artists as $ar){
             array_push($my_artist,$ar['name']);
@@ -948,6 +950,7 @@ class ArtistManagementController extends Controller
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
             ->with('group_genre', $this->groupGenre())
+            ->with('patners', $patners)
             ->with('artist_roles', $artist_roles)
             ->with('album', $album);
 
@@ -1060,6 +1063,27 @@ class ArtistManagementController extends Controller
         }
     }
 
+    public function editPatner()
+    {
+        $this->request->validate([
+            'patner' => 'required',
+        ]);
+
+        if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
+            $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+            $patner = $this->request->input('patner');
+            if(is_array($patner))
+            {
+                $album->patner = implode(",", $this->request->input('patner'));
+            } else {
+                $album->patner = null;
+            }
+            $album->save();
+            return response()->json($album);
+        }else {
+            abort(403, 'Not your album.');
+        }
+    }
     public function editAlbum()
     {
         $this->request->validate([

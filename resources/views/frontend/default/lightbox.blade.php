@@ -1823,6 +1823,43 @@
             </div>
         </div>
     </div>
+    <div class="lightbox lightbox-pay-album hide">
+        <div class="lbcontainer">
+            <div id="pay-playlist">
+                <form id="patner-album-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.albums.editPatner') }}" enctype="multipart/form-data" novalidate>
+                    <div class="lightbox-header">
+                        <h2 class="title">Choose patners for publish your album</h2>
+                        @yield('lightbox-close')
+                    </div>
+                    <div class="lightbox-content">
+                        <div class="lightbox-content-block">
+                            <div class="error hide">
+                                <div class="message"></div>
+                            </div>
+                            <input name="id" type="hidden">
+                            <div class="lightbox-with-artwork-block">
+                                @if(isset($patners))
+                                    <div class="row">
+                                        @foreach($patners as $p)
+                                            <div class="col-md-4">
+                                                <input name="patner[]" id="patner_{{ $p->id }}" value="{{ $p->id }}" {{ $p->discover == 1 ? '' : 'disabled' }} type="checkbox">
+                                                {{ $p->name }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lightbox-footer">
+                        <div class="right">
+                            <button class="btn btn-primary" type="submit" data-translate-text="SAVE">{{ __('web.SAVE') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-edit-album hide">
         <div class="lbcontainer">
             <div id="create-playlist">

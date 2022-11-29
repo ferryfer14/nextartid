@@ -25,6 +25,7 @@
         albumMoodSelection: $("#album-mood-selection"),
         createAlbumForm: $("#create-album-form"),
         editAlbumForm: $("#edit-album-form"),
+        patnerAlbumForm: $("#patner-album-form"),
         podcastCategories: [],
         countries: [],
         init: function () {
@@ -963,6 +964,47 @@
                         Artist.createAlbumForm.find('img').attr('src', e.target.result);
                     };
                     reader.readAsDataURL(input.files[0]);
+                }
+            });
+        },
+        payAlbum: function (el) {
+            var album = window['album_data_' + el.data('id')];
+            var patners = window['patners_' + el.data('id')];
+            var myPatners = patners.split(",");
+            for(var i = 0; i < myPatners.length; i++){
+                console.log(myPatners[i]);
+                Artist.patnerAlbumForm.find("#patner_"+myPatners[i]).attr('checked', 'checked');
+            }
+            Artist.albumSongsSelection.find("option").remove();
+            $.engineLightBox.show("lightbox-pay-album");
+            Artist.patnerAlbumForm.find("[name='id']").val(album.id);
+            Artist.patnerAlbumForm.ajaxForm({
+                beforeSubmit: function (data, $form, options) {
+                    var error = 0;
+                    Object.keys(data).forEach(function eachKey(key) {
+                        if (data[key].required && !data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").addClass("field-error");
+                            error++;
+                        } else if (data[key].required && data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").removeClass("field-error");
+                        }
+                    });
+                    if (error) return false;
+                    $form.find("[type='submit']").attr("disabled", "disabled");
+                },
+                success: function (response, textStatus, xhr, $form) {
+                    $form.find("[type='submit']").addClass("d-none");
+                    $form.trigger("reset");
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                    Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
+                },
+                error: function (e, textStatus, xhr, $form) {
+                    var errors = e.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        Toast.show("error", value[0], null);
+                    });
+                    $form.find('.error').removeClass('hide').html(e.responseJSON.errors[Object.keys(e.responseJSON.errors)[0]][0]);
+                    $form.find("[type='submit']").removeAttr("disabled");
                 }
             });
         },

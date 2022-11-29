@@ -3,6 +3,7 @@
     @include('artist-management.nav', ['artist' => $artist])
     <script>var album_data_{{ $album->id }} = {!! json_encode($album->makeHidden('songs')) !!}</script>
     <script>var artist_roles_{{ $album->id }} = {!! json_encode($artist_roles) !!}</script>
+    <script>var patners_{{ $album->id }} = {!! json_encode($album->patner) !!}</script>
     <div id="page-content">
         <div class="container">
             <div class="page-header artist-management main">
@@ -84,7 +85,7 @@
                                             <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
                                         </div>
                                     </div>
-                                    <a href="#" class="mt-3 w-100 btn btn-primary">Bayar Sekarang</a>
+                                    <a data-type="pay" data-id="{{ $album->id }}" class="mt-3 w-100 btn pay btn-primary">Pay Now</a>
                                 </div>
                             </div>
                         </div>

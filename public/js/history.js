@@ -150,6 +150,8 @@
                         } else if (a.data('type') === 'video') {
                             Artist.editVideo(a);
                         }
+                    } else if (a.hasClass("pay") === true) {
+                        Artist.payAlbum(a);
                     } else if (a.hasClass("delete-event-cta") === true) {
                         User.Actions.removeActivity(a);
                     } else if (a.hasClass("play-station") === true) {

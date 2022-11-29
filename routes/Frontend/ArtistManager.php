@@ -16,6 +16,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('artist-management/albums', 'ArtistManagementController@albums')->name('auth.user.artist.manager.albums');
     Route::post('artist-management/albums/create', 'ArtistManagementController@createAlbum')->name('auth.user.artist.manager.albums.create');
     Route::post('artist-management/albums/edit', 'ArtistManagementController@editAlbum')->name('auth.user.artist.manager.albums.edit');
+    Route::post('artist-management/albums/editPatner', 'ArtistManagementController@editPatner')->name('auth.user.artist.manager.albums.editPatner');
     Route::post('artist-management/albums/delete', 'ArtistManagementController@deleteAlbum')->name('auth.user.artist.manager.albums.delete');
     Route::post('artist-management/albums/sort', 'ArtistManagementController@sortAlbumSongs')->name('auth.user.artist.manager.albums.sort');
     Route::get('artist-management/albums/{id}', 'ArtistManagementController@showAlbum')->name('auth.user.artist.manager.albums.show');

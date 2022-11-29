@@ -98,6 +98,11 @@ class Album extends Model implements HasMedia
         return Genre::where('id', $this->attributes['second_genre'])->get();
     }
     
+    public function getPatnersAttribute($value)
+    {
+        return Patner::whereIn('id', explode(',', $this->attributes['patner']))->get();
+    }
+
     public function getPermalinkUrlAttribute($value)
     {
         return route('frontend.album', ['id' => $this->attributes['id'], 'slug' => str_slug(html_entity_decode($this->attributes['title'])) ? str_slug(html_entity_decode($this->attributes['title'])) : str_replace(' ', '-', html_entity_decode($this->attributes['title']))]);
