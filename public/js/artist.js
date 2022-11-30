@@ -970,11 +970,20 @@
         payAlbum: function (el) {
             var album = window['album_data_' + el.data('id')];
             var patners = window['patners_' + el.data('id')];
+            var data_patner = window['data_patner'];
+            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').removeClass("text-center");
+            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+            var divput = document.createElement("div");
+            divput.setAttribute("class", "row");
+            var list_checkbox = '';
             var myPatners = patners.split(",");
-            for(var i = 0; i < myPatners.length; i++){
-                console.log(myPatners[i]);
-                Artist.patnerAlbumForm.find("#patner_"+myPatners[i]).attr('checked', 'checked');
+            for(var i = 0; i<data_patner.length;i++){
+                var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
+                var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'>"+data_patner[i].name+"</div>"
             }
+            divput.innerHTML = list_checkbox;
+            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
             Artist.albumSongsSelection.find("option").remove();
             $.engineLightBox.show("lightbox-pay-album");
             Artist.patnerAlbumForm.find("[name='id']").val(album.id);
@@ -993,13 +1002,30 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function (response, textStatus, xhr, $form) {
-                    console.log(response);
                     $form.find("[type='submit']").addClass("d-none");
                     $form.trigger("reset");
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
                     Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
+                    var timer2 = "2:01";
+                    setInterval(function() {
+                        var timer = timer2.split(':');
+                        //by parsing integer, I avoid all extra string processing
+                        var minutes = parseInt(timer[0], 10);
+                        var seconds = parseInt(timer[1], 10);
+                        --seconds;
+                        minutes = (seconds < 0) ? --minutes : minutes;
+                        if (minutes < 0) clearInterval(interval);
+                        seconds = (seconds < 0) ? 59 : seconds;
+                        seconds = (seconds < 10) ? '0' + seconds : seconds;
+                        //minutes = (minutes < 10) ?  minutes : minutes;
+                        Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
+                        timer2 = minutes + ':' + seconds;
+                    }, 1000);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 130000);
                 },
                 error: function (e, textStatus, xhr, $form) {
                     var errors = e.responseJSON.errors;
@@ -1158,7 +1184,6 @@
                         divput.setAttribute("class", "col-md-7 d-flex align-items-center");
                         divput.innerHTML = '<input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" value="'+artist_roles[i].artist_name+'" autocomplete="off"><a class="bg-success text-white edit-btn-add-artist p-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></a>';
                         //var select = selectDownArtist(artist_roles[i].artist_role);
-                        console.log(select)
                         divtest.append(divsel, divput);  
                         objTo.appendChild(divtest);
                         $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('#roles'+i), User.userInfo.artists_roles);

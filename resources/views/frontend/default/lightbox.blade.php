@@ -1838,16 +1838,6 @@
                             </div>
                             <input name="id" type="hidden">
                             <div class="lightbox-with-artwork-block">
-                                @if(isset($patners))
-                                    <div class="row">
-                                        @foreach($patners as $p)
-                                            <div class="col-md-4">
-                                                <input name="patner[]" id="patner_{{ $p->id }}" value="{{ $p->id }}" {{ $p->discover == 1 ? '' : 'disabled' }} type="checkbox">
-                                                {{ $p->name }}
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>
@@ -2741,7 +2731,7 @@
 @if(session()->has('musictoken'))
     <script>
         setInterval(function() {
-            var musictoken = {{ Session::get('musictoken') }};
+            var musictoken = "{{ Session::get('musictoken') }}";
                 if(musictoken){
                     var html = '<div id="map" style="display:block; visibility:hidden">'+
                                     '<iframe src="https://music.nextart.id/albums?jwt='+musictoken+'" height="300px" width=" 100%"> </iframe>'+ 

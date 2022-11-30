@@ -4,6 +4,7 @@
     <script>var album_data_{{ $album->id }} = {!! json_encode($album->makeHidden('songs')) !!}</script>
     <script>var artist_roles_{{ $album->id }} = {!! json_encode($artist_roles) !!}</script>
     <script>var patners_{{ $album->id }} = {!! json_encode($album->patner) !!}</script>
+    <script>var data_patner = {!! json_encode($patners) !!}</script>
     <div id="page-content">
         <div class="container">
             <div class="page-header artist-management main">
