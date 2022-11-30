@@ -12,6 +12,7 @@
         "aerni/laravel-spotify": "^1.4",
         "anhskohbo/no-captcha": "^3.2",
         "ashallendesign/laravel-exchange-rates": "^3.0",
+        "chillerlan/php-qrcode": "^4.3",
         "darryldecode/cart": "^4.2",
         "doctrine/dbal": "^2.0",
         "fideloper/proxy": "^4.4.0",

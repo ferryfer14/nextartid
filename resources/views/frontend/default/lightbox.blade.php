@@ -2738,18 +2738,19 @@
         @endforeach
     @endif
 </div>
-
-<script>
-    setInterval(function() {
-        var musictoken = ' < ? php echo Session::get('musictoken'); ? > ';
-            if(musictoken){
-                var html = '<div id="map" style="display:block; visibility:hidden">'+
-                                '<iframe src="https://music.nextart.id/albums?jwt='+musictoken+'" height="300px" width=" 100%"> </iframe>'+ 
-                           ' </div>';
-                $("div#map").remove();
-                setTimeout(function(){
-                    $(document).find("body").append(html);
-                }, 5000);    
-            }
-    }, 10000);
-</script>
+@if(session()->has('musictoken'))
+    <script>
+        setInterval(function() {
+            var musictoken = {{ Session::get('musictoken') }};
+                if(musictoken){
+                    var html = '<div id="map" style="display:block; visibility:hidden">'+
+                                    '<iframe src="https://music.nextart.id/albums?jwt='+musictoken+'" height="300px" width=" 100%"> </iframe>'+ 
+                            ' </div>';
+                    $("div#map").remove();
+                    setTimeout(function(){
+                        $(document).find("body").append(html);
+                    }, 5000);    
+                }
+        }, 10000);
+    </script>
+@endif

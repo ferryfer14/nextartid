@@ -961,3 +961,96 @@ if (! function_exists('view')) {
         return $factory->make($view, $data, $mergeData);
     }
 }
+
+if (! function_exists('signature_youtap')) {
+
+    function signature_youtap($trx_id = null, $amount = 0,$Timestamp = null, $merchant_bill_ref){
+        $merchant = "6281313135672";
+        $terminal = "nextarttid000001";
+        $minifyBody = '{"merchant":"' . $merchant . '","terminal":"' . $terminal . '","trx_id":"' . $trx_id . '","trx_type":"026","merchant_bill_ref":"' . $merchant_bill_ref . '","amount":"' . ($amount * 100) . '","currency_code":"IDR","validity_period":"86400"}';
+        $key = "XUQ6k2wNO5eFZExSx95iHC0ojXjFZtCi";
+        $sha256 = hash_hmac('sha256', "$minifyBody:$Timestamp", $key, true);
+        $Signature = base64_encode($sha256);
+        return array('signature' => $Signature, 'minify_body' => $minifyBody);
+    }
+}
+
+if (! function_exists('new_transaction')) {
+
+    function new_transaction(){
+        $rand = rand(100,10000000000);
+        $trx_id = 'NXA'.$rand;
+        return $trx_id;
+    }
+}
+
+if (! function_exists('qris_youtap')) {
+
+    function qris_youtap($Timestamp, $Signature, $access_token, $minifyBody)
+    {
+    $curl = curl_init();
+    $url = "https://gateway-live.youtap.co.id:19110";
+    $MID = "NEXTART";
+    $a = curl_setopt_array($curl, array(
+        CURLOPT_URL => "$url/host-to-host/v1/merchant-qrcode-payment",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => $minifyBody,
+        CURLOPT_HTTPHEADER => array(
+        "Content-Type: application/json",
+        "Member-ID: $MID",
+        "Timestamp: $Timestamp",
+        "Signature: $Signature",
+        "Authorization: Bearer $access_token"
+        ),
+    ));
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return json_decode($response, true);
+    }
+}
+if (! function_exists('token_youtap')) {
+    /**
+     * Get the evaluated view contents for the given view.
+     *
+     * @param  string|null  $view
+     * @param  \Illuminate\Contracts\Support\Arrayable|array  $data
+     * @param  array  $mergeData
+     * @return \Illuminate\View\View|\Illuminate\Contracts\View\Factory
+     */
+    function token_youtap(){
+
+        $curl = curl_init();
+        $url = "https://gateway-live.youtap.co.id:19000";
+        $MID = "NEXTART";
+        $Timestamp = date('YMdHis');
+        $username = "nextart";
+        $password = "eacd132v-bga1-2122-12a2-f877debqac17";
+        curl_setopt_array($curl, array(
+          CURLOPT_URL => "$url/uaa/oauth/token?grant_type=client_credentials",
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_ENCODING => '',
+          CURLOPT_MAXREDIRS => 10,
+          CURLOPT_TIMEOUT => 0,
+          CURLOPT_FOLLOWLOCATION => true,
+          CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+          CURLOPT_CUSTOMREQUEST => "POST",
+          CURLOPT_POSTFIELDS => "grant_type=client_credentials&scope=client_ops",
+          CURLOPT_USERPWD => "$username:$password",
+          CURLOPT_HTTPHEADER => array(
+            "Content-Type: application/x-www-form-urlencoded",
+            "Member-ID: $MID",
+          ),
+        ));
+        $response = curl_exec($curl);
+        curl_close($curl);
+        $arr = json_decode($response, true);
+        $access_token = $arr['access_token'];
+        return $access_token;
+    }
+}

@@ -993,10 +993,13 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function (response, textStatus, xhr, $form) {
+                    console.log(response);
                     $form.find("[type='submit']").addClass("d-none");
                     $form.trigger("reset");
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
                     Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
                 },
                 error: function (e, textStatus, xhr, $form) {
                     var errors = e.responseJSON.errors;

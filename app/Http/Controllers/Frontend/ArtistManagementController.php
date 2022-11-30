@@ -35,6 +35,8 @@ use Image;
 use App\Models\Role;
 use App\Models\Country;
 use App\Models\Patner;
+use App\Models\Transaction;
+use chillerlan\QRCode\QRCode;
 
 class ArtistManagementController extends Controller
 {
@@ -1079,7 +1081,28 @@ class ArtistManagementController extends Controller
                 $album->patner = null;
             }
             $album->save();
-            return response()->json($album);
+            $token_youtap = token_youtap();
+            $trx_id = new_transaction();
+            $timestamp = date('YMdHis');
+            $merchant_bill_ref = ($timestamp . $trx_id);
+            $amount = $album->price->harga*$album->song_count;
+            $res_signature = signature_youtap($trx_id, $amount, $timestamp, $merchant_bill_ref);
+            $signature = $res_signature['signature'];
+            $minify_body = $res_signature['minify_body'];
+            $transaction = new Transaction();
+            $transaction->user_id = auth()->user()->id;
+            $transaction->album_id = $this->request->input('id');
+            $transaction->transaction_id = $trx_id;
+            $transaction->merchant_bill_ref = $merchant_bill_ref;
+            $transaction->minify_body = $minify_body;
+            $transaction->signature = $signature;
+            $transaction->amount = $amount;
+            $transaction->timestamp = $timestamp;
+            $transaction->save();
+            
+            $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
+            $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
+            return response()->json($url_qr);
         }else {
             abort(403, 'Not your album.');
         }
