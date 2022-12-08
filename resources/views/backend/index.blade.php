@@ -182,8 +182,8 @@
                 </a>
                 <div id="collapseTransactions" class="collapse" aria-labelledby="headingPlans" data-parent="#accordionSidebar">
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Pending', 'icon' => 'fa-cart-arrow-down', 'permission' => 'admin_transactions', 'route' => 'backend.orders'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Unpaid', 'icon' => 'fa-university', 'permission' => 'admin_transactions', 'route' => 'backend.withdraws'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Pending', 'icon' => 'fa-cart-arrow-down', 'permission' => 'admin_transactions', 'route' => 'backend.pending'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Paid', 'icon' => 'fa-university', 'permission' => 'admin_transactions', 'route' => 'backend.paid'])
                     </div>
                 </div>
             </li>

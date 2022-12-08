@@ -14,7 +14,7 @@ class Transaction extends Model
 
     public function getAlbumsAttribute($value)
     {
-        return AlbumSong::where('album_id', $this->attributes['album_id'])->get();
+        return Album::where('id', $this->attributes['album_id'])->get();
     }
 
 }
