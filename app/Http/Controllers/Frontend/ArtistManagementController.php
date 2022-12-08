@@ -789,6 +789,74 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function release()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->paginate(20));
+
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
+        $view = View::make('artist-management.release')
+            ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre());
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            return $sections['content'];
+        }
+
+        return $view;
+    }
+
+    public function paid()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('paid','1')->paginate(20));
+
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
+        $view = View::make('artist-management.paid')
+            ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre());
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            return $sections['content'];
+        }
+
+        return $view;
+    }
+
+    public function unpaid()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('paid','0')->paginate(20));
+
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
+        $view = View::make('artist-management.unpaid')
+            ->with('artist', $this->artist)
+            ->with('my_artist', $my_artist)
+            ->with('group_genre', $this->groupGenre());
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            return $sections['content'];
+        }
+
+        return $view;
+    }
     /**
      * Edited by Egova.
      * Date: 2022-08-17

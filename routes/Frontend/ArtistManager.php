@@ -13,6 +13,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('artist-management/uploaded', 'ArtistManagementController@uploaded')->name('auth.user.artist.manager.uploaded');
     Route::get('artist-management/artists', 'ArtistManagementController@artists')->name('auth.user.artist.manager.artists');
     Route::get('artist-management/participants', 'ArtistManagementController@participants')->name('auth.user.artist.manager.participants');
+    Route::get('artist-management/unpaid', 'ArtistManagementController@unpaid')->name('auth.user.artist.manager.unpaid');
+    Route::get('artist-management/paid', 'ArtistManagementController@paid')->name('auth.user.artist.manager.paid');
+    Route::get('artist-management/release', 'ArtistManagementController@release')->name('auth.user.artist.manager.release');
     Route::get('artist-management/albums', 'ArtistManagementController@albums')->name('auth.user.artist.manager.albums');
     Route::post('artist-management/albums/create', 'ArtistManagementController@createAlbum')->name('auth.user.artist.manager.albums.create');
     Route::post('artist-management/albums/edit', 'ArtistManagementController@editAlbum')->name('auth.user.artist.manager.albums.edit');
