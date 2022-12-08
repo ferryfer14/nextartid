@@ -28,27 +28,31 @@
                     <div class="byline">Managed your artists</div>
                 </div>
             </div>
-            <div id="column1" class="full">
-                @if(count($artists))
-                    <div class="card shadow">
-                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Artists</h2>
+            @include('artist-management.nav-artist')
+            <br/>
+            <div id="page-content" class="p-0">
+                <div id="column1" class="full">
+                    @if(count($artists))
+                        <div class="card shadow">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Artists</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="table artist-management">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Name</th>
+                                        <th class="text-center">Status</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="infinity-load-more">
+                                        @yield('pagination')
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <table class="table artist-management">
-                                <thead>
-                                <tr>
-                                    <th class="text-center">Name</th>
-                                    <th class="text-center">Status</th>
-                                </tr>
-                                </thead>
-                                <tbody class="infinity-load-more">
-                                    @yield('pagination')
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
         </div>
     </div>

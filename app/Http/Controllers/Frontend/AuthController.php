@@ -139,11 +139,11 @@ class AuthController
             'artist1' => 'required|string|min:3|max:30',
             'artist-phone1' => 'required|string|min:5|max:15',
             'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
-            'artist-affiliation1' => 'required|string',
+            //'artist-affiliation1' => 'required|string',
             'artist2' => 'nullable|string|min:3|max:30',
             'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
             'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
-            'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
+            //'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         
         $verifyCoder = Str::random(32);
@@ -209,7 +209,8 @@ class AuthController
                 $artistRequest->artist_name = $this->request->input('artist1');
                 $artistRequest->phone = $this->request->input('artist-phone1');
                 $artistRequest->ext = $this->request->input('artist-phone-ext1');
-                $artistRequest->affiliation = $this->request->input('artist-affiliation1');
+                //$artistRequest->affiliation = $this->request->input('artist-affiliation1');
+                $artistRequest->affiliation = 'Artist/Band Member';
                 $artistRequest->save();
                 if($this->request->input('artist2') != ''){
                     $artist = new Artist();
@@ -224,7 +225,8 @@ class AuthController
                     $artistRequest->artist_name = $this->request->input('artist2');
                     $artistRequest->phone = $this->request->input('artist-phone2');
                     $artistRequest->ext = $this->request->input('artist-phone-ext2');
-                    $artistRequest->affiliation = $this->request->input('artist-affiliation2');
+                    //$artistRequest->affiliation = $this->request->input('artist-affiliation2');
+                    $artistRequest->affiliation = 'Artist/Band Member';
                     $artistRequest->save();
                 }
             //}
