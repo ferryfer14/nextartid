@@ -36,6 +36,7 @@ use App\Models\Role;
 use App\Models\Country;
 use App\Models\Patner;
 use App\Models\Transaction;
+use App\Models\Payment;
 use chillerlan\QRCode\QRCode;
 
 class ArtistManagementController extends Controller
@@ -804,11 +805,11 @@ class ArtistManagementController extends Controller
             'arranger' => 'required|string|max:50',
             'lyricist' => 'required|string|max:50',
             'description' => 'nullable|string|max:1000',
-            'genre' => 'required',
+            'genre' => 'required|not_in:0',
             'display_artist' => 'required',
             'language' => 'required',
             'second_genre' => 'required',
-            'group_genre' => 'required',
+            'group_genre' => 'required|not_in:0',
             'copyright' => 'nullable|string|max:100',
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
             'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
@@ -834,7 +835,7 @@ class ArtistManagementController extends Controller
         $album->grid                = $this->request->input('grid-code');
         $album->language            = $this->request->input('language');
         $album->description         = $this->request->input('description');
-        $album->price_category      = $this->request->input('price_category');
+        $album->price_category      = 'Premium';
         $album->copyright           = $this->request->input('copyright');
         $album->license_year        = $this->request->input('license_year');
         $album->license_name        = $this->request->input('license_name');
@@ -912,6 +913,13 @@ class ArtistManagementController extends Controller
         }
         $album->save();
 
+        $trx_id = new_transaction();
+        $transaction = new Transaction();
+        $transaction->user_id = auth()->user()->id;
+        $transaction->album_id = $album->id;
+        $transaction->transaction_id = $trx_id;
+        $transaction->save();
+            
         if($this->request->input('additional-artist') != ''){
             $i = 0;
             foreach($this->request->input('additional-artist') as $name){
@@ -1082,25 +1090,38 @@ class ArtistManagementController extends Controller
             }
             $album->save();
             $token_youtap = token_youtap();
-            $trx_id = new_transaction();
             $timestamp = date('YMdHis');
+            $amount = $album->price->harga_discount*$album->song_count;
+            if(Transaction::withoutGlobalScopes()->where('album_id', '=', $this->request->input('id'))->exists()) {
+                $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $this->request->input('id'))->firstOrFail();
+                $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+                $transaction->amount = $amount;
+                $transaction->save();
+                $trx_id = $transaction->transaction_id;
+            }else{
+                $trx_id = new_transaction();
+                $transaction = new Transaction();
+                $transaction->user_id = auth()->user()->id;
+                $transaction->album_id = $this->request->input('id');
+                $transaction->transaction_id = $trx_id;
+                $transaction->amount = $amount;
+                $transaction->save();
+            }
             $merchant_bill_ref = ($timestamp . $trx_id);
-            $amount = $album->price->harga*$album->song_count;
             $res_signature = signature_youtap($trx_id, $amount, $timestamp, $merchant_bill_ref);
             $signature = $res_signature['signature'];
             $minify_body = $res_signature['minify_body'];
-            $transaction = new Transaction();
-            $transaction->user_id = auth()->user()->id;
-            $transaction->album_id = $this->request->input('id');
-            $transaction->transaction_id = $trx_id;
-            $transaction->merchant_bill_ref = $merchant_bill_ref;
-            $transaction->minify_body = $minify_body;
-            $transaction->signature = $signature;
-            $transaction->amount = $amount;
-            $transaction->timestamp = $timestamp;
-            $transaction->save();
-            
             $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
+            
+            $payment = new Payment();
+            $payment->transaction_id = $trx_id;
+            $payment->merchant_bill_ref = $merchant_bill_ref;
+            $payment->minify_body = $minify_body;
+            $payment->signature = $signature;
+            $payment->amount = $amount;
+            $payment->open_bill_id = $res_qr['open_bill_id'];
+            $payment->bill_status = $res_qr['bill_status'];
+            $payment->save();
             $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
             return response()->json($url_qr);
         }else {
@@ -1170,7 +1191,7 @@ class ArtistManagementController extends Controller
                 $album->recording_name      = $this->request->input('recording_name');
                 $album->grid                = $this->request->input('grid-code');
                 $album->language            = $this->request->input('language');
-                $album->price_category            = $this->request->input('price_category');
+                /*$album->price_category            = $this->request->input('price_category');*/
 
                 if($this->request->input('upc') != ''){
                     $album->upc = $this->request->input('upc');

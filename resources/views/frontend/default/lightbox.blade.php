@@ -1713,7 +1713,7 @@
                                         </label>
                                         <textarea type="text" name="description" maxlength="180"></textarea>
                                     </div>
-                                    <div class="control field">
+                                    <!--<div class="control field">
                                         <label for="price-category">
                                             <span data-translate-text="FORM_PRICE_CATEGORY">{{ ('FORM_PRICE_CATEGORY') }}</span>
                                         </label>
@@ -1723,7 +1723,7 @@
                                             3 => __('Full'),
                                             4 => __('Premium'),
                                         ), 'price_category', null, false) !!}
-                                    </div>
+                                    </div>-->
                                     <div class="control field">
                                         <label for="created_at">
                                             <span data-translate-text="FORM_RELEASED_AT">{{ __('FORM_RELEASED_AT') }}</span>
@@ -2075,7 +2075,7 @@
                                         </label>
                                         <textarea type="text" name="description" maxlength="180"></textarea>
                                     </div>
-                                    <div class="control field">
+                                    <!--<div class="control field">
                                         <label for="price-category">
                                             <span data-translate-text="FORM_PRICE_CATEGORY">{{ ('FORM_PRICE_CATEGORY') }}</span>
                                         </label>
@@ -2085,7 +2085,7 @@
                                             3 => __('Full'),
                                             4 => __('Premium'),
                                         ), 'price_category', null, false) !!}
-                                    </div>
+                                    </div>-->
                                     <div class="control field">
                                         <label for="created_at">
                                             <span data-translate-text="FORM_RELEASED_AT">{{ __('FORM_RELEASED_AT') }}</span>

@@ -882,10 +882,23 @@
             $.engineLightBox.show("lightbox-create-album");
             $('#create-album-form').find('.collapse').collapse('hide');
             Artist.loadGenres($('.lightbox-create-album select[name="genre"]'), "album", null);
-            //Artist.loadGenres($('.lightbox-create-album select[name="group_genre[]"]'), "album", null);
+            Artist.createAlbumForm.find('select[name=genre]').prepend($('<option>', {
+                hidden:true,
+                selected:true,
+               disabled: true,
+               value: '0',
+               text: 'Please Select'
+            }));
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
+            Artist.createAlbumForm.find('select[name=group_genre]').prepend($('<option>', {
+                hidden:true,
+                selected:true,
+               disabled: true,
+               value: '0',
+               text: 'Please Select'
+            }));
             $('#create-album-form').find("[name='released_at']").datepicker();
             $('#create-album-form').find("[name='created_at']").datepicker({
                 minDate : new Date(minDate())
@@ -976,17 +989,29 @@
             var divput = document.createElement("div");
             divput.setAttribute("class", "row");
             var list_checkbox = '';
-            var myPatners = patners.split(",");
-            for(var i = 0; i<data_patner.length;i++){
-                var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
-                var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'>"+data_patner[i].name+"</div>"
+            if(patners !== null){
+                var myPatners = patners.split(",");
+                for(var i = 0; i<data_patner.length;i++){
+                    var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
+                    var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                    list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'>"+data_patner[i].name+"</div>"
+                }
+                divput.innerHTML = list_checkbox;
+                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
+            }else{
+                for(var i = 0; i<data_patner.length;i++){
+                    var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                    list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" type='checkbox'>"+data_patner[i].name+"</div>"
+                }
+                divput.innerHTML = list_checkbox;
+                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
             }
-            divput.innerHTML = list_checkbox;
-            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
             Artist.albumSongsSelection.find("option").remove();
             $.engineLightBox.show("lightbox-pay-album");
             Artist.patnerAlbumForm.find("[name='id']").val(album.id);
+            Artist.patnerAlbumForm.find(".lightbox-close").one('click', function () {
+                location.reload();
+            });
             Artist.patnerAlbumForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {
                     var error = 0;
@@ -1008,7 +1033,7 @@
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
                     Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
-                    var timer2 = "2:01";
+                    var timer2 = "5:01";
                     setInterval(function() {
                         var timer = timer2.split(':');
                         //by parsing integer, I avoid all extra string processing

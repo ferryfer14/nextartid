@@ -20,6 +20,7 @@ use Illuminate\Queue\CallQueuedClosure;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\HtmlString;
 use Symfony\Component\HttpFoundation\Response;
+use App\Models\Transaction;
 
 if (! function_exists('abort')) {
     /**
@@ -978,9 +979,8 @@ if (! function_exists('signature_youtap')) {
 if (! function_exists('new_transaction')) {
 
     function new_transaction(){
-        $rand = rand(100,10000000000);
-        $trx_id = 'NXA'.$rand;
-        return $trx_id;
+        $trx = DB::table('transaction')->select(DB::raw("FLOOR(0 + RAND() * 9999999999) as random"))->havingRaw('random NOT IN (SELECT transaction_id FROM transaction)')->first();
+        return $trx->random;
     }
 }
 
