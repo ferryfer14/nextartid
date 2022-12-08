@@ -874,6 +874,14 @@
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">
+                                                <label class="col-sm-8 col-9 mb-0">Allow the management of Transactions
+                                                    <p class="small text-danger mb-0">This option provide the access to Transactions section, let the group view recent orders and process payment request by artist.</p>
+                                                </label>
+                                                <div class="col-sm-4 col-3">
+                                                    <label class="switch"><input type="checkbox" name="save_role[admin_transactions]" value="1" @if(array_get($role->permissions, 'admin_transactions')) checked="checked" @endif><span class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row border-bottom mb-0 pt-3 pb-3">
                                                 <label class="col-sm-8 col-9 mb-0">Allow the management of Subscriptions
                                                     <p class="small text-danger mb-0">This option provide the access to Subscriptions section, let the group manage, edit, delete Subscriptions.</p>
                                                 </label>

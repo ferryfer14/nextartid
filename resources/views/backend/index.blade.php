@@ -173,6 +173,21 @@
                 </div>
             </li>
         @endif
+        @if(\App\Models\Role::getValue('admin_transactions'))
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTransactions" aria-expanded="false" aria-controls="collapseTransactions">
+                    <i class="fas fa-fw fa-money-check-alt"></i>
+                    <span>Transactions</span>
+                </a>
+                <div id="collapseTransactions" class="collapse" aria-labelledby="headingPlans" data-parent="#accordionSidebar">
+                    <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Pending', 'icon' => 'fa-cart-arrow-down', 'permission' => 'admin_transactions', 'route' => 'backend.orders'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Unpaid', 'icon' => 'fa-university', 'permission' => 'admin_transactions', 'route' => 'backend.withdraws'])
+                    </div>
+                </div>
+            </li>
+        @endif
         @if(\App\Models\Role::getValue('admin_subscriptions'))
             <hr class="sidebar-divider">
             <li class="nav-item">
