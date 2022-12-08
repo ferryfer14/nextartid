@@ -23,7 +23,7 @@
             <br/>
             <div id="page-content" class="p-0">
                 <div id="column1" class="content full">
-                    <h2 class="text-center">{{ __('web.LB_UPLOAD_ALBUM_SELECT_DESC') }}</h2>
+                    <!--<h2 class="text-center">{{ __('web.LB_UPLOAD_ALBUM_SELECT_DESC') }}</h2>-->
                     @if(count($artist->albums))
                         <div id="grid-toolbar-container">
                             <div class="grid-toolbar">
