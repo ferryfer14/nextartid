@@ -238,7 +238,17 @@
                                         $thisForm.find("[name='isrc']").removeAttr("readonly");
                                     }
                                 });
-                                console.log(song.artist_roles);
+                                $thisForm.find("[name='start_point']").timepicker({
+                                    timeFormat: 'mm:ss',
+                                    interval: 60,
+                                    minTime: '10',
+                                    maxTime: '6:00pm',
+                                    defaultTime: '11',
+                                    startTime: '10:00',
+                                    dynamic: false,
+                                    dropdown: true,
+                                    scrollbar: true
+                                });
                                 if(song.artist_roles.length > 0){
                                     //var objTo = document.getElementsByClassName('additional_artist');
                                     $thisForm.find('#additional_artist').html('');

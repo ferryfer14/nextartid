@@ -42,6 +42,8 @@
         <meta name="recaptcha-key" content="{{ config('settings.recaptcha_public_key') }}" />
         <script src="https://www.google.com/recaptcha/api.js?render={{ config('settings.recaptcha_public_key') }}"></script>
     @endif
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
     <script type="text/javascript">
         var GLOBAL = {
             youtube_player: {{ intval(config('settings.module_youtube', true)) }},

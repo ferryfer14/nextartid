@@ -1524,6 +1524,7 @@ return [
     "FORM_ALBUM_VERSION" => "Remix or Version (optional):",
     "FORM_ISRC_CODE" => "ISRC code:",
     "FORM_ISWC_CODE" => "ISWC code:",
+    "FORM_START_POINT_TIME" => "Start Point Time:",
     "FORM_UPC_CODE" => "Release UPC code:",
     "FORM_REF_CODE" => "Reference Number:",
     "FORM_GRID_CODE" => "Global Release Identifier (GRid) (optional):",

@@ -361,6 +361,7 @@ class ArtistManagementController extends Controller
             'description' => 'nullable|string|max:280',
             'lirik' => 'nullable|string|max:1000',
             'selling' => 'nullable',
+            'start_point' => 'date_format:i:s',
             'language' => 'required',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
@@ -428,6 +429,7 @@ class ArtistManagementController extends Controller
                 $song->group_genre         = $this->request->input('group_genre');
                 $song->language            = $this->request->input('language');
                 $song->lirik                = $this->request->input('lirik');
+                $song->start_point                = $this->request->input('start_point');
                 $song->explicit                = $this->request->input('explicit');
                 $song->separately                = $this->request->input('separately');
                 $song->publisher_year        = $this->request->input('publisher_year');
