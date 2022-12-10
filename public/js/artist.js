@@ -906,11 +906,25 @@
             $('#create-album-form').find("select[name=display_artist]").change(function() {
                 $('#create-album-form').find("[name='primary-artist']").val($('#create-album-form').find("select[name=display_artist]").find('option:selected').text());
             });
+            $('#create-album-form').find('select[name=second_genre]').prepend($('<option>', {
+                hidden:true,
+                selected:true,
+               disabled: true,
+               value: '0',
+               text: 'Please Select'
+            }));
             $('#create-album-form').find("select[name='genre']").change(function() {
                 $('#create-album-form').find("select[name='second_genre']").html('');
                 var options = $('#create-album-form').find("select[name='genre']").find("option:not(:selected)").clone();
                 $('#create-album-form').find("select[name='second_genre']").removeAttr("disabled");
                 $('#create-album-form').find("select[name='second_genre']").append(options).trigger('change');
+                $('#create-album-form').find('select[name=second_genre]').prepend($('<option>', {
+                    hidden:true,
+                    selected:true,
+                   disabled: true,
+                   value: '0',
+                   text: 'Please Select'
+                }));
             });
             $('#create-album-form').find("[name='upc-code']").change(function() {
                 if(this.checked) {
