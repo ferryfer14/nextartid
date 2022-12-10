@@ -764,7 +764,21 @@
             if (song.description) {
                 Artist.editSongForm.find('textarea[name="description"]').val(song.description);
             }
+            if (song.start_point) {
+                Artist.editSongForm.find('input[name="start_point"]').val(song.start_point);
+            }
 
+            Artist.editSongForm.find("[name='start_point']").timepicker({
+                timeFormat: 'mm:ss',
+                interval: 60,
+                minTime: '10',
+                maxTime: '6:00pm',
+                defaultTime: '11',
+                startTime: '10:00',
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true
+            });
             if (song.released_at) {
                 Artist.editSongForm.find('input[name="released_at"]').val(song.released_at);
             }

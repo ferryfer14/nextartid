@@ -148,6 +148,7 @@
 
                             function () {
                                 var $thisForm = $(this);
+                                console.log(data.result);
                                 var song = data.result;
                                 $(this).find('.template-upload').attr('data-id', song.id);
                                 $(this).find('input[name="id"]').val(song.id);
@@ -319,6 +320,7 @@
                                     },
                                     success: function(response, textStatus, xhr, $form) {
                                         Artist.upload.edit(response, $form);
+                                        window.location.href = "/artist-management/albums/"+song.album.id;                    
                                         $('#upload-file-button').removeClass('d-none');
                                         $form.find("[type='submit']").removeClass("btn-loading");
                                     },

@@ -1370,6 +1370,12 @@
                                     </label>
                                     <input name="iswc" type="text" placeholder="Your ISWC Code">
                                 </div>
+                                <div class="control field">
+                                    <label for="start-point">
+                                        <span data-translate-text="FORM_START_POINT">{{ __('web.FORM_START_POINT_TIME') }}</span>
+                                    </label>
+                                    <input name="start_point" class="timepicker" id="time" type="text" placeholder="Start Point MM:SS">
+                                </div>
                                 <div class="control field" mb-0>
                                     <label for="license-recording">
                                         <span data-translate-text="FORM_PUBLISHING">{{ ('FORM_PUBLISHING') }}</span>
