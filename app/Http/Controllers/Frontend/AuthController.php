@@ -69,11 +69,11 @@ class AuthController
             'artist1' => 'required|string|min:3|max:30',
             'artist-phone1' => 'required|string|min:5|max:15',
             'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
-            'artist-affiliation1' => 'required|string',
+            //'artist-affiliation1' => 'required|string',
             'artist2' => 'nullable|string|min:3|max:30',
             'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
             'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
-            'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
+            //'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         if(config('settings.dob_signup')) {
             $this->request->validate([

@@ -80,9 +80,12 @@
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <p class="d-flex justify-content-center">{{ $album->song_count }} Songs x {{ number_format((float)($album->price->harga), 0, ',', '.') }}</p>
+                                            <p class="d-flex text-danger justify-content-center">{{ $album->song_count }} Songs x {{ number_format((float)($album->price->harga-$album->price->harga_discount), 0, ',', '.') }}</p>
                                         </div>
                                         <div class="col-sm-4">
-                                            <s class="num d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</s>
+                                            <p class="d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</p>
+                                            <p class="d-flex text-danger justify-content-center">-{{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }}</p>
+                                            <hr class="sidebar-divider m-0">
                                             <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
                                         </div>
                                     </div>

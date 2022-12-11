@@ -771,7 +771,7 @@ class ArtistManagementController extends Controller
     public function albums()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
-        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->paginate(20));
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->orderBy('inserted_at','desc')->paginate(20));
 
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
