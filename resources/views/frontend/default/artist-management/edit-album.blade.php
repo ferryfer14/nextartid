@@ -90,7 +90,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</p>
-                                            <p class="d-flex text-danger justify-content-center">{{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }})</p>
+                                            <p class="d-flex text-danger justify-content-center">({{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }})</p>
                                             <hr class="sidebar-divider m-0">
                                             @if(isset($transaction[0]->voucher_id))
                                                 <p class="d-flex text-danger justify-content-center">({{ number_format((float)$transaction[0]->nilai_voucher, 0, ',', '.') }})</p>

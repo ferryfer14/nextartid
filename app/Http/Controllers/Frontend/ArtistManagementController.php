@@ -1262,7 +1262,8 @@ class ArtistManagementController extends Controller
                 $transaction->save();
             }
             $merchant_bill_ref = ($timestamp . $trx_id);
-            $res_signature = signature_youtap($trx_id, $amount, $timestamp, $merchant_bill_ref);
+            $amount_payment = $amount - $transaction->nilai_voucher;
+            $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
             $signature = $res_signature['signature'];
             $minify_body = $res_signature['minify_body'];
             $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
@@ -1272,7 +1273,7 @@ class ArtistManagementController extends Controller
             $payment->merchant_bill_ref = $merchant_bill_ref;
             $payment->minify_body = $minify_body;
             $payment->signature = $signature;
-            $payment->amount = $amount;
+            $payment->amount = $amount_payment;
             $payment->open_bill_id = $res_qr['open_bill_id'];
             $payment->bill_status = $res_qr['bill_status'];
             $payment->save();
