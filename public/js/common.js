@@ -732,6 +732,8 @@
                     User.Playlist.edited(response, $form);
                 } else if (form === "upload-edit-song-form") {
                     Artist.upload.edit(response, $form);
+                } else if (form === "voucher-form") {
+                    Artist.applyVoucher(response, $form);
                 } else if (form === "edit-song-form") {
                     Artist.song.updated(response, $form);
                 } else if (form === "edit-episode-form") {

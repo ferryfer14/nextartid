@@ -47,6 +47,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/event/create', 'ArtistManagementController@createEvent')->name('auth.user.artist.manager.event.create');
     Route::post('artist-management/event/edit', 'ArtistManagementController@editEvent')->name('auth.user.artist.manager.event.edit');
     Route::post('artist-management/event/delete', 'ArtistManagementController@deleteEvent')->name('auth.user.artist.manager.event.delete');
+    Route::post('artist-management/voucher/apply', 'ArtistManagementController@applyVoucher')->name('auth.user.artist.manager.voucher.apply');
+    Route::post('artist-management/voucher/remove', 'ArtistManagementController@removeVoucher')->name('auth.user.artist.manager.voucher.remove');
 
     Route::get('artist-management/profile', 'ArtistManagementController@profile')->name('auth.user.artist.manager.profile');
     Route::post('artist-management/profile', 'ArtistManagementController@saveProfile')->name('auth.user.artist.manager.profile.save');

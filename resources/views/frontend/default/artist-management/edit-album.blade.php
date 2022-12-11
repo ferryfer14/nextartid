@@ -81,15 +81,46 @@
                                         <div class="col-sm-8">
                                             <p class="d-flex justify-content-center">{{ $album->song_count }} Songs x {{ number_format((float)($album->price->harga), 0, ',', '.') }}</p>
                                             <p class="d-flex text-danger justify-content-center">{{ $album->song_count }} Songs x {{ number_format((float)($album->price->harga-$album->price->harga_discount), 0, ',', '.') }}</p>
+                                            @if(isset($transaction[0]->voucher_id))
+                                                <a class="btn remove_voucher" data-id="{{ $transaction[0]->id }}">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="26" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                                                    <span>Voucher</span>
+                                                </a>    
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</p>
-                                            <p class="d-flex text-danger justify-content-center">-{{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }}</p>
+                                            <p class="d-flex text-danger justify-content-center">{{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }})</p>
                                             <hr class="sidebar-divider m-0">
-                                            <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
+                                            @if(isset($transaction[0]->voucher_id))
+                                                <p class="d-flex text-danger justify-content-center">({{ number_format((float)$transaction[0]->nilai_voucher, 0, ',', '.') }})</p>
+                                                <p class="d-flex justify-content-center"><b>{{ number_format((float)($transaction[0]->amount-$transaction[0]->nilai_voucher), 0, ',', '.') }}</b></p>
+                                            @else
+                                                <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
+                                            @endif
                                         </div>
                                     </div>
-                                    <a data-type="pay" data-id="{{ $album->id }}" class="mt-3 w-100 btn {{ $album->song_count*$album->price->harga_discount == 0 ? 'btn-secondary' : 'pay btn-primary' }}">Pay Now</a>
+                                    @if(!isset($transaction[0]->voucher_id) && $album->song_count > 0)
+                                        @if (session('status') && session('status') == 'failed')
+                                            <div class="alert alert-danger">
+                                                {{ session('message') }}
+                                            </div>
+                                        @endif
+                                        <form id="voucher-form" class="ajax-form mt-2 mb-1" method="post" action="{{ route('frontend.auth.user.artist.manager.voucher.apply') }}" enctype="multipart/form-data" novalidate>    
+                                            <div class="row">
+                                                <div class="col-sm-8">
+                                                    <div class="control field">
+                                                        <input name="id" type="hidden" value="{{$album->id}}">
+                                                        <input name="code" placeholder="code voucher" type="text" value="" required>
+                                                    </div>
+                                                </div>
+                                                <div class="co-sm-4">                    
+                                                    <button class="btn btn-primary" type="submit" data-translate-text="APPLY">{{ __('web.APPLY') }}</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endif
+                                    <a data-type="pay" data-id="{{ $album->id }}" class=" w-100 btn {{ $album->song_count*$album->price->harga_discount == 0 ? 'btn-secondary' : 'pay btn-primary' }}">Pay Now</a>
                                 </div>
                             </div>
                         </div>

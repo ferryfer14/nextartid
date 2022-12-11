@@ -604,6 +604,7 @@ return [
     "SELL_THIS_VIDEO" => "Sell this video",
     "NEW" => "New",
     "RESUME" => "Resume",
+    "APPLY" => "Apply",
     "SAVE_CHANGES" => "Save Changes",
     "SAVE_SETTINGS" => "Save Settings",
     "CLEAR_LOCAL" => "Clear Local Settings",
@@ -1691,9 +1692,10 @@ return [
     "COUPON_MAXIMUM_ERROR" => "You need to spend less than :amount to use this coupon.",
 
     "DISOWNED_ALBUM_MSG" => "This album will be disowned.",
+    "REMOVED_VOUCHER_MSG" => "This voucher will be removed.",
     "DELETED_ALBUM_MSG" => "This album will be deleted.",
     "WARNING_DELETE_ALBUM" => "Are you sure you want to delete this album? Its songs will be removed from and all your fans' collections.",
-
+    "WARNING_REMOVE_VOUCHER" => "Are you sure you want to remove this voucher?",
     "DISOWNED_DELETED_SONG_MSG_SUCCESS" => "Songs that were deleted/disowned may take up to 48 hours to disappear.",
     "UNSAVED_CHANGES_TO_ALBUM" => "You have unsaved changes to your album. Are you sure you want to discard your changes?",
     "UNSAVED_CHANGES_TO_SONGS" => "You have unsaved changes to your songs. Are you sure you want to discard your changes?",
@@ -1720,6 +1722,7 @@ return [
     "ARTIST_I_CAN_DELETE_OPTION" => "<b>Delete:</b> I own all of the necessary rights to <b>:songName</b> and would like to remove it.",
     "ARTIST_I_CAN_DISOWN_OPTION" => "<b>Disown:</b> I do not own the rights to <b>:songName</b>, and it should not be associated with my Artist Profile.",
     "CONFIRM_DELETE" => "Confirm Delete",
+    "CONFIRM_REMOVE" => "Confirm Remove",
     "UNDO_DELETE" => "Undo Delete",
     "DELETE_OR_DISOWN" => "Delete or Disown?",
     "CLAIMING_ARTIST_PENDING" => "Your artist claim for <b>:artist</b> is still pending. You will receive an email once it has been approved.",

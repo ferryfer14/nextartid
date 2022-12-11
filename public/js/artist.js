@@ -660,6 +660,14 @@
                 }
             });
         },
+        applyVoucher: function (response, $form) {
+            __DEV__ && console.log(response);
+            $form.parent().fadeOut(500);
+            if (response.success === true) {
+                Toast.show('success', 'Voucher is claimed!');
+                location.reload();
+            }
+        },
         editSong: function (song) {
             __DEV__ && console.log('Edit song', song);
 
@@ -1747,6 +1755,24 @@
                             }
                         });
                     }
+                }
+            });
+        },
+        removeVoucher: function (el) {
+            var transaction_id = el.data('id'); 
+            $.ajax({
+                url: route.route('frontend.auth.user.artist.manager.voucher.remove'),
+                data: {
+                    'id': transaction_id
+                },
+                type: 'post',
+                dataType: 'json',
+                success: function () {
+                    $.engineUtils.cleanStorage();
+                    location.reload();
+                },
+                error: function () {
+                    Toast.show("error", 'Remove Voucher Failed');
                 }
             });
         },

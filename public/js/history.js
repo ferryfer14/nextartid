@@ -128,6 +128,8 @@
                     } else if (a.hasClass("song-row-edit") === true) {
                         var song = $.engineUtils.getSongData(a);
                         Artist.editSong(song);
+                    } else if (a.hasClass("remove_voucher") === true) {
+                        Artist.removeVoucher(a);
                     } else if (a.hasClass("episode-row-edit") === true) {
                         var episode = $.engineUtils.getEpisodeData(a);
                         Artist.editEpisode(episode);

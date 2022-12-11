@@ -37,6 +37,7 @@ use App\Models\Country;
 use App\Models\Patner;
 use App\Models\Transaction;
 use App\Models\Payment;
+use App\Models\Voucher;
 use chillerlan\QRCode\QRCode;
 
 class ArtistManagementController extends Controller
@@ -1026,11 +1027,13 @@ class ArtistManagementController extends Controller
             ->get();
             $s->roles_song = $song_roles;
         }
+        $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->get();
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
             ->with('group_genre', $this->groupGenre())
             ->with('patners', $patners)
+            ->with('transaction', $transaction)
             ->with('artist_roles', $artist_roles)
             ->with('album', $album);
 
@@ -1040,6 +1043,72 @@ class ArtistManagementController extends Controller
         }
 
         return $view;
+    }
+
+    public function removeVoucher(){
+        if(Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->exists()) {
+            $transaction = Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->firstOrFail();
+            $transaction->nilai_voucher = 0;
+            $transaction->voucher_id = NULL;
+            $transaction->save();
+            return response()->json(array('success' => true));
+        } else {
+            abort(403, 'Not your voucher.');
+        }
+    }
+    public function applyVoucher(){
+        $this->request->validate([
+            'id'   => 'required',
+            'code' => 'required|string',
+        ]);
+
+        $transaction = Transaction::where('album_id', $this->request->input('id'))->first();
+        $voucher = Voucher::where('code', $this->request->input('code'))->first();
+
+        if(isset($voucher->id)) {
+            if($voucher->expired_at && $voucher->expired_at < Carbon::now()) {
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_EXPIRED')))
+                ], 403);
+            }
+
+            if($voucher->usage_limit && $voucher->use_count > $voucher->usage_limit) {
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_LIMITED')))
+                ], 403);
+            }
+
+            if($voucher->minimum_spend && $voucher->minimum_spend > $transaction->amount) {
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_MINIMUM_ERROR', ['amount' => $voucher->minimum_spend . config('settings.currency', 'USD')])))
+                ], 403);
+            }
+
+            if($voucher->maximum_spend && $voucher->maximum_spend < $transaction->amount) {
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_MAXIMUM_ERROR', ['amount' => $voucher->maximum_spend . config('settings.currency', 'USD')])))
+                ], 403);
+            }
+
+            $transaction->voucher_id = $voucher->id;
+            if($voucher->type == 'percentage'){
+                $nilai_voucher = $transaction->amount*$voucher->amount/100;
+            }else{
+                $nilai_voucher = $voucher->amount > $transaction->amount ? $transaction->amount : $voucher->amount;
+            }
+            $transaction->nilai_voucher = $nilai_voucher;
+            $transaction->save();
+            return response()->json(array('success' => true));
+        } else {
+            return response()->json([
+                'message' => 'failed',
+                'errors' => array('message' => array(__('web.COUPON_NOT_EXIST')))
+            ], 403);
+        }
     }
 
     public function deleteAlbum()
