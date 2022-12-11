@@ -233,6 +233,7 @@
                 <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                     @if(\App\Models\Role::getValue('admin_earnings'))
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'Coupons System', 'icon' => 'fa-gift', 'permission' => 'admin_earnings', 'route' => 'backend.coupons'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Vouchers System', 'icon' => 'fa-gift', 'permission' => 'admin_earnings', 'route' => 'backend.vouchers'])
                     @endif
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Advertising materials', 'icon' => 'fa-ad', 'permission' => 'admin_banners', 'route' => 'backend.banners'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Languages', 'icon' => 'fa-language', 'permission' => 'admin_languages', 'route' => 'backend.languages'])
