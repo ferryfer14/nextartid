@@ -67,6 +67,7 @@ class PatnersController
     {
         $this->request->validate([
             'name' => 'required|string|unique:patners',
+            'artwork' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 10240)
         ]);
 
         $patner = new Patner();
@@ -79,6 +80,14 @@ class PatnersController
         }
 
         $patner->save();
+
+        if ($this->request->hasFile('artwork'))
+        {
+            $patner->clearMediaCollection('artwork');
+            $patner->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                ->usingFileName(time(). '.jpg')
+                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
+        }
 
         Cache::clear('discover');
 
@@ -114,6 +123,18 @@ class PatnersController
             $patner->discover = 1;
         } else {
             $patner->discover = 0;
+        }
+
+        if ($this->request->hasFile('artwork'))
+        {
+            $this->request->validate([
+                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 10240)
+            ]);
+
+            $patner->clearMediaCollection('artwork');
+            $patner->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                ->usingFileName(time(). '.jpg')
+                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
         }
 
         $patner->save();

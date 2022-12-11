@@ -95,7 +95,7 @@ class GenresController
         if ($this->request->hasFile('artwork'))
         {
             $genre->clearMediaCollection('artwork');
-            $genre->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(500 * 0.5625))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+            $genre->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
         }
@@ -160,7 +160,7 @@ class GenresController
             ]);
 
             $genre->clearMediaCollection('artwork');
-            $genre->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(500 * 0.5625))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+            $genre->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
         }

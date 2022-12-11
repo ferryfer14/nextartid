@@ -26,6 +26,7 @@
                     <tr>
                         <th class="th-handle"></th>
                         <th class="th-priority">Priority</th>
+                        <th class="th-wide-image"></th>
                         <th>Name</th>
                         <th>Show on Discover</th>
                         <th class="th-2action">Action</th>
@@ -36,6 +37,7 @@
                         <tr>
                             <td><i class="handle fas fa-fw fa-arrows-alt"></i></td>
                             <td><input type="hidden" name="patnerIds[]" value="{{ $patner->id }}"></td>
+                            <td><img src="{{ $patner->artwork_url }}"></td>
                             <td><a href="{{ route('backend.patners.edit', ['id' => $patner->id]) }}">{{ $patner->name }}</a></td>
                             <td class="desktop">
                                 @if($patner->discover)
