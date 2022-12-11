@@ -1850,7 +1850,11 @@
                             <div class="error hide">
                                 <div class="message"></div>
                             </div>
-                            <input name="id" type="hidden">
+                            <div class="select_all">
+                                <input name="id" type="hidden">
+                                <input name="patner_all" value="1" id='select_all_patner' type='checkbox'> Select All    
+                                <hr class="sidebar-divider m-0 mb-1">
+                            </div>
                             <div class="lightbox-with-artwork-block">
                             </div>
                         </div>

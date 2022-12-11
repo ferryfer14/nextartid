@@ -1012,28 +1012,77 @@
             var album = window['album_data_' + el.data('id')];
             var patners = window['patners_' + el.data('id')];
             var data_patner = window['data_patner'];
+            Artist.patnerAlbumForm.find('.select_all').removeClass('d-none');
             Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').removeClass("text-center");
             Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
             var divput = document.createElement("div");
             divput.setAttribute("class", "row");
             var list_checkbox = '';
+            function checkAll(){
+                var values = $("input[name='patner[]']:checked").length;
+                if(values == data_patner.length){
+                    Artist.patnerAlbumForm.find("input[name='patner_all']").prop('checked','checked');
+                    Artist.patnerAlbumForm.find("input[name='patner[]']").attr('disabled','disabled');
+                }
+            };
             if(patners !== null){
                 var myPatners = patners.split(",");
                 for(var i = 0; i<data_patner.length;i++){
                     var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
-                    var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                    list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'>"+data_patner[i].name+"</div>"
+                    if(myPatners.length == data_patner.length){
+                        var disabled = 'disabled';
+                        Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
+                    }else{
+                        var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                    }
+                    list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
                 }
                 divput.innerHTML = list_checkbox;
                 Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
             }else{
+                Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
                 for(var i = 0; i<data_patner.length;i++){
                     var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                    list_checkbox += "<div class='col-md-4'><input name='patner[]' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" type='checkbox'>"+data_patner[i].name+"</div>"
+                    list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
                 }
                 divput.innerHTML = list_checkbox;
                 Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
             }
+            setTimeout(function(){
+                Artist.patnerAlbumForm.find('.patners').on( 'change', function(){ 
+                    checkAll();
+                });
+            }, 1000);
+            Artist.patnerAlbumForm.find('#select_all_patner').change(function() {
+                if(this.checked) {
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                    var divInput = document.createElement("div");
+                    divInput.setAttribute("class", "row");
+                    var data_checkbox = '';
+                    for(var i = 0; i<data_patner.length;i++){
+                        var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                        data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                    }
+                    divInput.innerHTML = data_checkbox;
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                }else{
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                    var divInput = document.createElement("div");
+                    divInput.setAttribute("class", "row");
+                    var data_checkbox = '';
+                    for(var i = 0; i<data_patner.length;i++){
+                        var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                        data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                    }
+                    divInput.innerHTML = data_checkbox;
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                }
+                setTimeout(function(){
+                    Artist.patnerAlbumForm.find('.patners').on( 'change', function(){ 
+                        checkAll();
+                    });
+                }, 1000);
+            });
             Artist.albumSongsSelection.find("option").remove();
             $.engineLightBox.show("lightbox-pay-album");
             Artist.patnerAlbumForm.find("[name='id']").val(album.id);
@@ -1056,6 +1105,7 @@
                 },
                 success: function (response, textStatus, xhr, $form) {
                     $form.find("[type='submit']").addClass("d-none");
+                    Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
                     $form.trigger("reset");
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
                     Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");

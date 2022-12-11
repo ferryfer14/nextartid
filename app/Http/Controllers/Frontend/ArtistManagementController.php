@@ -1146,17 +1146,32 @@ class ArtistManagementController extends Controller
     public function editPatner()
     {
         $this->request->validate([
-            'patner' => 'required',
+            'patner_all' => 'nullable|numeric',
+            'patner'     => 'required_without:patner_all',
         ]);
 
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
             $patner = $this->request->input('patner');
-            if(is_array($patner))
-            {
-                $album->patner = implode(",", $this->request->input('patner'));
-            } else {
-                $album->patner = null;
+            if($patner != null){
+                if(is_array($patner))
+                {
+                    $album->patner = implode(",", $this->request->input('patner'));
+                } else {
+                    $album->patner = null;
+                }
+            }else{
+                $patners = Patner::withoutGlobalScopes()->get();
+                $my_patner = array();
+                foreach($patners as $p){
+                    array_push($my_patner, $p->id);
+                }
+                if(count($my_patner) > 0)
+                {
+                    $album->patner = implode(",", $my_patner);
+                } else {
+                    $album->patner = null;
+                }
             }
             $album->save();
             $token_youtap = token_youtap();
