@@ -1048,9 +1048,12 @@ class ArtistManagementController extends Controller
     public function removeVoucher(){
         if(Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->exists()) {
             $transaction = Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->firstOrFail();
+            $voucher =  Voucher::where('id', $transaction->voucher_id)->first();
             $transaction->nilai_voucher = 0;
             $transaction->voucher_id = NULL;
             $transaction->save();
+            $voucher->use_count = $voucher->use_count-1;
+            $voucher->save();
             return response()->json(array('success' => true));
         } else {
             abort(403, 'Not your voucher.');
@@ -1102,6 +1105,8 @@ class ArtistManagementController extends Controller
             }
             $transaction->nilai_voucher = $nilai_voucher;
             $transaction->save();
+            $voucher->use_count = $voucher->use_count+1;
+            $voucher->save();
             return response()->json(array('success' => true));
         } else {
             return response()->json([
