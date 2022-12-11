@@ -254,6 +254,26 @@ class Upload
                 $song->genre = $album->genre;
                 $song->mood = $album->mood;
                 $song->save();
+
+                $album = Album::withoutGlobalScopes()->findOrFail($album_id);
+                $amount = $album->price->harga_discount*$album->song_count;
+
+                if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->exists()) {
+                    $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->firstOrFail();
+                    $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+                    $transaction->amount = $amount;
+                    $transaction->save();
+                    $trx_id = $transaction->transaction_id;
+                }else{
+                    $trx_id = new_transaction();
+                    $transaction = new Transaction();
+                    $transaction->user_id = auth()->user()->id;
+                    $transaction->album_id = $album_id;
+                    $transaction->transaction_id = $trx_id;
+                    $transaction->amount = $amount;
+                    $transaction->save();
+                }
+                
             } elseif($isAdminPanel) {
                 if (isset($trackInfo['album'][0])) {
                     $row = Album::where('title', '=', $trackInfo['album'][0])->first();
@@ -262,6 +282,23 @@ class Upload
                         DB::table('album_songs')->insert(
                             [ 'song_id' => $song->id, 'album_id' => $row->id ]
                         );
+                        $amount = $row->price->harga_discount*$row->song_count;
+
+                        if(Transaction::withoutGlobalScopes()->where('album_id', '=', $row->id)->exists()) {
+                            $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $row->id)->firstOrFail();
+                            $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+                            $transaction->amount = $amount;
+                            $transaction->save();
+                            $trx_id = $transaction->transaction_id;
+                        }else{
+                            $trx_id = new_transaction();
+                            $transaction = new Transaction();
+                            $transaction->user_id = auth()->user()->id;
+                            $transaction->album_id = $row->id;
+                            $transaction->transaction_id = $trx_id;
+                            $transaction->amount = $amount;
+                            $transaction->save();
+                        }
                     } else {
                         $album = new Album();
                         $album->title = $trackInfo['album'][0];
@@ -276,6 +313,17 @@ class Upload
                         }
 
                         $album->save();
+
+
+                        $albums = Album::withoutGlobalScopes()->findOrFail($album->id);
+                        $trx_id = new_transaction();
+                        $transaction = new Transaction();
+                        $transaction->user_id = auth()->user()->id;
+                        $transaction->album_id = $album->id;
+                        $transaction->transaction_id = $trx_id;
+                        $transaction->amount = $albums->price->harga_discount;
+                        $transaction->save();
+                        
                         DB::table('album_songs')->insert(
                             [ 'song_id' => $song->id, 'album_id' => $album->id ]
                         );

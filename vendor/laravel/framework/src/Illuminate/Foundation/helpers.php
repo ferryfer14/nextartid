@@ -979,8 +979,14 @@ if (! function_exists('signature_youtap')) {
 if (! function_exists('new_transaction')) {
 
     function new_transaction(){
-        $trx = DB::table('transaction')->select(DB::raw("FLOOR(0 + RAND() * 9999999999) as random"))->havingRaw('random NOT IN (SELECT transaction_id FROM transaction)')->first();
-        return $trx->random;
+        $data_trx = DB::table('transaction')->count();
+        if($data_trx > 0){
+            $trx = DB::table('transaction')->select(DB::raw("FLOOR(0 + RAND() * 9999999999) as random"))->havingRaw('random NOT IN (SELECT transaction_id FROM transaction)')->first();
+            return $trx->random;
+        }else{
+            $randnum = rand(1111111111,9999999999);
+            return $randnum;
+        }    
     }
 }
 
