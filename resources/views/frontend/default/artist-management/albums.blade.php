@@ -6,10 +6,10 @@
 
             <div class="page-header artist main small desktop">
                 <a class="img">
-                    <img src="{{ $artist->artwork_url }}" alt="{!! $artist->name !!}">
+                    <img src="{{ $artist->artwork_url }}" alt="{!! auth()->user()->email !!}">
                 </a>
                 <div class="inner">
-                    <h1 title="{!! $artist->name !!}">{!! $artist->name !!}<span class="subpage-header"> / Albums</span></h1>
+                    <h1 title="{!! auth()->user()->email !!}">{!! auth()->user()->email !!}<span class="subpage-header"> / Albums</span></h1>
                     <div class="byline">Create and manage your album on the website.</div>
                     <div class="actions-primary">
                         <a class="btn create-album">

@@ -5,10 +5,10 @@
         <div class="container settings">
             <div class="page-header artist main small desktop">
                 <a class="img ">
-                    <img src="{{ $artist->artwork_url }}" alt="{{ $artist->name}}">
+                    <img src="{{ $artist->artwork_url }}" alt="{{ auth()->user()->email }}">
                 </a>
                 <div class="inner">
-                    <h1 title="{!! $artist->name !!}">{!! $artist->name !!}<span class="subpage-header"> / {{ __('web.SETTINGS_TITLE_PROFILE') }}</span></h1>
+                    <h1 title="{!! auth()->user()->email !!}">{!! auth()->user()->email !!}<span class="subpage-header"> / {{ __('web.SETTINGS_TITLE_PROFILE') }}</span></h1>
                     <div class="byline">Manage and configure your artist profile.</div>
                 </div>
             </div>
