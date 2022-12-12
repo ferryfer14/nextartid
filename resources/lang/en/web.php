@@ -222,6 +222,7 @@ return [
     "NAV_TEAM" => "The Team",
     "NAV_CAREERS" => "Careers",
     "NAV_ARTISTS" => "Artists",
+    "NAV_DISPLAY_ARTISTS" => "Display Artists",
     "NAV_PARTICIPANTS" => "Participants",
     "NAV_PRESS" => "Press",
     "NAV_CONTACT" => "Contact",
