@@ -1275,19 +1275,36 @@ class ArtistManagementController extends Controller
             $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
             $signature = $res_signature['signature'];
             $minify_body = $res_signature['minify_body'];
-            $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
-            
-            $payment = new Payment();
-            $payment->transaction_id = $trx_id;
-            $payment->merchant_bill_ref = $merchant_bill_ref;
-            $payment->minify_body = $minify_body;
-            $payment->signature = $signature;
-            $payment->amount = $amount_payment;
-            $payment->open_bill_id = $res_qr['open_bill_id'];
-            $payment->bill_status = $res_qr['bill_status'];
-            $payment->save();
-            $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
-            return response()->json($url_qr);
+            if($amount_payment > 0){
+                $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
+                    
+                $payment = new Payment();
+                $payment->transaction_id = $trx_id;
+                $payment->merchant_bill_ref = $merchant_bill_ref;
+                $payment->minify_body = $minify_body;
+                $payment->signature = $signature;
+                $payment->amount = $amount_payment;
+                $payment->open_bill_id = $res_qr['open_bill_id'];
+                $payment->bill_status = $res_qr['bill_status'];
+                $payment->save();
+                $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
+                return response()->json($url_qr);
+            }else{
+                $album->paid = 1;
+                $album->save();
+                $transaction->status = 1;
+                $transaction->save();
+                $payment = new Payment();
+                $payment->transaction_id = $trx_id;
+                $payment->merchant_bill_ref = $merchant_bill_ref;
+                $payment->minify_body = $minify_body;
+                $payment->signature = $signature;
+                $payment->amount = $amount_payment;
+                $payment->open_bill_id = '';
+                $payment->bill_status = 'Paid';
+                $payment->save();
+                return response()->json('');
+            }
         }else {
             abort(403, 'Not your album.');
         }

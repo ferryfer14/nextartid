@@ -1113,31 +1113,35 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function (response, textStatus, xhr, $form) {
-                    $form.find("[type='submit']").addClass("d-none");
-                    Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
-                    $form.trigger("reset");
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
-                    Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
-                    var timer2 = "5:01";
-                    setInterval(function() {
-                        var timer = timer2.split(':');
-                        //by parsing integer, I avoid all extra string processing
-                        var minutes = parseInt(timer[0], 10);
-                        var seconds = parseInt(timer[1], 10);
-                        --seconds;
-                        minutes = (seconds < 0) ? --minutes : minutes;
-                        if (minutes < 0) clearInterval(interval);
-                        seconds = (seconds < 0) ? 59 : seconds;
-                        seconds = (seconds < 10) ? '0' + seconds : seconds;
-                        //minutes = (minutes < 10) ?  minutes : minutes;
-                        Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
-                        timer2 = minutes + ':' + seconds;
-                    }, 1000);
-                    setTimeout(function() {
+                    if(response == ''){
                         location.reload();
-                    }, 130000);
+                    }else{
+                        $form.find("[type='submit']").addClass("d-none");
+                        Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
+                        $form.trigger("reset");
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
+                        Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
+                        var timer2 = "5:01";
+                        setInterval(function() {
+                            var timer = timer2.split(':');
+                            //by parsing integer, I avoid all extra string processing
+                            var minutes = parseInt(timer[0], 10);
+                            var seconds = parseInt(timer[1], 10);
+                            --seconds;
+                            minutes = (seconds < 0) ? --minutes : minutes;
+                            if (minutes < 0) clearInterval(interval);
+                            seconds = (seconds < 0) ? 59 : seconds;
+                            seconds = (seconds < 10) ? '0' + seconds : seconds;
+                            //minutes = (minutes < 10) ?  minutes : minutes;
+                            Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
+                            timer2 = minutes + ':' + seconds;
+                        }, 1000);
+                        setTimeout(function() {
+                            location.reload();
+                        }, 130000);
+                    }
                 },
                 error: function (e, textStatus, xhr, $form) {
                     var errors = e.responseJSON.errors;
