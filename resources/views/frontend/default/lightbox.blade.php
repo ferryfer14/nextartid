@@ -1690,7 +1690,7 @@
                                         {!! makeDropDown(array(
                                             1 => __('Indonesia'),
                                             2 => __('English'),
-                                        ), 'language', null, false) !!}
+                                        ), 'language', 1, true) !!}
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
