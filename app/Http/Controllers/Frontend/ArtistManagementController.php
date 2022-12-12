@@ -362,7 +362,7 @@ class ArtistManagementController extends Controller
             'description' => 'nullable|string|max:280',
             'lirik' => 'nullable|string|max:1000',
             'selling' => 'nullable',
-            'start_point' => 'date_format:i:s',
+            //'start_point' => 'date_format:i:s',
             'language' => 'required',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
