@@ -1583,7 +1583,7 @@
                                         <label for="name">
                                             <span data-translate-text="FORM_LABEL">{{ __('web.FORM_LABEL') }}</span>
                                         </label>
-                                        <input name="label" type="text" placeholder="Label's Name" value="Aksara" autocomplete="off">
+                                        <input name="label" type="text" placeholder="Aksara" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="name">

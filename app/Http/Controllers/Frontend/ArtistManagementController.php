@@ -894,7 +894,11 @@ class ArtistManagementController extends Controller
         $album->display_artist      = $this->request->input('display_artist');
         $album->genre               = $this->request->input('genre');
         $album->remix_version       = $this->request->input('remix_version');
-        $album->label               = $this->request->input('label');
+        if($this->request->input('label') == ''){
+            $album->label           = 'Aksara';
+        }else{
+            $album->label           = $this->request->input('label');
+        }
         $album->second_genre        = $this->request->input('second_genre');
         $album->group_genre         = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
