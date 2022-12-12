@@ -1707,6 +1707,7 @@
                                 $.engineUtils.cleanStorage();
                                 $('.module[data-type="song"][data-id="' + song.id + '"]').fadeOut();
                                 Toast.show("success", Language.text.POPUP_DELETED_SONG);
+                                location.reload();
                             },
                             error: function () {
                                 Toast.show("error", Language.text.POPUP_DELETE_SONG_DENIED);
