@@ -1341,6 +1341,27 @@
                 divtest.innerHTML = '<div class="col-md-5">'+dropDownArtist+'</div><div class="col-md-7 d-flex align-items-center"><input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off"><a class="bg-success text-white edit-btn-add-artist p-1"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16"><path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/></svg></a></div>';
                 objTo.appendChild(divtest);
             }
+
+            if(album.paid == 1){
+                Artist.editAlbumForm.find("[name='title']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("[name='remix_version']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("[name='label']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='primary-artist']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='composer']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='arranger']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='lyricist']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("[name='type']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editAlbumForm.find("[name='display_artist']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editAlbumForm.find(".edit-btn-add-artist").addClass("d-none");
+                Artist.editAlbumForm.find(".remove_add_fields").addClass("d-none");
+                Artist.editAlbumForm.find("[name='roles[]']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editAlbumForm.find("input[name='created_at']").datepicker("destroy").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='released_at']").datepicker("destroy").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='license_year']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='license_name']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='recording_year']").prop('readonly','readonly');
+                Artist.editAlbumForm.find("input[name='recording_name']").prop('readonly','readonly');
+            }
         },
         addVideo: function () {
             $.engineLightBox.show("lightbox-add-video");

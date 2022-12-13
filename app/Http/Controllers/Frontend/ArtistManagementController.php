@@ -1331,6 +1331,12 @@ class ArtistManagementController extends Controller
 
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+            if($album->paid == 0){
+                $this->request->validate([
+                    'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+                    'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
+                ]);
+            }
             if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($album->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
                 return response()->json([
                     'message' => 'React the limited time to edit',
