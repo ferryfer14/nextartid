@@ -1687,10 +1687,10 @@
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
                                         </label>
-                                        {!! makeDropDown(array(
-                                            1 => __('Indonesia'),
-                                            2 => __('English'),
-                                        ), 'language', 1, true) !!}
+                                        <select name="language" placeholder="Select language" autocomplete="off">
+                                            <option value="Indonesia" selected>Indonesia</option>
+                                            <option value="English">English</option>
+                                        </select>
                                     </div>
                                     <div class="control field">
                                         <label for="upc-code">
@@ -1750,7 +1750,7 @@
                                         </label>
                                         <input name="created_at" type="text" placeholder="Immediately" autocomplete="off">
                                     </div>
-                                    <div class="control field">
+                                    <div class="control field d-none">
                                         <label for="name">
                                             <span data-translate-text="FORM_COPYRIGHT">{{ __('FORM_COPYRIGHT') }}</span>
                                         </label>
@@ -1783,7 +1783,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="control field" mb-0>
+                                    <div class="control field d-none" mb-0>
                                         <label for="territories">
                                             <span data-translate-text="FORM_TERRITORIES">{{ ('FORM_TERRITORIES') }}</span>
                                         </label>
@@ -2039,7 +2039,7 @@
                                         <label>
                                             <span data-translate-text="{{ __('FORM_GENRES2') }}">{{ __('FORM_GENRES2') }}</span>
                                         </label>
-                                        <select class="select2" name="second_genre" placeholder="Select genres" autocomplete="off">
+                                        <select name="second_genre" placeholder="Select genres" autocomplete="off">
                                         </select>
                                     </div>
                                     <div class="control field">
@@ -2116,7 +2116,7 @@
                                         </label>
                                         <input name="created_at" type="text" placeholder="Immediately" autocomplete="off">
                                     </div>
-                                    <div class="control field">
+                                    <div class="control field d-none">
                                         <label for="name">
                                             <span data-translate-text="FORM_COPYRIGHT">{{ __('FORM_COPYRIGHT') }}</span>
                                         </label>
@@ -2149,7 +2149,7 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="control field" mb-0>
+                                    <div class="control field d-none" mb-0>
                                         <label for="territories">
                                             <span data-translate-text="FORM_TERRITORIES">{{ ('FORM_TERRITORIES') }}</span>
                                         </label>

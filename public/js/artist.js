@@ -1186,6 +1186,13 @@
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
             $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=mood\\[\\]]'), User.userInfo.allow_moods);
+            Artist.editAlbumForm.find('select[name=second_genre]').prepend($('<option>', {
+                hidden:true,
+                selected:true,
+               disabled: true,
+               value: '0',
+               text: 'Please Select'
+            }));
             if (album.genre) {
                 Artist.editAlbumForm.find('select[name=genre] option[value="' + album.genre + '"]').attr('selected', 'selected');
             }

@@ -43,7 +43,7 @@ class VouchersController
     public function addPost()
     {
         $this->request->validate([
-            'code' => 'required|alpha|unique:vouchers',
+            'code' => 'required|unique:vouchers',
             'amount' => 'nullable|int',
             'meta_title' => 'nullable|int',
             'usage_limit' => 'nullable|int',
@@ -56,7 +56,7 @@ class VouchersController
 
         $vouchers->save();
 
-        return redirect()->route('backend.vouchers')->with('status', 'success')->with('message', 'Coupon successfully created!');
+        return redirect()->route('backend.vouchers')->with('status', 'success')->with('message', 'Voucher successfully created!');
     }
 
     public function edit()
@@ -77,7 +77,7 @@ class VouchersController
 
         if($voucher->code != $this->request->input('code')) {
             $this->request->validate([
-                'code' => 'required|alpha|unique:vouchers',
+                'code' => 'required|unique:vouchers',
             ]);
         }
 

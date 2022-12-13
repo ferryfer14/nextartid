@@ -1323,7 +1323,7 @@ class ArtistManagementController extends Controller
             'composer' => 'required|string|max:50',
             'arranger' => 'required|string|max:50',
             'lyricist' => 'required|string|max:50',
-            'second_genre' => 'required',
+            'second_genre' => 'nullable',
             'group_genre' => 'required',
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
             'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
