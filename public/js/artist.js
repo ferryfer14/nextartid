@@ -831,9 +831,6 @@
                     Artist.editSongForm.find("[name='isrc']").removeAttr("readonly");
                 }
             });
-            console.log("dd");
-            console.log(song.roles_song);
-            console.log(song.roles_song.length);
             if(song.roles_song.length > 0){
                 //var objTo = document.getElementById('additional_artist_edit');
                 Artist.editSongForm.find('#additional_artist').html('');
@@ -899,6 +896,25 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             });
+            var url = window.location.href.replace(/\/$/, '');
+            var album_segment = url.substring(url.lastIndexOf('/') + 1);
+            var album = window['album_data_' + album_segment];
+            if(album.paid == 1){
+                Artist.editSongForm.find("[name='title']").prop('readonly','readonly');
+                Artist.editSongForm.find("[name='album_version']").prop('readonly','readonly');
+                Artist.editSongForm.find("[name='label']").prop('readonly','readonly');
+                Artist.editSongForm.find("input[name='primary-artist']").prop('readonly','readonly');
+                Artist.editSongForm.find("input[name='composer']").prop('readonly','readonly');
+                Artist.editSongForm.find("input[name='arranger']").prop('readonly','readonly');
+                Artist.editSongForm.find("input[name='lyricist']").prop('readonly','readonly');
+                Artist.editSongForm.find("[name='type']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editSongForm.find("[name='display_artist']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editSongForm.find(".btn-add-artist").addClass("d-none");
+                Artist.editSongForm.find(".remove_add_fields").addClass("d-none");
+                Artist.editSongForm.find("[name='roles[]']").find("option:not(:selected)").prop("disabled", "disabled");
+                Artist.editSongForm.find("input[name='publisher_year']").prop('readonly','readonly');
+                Artist.editSongForm.find("input[name='publisher_name']").prop('readonly','readonly');
+            }
         },
         createAlbum: function () {
             $.engineLightBox.show("lightbox-create-album");
