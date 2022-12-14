@@ -1688,8 +1688,8 @@
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
                                         </label>
                                         <select name="language" placeholder="Select language" autocomplete="off">
-                                            <option value="Indonesia" selected>Indonesia</option>
-                                            <option value="English">English</option>
+                                            <option value="1" selected>Indonesia</option>
+                                            <option value="2">English</option>
                                         </select>
                                     </div>
                                     <div class="control field">
