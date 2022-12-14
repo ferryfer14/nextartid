@@ -7,14 +7,14 @@
     <script>var data_patner = {!! json_encode($patners) !!}</script>
     <div id="page-content">
         <div class="container">
-            <div class="page-header artist-management main">
+            <div class="page-header artist-management main mb-0 pb-1">
                 <div class="img">
                     <img src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
                 </div>
                 <div class="inner">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h1 title="{!! $album->title !!}">{!! $album->title !!}</h1>
+                            <h1 title="{!! $album->title !!}">{!! $album->title !!}, ({{ $album->remix_version }})</h1>
                             <div class="actions-primary">
                                 <a class="btn edit" data-type="album" data-id="{{ $album->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="26" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
@@ -147,6 +147,15 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                <p>
+                    {{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>
+                    Display Artist : @foreach($album->artists as $artist) {!! $artist->name !!} @if(!$loop->last), @endif @endforeach<br/>
+                    UPC : {{ $album->upc }}<br/>
+                    Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
+                    Posting Date : {{ Date('Y-m-d', strtotime($album->created_at)) }}
+                </p>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
                 @foreach($album->songs as $song)

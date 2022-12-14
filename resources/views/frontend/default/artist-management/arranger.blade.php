@@ -13,8 +13,8 @@
         <div class="container">
             <div class="page-header artist main small desktop"> <a class="img "> <img src="{{ $artist->artwork_url }}" alt="{{ $artist->name}}">  </a>
                 <div class="inner">
-                    <h1 title="{!! auth()->user()->name; !!}">{!! auth()->user()->name; !!}<span class="subpage-header"> / Participants</span></h1>
-                    <div class="byline">Your's Participants</div>
+                    <h1 title="{!! auth()->user()->name; !!}">{!! auth()->user()->name; !!}<span class="subpage-header"> / Arrangers</span></h1>
+                    <div class="byline">Your's Arrangers</div>
                 </div>
             </div>
             @include('artist-management.nav-artist')
@@ -24,7 +24,7 @@
                     @if(count($participants))
                         <div class="card shadow">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Participants</h2>
+                                <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Arrangers</h2>
                             </div>
                             <div class="card-body">
                                 <table class="table artist-management">

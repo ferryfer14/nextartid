@@ -12,6 +12,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/withdraw', 'ArtistManagementController@withdraw')->name('auth.user.artist.withdraw');
     Route::get('artist-management/uploaded', 'ArtistManagementController@uploaded')->name('auth.user.artist.manager.uploaded');
     Route::get('artist-management/artists', 'ArtistManagementController@artists')->name('auth.user.artist.manager.artists');
+    Route::get('artist-management/primary', 'ArtistManagementController@primary')->name('auth.user.artist.manager.primary');
+    Route::get('artist-management/composer', 'ArtistManagementController@composer')->name('auth.user.artist.manager.composer');
+    Route::get('artist-management/arranger', 'ArtistManagementController@arranger')->name('auth.user.artist.manager.arranger');
     Route::get('artist-management/participants', 'ArtistManagementController@participants')->name('auth.user.artist.manager.participants');
     Route::get('artist-management/unpaid', 'ArtistManagementController@unpaid')->name('auth.user.artist.manager.unpaid');
     Route::get('artist-management/paid', 'ArtistManagementController@paid')->name('auth.user.artist.manager.paid');

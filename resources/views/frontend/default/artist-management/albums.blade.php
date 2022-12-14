@@ -3,7 +3,6 @@
     @include('artist-management.nav', ['artist' => $artist])
     <div id="page-content" class="artist">
         <div class="container">
-
             <div class="page-header artist main small desktop">
                 <a class="img">
                     <img src="{{ $artist->artwork_url }}" alt="{!! auth()->user()->email !!}">
@@ -58,8 +57,14 @@
                                         </div>
                                     </div>
                                     <div class="module-inner">
-                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline">{!! $album->title !!}</a>
-                                        <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
+                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline"><h1>{!! $album->title !!}</h1></a>
+                                        <p>
+                                            {{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>
+                                            Display Artist : @foreach($album->artists as $artist) {!! $artist->name !!} @if(!$loop->last), @endif @endforeach<br/>
+                                            UPC : {{ $album->upc }}<br/>
+                                            Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
+                                            Posting Date : {{ Date('Y-m-d', strtotime($album->created_at)) }}
+                                        </p>
                                     </div>
                                 </div>
                             @endforeach

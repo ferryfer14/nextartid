@@ -209,12 +209,131 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function primary()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
+
+        $album_artist = Album::withoutGlobalScopes()->select('ar.id', 'ar.artist_role','ar.artist_name','albums.user_id')
+        ->join('album_artist as ar','albums.id','=','ar.album_id')
+        ->where('albums.user_id',auth()->user()->id)->where('ar.artist_role','1')->groupBy('ar.artist_name')->get();
+
+        $my_artist = array();
+            array_push($my_artist,array("id" => 1, "name" => 'Primary Artist'));
+            array_push($my_artist,array("id" => 2, "name" => 'Performer'));
+            array_push($my_artist,array("id" => 3, "name" => 'Producer'));
+            array_push($my_artist,array("id" => 4, "name" => 'Remixer'));
+            array_push($my_artist,array("id" => 5, "name" => 'Composer'));
+            array_push($my_artist,array("id" => 6, "name" => 'Lyricist'));
+            array_push($my_artist,array("id" => 7, "name" => 'Publisher'));
+            array_push($my_artist,array("id" => 8, "name" => 'Featuring'));
+            array_push($my_artist,array("id" => 9, "name" => 'with'));
+            array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
+
+        $view = View::make('artist-management.primary')
+            ->with('participants', $album_artist)
+            ->with('my_artist', $my_artist)
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+
+    public function composer()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
+
+        $album_artist = Album::withoutGlobalScopes()->select('ar.id', 'ar.artist_role','ar.artist_name','albums.user_id')
+        ->join('album_artist as ar','albums.id','=','ar.album_id')
+        ->where('ar.artist_role','5')
+        ->where('albums.user_id',auth()->user()->id)->groupBy('ar.artist_name')->get();
+
+        $my_artist = array();
+            array_push($my_artist,array("id" => 1, "name" => 'Primary Artist'));
+            array_push($my_artist,array("id" => 2, "name" => 'Performer'));
+            array_push($my_artist,array("id" => 3, "name" => 'Producer'));
+            array_push($my_artist,array("id" => 4, "name" => 'Remixer'));
+            array_push($my_artist,array("id" => 5, "name" => 'Composer'));
+            array_push($my_artist,array("id" => 6, "name" => 'Lyricist'));
+            array_push($my_artist,array("id" => 7, "name" => 'Publisher'));
+            array_push($my_artist,array("id" => 8, "name" => 'Featuring'));
+            array_push($my_artist,array("id" => 9, "name" => 'with'));
+            array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
+
+        $view = View::make('artist-management.composer')
+            ->with('participants', $album_artist)
+            ->with('my_artist', $my_artist)
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+
+    public function arranger()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
+
+        $album_artist = Album::withoutGlobalScopes()->select('ar.id', 'ar.artist_role','ar.artist_name','albums.user_id')
+        ->join('album_artist as ar','albums.id','=','ar.album_id')
+        ->where('ar.artist_role','10')
+        ->where('albums.user_id',auth()->user()->id)->groupBy('ar.artist_name')->get();
+
+        $my_artist = array();
+            array_push($my_artist,array("id" => 1, "name" => 'Primary Artist'));
+            array_push($my_artist,array("id" => 2, "name" => 'Performer'));
+            array_push($my_artist,array("id" => 3, "name" => 'Producer'));
+            array_push($my_artist,array("id" => 4, "name" => 'Remixer'));
+            array_push($my_artist,array("id" => 5, "name" => 'Composer'));
+            array_push($my_artist,array("id" => 6, "name" => 'Lyricist'));
+            array_push($my_artist,array("id" => 7, "name" => 'Publisher'));
+            array_push($my_artist,array("id" => 8, "name" => 'Featuring'));
+            array_push($my_artist,array("id" => 9, "name" => 'with'));
+            array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
+
+        $view = View::make('artist-management.arranger')
+            ->with('participants', $album_artist)
+            ->with('my_artist', $my_artist)
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+
     public function participants()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
 
-        $album_artist = Album::select('ar.id', 'ar.artist_role','ar.artist_name','albums.user_id')
+        $album_artist = Album::withoutGlobalScopes()->select('ar.id', 'ar.artist_role','ar.artist_name','albums.user_id')
         ->join('album_artist as ar','albums.id','=','ar.album_id')
         ->where('albums.user_id',auth()->user()->id)->groupBy('ar.artist_name')->get();
 
