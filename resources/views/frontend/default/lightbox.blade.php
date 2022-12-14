@@ -537,7 +537,11 @@
                                         </div>
                                     </div>
                                 @endif
-                                <p class="tos small" data-translate-text="FORM_TOS_2">{!! __('web.FORM_TOS_2') !!}</p>
+                                <div class="d-flex">
+                                    <input class="hide custom-checkbox" type="checkbox" id="term" value="1">
+                                    <label class="cbx" for="term"></label>
+                                    <label class="lbl" for="term" data-translate-text="FORM_TOS_2">{{ __('web.FORM_TOS_2') }}</label>
+                                </div>
                             </div>
                             <div id="signup-stage-profile" class="signup-stage hide">
                                 <div class="control-group custom-url">
@@ -611,7 +615,7 @@
                     <div class="lightbox-footer">
                         <div class="right">
                             <a class="btn btn-primary close hide" data-translate-text="CLOSE">{{ __('web.CLOSE') }}</a>
-                            <button class="btn btn-primary" type="submit" data-translate-text="SIGN_UP">{{ __('web.SIGN_UP') }}</button>
+                            <button class="btn btn-primary" type="submit" disabled="disabled" data-translate-text="SIGN_UP">{{ __('web.SIGN_UP') }}</button>
                         </div>
                         <div class="left"></div>
                     </div>

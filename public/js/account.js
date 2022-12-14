@@ -80,6 +80,14 @@
                 User.SignUp.captcha();
             }
             $.engineLightBox.show("lightbox-signup");
+            User.SignUp.signuprForm.find("[type='submit']").attr("disabled", "disabled");
+            User.SignUp.signuprForm.find('#term').change(function() {
+                if(this.checked) {
+                    User.SignUp.signuprForm.find("[type='submit']").removeAttr("disabled");
+                }else{
+                    User.SignUp.signuprForm.find("[type='submit']").attr("disabled", "disabled");
+                }
+            });
             User.SignUp.reset();
             $('#singup-form').ajaxForm({
                 beforeSerialize: function($form, options) {
@@ -131,8 +139,9 @@
                                         type: 'engineNeedHistoryChange',
                                         href: route.route('frontend.auth.upload')
                                     });*/
+                                    Toast.show("success", 'Your Account Success be created');
                                     location.reload();
-                                }, 3000);
+                                }, 1000);
                             } else {
                                 /** if not artist show signup stage complete */
                                 $("#signup-stage-complete").removeClass("hide");
