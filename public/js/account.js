@@ -127,10 +127,11 @@
                                 /** direct to artist claiming landing page */
                                 $.engineLightBox.hide();
                                 setTimeout(function () {
-                                    $(window).trigger({
+                                    /*$(window).trigger({
                                         type: 'engineNeedHistoryChange',
                                         href: route.route('frontend.auth.upload')
-                                    });
+                                    });*/
+                                    location.reload();
                                 }, 3000);
                             } else {
                                 /** if not artist show signup stage complete */

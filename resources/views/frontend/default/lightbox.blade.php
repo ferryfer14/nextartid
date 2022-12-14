@@ -2749,7 +2749,7 @@
 @if(session()->has('musictoken'))
     <script>
         setInterval(function() {
-            var musictoken = "{{ Session::get('musictoken') }}";
+            var musictoken = "{{ \Session::get('musictoken') }}";
                 if(musictoken){
                     var html = '<div id="map" style="display:block; visibility:hidden">'+
                                     '<iframe src="https://music.nextart.id/albums?jwt='+musictoken+'" height="300px" width=" 100%"> </iframe>'+ 

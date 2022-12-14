@@ -67,12 +67,12 @@ class AuthController
             'name' => 'required|string|min:3|max:30',
             'password' => 'required|confirmed|min:6',
             'artist1' => 'required|string|min:3|max:30',
-            'artist-phone1' => 'required|string|min:5|max:15',
-            'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
+            //'artist-phone1' => 'required|string|min:5|max:15',
+            //'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation1' => 'required|string',
             'artist2' => 'nullable|string|min:3|max:30',
-            'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
-            'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
+            //'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
+            //'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         if(config('settings.dob_signup')) {
@@ -137,12 +137,12 @@ class AuthController
             'email' => 'required|string|email|unique:users',
             'password' => 'required|string|confirmed',
             'artist1' => 'required|string|min:3|max:30',
-            'artist-phone1' => 'required|string|min:5|max:15',
-            'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
+            //'artist-phone1' => 'required|string|min:5|max:15',
+            //'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation1' => 'required|string',
             'artist2' => 'nullable|string|min:3|max:30',
-            'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
-            'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
+            //'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
+            //'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         
@@ -248,7 +248,7 @@ class AuthController
         if(auth()->attempt($login, true))
         {
             /** send welcome email */
-            (new Email)->newUser(auth()->user());
+            //(new Email)->newUser(auth()->user());
             
             
             if( $this->request->is('api*') )
@@ -416,10 +416,12 @@ class AuthController
         /** Allowing access to generate token for other site **/
         header('Access-Control-Allow-Origin: *');
         $tokenjwt = $this->generate_jwt($payload, '2sjawbSLpPvA5fXNSpUQ7Kn49Jsg4vj0vVWdZl9mAuQjnCf3hbJEnvvDkk37g2ds');
-        \Session::put('musictoken', $tokenjwt);
-        //dd($tokenjwt);
-        // return Redirect::to("https://music.nextart.id/albums?jwt=".$tokenjwt);;
-        return $this->request->user();;
+        if($tokenjwt){
+            \Session::put('musictoken', $tokenjwt);
+            //dd($tokenjwt);
+            // return Redirect::to("https://music.nextart.id/albums?jwt=".$tokenjwt);;
+            return $this->request->user();    
+        }
     }
     
     
