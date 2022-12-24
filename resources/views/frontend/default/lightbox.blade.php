@@ -1558,18 +1558,20 @@
                                         <label for="type">
                                             <span data-translate-text="FORM_TYPE">{{ __('web.FORM_TYPE') }}</span>
                                         </label>
-                                        {!! makeDropDown(array(
+                                        <!-- {!! makeDropDown(array(
                                             1 => __('web.ALBUM_TYPE_SINGLE'),
                                             2 => __('web.ALBUM_TYPE_LP'),
                                             3 => __('web.ALBUM_TYPE_EP'),
-                                        /*    4 => __('web.ALBUM_TYPE_COMPILATION'),
+                                            4 => __('web.ALBUM_TYPE_COMPILATION'),
                                             5 => __('web.ALBUM_TYPE_SOUNDTRACK'),
                                             6 => __('web.ALBUM_TYPE_SPOKENWORD'),
                                             7 => __('web.ALBUM_TYPE_INTERVIEW'),
                                             8 => __('web.ALBUM_TYPE_LIVE'),
                                             9 => __('web.ALBUM_TYPE_REMIX'),
-                                            10 => __('web.ALBUM_TYPE_OTHER'), */
-                                        ), 'type', null, false) !!}
+                                            10 => __('web.ALBUM_TYPE_OTHER'), 
+                                        ), 'type', null, false) !!} -->
+                                        <select class="select2" name="type" placeholder="Select album type" autocomplete="off">
+                                        </select>
                                     </div>
                                     <div class="control field">
                                         <label for="title">
@@ -1905,7 +1907,7 @@
                                         <label for="type">
                                             <span data-translate-text="FORM_TYPE">{{ __('web.FORM_TYPE') }}</span>
                                         </label>
-                                        {!! makeDropDown(array(
+                                        <!--{!! makeDropDown(array(
                                             1 => __('web.ALBUM_TYPE_SINGLE'),
                                             2 => __('web.ALBUM_TYPE_LP'),
                                             3 => __('web.ALBUM_TYPE_EP'),
@@ -1916,7 +1918,9 @@
                                             8 => __('web.ALBUM_TYPE_LIVE'),
                                             9 => __('web.ALBUM_TYPE_REMIX'),
                                             10 => __('web.ALBUM_TYPE_OTHER'), */
-                                        ), 'type', null, false) !!}
+                                        ), 'type', null, false) !!} -->
+                                        <select class="select2" name="type" placeholder="Select album type" autocomplete="off">
+                                        </select>
                                     </div>
                                     <div class="control field">
                                         <label>

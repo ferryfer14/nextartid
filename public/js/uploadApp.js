@@ -320,7 +320,9 @@
                                     },
                                     success: function(response, textStatus, xhr, $form) {
                                         Artist.upload.edit(response, $form);
-                                        window.location.href = "/artist-management/albums/"+song.album.id;                    
+                                        if(song.album.album_type.max == song.album.song_count){
+                                            window.location.href = "/artist-management/albums/"+song.album.id;                    
+                                        }
                                         $('#upload-file-button').removeClass('d-none');
                                         $form.find("[type='submit']").removeClass("btn-loading");
                                     },

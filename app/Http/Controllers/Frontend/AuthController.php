@@ -22,6 +22,7 @@ use App\Models\Notification;
 use App\Models\Song;
 use App\Models\Artist;
 use App\Models\Album;
+use App\Models\AlbumType;
 use Hash;
 use Socialite;
 use App\Notifications\ResetPassword;
@@ -781,6 +782,7 @@ class AuthController
             $user->my_artist = $artists;
             $user->group_genre = $this->groupGenre();
             $user->artists_roles = $my_artist;
+            $user->album_type = AlbumType::all()->makeHidden(['discover', 'created_at', 'priority', 'updated_at']);
             $user->allow_moods = Mood::all()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
             $user->should_subscribe = ! isset($user->group->role_id) || $user->group->role_id == config('settings.default_usergroup', 5);
             $user->can_download = !! Role::getValue('option_download');

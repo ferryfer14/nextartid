@@ -928,6 +928,14 @@
                text: 'Please Select'
             }));
             Artist.loadMoods($('.lightbox-create-album select[name="mood[]"]'), "album", null);
+            $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=type]'), User.userInfo.album_type);
+            Artist.createAlbumForm.find('select[name=type]').prepend($('<option>', {
+                hidden:true,
+                selected:true,
+               disabled: true,
+               value: '0',
+               text: 'Please Select'
+            }));
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=display_artist]'), User.userInfo.my_artist);
             $.engineUtils.makeSelectOption(Artist.createAlbumForm.find('select[name=group_genre]'), User.userInfo.group_genre);
             Artist.createAlbumForm.find('select[name=group_genre]').prepend($('<option>', {
@@ -1209,6 +1217,7 @@
                value: '0',
                text: 'Please Select'
             }));
+            $.engineUtils.makeSelectOption(Artist.editAlbumForm.find('select[name=type]'), User.userInfo.album_type);
             if (album.genre) {
                 Artist.editAlbumForm.find('select[name=genre] option[value="' + album.genre + '"]').attr('selected', 'selected');
             }
