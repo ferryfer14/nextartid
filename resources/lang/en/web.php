@@ -1689,6 +1689,7 @@ return [
     "TOP_PODCASTS" => "Top Podcasts",
     "PAYMENT" => "Payment",
 
+    "DATE_PUBLISH_FAILED" => "Date publish album must be a date after ",
     "COUPON_NOT_EXIST" => "The coupon code does not exist.",
     "COUPON_EXPIRED" => "The coupon code has already expired.",
     "COUPON_LIMITED" => "The coupon usage limit has been reached.",

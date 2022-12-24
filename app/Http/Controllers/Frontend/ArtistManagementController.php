@@ -484,7 +484,7 @@ class ArtistManagementController extends Controller
             //'start_point' => 'date_format:i:s',
             'language' => 'required',
             'release_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
-            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
         ]);
 
         /**
@@ -1001,7 +1001,7 @@ class ArtistManagementController extends Controller
             'second_genre' => 'nullable',
             'group_genre' => 'required|not_in:0',
             'copyright' => 'nullable|string|max:100',
-            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
             'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
             'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
         ]);
@@ -1341,9 +1341,9 @@ class ArtistManagementController extends Controller
     private function minDateRelease(){
         $day = Carbon::parse(Carbon::now())->format('l');
         if($day == 'Friday' && $day == 'Saturday'){
-            return 1;
+            return 8;
         }else{
-            return 1;
+            return 7;
         }
     }
 
@@ -1356,79 +1356,86 @@ class ArtistManagementController extends Controller
 
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
-            $patner = $this->request->input('patner');
-            if($patner != null){
-                if(is_array($patner))
-                {
-                    $album->patner = implode(",", $this->request->input('patner'));
-                } else {
-                    $album->patner = null;
+            if(Carbon::parse($album->created_at) > Carbon::now()->addDays($this->minDateRelease())->toDateString()){
+                $patner = $this->request->input('patner');
+                if($patner != null){
+                    if(is_array($patner))
+                    {
+                        $album->patner = implode(",", $this->request->input('patner'));
+                    } else {
+                        $album->patner = null;
+                    }
+                }else{
+                    $patners = Patner::withoutGlobalScopes()->get();
+                    $my_patner = array();
+                    foreach($patners as $p){
+                        array_push($my_patner, $p->id);
+                    }
+                    if(count($my_patner) > 0)
+                    {
+                        $album->patner = implode(",", $my_patner);
+                    } else {
+                        $album->patner = null;
+                    }
                 }
-            }else{
-                $patners = Patner::withoutGlobalScopes()->get();
-                $my_patner = array();
-                foreach($patners as $p){
-                    array_push($my_patner, $p->id);
-                }
-                if(count($my_patner) > 0)
-                {
-                    $album->patner = implode(",", $my_patner);
-                } else {
-                    $album->patner = null;
-                }
-            }
-            $album->save();
-            $token_youtap = token_youtap();
-            $timestamp = date('YMdHis');
-            $amount = $album->price->harga_discount*$album->song_count;
-            if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->exists()) {
-                $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->firstOrFail();
-                $transaction->amount = $amount;
-                $transaction->save();
-                $trx_id = $transaction->transaction_id;
-            }else{
-                $trx_id = new_transaction();
-                $transaction = new Transaction();
-                $transaction->user_id = auth()->user()->id;
-                $transaction->album_id = $album->id;
-                $transaction->transaction_id = $trx_id;
-                $transaction->amount = $amount;
-                $transaction->save();
-            }
-            $merchant_bill_ref = ($timestamp . $trx_id);
-            $amount_payment = $amount - $transaction->nilai_voucher;
-            $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
-            $signature = $res_signature['signature'];
-            $minify_body = $res_signature['minify_body'];
-            if($amount_payment > 0){
-                $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
-                    
-                $payment = new Payment();
-                $payment->transaction_id = $trx_id;
-                $payment->merchant_bill_ref = $merchant_bill_ref;
-                $payment->minify_body = $minify_body;
-                $payment->signature = $signature;
-                $payment->amount = $amount_payment;
-                $payment->open_bill_id = $res_qr['open_bill_id'];
-                $payment->bill_status = $res_qr['bill_status'];
-                $payment->save();
-                $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
-                return response()->json($url_qr);
-            }else{
-                $album->paid = 1;
                 $album->save();
-                $transaction->status = 1;
-                $transaction->save();
-                $payment = new Payment();
-                $payment->transaction_id = $trx_id;
-                $payment->merchant_bill_ref = $merchant_bill_ref;
-                $payment->minify_body = $minify_body;
-                $payment->signature = $signature;
-                $payment->amount = $amount_payment;
-                $payment->open_bill_id = '';
-                $payment->bill_status = 'Paid';
-                $payment->save();
-                return response()->json('');
+                $token_youtap = token_youtap();
+                $timestamp = date('YMdHis');
+                $amount = $album->price->harga_discount*$album->song_count;
+                if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->exists()) {
+                    $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->firstOrFail();
+                    $transaction->amount = $amount;
+                    $transaction->save();
+                    $trx_id = $transaction->transaction_id;
+                }else{
+                    $trx_id = new_transaction();
+                    $transaction = new Transaction();
+                    $transaction->user_id = auth()->user()->id;
+                    $transaction->album_id = $album->id;
+                    $transaction->transaction_id = $trx_id;
+                    $transaction->amount = $amount;
+                    $transaction->save();
+                }
+                $merchant_bill_ref = ($timestamp . $trx_id);
+                $amount_payment = $amount - $transaction->nilai_voucher;
+                $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
+                $signature = $res_signature['signature'];
+                $minify_body = $res_signature['minify_body'];
+                if($amount_payment > 0){
+                    $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
+                        
+                    $payment = new Payment();
+                    $payment->transaction_id = $trx_id;
+                    $payment->merchant_bill_ref = $merchant_bill_ref;
+                    $payment->minify_body = $minify_body;
+                    $payment->signature = $signature;
+                    $payment->amount = $amount_payment;
+                    $payment->open_bill_id = $res_qr['open_bill_id'];
+                    $payment->bill_status = $res_qr['bill_status'];
+                    $payment->save();
+                    $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
+                    return response()->json($url_qr);
+                }else{
+                    $album->paid = 1;
+                    $album->save();
+                    $transaction->status = 1;
+                    $transaction->save();
+                    $payment = new Payment();
+                    $payment->transaction_id = $trx_id;
+                    $payment->merchant_bill_ref = $merchant_bill_ref;
+                    $payment->minify_body = $minify_body;
+                    $payment->signature = $signature;
+                    $payment->amount = $amount_payment;
+                    $payment->open_bill_id = '';
+                    $payment->bill_status = 'Paid';
+                    $payment->save();
+                    return response()->json('');
+                }
+            }else{
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.DATE_PUBLISH_FAILED').Carbon::now()->addDays($this->minDateRelease())->toDateString()))
+                ], 403);
             }
         }else {
             abort(403, 'Not your album.');
@@ -1450,7 +1457,7 @@ class ArtistManagementController extends Controller
             'lyricist' => 'required|string|max:50',
             'second_genre' => 'nullable',
             'group_genre' => 'required',
-            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
             'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
         ]);
 
@@ -1458,7 +1465,7 @@ class ArtistManagementController extends Controller
             $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
             if($album->paid == 0){
                 $this->request->validate([
-                    'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease()),
+                    'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
                     'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
                 ]);
             }

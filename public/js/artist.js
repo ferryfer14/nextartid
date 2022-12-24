@@ -1045,7 +1045,7 @@
             var album = window['album_data_' + el.data('id')];
             var patners = window['patners_' + el.data('id')];
             var data_patner = window['data_patner'];
-            if(Artist.patnerAlbumForm.find("[name='id']").val() == ''){
+            if(Artist.patnerAlbumForm.find("[name='payment']").val() == ''){
                 Artist.patnerAlbumForm.find('.select_all').removeClass('d-none');
                 Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').removeClass("text-center");
                 Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
@@ -1142,6 +1142,7 @@
                 },
                 success: function (response, textStatus, xhr, $form) {
                     $.engineUtils.cleanStorage();
+                    Artist.patnerAlbumForm.find("[name='payment']").val('1');
                     $form.find("[type='submit']").addClass("d-none");
                     Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
                     $form.trigger("reset");
