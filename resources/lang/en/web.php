@@ -1692,6 +1692,7 @@ return [
     "COUPON_NOT_EXIST" => "The coupon code does not exist.",
     "COUPON_EXPIRED" => "The coupon code has already expired.",
     "COUPON_LIMITED" => "The coupon usage limit has been reached.",
+    "COUPON_USED" => "The coupon is used in transaction can't remove.",
     "COUPON_MINIMUM_ERROR" => "You need to spend more than :amount to use this coupon.",
     "COUPON_MAXIMUM_ERROR" => "You need to spend less than :amount to use this coupon.",
 

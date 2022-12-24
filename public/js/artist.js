@@ -1045,83 +1045,87 @@
             var album = window['album_data_' + el.data('id')];
             var patners = window['patners_' + el.data('id')];
             var data_patner = window['data_patner'];
-            Artist.patnerAlbumForm.find('.select_all').removeClass('d-none');
-            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').removeClass("text-center");
-            Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
-            var divput = document.createElement("div");
-            divput.setAttribute("class", "row");
-            var list_checkbox = '';
-            function checkAll(){
-                var values = $("input[name='patner[]']:checked").length;
-                if(values == data_patner.length){
-                    Artist.patnerAlbumForm.find("input[name='patner_all']").prop('checked','checked');
-                    Artist.patnerAlbumForm.find("input[name='patner[]']").attr('disabled','disabled');
-                }
-            };
-            if(patners !== null){
-                var myPatners = patners.split(",");
-                for(var i = 0; i<data_patner.length;i++){
-                    var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
-                    if(myPatners.length == data_patner.length){
-                        var disabled = 'disabled';
-                        Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
-                    }else{
-                        var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+            if(Artist.patnerAlbumForm.find("[name='id']").val() == ''){
+                Artist.patnerAlbumForm.find('.select_all').removeClass('d-none');
+                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').removeClass("text-center");
+                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                var divput = document.createElement("div");
+                divput.setAttribute("class", "row");
+                var list_checkbox = '';
+                function checkAll(){
+                    var values = $("input[name='patner[]']:checked").length;
+                    if(values == data_patner.length){
+                        Artist.patnerAlbumForm.find("input[name='patner_all']").prop('checked','checked');
+                        Artist.patnerAlbumForm.find("input[name='patner[]']").attr('disabled','disabled');
                     }
-                    list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
-                }
-                divput.innerHTML = list_checkbox;
-                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
-            }else{
-                Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
-                for(var i = 0; i<data_patner.length;i++){
-                    var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                    list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
-                }
-                divput.innerHTML = list_checkbox;
-                Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
-            }
-            setTimeout(function(){
-                Artist.patnerAlbumForm.find('.patners').on( 'change', function(){ 
-                    checkAll();
-                });
-            }, 1000);
-            Artist.patnerAlbumForm.find('#select_all_patner').change(function() {
-                if(this.checked) {
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
-                    var divInput = document.createElement("div");
-                    divInput.setAttribute("class", "row");
-                    var data_checkbox = '';
+                };
+                if(patners !== null){
+                    var myPatners = patners.split(",");
                     for(var i = 0; i<data_patner.length;i++){
-                        var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                        data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                        var checked = $.inArray( data_patner[i].id.toString(), myPatners ) !== -1 ? 'checked' : '';
+                        if(myPatners.length == data_patner.length){
+                            var disabled = 'disabled';
+                            Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
+                        }else{
+                            var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                        }
+                        list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" "+checked+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
                     }
-                    divInput.innerHTML = data_checkbox;
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                    divput.innerHTML = list_checkbox;
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
                 }else{
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
-                    var divInput = document.createElement("div");
-                    divInput.setAttribute("class", "row");
-                    var data_checkbox = '';
+                    Artist.patnerAlbumForm.find('#select_all_patner').attr('checked','checked');
                     for(var i = 0; i<data_patner.length;i++){
                         var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
-                        data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                        list_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
                     }
-                    divInput.innerHTML = data_checkbox;
-                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                    divput.innerHTML = list_checkbox;
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divput);
                 }
                 setTimeout(function(){
                     Artist.patnerAlbumForm.find('.patners').on( 'change', function(){ 
                         checkAll();
                     });
                 }, 1000);
-            });
-            Artist.albumSongsSelection.find("option").remove();
-            $.engineLightBox.show("lightbox-pay-album");
-            Artist.patnerAlbumForm.find("[name='id']").val(album.id);
-            Artist.patnerAlbumForm.find(".lightbox-close").one('click', function () {
-                location.reload();
-            });
+                Artist.patnerAlbumForm.find('#select_all_patner').change(function() {
+                    if(this.checked) {
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                        var divInput = document.createElement("div");
+                        divInput.setAttribute("class", "row");
+                        var data_checkbox = '';
+                        for(var i = 0; i<data_patner.length;i++){
+                            var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                            data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' disabled checked id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                        }
+                        divInput.innerHTML = data_checkbox;
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                    }else{
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html('');
+                        var divInput = document.createElement("div");
+                        divInput.setAttribute("class", "row");
+                        var data_checkbox = '';
+                        for(var i = 0; i<data_patner.length;i++){
+                            var disabled = data_patner[i].discover == 1 ? '' : 'disabled';
+                            data_checkbox += "<div class='col-md-4'><input name='patner[]' class='patners' id='patner_"+data_patner[i].id+"' value='"+data_patner[i].id+"' "+disabled+" type='checkbox'> <img width='30' height='30' class='align-middle' src='"+data_patner[i].artwork_url+"'> "+data_patner[i].name+"</div>"
+                        }
+                        divInput.innerHTML = data_checkbox;
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append(divInput);
+                    }
+                    setTimeout(function(){
+                        Artist.patnerAlbumForm.find('.patners').on( 'change', function(){ 
+                            checkAll();
+                        });
+                    }, 1000);
+                });
+                Artist.albumSongsSelection.find("option").remove();
+                $.engineLightBox.show("lightbox-pay-album");
+                Artist.patnerAlbumForm.find("[name='id']").val(album.id);
+                /*Artist.patnerAlbumForm.find(".lightbox-close").one('click', function () {
+                    location.reload();
+                });*/
+            }else{
+                $.engineLightBox.show("lightbox-pay-album");
+            }
             Artist.patnerAlbumForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {
                     var error = 0;
@@ -1137,35 +1141,32 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function (response, textStatus, xhr, $form) {
-                    if(response == ''){
+                    $.engineUtils.cleanStorage();
+                    $form.find("[type='submit']").addClass("d-none");
+                    Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
+                    $form.trigger("reset");
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
+                    Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
+                    Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
+                    var timer2 = "5:01";
+                    setInterval(function() {
+                        var timer = timer2.split(':');
+                        //by parsing integer, I avoid all extra string processing
+                        var minutes = parseInt(timer[0], 10);
+                        var seconds = parseInt(timer[1], 10);
+                        --seconds;
+                        minutes = (seconds < 0) ? --minutes : minutes;
+                        if (minutes < 0) clearInterval(interval);
+                        seconds = (seconds < 0) ? 59 : seconds;
+                        seconds = (seconds < 10) ? '0' + seconds : seconds;
+                        //minutes = (minutes < 10) ?  minutes : minutes;
+                        Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
+                        timer2 = minutes + ':' + seconds;
+                    }, 1000);
+                    setTimeout(function() {
                         location.reload();
-                    }else{
-                        $form.find("[type='submit']").addClass("d-none");
-                        Artist.patnerAlbumForm.find('.select_all').addClass('d-none');
-                        $form.trigger("reset");
-                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
-                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
-                        Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
-                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
-                        var timer2 = "5:01";
-                        setInterval(function() {
-                            var timer = timer2.split(':');
-                            //by parsing integer, I avoid all extra string processing
-                            var minutes = parseInt(timer[0], 10);
-                            var seconds = parseInt(timer[1], 10);
-                            --seconds;
-                            minutes = (seconds < 0) ? --minutes : minutes;
-                            if (minutes < 0) clearInterval(interval);
-                            seconds = (seconds < 0) ? 59 : seconds;
-                            seconds = (seconds < 10) ? '0' + seconds : seconds;
-                            //minutes = (minutes < 10) ?  minutes : minutes;
-                            Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
-                            timer2 = minutes + ':' + seconds;
-                        }, 1000);
-                        setTimeout(function() {
-                            location.reload();
-                        }, 130000);
-                    }
+                    }, 130000);
                 },
                 error: function (e, textStatus, xhr, $form) {
                     var errors = e.responseJSON.errors;
@@ -1830,8 +1831,9 @@
                     $.engineUtils.cleanStorage();
                     location.reload();
                 },
-                error: function () {
-                    Toast.show("error", 'Remove Voucher Failed');
+                error: function (jqXHR) {
+                    var serverMsg = JSON.parse(jqXHR.responseText);
+                    Toast.show('failed', serverMsg.errors[Object.keys(serverMsg.errors)[0]][0]);
                 }
             });
         },

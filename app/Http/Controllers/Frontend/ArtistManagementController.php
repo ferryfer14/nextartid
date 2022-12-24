@@ -1150,7 +1150,7 @@ class ArtistManagementController extends Controller
             ->get();
             $s->roles_song = $song_roles;
         }
-        $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->get();
+        $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->first();
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
@@ -1171,13 +1171,20 @@ class ArtistManagementController extends Controller
     public function removeVoucher(){
         if(Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->exists()) {
             $transaction = Transaction::withoutGlobalScopes()->where('id', '=', $this->request->input('id'))->firstOrFail();
-            $voucher =  Voucher::where('id', $transaction->voucher_id)->first();
-            $transaction->nilai_voucher = 0;
-            $transaction->voucher_id = NULL;
-            $transaction->save();
-            $voucher->use_count = $voucher->use_count-1;
-            $voucher->save();
-            return response()->json(array('success' => true));
+            if(Payment::withoutGlobalScopes()->where('transaction_id', '=' , $transaction->transaction_id)->exists()){
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_USED')))
+                ], 403);
+            }else{
+                $voucher =  Voucher::where('id', $transaction->voucher_id)->first();
+                $transaction->nilai_voucher = 0;
+                $transaction->voucher_id = NULL;
+                $transaction->save();
+                $voucher->use_count = $voucher->use_count-1;
+                $voucher->save();
+                return response()->json(array('success' => true));
+            }
         } else {
             abort(403, 'Not your voucher.');
         }
@@ -1374,9 +1381,8 @@ class ArtistManagementController extends Controller
             $token_youtap = token_youtap();
             $timestamp = date('YMdHis');
             $amount = $album->price->harga_discount*$album->song_count;
-            if(Transaction::withoutGlobalScopes()->where('album_id', '=', $this->request->input('id'))->exists()) {
-                $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $this->request->input('id'))->firstOrFail();
-                $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+            if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->exists()) {
+                $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->firstOrFail();
                 $transaction->amount = $amount;
                 $transaction->save();
                 $trx_id = $transaction->transaction_id;
@@ -1384,7 +1390,7 @@ class ArtistManagementController extends Controller
                 $trx_id = new_transaction();
                 $transaction = new Transaction();
                 $transaction->user_id = auth()->user()->id;
-                $transaction->album_id = $this->request->input('id');
+                $transaction->album_id = $album->id;
                 $transaction->transaction_id = $trx_id;
                 $transaction->amount = $amount;
                 $transaction->save();
