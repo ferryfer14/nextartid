@@ -103,6 +103,19 @@
                 </div>
             </div>
         </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAlbum" aria-expanded="false" aria-controls="collapseAlbum">
+                <i class="fas fa-fw fa-compact-disc"></i>
+                <span>Manage Albums</span>
+            </a>
+            <div id="collapseAlbum" class="collapse" aria-labelledby="headingMusic" data-parent="#accordionSidebar">
+                <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage Album Type', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.type'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Albums', 'icon' => 'fa-compact-disc', 'permission' => 'admin_albums', 'route' => 'backend.albums'])
+                </div>
+            </div>
+        </li>
         @if(env('VIDEO_MODULE') == 'true')
             <hr class="sidebar-divider">
             @if(\App\Models\Role::getValue('admin_songs'))
