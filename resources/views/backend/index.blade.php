@@ -114,6 +114,7 @@
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage Album Type', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.type'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Albums', 'icon' => 'fa-compact-disc', 'permission' => 'admin_albums', 'route' => 'backend.albums'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Export Albums', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.export'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_albums', 'route' => 'backend.album.royalti'])
                 </div>
             </div>
         </li>
