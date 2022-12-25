@@ -1692,6 +1692,7 @@ return [
 
     "DATE_PUBLISH_FAILED" => "Date publish album must be a date after ",
     "AMOUNT_FAILED" => "Amount must be 0 or ",
+    "TERM_OF_SERVICE" => "Terms of Service",
     "COUPON_NOT_EXIST" => "The coupon code does not exist.",
     "COUPON_EXPIRED" => "The coupon code has already expired.",
     "COUPON_LIMITED" => "The coupon usage limit has been reached.",
@@ -2036,6 +2037,7 @@ return [
     "SETTINGS_SOUNDCLOUD_PROFILE_URL_TIP" => "Will be displayed on your profile.",
     "SIGN_IN_DISCORD" => "Discord",
     "DISCORD" => "Discord",
+    "ACCEPT" => "Accept",
     "SIGN_UP_AGE_RESTRICTION" => "You must be over :age in order to be able to sign up.",
     "ALLOW_SELL_THIS_ALBUM" => "Allow to sell this album",
     "ALLOW_SELL_THIS_SONG" => "Allow to sell this song",

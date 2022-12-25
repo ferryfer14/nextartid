@@ -65,4 +65,16 @@ class PageController
 
         return $view;
     }
+    public function api(){
+        
+        if(Page::withoutGlobalScopes()->where('id', '=', $this->request->route('id'))->exists()) {
+            $page = Page::findOrFail($this->request->route('id'));
+            return response()->json($this->page);
+        }else{
+            return response()->json([
+                'message' => 'error',
+                'errors' => array('message' => array('Can not fetch the page.'))
+            ], 403);
+        }
+    }
 }

@@ -6,3 +6,4 @@
  */
 
 Route::get('page/{slug}', 'PageController@index')->name('page');
+Route::get('page/api/{id}', 'PageController@api')->name('page.api');

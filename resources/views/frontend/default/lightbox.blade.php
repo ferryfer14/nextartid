@@ -623,6 +623,27 @@
             </form>
         </div>
     </div>
+    <div class="lightbox lightbox-term-cond hide">
+        <div class="lbcontainer">
+            <div class="lightbox-header">
+                <h2 class="title" data-translate-text="TERM_OF_SERVICE">{{ __('web.TERM_OF_SERVICE') }}</h2>
+            </div>
+            <div class="lightbox-content">
+                <div class="lightbox-error error hide"></div>
+                <div class="row">
+                    <div id="page-content" class="pages">
+                    </div>
+                </div>
+            </div>
+            <div class="lightbox-footer">
+                <div class="right">
+                    <a class="btn btn-secondary cancel" data-translate-text="CANCEL">{{ __('web.CANCEL') }}</a>
+                    <a class="btn btn-primary accept" data-translate-text="ACCEPT">{{ __('web.ACCEPT') }}</a>
+                </div>
+                <div class="left"></div>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-dob-update hide">
         <div class="lbcontainer">
             <form id="dob-update-form" class="ajax-form" method="POST" action="{{ route('frontend.auth.user.dob.update') }}">

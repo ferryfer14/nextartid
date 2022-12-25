@@ -82,11 +82,31 @@
             $.engineLightBox.show("lightbox-signup");
             User.SignUp.signuprForm.find("[type='submit']").attr("disabled", "disabled");
             User.SignUp.signuprForm.find('#term').change(function() {
-                if(this.checked) {
-                    User.SignUp.signuprForm.find("[type='submit']").removeAttr("disabled");
-                }else{
+                $.engineLightBox.hide("lightbox-signup");        
+                $.ajax({
+                    url: route.route('frontend.page', { 'slug':'term-and-condition','id' : '2'}),
+                    method: 'GET',
+                    success: function (data){
+                        $.engineUtils.cleanStorage();
+                        $(".lightbox-term-cond").find('#page-content').html(data);
+                    }
+                });
+                $.engineLightBox.show("lightbox-term-cond");
+                
+                $(".lightbox-term-cond").find('.cancel').bind('click', function() {
+                    $.engineUtils.cleanStorage();     
+                    $.engineLightBox.hide("lightbox-term-cond");
+                    $.engineLightBox.show("lightbox-signup");   
+                    User.SignUp.signuprForm.find('#term').removeAttr("checked");
                     User.SignUp.signuprForm.find("[type='submit']").attr("disabled", "disabled");
-                }
+                });
+                $(".lightbox-term-cond").find('.accept').bind('click', function() {
+                    $.engineUtils.cleanStorage();        
+                    $.engineLightBox.hide("lightbox-term-cond");  
+                    $.engineLightBox.show("lightbox-signup");
+                    User.SignUp.signuprForm.find('#term').attr("checked","checked");
+                    User.SignUp.signuprForm.find("[type='submit']").removeAttr("disabled");
+                });
             });
             User.SignUp.reset();
             $('#singup-form').ajaxForm({
