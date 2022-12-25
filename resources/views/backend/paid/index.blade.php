@@ -45,7 +45,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Find</button>
                                 <button type="reset" class="btn btn-danger">Reset</button>
-                                <a href="{{ route('backend.songs') }}" class="btn btn-secondary">Clear</a>
+                                <a href="{{ route('backend.paid') }}" class="btn btn-secondary">Clear</a>
                             </form>
                         </div>
                     </div>
