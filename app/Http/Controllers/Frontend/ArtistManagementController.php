@@ -1478,8 +1478,6 @@ class ArtistManagementController extends Controller
             'lyricist' => 'required|string|max:50',
             'second_genre' => 'nullable',
             'group_genre' => 'required',
-            'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
-            'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
         ]);
 
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {

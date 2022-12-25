@@ -27,7 +27,7 @@ class Album extends Model implements HasMedia
 {
     use InteractsWithMedia, SanitizedRequest;
 
-    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type'];
+    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music'];
 
     protected $hidden = ['media', 'user_id', 'artistIds', 'approved', 'updated_at'];
 
@@ -98,6 +98,16 @@ class Album extends Model implements HasMedia
         return Genre::where('id', $this->attributes['second_genre'])->get();
     }
     
+    public function getGenreMusicAttribute($value)
+    {
+        return Genre::where('id', $this->attributes['genre'])->first();
+    }
+
+    public function getSecondGenreMusicAttribute($value)
+    {
+        return Genre::where('id', $this->attributes['second_genre'])->first();
+    }
+
     public function getPatnersAttribute($value)
     {
         return Patner::whereIn('id', explode(',', $this->attributes['patner']))->get();

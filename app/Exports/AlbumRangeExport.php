@@ -17,13 +17,14 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Carbon\Carbon;
 
 //class AlbumsExport implements FromCollection,WithCustomCsvSettings,WithHeadings
-class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,WithMapping
+class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatting,WithMapping
 {
-    protected $id;
     protected $index = 0;
+    protected $start,$finish;
 
-    function __construct($id) {
-            $this->id = $id;
+    function __construct($start, $finish) {
+        $this->start = $start;
+        $this->finish = $finish;
     }
     // public function map($invoice): array
     // {
@@ -87,27 +88,15 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
     }
     public function collection()
     {
-        $album = Album::withoutGlobalScopes()
-        ->select('albums.*','artists.name')
-        ->join('artists','artists.id','albums.display_artist')
-        ->where('albums.id',$this->id)
-        ->get();
-        $album_roles = DB::table('album_artist')
-        ->where('album_id',$this->id)
-        ->get();
-        $roles_album = '';
-        foreach($album_roles as $r){
-            $roles_album .= $this->roles($r->artist_role).':'.$r->artist_name.';';
-        }
-        foreach ($album as $a) {
-            $a->roles_album = $roles_album;
-        }
         $song = Song::leftJoin('album_songs', 'album_songs.song_id', '=', (new Song)->getTable() . '.id')
-            ->select((new Song)->getTable() . '.*', 'album_songs.id as host_id','g.name as genre_name','sg.name as second_genre_name')
-            ->leftJoin('genres as g','g.id',(new Song)->getTable() . '.genre')
-            ->leftJoin('genres as sg','sg.id',(new Song)->getTable() . '.second_genre')
-            ->where('album_songs.album_id', $this->id)
-            ->get();    
+        ->select((new Song)->getTable() . '.*', 'album_songs.id as host_id','g.name as genre_name','sg.name as second_genre_name','al.id as album_id','al.paid','al.created_at')
+        ->join('albums as al','al.id', 'album_songs.album_id')
+        ->leftJoin('genres as g','g.id',(new Song)->getTable() . '.genre')
+        ->leftJoin('genres as sg','sg.id',(new Song)->getTable() . '.second_genre')
+        ->where('al.paid','=','1')
+        ->whereDate('al.created_at','>=', date('Y-m-d', strtotime($this->start)))
+        ->whereDate('al.created_at','<=', date('Y-m-d', strtotime($this->finish)))
+        ->get();    
         foreach ($song as $s) {
             $song_roles = DB::table('album_artist')
             ->where('song_id',$s->id)
@@ -117,8 +106,23 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $roles_song .= $this->roles($r->artist_role).':'.$r->artist_name.';';
             }
             $s->roles_song = $roles_song;
-        }
-        foreach ($song as $s) {
+
+            $album = Album::withoutGlobalScopes()
+            ->select('albums.*','artists.name')
+            ->join('artists','artists.id','albums.display_artist')
+            ->where('albums.paid','=','1')
+            ->where('albums.id',$s->album_id)
+            ->get();
+            $album_roles = DB::table('album_artist')
+            ->where('album_id',$s->album_id)
+            ->get();
+            $roles_album = '';
+            foreach($album_roles as $r){
+                $roles_album .= $this->roles($r->artist_role).':'.$r->artist_name.';';
+            }
+            foreach ($album as $a) {
+                $a->roles_album = $roles_album;
+            }
             $s->album = $album;
             $s->roles_album = $roles_album;
         }
