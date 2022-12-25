@@ -12,6 +12,7 @@
                 <li><a href="{{ route('frontend.auth.user.artist.manager.videos') }}" class="page-nav-link @if(Route::currentRouteName() == 'frontend.auth.user.artist.manager.videos') active @endif" data-translate-text="VIDEOS">{{ __('web.VIDEOS') }}<div class="arrow"></div></a></li>
             @endif
             <li><a href="{{ route('frontend.auth.user.artist.manager.events') }}" class="page-nav-link @if(Route::currentRouteName() == 'frontend.auth.user.artist.manager.events') active @endif" data-translate-text="EVENTS">{{ __('web.EVENTS') }}<div class="arrow"></div></a></li>-->
+            <li><a href="{{ route('frontend.auth.user.artist.manager.transaction') }}" class="page-nav-link @if(Route::currentRouteName() == 'frontend.auth.user.artist.manager.transaction') active @endif" data-translate-text="TRANSACTION">{{ __('web.TRANSACTION') }}<div class="arrow"></div></a></li>
             <li><a href="{{ route('frontend.auth.user.artist.manager.profile') }}" class="page-nav-link @if(Route::currentRouteName() == 'frontend.auth.user.artist.manager.profile') active @endif" data-translate-text="PROFILE">{{ __('web.PROFILE') }}<div class="arrow"></div></a></li>
         </ul>
     </div>

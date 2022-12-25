@@ -25,6 +25,8 @@
                     <th>Transaction Id</th>
                     <th>Album Name</th>
                     <th class="desktop">Amount</th>
+                    <th class="desktop">Coupon Value</th>
+                    <th class="desktop">Total Payment</th>
                     <th>Status</th>
                     <th width="150">Payment Date</th>
                 </tr>
@@ -32,11 +34,13 @@
                 @foreach ($paid as $index => $pen )
                     @if($pen->transaction_id)
                         <tr>
-                            <td><a href="{{ route('backend.users.edit', ['id' => $pen->transaction_id]) }}">NXA{{ $pen->transaction_id }}</a></td>
-                            <td>{{ isset($pen->albums[0]->title) ? $pen->albums[0]->title : '' }}</td>
-                            <td><span class="text-success">Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
+                            <td>NXA{{ $pen->transaction_id }}</td>
+                            <td>{{ isset($pen->albums->title) ? $pen->albums->title : '' }}</td>
+                            <td><span>Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
+                            <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_voucher), 0, ',', '.') }}</span></td>
+                            <td><span class="text-success">Rp {{ number_format((float)($pen->amount-$pen->nilai_voucher), 0, ',', '.') }}</span></td>
                             <td>
-                                <span class="badge badge-danger">paid</span>
+                                <span class="badge badge-success">Paid</span>
                             </td>
                             <td>{{ \Carbon\Carbon::parse($pen->created_at)->format('M j, Y') }}</td>
                         </tr>

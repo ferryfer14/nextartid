@@ -226,6 +226,7 @@ return [
     "NAV_PRIMARY" => "Primary",
     "NAV_COMPOSER" => "Composer",
     "NAV_ARRANGER" => "Arranger",
+    "TRANSACTION" => "Transaction",
     "NAV_ALL" => "All",
     "NAV_PRESS" => "Press",
     "NAV_CONTACT" => "Contact",
@@ -1690,6 +1691,7 @@ return [
     "PAYMENT" => "Payment",
 
     "DATE_PUBLISH_FAILED" => "Date publish album must be a date after ",
+    "AMOUNT_FAILED" => "Amount must be 0 or ",
     "COUPON_NOT_EXIST" => "The coupon code does not exist.",
     "COUPON_EXPIRED" => "The coupon code has already expired.",
     "COUPON_LIMITED" => "The coupon usage limit has been reached.",
