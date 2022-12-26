@@ -22,7 +22,7 @@
                                 </a>
 
                                 @if($album->paid == 0)
-                                    @if($album->type == 1 && $album->song_count > 0)
+                                    @if($album->album_type->max == $album->song_count)
                                     @else
                                         <a class="btn upload" href="{{ route('frontend.auth.user.artist.manager.albums.upload', ['id' => $album->id]) }}">
                                             <svg width="14" height="26" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve">
