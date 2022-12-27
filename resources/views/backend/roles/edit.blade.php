@@ -934,7 +934,7 @@
                                                     <p class="small mb-0">This option allows users with access to create, edit and delete patner.</p>
                                                 </label>
                                                 <div class="col-sm-4 col-3">
-                                                    <label class="switch"><input type="checkbox" name="save_role[admin_patners]" value="1" @if(array_get($role->permissions, 'admin_genres')) checked="checked" @endif><span class="slider round"></span></label>
+                                                    <label class="switch"><input type="checkbox" name="save_role[admin_patners]" value="1" @if(array_get($role->permissions, 'admin_patners')) checked="checked" @endif><span class="slider round"></span></label>
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">
@@ -943,6 +943,14 @@
                                                 </label>
                                                 <div class="col-sm-4 col-3">
                                                     <label class="switch"><input type="checkbox" name="save_role[admin_genres]" value="1" @if(array_get($role->permissions, 'admin_genres')) checked="checked" @endif><span class="slider round"></span></label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row border-bottom mb-0 pt-3 pb-3">
+                                                <label class="col-sm-8 col-9 mb-0">Allow the management of Group Genres
+                                                    <p class="small mb-0">This option allows users with access to create, edit and delete group genre.</p>
+                                                </label>
+                                                <div class="col-sm-4 col-3">
+                                                    <label class="switch"><input type="checkbox" name="save_role[admin_group_genre]" value="1" @if(array_get($role->permissions, 'admin_group_genre')) checked="checked" @endif><span class="slider round"></span></label>
                                                 </div>
                                             </div>
                                             <div class="form-group row border-bottom mb-0 pt-3 pb-3">

@@ -97,7 +97,6 @@ class ArtistManagementController extends Controller
             ->with('albums', $this->artist->albums)
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre())
             ->with('songs_revenue', $songs_revenue)
             ->with('episodes_revenue', $episodes_revenue)
             ->with('counts', $counts);
@@ -899,16 +898,7 @@ class ArtistManagementController extends Controller
 
         ));
     }
-    private function groupGenre(){
-        $group_genre = array();
-        array_push($group_genre,'Dangdut');
-        array_push($group_genre,'Pop daerah');
-        array_push($group_genre,'Minang');
-        array_push($group_genre,'Sunda');
-        array_push($group_genre,'Koplo');
-        array_push($group_genre,'Melayu');
-        return $group_genre;
-    }
+
     public function albums()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
@@ -921,8 +911,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.albums')
             ->with('artist', $this->artist)
-            ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre());
+            ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -944,8 +933,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.release')
             ->with('artist', $this->artist)
-            ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre());
+            ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -967,8 +955,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.paid')
             ->with('artist', $this->artist)
-            ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre());
+            ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -990,8 +977,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.unpaid')
             ->with('artist', $this->artist)
-            ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre());
+            ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
             $sections = $view->renderSections();
@@ -1175,7 +1161,6 @@ class ArtistManagementController extends Controller
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
-            ->with('group_genre', $this->groupGenre())
             ->with('patners', $patners)
             ->with('transaction', $transaction)
             ->with('artist_roles', $artist_roles)

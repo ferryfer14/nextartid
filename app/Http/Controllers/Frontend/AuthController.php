@@ -34,6 +34,7 @@ use Image;
 use App\Models\RoleUser;
 use App\Models\Report;
 use App\Models\Genre;
+use App\Models\GroupGenre;
 use App\Models\Mood;
 use App\Models\HashTag;
 use App\Models\Role;
@@ -725,12 +726,7 @@ class AuthController
         ), 200);
     }
     
-    /**
-     * Get the authenticated User
-     *
-     * @return [json] user object
-     */
-    private function groupGenre(){
+    /**private function groupGenre(){
         $group_genre = array();
         array_push($group_genre,array("id" => 1, "name" =>'Dangdut'));
         array_push($group_genre,array("id" => 2, "name" =>'Pop daerah'));
@@ -739,7 +735,7 @@ class AuthController
         array_push($group_genre,array("id" => 5, "name" =>'Koplo'));
         array_push($group_genre,array("id" => 6, "name" =>'Melayu'));
         return $group_genre;
-    }
+    }*/
     public function user()
     {
         $user = $this->request->user();
@@ -780,7 +776,7 @@ class AuthController
             array_push($my_artist,array("id" => 9, "name" => 'with'));
             array_push($my_artist,array("id" => 10, "name" => 'Arranger'));
             $user->my_artist = $artists;
-            $user->group_genre = $this->groupGenre();
+            $user->group_genre = GroupGenre::all()->makeHidden(['artwork_url','discover', 'created_at', 'priority', 'updated_at']);
             $user->artists_roles = $my_artist;
             $user->album_type = AlbumType::all()->makeHidden(['discover', 'created_at', 'priority', 'updated_at']);
             $user->allow_moods = Mood::all()->makeHidden(['artwork_url', 'created_at', 'description', 'media', 'meta_description', 'meta_keywords', 'meta_title', 'parent_id', 'priority', 'priority', 'updated_at', 'alt_name']);
