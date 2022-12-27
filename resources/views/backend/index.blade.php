@@ -80,7 +80,7 @@
         <hr class="sidebar-divider">
         @include('backend.commons.sidebar-menu', ['name' => 'Manage patners', 'icon' => 'fa-tags', 'permission' => 'admin_patners', 'route' => 'backend.patners'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage genres', 'icon' => 'fa-tags', 'permission' => 'admin_genres', 'route' => 'backend.genres'])
-        @include('backend.commons.sidebar-menu', ['name' => 'Manage group genres', 'icon' => 'fa-tags', 'permission' => 'admin_group_genre', 'route' => 'backend.group-genre'])
+        @include('backend.commons.sidebar-menu', ['name' => 'Group genres', 'icon' => 'fa-tags', 'permission' => 'admin_group_genre', 'route' => 'backend.group-genre'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage moods', 'icon' => 'fa-smile', 'permission' => 'admin_moods', 'route' => 'backend.moods'])
         <hr class="sidebar-divider">
         <li class="nav-item">
@@ -114,6 +114,7 @@
                 <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage Album Type', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.type'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Albums', 'icon' => 'fa-compact-disc', 'permission' => 'admin_albums', 'route' => 'backend.albums'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Free Song', 'icon' => 'fa-music', 'permission' => 'admin_songs', 'route' => 'backend.free.song'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Export Albums', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.export'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_albums', 'route' => 'backend.album.royalti'])
                 </div>

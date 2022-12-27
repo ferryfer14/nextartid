@@ -7,6 +7,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\Album;
 use App\Models\AlbumType;
 use Illuminate\Http\Request;
 use App\Models\Patner;
@@ -54,9 +55,13 @@ class AlbumTypeController
 
     public function delete()
     {
-        AlbumType::where('id', $this->request->route('id'))->delete();
-        Cache::clear('discover');
-        return redirect()->route('backend.album.type')->with('status', 'success')->with('message', 'Album Type successfully deleted!');
+        if(!Album::withoutGlobalScopes()->where('type', $this->request->route('id'))->exists()) {
+            AlbumType::where('id', $this->request->route('id'))->delete();
+            Cache::clear('discover');
+            return redirect()->route('backend.album.type')->with('status', 'success')->with('message', 'Album Type successfully deleted!');
+        }else{
+            return redirect()->route('backend.album.type')->with('status', 'failed')->with('message', 'Album Type already exist any album!');    
+        }
     }
 
     public function add()
@@ -89,7 +94,7 @@ class AlbumTypeController
     {
         $albumType = AlbumType::findOrFail($this->request->route('id'));
 
-        return view('backend.album.type.form')
+        return view('backend.album-type.form')
             ->with('album_type', $albumType);
     }
 
@@ -97,42 +102,26 @@ class AlbumTypeController
     {
         $this->request->validate([
             'name' => 'nullable|string|max:50',
-            'min' => 'required|number|min:1',
-            'max' => 'required|number|min:1',
+            'min' => 'required|numeric|min:1',
+            'max' => 'required|numeric|min:1',
         ]);
 
-        $patner = Patner::findOrFail($this->request->route('id'));
+        $AlbumType = AlbumType::findOrFail($this->request->route('id'));
 
-        if($patner->name != $this->request->input('name')) {
+        if($AlbumType->name != $this->request->input('name')) {
             $this->request->validate([
                 'name' => 'required|string|unique:patners',
 
             ]);
         }
 
-        $patner->fill($this->request->except('_token'));
+        $AlbumType->fill($this->request->except('_token'));
+        $AlbumType->min = $this->request->input('min');
+        $AlbumType->max = $this->request->input('max');
 
-        if($this->request->input('discover')) {
-            $patner->discover = 1;
-        } else {
-            $patner->discover = 0;
-        }
-
-        if ($this->request->hasFile('artwork'))
-        {
-            $this->request->validate([
-                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 10240)
-            ]);
-
-            $patner->clearMediaCollection('artwork');
-            $patner->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)), intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
-                ->usingFileName(time(). '.jpg')
-                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
-        }
-
-        $patner->save();
+        $AlbumType->save();
         Cache::clear('discover');
 
-        return redirect()->route('backend.patners')->with('status', 'success')->with('message', 'Patner successfully edited!');
+        return redirect()->route('backend.album.type')->with('status', 'success')->with('message', 'Album Type successfully edited!');
     }
 }
