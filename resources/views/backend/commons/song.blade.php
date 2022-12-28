@@ -9,7 +9,8 @@
                 <img src="{{ $song->artwork_url }}"/>
             </a>
         </td>
-        <td id="track_{{ $song->id }}" class="editable" title="Click to edit">{!! $song->title !!}</td>
+        <td>{!! $song->title !!}</td>
+        <td id="track_{{ $song->id }}" class="editable" title="Click to edit">{!! $song->isrc !!}</td>
         <td class="desktop">@foreach($song->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</td>
         @if($song->album)
             <td class="desktop">
@@ -18,15 +19,6 @@
         @else
             <td></td>
         @endif
-        <td class="desktop">{{ $song->loves }}</td>
-        <td class="desktop">{{ $song->plays }}</td>
-        <td class="desktop">
-            @if($song->approved)
-                <span class="badge badge-pill badge-success">Yes</span>
-            @else
-                <span class="badge badge-pill badge-danger">No</span>
-            @endif
-        </td>
         <td class="desktop">
             @if($song->preview)
                 <span class="badge badge-pill badge-danger">PR</span>

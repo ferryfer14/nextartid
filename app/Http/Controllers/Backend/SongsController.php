@@ -531,6 +531,19 @@ class SongsController
         return response()->json($song);
     }
 
+    public function editIsrcPost()
+    {
+        $this->request->validate([
+            'isrc' => 'required|string|max:100'
+        ]);
+
+        $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+        $song->isrc = $this->request->input('isrc');
+        $song->save();
+
+        return response()->json($song);
+    }
+
     public function reject()
     {
         $this->request->validate([

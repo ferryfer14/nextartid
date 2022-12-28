@@ -201,38 +201,12 @@
                                 <i class="fas fa-sort-alpha-up"></i>
                             @endif
                         </th>
+                        <th class="desktop">
+                            <a href="{{ request()->fullUrlWithQuery(["isrc" => request()->get('isrc') == 'asc' ? 'desc' : 'asc' ]) }}">Isrc</a>
+                           ISRC
+                        </th>
                         <th class="desktop">Artist(s)</th>
                         <th class="desktop">Album</th>
-                        <th class="desktop th-2action">
-                            <a data-toggle="tooltip" title="Fans" href="{{ request()->fullUrlWithQuery(["loves" => request()->get('loves') == 'asc' ? 'desc' : 'asc' ]) }}">
-                                <i class="fas fa-heart"></i>
-                            @if(request()->get('loves') == 'asc')
-                                <i class="fas fa-arrow-up"></i>
-                            @else
-                                <i class="fas fa-arrow-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th class="desktop th-2action">
-                            <a data-toggle="tooltip" title="Listens" href="{{ request()->fullUrlWithQuery(["plays" => request()->get('plays') == 'asc' ? 'desc' : 'asc' ]) }}">
-                                <i class="fas fa-play"></i>
-                            @if(request()->get('plays') == 'asc')
-                                <i class="fas fa-arrow-up"></i>
-                            @else
-                                <i class="fas fa-arrow-down"></i>
-                            @endif
-                            </a>
-                        </th>
-                        <th class="desktop th-4action">
-                            <a data-toggle="tooltip" title="Approved" href="{{ request()->fullUrlWithQuery(["approved" => request()->get('approved') == 'asc' ? 'desc' : 'asc' ]) }}">
-                                <i class="fas fa-check-double"></i>
-                            @if(request()->get('approved') == 'asc')
-                                <i class="fas fa-arrow-up"></i>
-                            @else
-                                <i class="fas fa-arrow-down"></i>
-                            @endif
-                            </a>
-                        </th>
                         <th class="desktop th-5action">Media</th>
                         <th class="desktop th-3action">Disk</th>
                         <th class="th-2action">Action</th>

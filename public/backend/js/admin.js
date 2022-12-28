@@ -183,6 +183,38 @@
         $(".thVal_" + editClass).keyup(function(event) {
             if (event.keyCode == 13) {
                 var song_id = editClass;
+                var isrcName = $(".thVal_" + editClass).val();
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                if (isrcName != value) {
+                    $.post(admin_path + '/songs/edit-isrc', {
+                        action: "edit",
+                        id: song_id.replace('track_', ''),
+                        isrc: isrcName
+                    }, function(data) {
+
+                    });
+                }
+            }
+        });
+        $(".thVal_" + editClass).blur(function (e) {
+            var song_id = editClass;
+            var isrcName = $(".thVal_" + editClass).val();
+            $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+            if (isrcName != value) {
+                $.post(admin_path +  '/songs/edit-isrc', {
+                    action: "edit",
+                    id: song_id.replace('track_', ''),
+                    isrc: isrcName
+                }, function(data) {
+
+                });
+            }
+            $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+            e.stopPropagation();
+        });
+        /*$(".thVal_" + editClass).keyup(function(event) {
+            if (event.keyCode == 13) {
+                var song_id = editClass;
                 var songName = $(".thVal_" + editClass).val();
                 $.trim($(currentEle).html($(".thVal_" + editClass).val()));
                 if (songName != value) {
@@ -211,7 +243,7 @@
             }
             $.trim($(currentEle).html($(".thVal_" + editClass).val()));
             e.stopPropagation();
-        });
+        });*/
     }
 
     $(document).on("click", "table tbody tr td.lang-editable", function(e) {

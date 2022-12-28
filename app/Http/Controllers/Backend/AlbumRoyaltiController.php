@@ -15,6 +15,8 @@ use DB;
 use Image;
 use Cache;
 use App\Exports\AlbumsExport;
+use App\Imports\RoyaltiImport;
+use App\Models\FileRoyalti;
 use Excel;
 
 class AlbumRoyaltiController
@@ -28,14 +30,25 @@ class AlbumRoyaltiController
 
     public function index()
     {
-        return view('backend.album-royalti.index');
+        $file_royalti = FileRoyalti::withoutGlobalScopes()->latest()->first();
+        return view('backend.album-royalti.index')
+            ->with('file_royalti', $file_royalti);
     }
 
     public function exportPost()
     {
         $this->request->validate([
-            'file' => 'required|mimes:csv',
+            'file' => 'required|mimetypes:text/csv,text/plain,application/csv,text/comma-separated-values,text/anytext,application/octet-stream,application/txt',
+            'note' => 'required|string'
         ]);
-        return Excel::download(new AlbumRangeExport($this->request->input('start'),$this->request->input('finish')), date('Ymd',strtotime($this->request->input('start'))).'_'.date('Ymd',strtotime($this->request->input('finish'))).'.csv');
+
+        $filename = $this->request->file('file')->getClientOriginalName();
+        $file_royalti = new FileRoyalti();
+        $file_royalti->nama_file = $filename;
+        $file_royalti->note = $this->request->input('note');
+        $file_royalti->save();
+        Excel::import(new RoyaltiImport, $this->request->file('file'));
+
+        return redirect()->route('backend.album-royalti.index')->with('status', 'success')->with('message', 'Import Royalti successfully!');
     }
 }
