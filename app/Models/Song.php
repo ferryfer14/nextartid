@@ -96,7 +96,7 @@ class Song extends Model implements HasMedia
         $this->attributes['moods'] = Mood::whereIn('id', explode(',', $this->attributes['mood']))->limit(4)->get();
         return $this->attributes['moods'];
     }
-
+    
     public function getGenresAttribute($value)
     {
         $this->attributes['genres'] = Genre::whereIn('id', explode(',', $this->attributes['genre']))->limit(4)->get();
@@ -288,6 +288,12 @@ class Song extends Model implements HasMedia
     public function getSalesAttribute()
     {
         return Order::groupBy('amount')->where('orderable_type', $this->getMorphClass())->where('orderable_id', $this->id)->count();
+    }
+
+
+    public function getSumRoyaltiAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->where('song_id', $this->id)->sum('value');
     }
 
     public function user()
