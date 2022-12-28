@@ -1337,6 +1337,7 @@ return [
     "POPUP_EDIT_SONG_DENIED" => "You don't have permission to edit this song. The song has reacted the limited time it can be edited.",
     "POPUP_DELETE_SONG_DENIED" => "You don't have permission to delete this song. The song has reacted the limited time it can be edited.",
     "POPUP_EDIT_ALBUM_DENIED" => "You don't have permission to edit this album. The album has reacted the limited time it can be edited.",
+    "POPUP_EDIT_ALBUM_FAILED" => "Failed to edit the album. Your song exceeds the limit for this album type",
     "POPUP_DELETE_ALBUM_DENIED" => "You don't have permission to delete this album. The album has reacted the limited time it can be deleted.",
     "POPUP_DELETED_SONG" => "Your song has been successfully deleted.",
     "POPUP_DELETED_ALBUM" => "Your album has been successfully deleted.",

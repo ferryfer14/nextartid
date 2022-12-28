@@ -24,6 +24,7 @@ use App\Models\Artist;
 use App\Models\Song;
 use App\Models\Album;
 use App\Models\AlbumArtist;
+use App\Models\AlbumType;
 use App\Models\ArtistsRoles;
 use App\Models\User;
 use App\Models\Genre;
@@ -1158,6 +1159,15 @@ class ArtistManagementController extends Controller
             $s->roles_song = $song_roles;
         }
         $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->first();
+        if(isset($album->free_song)){
+            $transaction->free_song_id = $album->free_song->id;
+            $transaction->nilai_free_song = $album->free_song->free*$album->price->harga_discount;
+            $transaction->save();
+        }else{
+            $transaction->free_song_id = NULL;
+            $transaction->nilai_free_song = NULL;
+            $transaction->save();
+        }
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
@@ -1403,7 +1413,7 @@ class ArtistManagementController extends Controller
                     $transaction->save();
                 }
                 $merchant_bill_ref = ($timestamp . $trx_id);
-                $amount_payment = $amount - $transaction->nilai_voucher;
+                $amount_payment = $amount - $transaction->nilai_voucher - $transaction->nilai_free_song;
                 $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
                 $signature = $res_signature['signature'];
                 $minify_body = $res_signature['minify_body'];
@@ -1473,6 +1483,15 @@ class ArtistManagementController extends Controller
                     'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
                 ]);
             }
+            if($album->type != $this->request->input('type')) {
+                $album_type = AlbumType::findOrFail($this->request->input('type'));
+                if($album->song_count > $album_type->max){
+                    return response()->json([
+                        'message' => 'Your song exceeds the limit for this album type',
+                        'errors' => array('message' => array(__('web.POPUP_EDIT_ALBUM_FAILED')))
+                    ], 403);
+                }
+            } 
             if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($album->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
                 return response()->json([
                     'message' => 'React the limited time to edit',

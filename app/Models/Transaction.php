@@ -9,7 +9,7 @@ class Transaction extends Model
     protected $table = 'transaction';
     protected $appends = ['albums', 'payments', 'vouchers'];
     protected $fillable = [
-        'id','user_id', 'album_id','transaction_id','amount', 'status', 'voucher_id', 'nilai_voucher'
+        'id','user_id', 'album_id','transaction_id','amount', 'status', 'voucher_id', 'nilai_voucher','free_song_id', 'nilai_free_song'
     ];
 
     public function getAlbumsAttribute($value)

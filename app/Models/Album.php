@@ -108,6 +108,7 @@ class Album extends Model implements HasMedia
         return Genre::where('id', $this->attributes['second_genre'])->first();
     }
 
+
     public function getPatnersAttribute($value)
     {
         return Patner::whereIn('id', explode(',', $this->attributes['patner']))->get();
@@ -121,6 +122,11 @@ class Album extends Model implements HasMedia
     public function getSongCountAttribute($value)
     {
         return AlbumSong::where('album_id', $this->id)->count();
+    }
+
+    public function getFreeSongAttribute($value)
+    {
+        return FreeSong::where('min', AlbumSong::where('album_id', $this->id)->count())->first();
     }
 
     public function getAlbumTypeAttribute($value)

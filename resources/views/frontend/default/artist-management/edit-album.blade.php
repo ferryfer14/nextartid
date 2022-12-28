@@ -95,12 +95,18 @@
                                                     <span>Voucher</span>
                                                 </a>   
                                             @endif
+                                            @if(isset($transaction->free_song_id))
+                                                <p class="d-flex justify-content-left">({{ $album->free_song->name }})</p>
+                                            @endif
                                         </div>
                                         <div class="col-sm-4">
                                             <p class="d-flex justify-content-center">{{ number_format((float)($album->price->harga*$album->song_count), 0, ',', '.') }}</p>
                                             <p class="d-flex text-danger justify-content-center">({{ number_format((float)(($album->price->harga-$album->price->harga_discount)*$album->song_count), 0, ',', '.') }})</p>
                                             @if(isset($transaction->voucher_id))
                                                 <p class="d-flex text-danger justify-content-center">({{ number_format((float)$transaction->nilai_voucher, 0, ',', '.') }})</p>
+                                            @endif
+                                            @if(isset($transaction->free_song_id))
+                                                <p class="d-flex text-danger justify-content-center">({{ number_format((float)$transaction->nilai_free_song, 0, ',', '.') }})</p>
                                             @endif
                                         </div>
                                     </div>
@@ -111,9 +117,9 @@
                                         <div class="col-sm-4">
                                             <hr class="sidebar-divider m-0">
                                             @if(isset($transaction->voucher_id))
-                                                <p class="d-flex justify-content-center"><b>{{ number_format((float)($transaction->amount-$transaction->nilai_voucher), 0, ',', '.') }}</b></p>
+                                                <p class="d-flex justify-content-center"><b>{{ number_format((float)($transaction->amount-$transaction->nilai_voucher-$transaction->nilai_free_song), 0, ',', '.') }}</b></p>
                                             @else
-                                                <b class="d-flex justify-content-center">{{ number_format((float)($album->song_count*$album->price->harga_discount), 0, ',', '.') }}</b>
+                                                <b class="d-flex justify-content-center">{{ number_format((float)($transaction->amount-$transaction->nilai_free_song), 0, ',', '.') }}</b>
                                             @endif
                                         </div>
                                     </div>

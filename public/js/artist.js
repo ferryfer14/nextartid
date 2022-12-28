@@ -1128,6 +1128,7 @@
             }
             Artist.patnerAlbumForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {
+                    $.engineUtils.cleanStorage();
                     var error = 0;
                     Object.keys(data).forEach(function eachKey(key) {
                         if (data[key].required && !data[key].value) {
@@ -1170,6 +1171,7 @@
                     }, 130000);
                 },
                 error: function (e, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();
                     var errors = e.responseJSON.errors;
                     $.each(errors, function (key, value) {
                         Toast.show("error", value[0], null);

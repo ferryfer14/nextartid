@@ -192,7 +192,7 @@
                                 $(this).find('.datepicker').datepicker();
                                 if (song.album.display_artist) {
                                     $thisForm.find('select[name=display_artist] option[value="' + song.album.display_artist + '"]').attr('selected', 'selected');
-                                    if(song.album.type == "1"){
+                                    if(song.album.album_type.max == 1){
                                         getImgURL(song.album.artwork_url, (imgBlob)=>{
                                             // Load img blob to input
                                             // WIP: UTF8 character error
@@ -323,6 +323,7 @@
                                         if(song.album.album_type.max == song.album.song_count){
                                             window.location.href = "/artist-management/albums/"+song.album.id;                    
                                         }
+                                        song.album.song_count = song.album.song_count+1;
                                         $('#upload-file-button').removeClass('d-none');
                                         $form.find("[type='submit']").removeClass("btn-loading");
                                     },
