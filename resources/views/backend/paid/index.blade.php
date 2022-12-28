@@ -58,8 +58,11 @@
                     <th>Album Name</th>
                     <th class="desktop">Amount</th>
                     <th class="desktop">Coupon Value</th>
+                    <th class="desktop">Free Song Value</th>
                     <th class="desktop">Total Payment</th>
                     <th>Status</th>
+                    <th>Payment Type</th>
+                    <th>Notes</th>
                     <th width="150">Payment Date</th>
                 </tr>
                 </thead>
@@ -70,10 +73,13 @@
                             <td>{{ isset($pen->albums->title) ? $pen->albums->title : '' }}</td>
                             <td><span>Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
                             <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_voucher), 0, ',', '.') }}</span></td>
-                            <td><span class="text-success">Rp {{ number_format((float)($pen->amount-$pen->nilai_voucher), 0, ',', '.') }}</span></td>
+                            <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_free_song), 0, ',', '.') }}</span></td>
+                            <td><span class="text-success">Rp {{ number_format((float)($pen->amount-$pen->nilai_voucher-$pen->nilai_free_song), 0, ',', '.') }}</span></td>
                             <td>
                                 <span class="badge badge-success">Paid</span>
                             </td>
+                            <td>{{ $pen->payment_type }}</td>
+                            <td>{{ $pen->note }}</td>
                             <td>{{ \Carbon\Carbon::parse($pen->updated_at)->format('M j, Y') }}</td>
                         </tr>
                     @endif

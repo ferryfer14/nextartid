@@ -17,7 +17,11 @@
                 </div>
                 <div class="form-group">
                     <label>Nominal</label>
-                    <input class="form-control" type="number" name="amount" placeholder="{{ isset($pending) && ! old('amount') ? $pending->amount-$pending->nilai_voucher : old('amount') }}" required>
+                    <input class="form-control" type="number" name="amount" placeholder="{{ isset($pending) && ! old('amount') ? $pending->amount-$pending->nilai_voucher-$pending->nilai_free_song : old('amount') }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Note</label>
+                    <textarea class="form-control" name="note" placeholder="Notes"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Save">

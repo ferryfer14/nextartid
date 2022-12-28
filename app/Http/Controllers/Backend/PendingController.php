@@ -53,22 +53,30 @@ class PendingController
     public function editPost()
     {
         $this->request->validate([
-            'amount' => 'required|numeric'
+            'amount' => 'required|numeric',
+            'note' => 'nullable|string'
         ]);
 
         $transaction = Transaction::withoutGlobalScopes()->where('transaction_id', '=', $this->request->input('transaction_id'))->firstOrFail();
-        if($this->request->input('amount') == 0 || $this->request->input('amount') == $transaction->amount-$transaction->nilai_voucher){
+        if($this->request->input('amount') == 0 || $this->request->input('amount') == $transaction->amount-$transaction->nilai_voucher-$transaction->nilai_free_song){
             $album = Album::withoutGlobalScopes()->findOrFail($transaction->album_id);
             $album->paid = 1;
             $album->save();
             $transaction->status = 1;
+            $transaction->payment_type = 'Manual';
+            $transaction->note = $this->request->input('note');
             if($this->request->input('amount') == 0){
                 if($transaction->voucher_id != null){
                     $voucher =  Voucher::where('id', $transaction->voucher_id)->first();
                     $voucher->use_count = $voucher->use_count-1;
                     $voucher->save();
                 }
+                if($transaction->free_song_id != null){
+                    $transaction->nilai_free_song = 0;
+                    $transaction->free_song_id = NULL;
+                }
                 $transaction->nilai_voucher = 0;
+                $transaction->status_free = 1;
                 $transaction->voucher_id = NULL;
             }
             $transaction->save();
@@ -98,7 +106,7 @@ class PendingController
 
             return redirect()->route('backend.pending')->with('status', 'success')->with('message', 'Transaction successfully paid!');
         }else{
-            return redirect()->route('backend.pending.edit',['id'=>$transaction->transaction_id])->with('status', 'failed')->with('message', 'Amount must be a 0 or '.($transaction->amount-$transaction->nilai_voucher).' !');
+            return redirect()->route('backend.pending.edit',['id'=>$transaction->transaction_id])->with('status', 'failed')->with('message', 'Amount must be a 0 or '.($transaction->amount-$transaction->nilai_voucher-$transaction->nilai_free_song).' !');
         }
     }
 

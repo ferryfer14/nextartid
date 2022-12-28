@@ -7,7 +7,8 @@
                 <td class="text-center"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">{{$trx->albums->title}}</a></td>
                 <td class="text-center">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</td>
                 <td class="text-center text-danger">Rp {{ number_format((float)($trx->nilai_voucher), 0, ',', '.') }}</td>
-                <td class="text-center text-success">Rp {{ number_format((float)($trx->amount-$trx->nilai_voucher), 0, ',', '.') }}</td>
+                <td class="text-center text-danger">Rp {{ number_format((float)($trx->nilai_free_song), 0, ',', '.') }}</td>
+                <td class="text-center text-success">Rp {{ number_format((float)($trx->amount-$trx->nilai_voucher-$trx->nilai_free_song), 0, ',', '.') }}</td>
                 <td class="text-center">
                     @if($trx->status == 0)
                         <span class="badge badge-danger">Pending</span>
@@ -15,6 +16,7 @@
                         <span class="badge badge-success">Paid</span>
                     @endif
                 </td>
+                <td class="text-center">{{ $trx->payment_type }}</td>
                 <td class="text-center">{{\Carbon\Carbon::parse($trx->payments->created_at)->format('M j, Y')}}</td>
             </tr>
         @endif
@@ -46,8 +48,10 @@
                                         <th class="text-center">Album Name</th>
                                         <th class="text-center">Amount</th>
                                         <th class="text-center">Coupon Value</th>
+                                        <th class="text-center">Free Song Value</th>
                                         <th class="text-center">Total Payment</th>
                                         <th class="text-center">Status</th>
+                                        <th class="text-center">Payment Type</th>
                                         <th class="text-center">Payment Date</th>
                                     </tr>
                                     </thead>
