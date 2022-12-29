@@ -49,6 +49,6 @@ class AlbumRoyaltiController
         $file_royalti->save();
         Excel::import(new RoyaltiImport, $this->request->file('file'));
 
-        return redirect()->route('backend.album-royalti.index')->with('status', 'success')->with('message', 'Import Royalti successfully!');
+        return redirect()->route('backend.album.royalti')->with('status', 'success')->with('message', 'Import Royalti successfully!');
     }
 }
