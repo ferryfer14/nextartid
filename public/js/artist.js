@@ -670,6 +670,7 @@
         },
         royaltiSong: function (song) {
             __DEV__ && console.log('Royalti song', song);
+            $('#detail-royalti > tbody').html('');
             song.royalti.forEach(function(s) {
                 $('#detail-royalti > tbody:last-child').append('<tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="royalti" data-id="'+s.id+'">'+
                 '<td class="text-left desktop">'+s.patner+'</td>'+
