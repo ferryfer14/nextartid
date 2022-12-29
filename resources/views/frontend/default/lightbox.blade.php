@@ -1243,6 +1243,30 @@
             </div>
         </div>
     </div>
+    <div class="lightbox lightbox-royalti-song hide">
+        <div class="lbcontainer">
+            <div id="upload-song">
+                <div class="lightbox-header">
+                    <h2 class="title">Detail Royalti</h2>
+                    @yield('lightbox-close')
+                </div>
+                <div class="lightbox-content">
+                    <div class="lightbox-content-block">
+                        <table id="detail-royalti" class="table detail-royalti">
+                            <thead>
+                            <tr>
+                                <th class="text-left">Patner</th>
+                                <th class="text-center">Royalti</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-edit-song hide">
         <form id="edit-song-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.song.edit.post') }}" enctype="multipart/form-data" novalidate>
             <div class="lbcontainer">

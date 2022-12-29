@@ -54,8 +54,8 @@
                             <ul class="stat-summary">
                                 <li class="basic-tooltip" tooltip="Before tax">
                                     <a href="{{ route('frontend.auth.user.artist.manager.uploaded') }}">
-                                        <span class="num">{{ __('symbol.' . config('settings.currency', 'USD')) }}{{ $album->sales }}</span>
-                                        <span class="label" data-translate-text="SALES">Sales</span>
+                                        <span class="num">${{ round($album->sum_royalti,3) }}</span>
+                                        <span class="label" data-translate-text="ROYALTI">Royalti</span>
                                     </a>
                                 </li>
                                 <li>

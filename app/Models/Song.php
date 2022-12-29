@@ -35,7 +35,7 @@ class Song extends Model implements HasMedia
         'title', 'genre','start_point' , 'mood', 'album_id', 'artworkId', 'releasedOn', 'copyright', 'approve'
     ];
 
-    protected $appends = ['artwork_url', 'artists', 'permalink_url', 'stream_url', 'favorite', 'library', 'streamable', 'allow_download', 'allow_high_quality_download'];
+    protected $appends = ['artwork_url', 'artists', 'royalti' , 'permalink_url', 'stream_url', 'favorite', 'library', 'streamable', 'allow_download', 'allow_high_quality_download'];
 
     protected $hidden = ['media', 'artistIds', 'description', 'user_id', 'user'];
 
@@ -294,6 +294,11 @@ class Song extends Model implements HasMedia
     public function getSumRoyaltiAttribute($value)
     {
         return Royalti::withoutGlobalScopes()->where('song_id', $this->id)->sum('value');
+    }
+
+    public function getRoyaltiAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw('SUM(value) as total')->where('song_id', $this->id)->groupBy('patner')->get();
     }
 
     public function user()

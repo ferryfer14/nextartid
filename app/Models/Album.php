@@ -108,6 +108,10 @@ class Album extends Model implements HasMedia
         return Genre::where('id', $this->attributes['second_genre'])->first();
     }
 
+    public function getSumRoyaltiAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->whereIn('song_id', AlbumSong::withoutGlobalScopes()->select('song_id')->where('album_id', $this->id)->get())->sum('value');
+    }
 
     public function getPatnersAttribute($value)
     {
