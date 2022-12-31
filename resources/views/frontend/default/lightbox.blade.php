@@ -637,8 +637,8 @@
             </div>
             <div class="lightbox-footer">
                 <div class="right">
-                    <a class="btn btn-secondary cancel" data-translate-text="CANCEL">{{ __('web.CANCEL') }}</a>
-                    <a class="btn btn-primary accept" data-translate-text="ACCEPT">{{ __('web.ACCEPT') }}</a>
+                    <button class="btn btn-secondary cancel" data-translate-text="CANCEL">{{ __('web.CANCEL') }}</button>
+                    <button class="btn btn-primary accept" data-translate-text="ACCEPT">{{ __('web.ACCEPT') }}</button>
                 </div>
                 <div class="left"></div>
             </div>
