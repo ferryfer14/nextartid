@@ -43,12 +43,17 @@ class AlbumRoyaltiController
         ]);
 
         $filename = $this->request->file('file')->getClientOriginalName();
-        $file_royalti = new FileRoyalti();
-        $file_royalti->nama_file = $filename;
-        $file_royalti->note = $this->request->input('note');
-        $file_royalti->save();
-        Excel::import(new RoyaltiImport, $this->request->file('file'));
 
-        return redirect()->route('backend.album.royalti')->with('status', 'success')->with('message', 'Import Royalti successfully!');
+        if(!FileRoyalti::withoutGlobalScopes()->where('nama_file', $filename)->exists()) {
+            $file_royalti = new FileRoyalti();
+            $file_royalti->nama_file = $filename;
+            $file_royalti->note = $this->request->input('note');
+            $file_royalti->save();
+            Excel::import(new RoyaltiImport, $this->request->file('file'));
+
+            return redirect()->route('backend.album.royalti')->with('status', 'success')->with('message', 'Import Royalti successfully!');
+        }else{
+            return redirect()->route('backend.album.royalti')->with('status', 'failed')->with('message', 'File Name already to used!');
+        }
     }
 }

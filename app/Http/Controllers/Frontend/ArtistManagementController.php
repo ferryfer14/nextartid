@@ -24,6 +24,7 @@ use App\Models\Artist;
 use App\Models\Song;
 use App\Models\Album;
 use App\Models\AlbumArtist;
+use App\Models\AlbumSong;
 use App\Models\AlbumType;
 use App\Models\ArtistsRoles;
 use App\Models\User;
@@ -38,6 +39,7 @@ use App\Models\Country;
 use App\Models\Patner;
 use App\Models\Transaction;
 use App\Models\Payment;
+use App\Models\Royalti;
 use App\Models\Voucher;
 use chillerlan\QRCode\QRCode;
 
@@ -57,7 +59,11 @@ class ArtistManagementController extends Controller
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->paginate(20));
         $this->artist->setRelation('songs', $this->artist->songs()->with('tags')->orderBy('plays', 'desc')->paginate(10));
         $this->artist->follower_count = $this->artist->followers()->count();
-
+        //$albums = Royalti::withoutGlobalScopes()->whereIn('song_id', DB::table('songs')->select('id as song_id')->where('artistIds',auth()->user()->artist_id)->get())->sum('value');
+        //$songs = Song::withoutGlobalScopes()->select('id')->where('user_id', auth()->user()->id)->get();
+        //$albums = Album::withoutGlobalScopes()->selectRaw('id')->where('artistIds',auth()->user()->artist_id)->get();
+        //$songs = AlbumSong::withoutGlobalScopes()->select('song_id')->whereIn('album_id',$albums)->get();
+        //$balance_confirm = Royalti::withoutGlobalScopes()->whereIn('song_id', )->sum('value');
         $counts = DB::table('popular')
             ->select(DB::raw('sum(plays) AS playSong'), DB::raw('sum(favorites) AS favoriteSong'),  DB::raw('sum(collections) AS collectSong'))
             ->where('artist_id', $this->artist->id)
@@ -98,6 +104,7 @@ class ArtistManagementController extends Controller
             ->with('albums', $this->artist->albums)
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
+            //->with('my_song', $albums)
             ->with('songs_revenue', $songs_revenue)
             ->with('episodes_revenue', $episodes_revenue)
             ->with('counts', $counts);

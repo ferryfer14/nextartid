@@ -11,4 +11,9 @@ class AlbumSong extends Model
     protected $fillable = [
         'song_id', 'album_id'
     ];
+    
+    protected static function boot()
+    {
+        parent::boot();
+    }
 }

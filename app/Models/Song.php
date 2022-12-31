@@ -32,7 +32,7 @@ class Song extends Model implements HasMedia
     protected $table = 'songs';
 
     protected $fillable = [
-        'title', 'genre','start_point' , 'mood', 'album_id', 'artworkId', 'releasedOn', 'copyright', 'approve'
+        'id', 'title', 'genre','start_point' , 'mood', 'album_id', 'artworkId', 'releasedOn', 'copyright', 'approve'
     ];
 
     protected $appends = ['artwork_url', 'artists', 'royalti' , 'permalink_url', 'stream_url', 'favorite', 'library', 'streamable', 'allow_download', 'allow_high_quality_download'];
