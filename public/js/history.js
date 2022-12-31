@@ -144,7 +144,9 @@
                         Artist.deleteSong(song);
                     } else if (a.hasClass("create-album") === true) {
                         Artist.createAlbum();
-                    } else if (a.hasClass("add-video") === true) {
+                    } else if (a.hasClass("withdraw-royalti") === true) {
+                        Artist.withdrawRoyalti(a);
+                    }  else if (a.hasClass("add-video") === true) {
                         Artist.addVideo();
                     } else if (a.hasClass("create-show") === true) {
                         Artist.createPodcastShow();

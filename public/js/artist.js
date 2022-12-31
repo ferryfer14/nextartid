@@ -31,6 +31,15 @@
         init: function () {
 
         },
+        withdrawRoyalti: function(el){
+            var max = parseInt(el.data('max'));
+            var min = parseInt(el.data('min'));
+            
+            if(max < min) {
+                Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
+                return false;
+            }
+        },
         withdraw: function(){
             var max = parseInt($(this).data('max'));
             var min = parseInt($(this).data('min'));
