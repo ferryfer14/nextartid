@@ -11,6 +11,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('artist-management', 'ArtistManagementController@index')->name('auth.user.artist.manager');
     Route::post('artist-management/withdraw', 'ArtistManagementController@withdraw')->name('auth.user.artist.withdraw');
     Route::get('artist-management/uploaded', 'ArtistManagementController@uploaded')->name('auth.user.artist.manager.uploaded');
+    Route::get('artist-management/royalti-artist', 'ArtistManagementController@royaltiArtist')->name('auth.user.artist.manager.royalti.artist');
     Route::get('artist-management/artists', 'ArtistManagementController@artists')->name('auth.user.artist.manager.artists');
     Route::get('artist-management/primary', 'ArtistManagementController@primary')->name('auth.user.artist.manager.primary');
     Route::get('artist-management/composer', 'ArtistManagementController@composer')->name('auth.user.artist.manager.composer');

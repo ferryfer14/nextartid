@@ -27,7 +27,7 @@ class Album extends Model implements HasMedia
 {
     use InteractsWithMedia, SanitizedRequest;
 
-    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music'];
+    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music','song'];
 
     protected $hidden = ['media', 'user_id', 'artistIds', 'approved', 'updated_at'];
 
@@ -158,6 +158,15 @@ class Album extends Model implements HasMedia
 
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    public function getSongAttribute()
+    {
+        return Song::leftJoin('album_songs', 'album_songs.song_id', '=', (new Song)->getTable() . '.id')
+            ->select((new Song)->getTable() . '.*', 'album_songs.id as host_id')
+            ->where('album_songs.album_id', $this->id)
+            ->orderBy('album_songs.priority', 'asc')
+            ->orderBy('album_songs.id', 'asc')->get();
     }
 
     public function songs()

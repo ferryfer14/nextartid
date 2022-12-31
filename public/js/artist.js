@@ -678,6 +678,17 @@
             });
             $.engineLightBox.show("lightbox-royalti-song");
         },
+        royaltiArtist: function (artist) {
+            __DEV__ && console.log('Royalti artist', artist);
+            console.log(artist);
+            $('#detail-royalti > tbody').html('');
+            artist.royalti.forEach(function(s) {
+                $('#detail-royalti > tbody:last-child').append('<tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="royalti" data-id="'+s.id+'">'+
+                '<td class="text-left desktop">'+s.patner+'</td>'+
+                '<td class="text-center desktop">$'+s.total.toFixed(3)+'</td></tr>');
+            });
+            $.engineLightBox.show("lightbox-royalti-song");
+        },
         editSong: function (song) {
             __DEV__ && console.log('Edit song', song);
 

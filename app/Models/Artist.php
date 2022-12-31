@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url', 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm'];
+    protected $appends = ['artwork_url', 'royalti', 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm'];
 
     protected static function boot()
     {
@@ -71,6 +71,11 @@ class Artist extends Model implements HasMedia
     public function getBalanceConfirmAttribute($value)
     {
         return Royalti::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->sum('value');
+    }
+    
+    public function getRoyaltiAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw('SUM(value) as total')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner')->get();
     }
 
     public function getMoodsAttribute()

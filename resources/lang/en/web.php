@@ -222,7 +222,7 @@ return [
     "NAV_TEAM" => "The Team",
     "NAV_CAREERS" => "Careers",
     "NAV_ARTISTS" => "Artists",
-    "ROYALTI" => "Royalti",
+    "ROYALTY" => "Royalty",
     "NAV_DISPLAY_ARTISTS" => "Display Artists",
     "NAV_PRIMARY" => "Primary",
     "NAV_COMPOSER" => "Composer",

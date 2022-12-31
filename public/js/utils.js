@@ -48,6 +48,15 @@
             }
             return json;
         },
+        toArtistJson: function (json) {
+            __DEV__ && console.log(json);
+            json.type = 'artist';
+            if (!json.name && json.id) {
+                Toast.show("failed", "You are missing something", "Can't add artist to Queue!");
+                return false;
+            }
+            return json;
+        },
         stationToPlayerJson: function (json) {
             json.type = 'song';
             if (!json.title && json.id) {
@@ -81,6 +90,11 @@
             var id = el.data("id");
             var songData = window['song_data_' + id];
             return $.engineUtils.toPlayerJson(songData);
+        },
+        getArtistData: function (el) {
+            var id = el.data("id");
+            var artistData = window['artist_data_' + id];
+            return $.engineUtils.toArtistJson(artistData);
         },
         getEpisodeData: function (el) {
             var id = el.data("id");

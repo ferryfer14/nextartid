@@ -169,12 +169,34 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function royaltiArtist()
+    {
+        $this->artist = Artist::withoutGlobalScopes()->where('user_id',auth()->user()->id)->get();
+        
+        $view = View::make('artist-management.royalti-artist')
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+
     public function uploaded()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $album = Album::withoutGlobalScopes()->where('artistIds', auth()->user()->artist_id)->where('paid','1')->get();
         $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
 
         $view = View::make('artist-management.uploaded')
+            ->with('albums', $album)
             ->with('songs', $this->artist->songs)
             ->with('artist', $this->artist);
 
