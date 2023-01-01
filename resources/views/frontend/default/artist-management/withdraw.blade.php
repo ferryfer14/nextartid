@@ -6,6 +6,10 @@
             <td class="text-center">{{ $trx->name }}</td>
             <td class="text-center">{{ $trx->account_number }}</td>
             <td class="text-center">${{ $trx->value }}</td>
+            <td class="text-center">Rp {{ number_format((float)($trx->value_idr), 0, ',', '.') }}</td>
+            <td class="text-center">Rp {{ number_format((float)($trx->value_tax), 0, ',', '.') }}</td>
+            <td class="text-center">Rp {{ number_format((float)($trx->value_admin), 0, ',', '.') }}</td>
+            <td class="text-center">Rp {{ number_format((float)($trx->value_total), 0, ',', '.') }}</td>
             <td class="text-center">
                 @if($trx->status == 0)
                     <span class="badge badge-danger">Pending</span>
@@ -44,6 +48,10 @@
                                         <th class="text-center">Account Name</th>
                                         <th class="text-center">Account Number</th>
                                         <th class="text-center">Value</th>
+                                        <th class="text-center">Value IDR</th>
+                                        <th class="text-center">Tax</th>
+                                        <th class="text-center">Admin</th>
+                                        <th class="text-center">Total</th>
                                         <th class="text-center">Status</th>
                                         <th class="text-center">Created Date</th>
                                     </tr>

@@ -190,6 +190,18 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function dollarIdr()
+    {
+        $this->request->validate([
+            'value'              => 'required|numeric',
+        ]);
+        
+        $r=file_get_contents( "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/idr.json");
+        $json = json_decode($r, true);
+        $json['admin'] = User::findOrFail(auth()->user()->id);
+        return response()->json($json);
+    }
+
     public function withdrawRoyalti()
     {
         $this->request->validate([
@@ -197,7 +209,7 @@ class ArtistManagementController extends Controller
             'another_bank'      => 'required_if:bank,==,0|max:20',
             'account_name'      => 'required|string|max:50',
             'account_number'    => 'required|numeric:max:20',
-            'value'             => 'required|numeric|min:100',
+            'value'             => 'required|numeric|min:0',
         ],
         [
             'another_bank.required_if' => 'The another bank field is required when bank is Another Bank'
@@ -211,6 +223,10 @@ class ArtistManagementController extends Controller
             $withdraw->name = $this->request->input('account_name');
             $withdraw->account_number = $this->request->input('account_number');
             $withdraw->value = $this->request->input('value');
+            $withdraw->value_idr = $this->request->input('value_idr');
+            $withdraw->value_tax = $this->request->input('value_tax');
+            $withdraw->value_admin = $this->request->input('value_admin');
+            $withdraw->value_total = $this->request->input('value_total');
             $withdraw->save();
     
             return response()->json($withdraw);
@@ -266,7 +282,7 @@ class ArtistManagementController extends Controller
 
         return $view;
     }
-    
+
     public function withdrawList()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);

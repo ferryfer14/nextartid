@@ -1629,6 +1629,24 @@
                                 </label>
                                 <input name="value_idr" readonly type="number">
                             </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span id="tax">Charge Tax</span>
+                                </label>
+                                <input name="value_tax" readonly type="number">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span id="admin">Charge Admin</span>
+                                </label>
+                                <input name="value_admin" readonly type="number">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Value Total</span>
+                                </label>
+                                <input name="value_total" readonly type="number">
+                            </div>
                         </div>
                     </div>
                     <div class="lightbox-footer">

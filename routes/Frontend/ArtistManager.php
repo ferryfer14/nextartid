@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/podcasts/episode/edit', 'ArtistManagementController@editEpisode')->name('auth.user.artist.manager.episode.edit.post');
     Route::post('artist-management/podcasts/episode/delete', 'ArtistManagementController@deleteEpisode')->name('auth.user.artist.manager.episode.delete');
 
-
+    
     Route::get('artist-management/events', 'ArtistManagementController@events')->name('auth.user.artist.manager.events');
     Route::get('artist-management/profile', 'ArtistManagementController@profile')->name('auth.user.artist.manager.profile');
     Route::post('artist-management/song/edit', 'ArtistManagementController@editSongPost')->name('auth.user.artist.manager.song.edit.post');
@@ -54,6 +54,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/event/delete', 'ArtistManagementController@deleteEvent')->name('auth.user.artist.manager.event.delete');
     Route::post('artist-management/voucher/apply', 'ArtistManagementController@applyVoucher')->name('auth.user.artist.manager.voucher.apply');
     Route::post('artist-management/voucher/remove', 'ArtistManagementController@removeVoucher')->name('auth.user.artist.manager.voucher.remove');
+    Route::post('artist-management/idr/dollar', 'ArtistManagementController@dollarIdr')->name('auth.user.artist.manager.idr.dollar');
 
     Route::get('artist-management/profile', 'ArtistManagementController@profile')->name('auth.user.artist.manager.profile');
     Route::post('artist-management/profile', 'ArtistManagementController@saveProfile')->name('auth.user.artist.manager.profile.save');

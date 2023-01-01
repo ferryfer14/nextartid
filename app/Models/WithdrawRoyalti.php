@@ -11,5 +11,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class WithdrawRoyalti extends Model
 {
-    protected $fillable = ['bank','name','account_number','value','status'];
+    protected $fillable = ['bank','name','account_number','value','value_idr','value_tax','value_admin','value_total','status'];
 }
