@@ -37,8 +37,8 @@
             var min = parseInt(el.data('min'));
             
             if(max < min) {
-                Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
-                return false;
+                //Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
+                //return false;
             }
 
             $.engineLightBox.show("lightbox-withdraw-royalti");
@@ -49,6 +49,22 @@
                 }else{
                     $('#withdraw-form').find(".another_bank").addClass('d-none');
                 }
+            });
+            $('#withdraw-form').find('input[name=value]').change(function() {
+                $.ajax({
+                    url: 'https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/idr.json',
+                    type: 'get',
+                    dataType: 'json',
+                    headers: { 'Access-Control-Allow-Origin': '*','Access-Control-Allow-Headers' : '' },
+                    success: function (response) {
+                        var idr = Math.floor(response.idr);
+                        var nilai = $('#withdraw-form').find('input[name=value]').val()*idr;
+                        $('#withdraw-form').find('input[name=value_idr]').val(nilai);
+                    },
+                    error: function () {
+                        Toast.show("error", 'No Connection');
+                    }
+                });
             });
             Artist.withdrawForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {

@@ -126,6 +126,13 @@
                         @endif
 
                         <div class="form-group row">
+                            <label class="col-sm-4 col-form-label">Contract Charge Admin (Percentage)</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" name="charge_admin" value="{{ isset($user->charge_admin) ? $user->charge_admin : old('charge_admin') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label class="col-sm-4 col-form-label">About me</label>
                             <div class="col-sm-8">
                                 <textarea class="form-control editor" rows="2" name="about"></textarea>
