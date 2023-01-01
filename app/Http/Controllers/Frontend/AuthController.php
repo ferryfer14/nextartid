@@ -67,6 +67,7 @@ class AuthController
         $this->request->validate([
             'email' => 'required|string|email|unique:users',
             'name' => 'required|string|min:3|max:30',
+            'phone' => 'required|string|min:10|max:13',
             'password' => 'required|confirmed|min:6',
             'artist1' => 'required|string|min:3|max:30',
             //'artist-phone1' => 'required|string|min:5|max:15',
@@ -155,6 +156,7 @@ class AuthController
         $user->email = $this->request->email;
         $user->name = $this->request->name ? strip_tags($this->request->name) : strip_tags($this->request->username);
         $user->username = $this->request->username;
+        $user->phone = $this->request->phone;
         $user->password = bcrypt($this->request->password);
         $user->email_verified_code = $verifyCoder;
         
@@ -209,8 +211,10 @@ class AuthController
                 $artistRequest->user_id = $user->id;
                 $artistRequest->artist_id = $artist->id;
                 $artistRequest->artist_name = $this->request->input('artist1');
-                $artistRequest->phone = $this->request->input('artist-phone1');
-                $artistRequest->ext = $this->request->input('artist-phone-ext1');
+                $artistRequest->phone = '';
+                $artistRequest->ext = '';
+                //$artistRequest->phone = $this->request->input('artist-phone1');
+                //$artistRequest->ext = $this->request->input('artist-phone-ext1');
                 //$artistRequest->affiliation = $this->request->input('artist-affiliation1');
                 $artistRequest->affiliation = 'Artist/Band Member';
                 $artistRequest->save();
@@ -225,8 +229,10 @@ class AuthController
                     $artistRequest->user_id = $user->id;
                     $artistRequest->artist_id = $artist->id;
                     $artistRequest->artist_name = $this->request->input('artist2');
-                    $artistRequest->phone = $this->request->input('artist-phone2');
-                    $artistRequest->ext = $this->request->input('artist-phone-ext2');
+                    $artistRequest->phone = '';
+                    $artistRequest->ext = '';
+                    //$artistRequest->phone = $this->request->input('artist-phone2');
+                    //$artistRequest->ext = $this->request->input('artist-phone-ext2');
                     //$artistRequest->affiliation = $this->request->input('artist-affiliation2');
                     $artistRequest->affiliation = 'Artist/Band Member';
                     $artistRequest->save();

@@ -419,13 +419,17 @@
                                 </div>
                                 <div class="row">
                                     <div class="control control-group col-lg-6 col-12">
+                                        <label class="control-label" for="phone" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
+                                        <input type="text" id="phone" name="phone" value="">
+                                    </div>
+                                    <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-1" data-translate-text="FORM_ARTIST1">{{ __('web.FORM_ARTIST1') }}</label>
                                         <div class="controls"><input class="signup-text" id="artist1" name="artist1" type="text"></div>
                                     </div>
-                                    <div class="control control-group col-lg-6 col-12">
+                                    <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone1" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
                                         <input type="text" id="artist-phone1" name="artist-phone1" value="">
-                                    </div>
+                                    </div>-->
                                     <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-affiliation1" data-translate-text="FORM_ARTIST_AFFILIATION">{{ __('web.FORM_ARTIST_AFFILIATION') }}</label>
                                         <select id="artist-affiliation1" name="artist-affiliation1" class="span2">
@@ -442,10 +446,10 @@
                                         <label class="control-label" for="artist-phone1" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
                                         <input type="text" id="artist-phone1" name="artist-phone1" value="">
                                     </div>-->
-                                    <div class="control control-group col-lg-6 col-12">
+                                    <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone-ext1" data-translate-text="FORM_PHONE_EXT">{{ __('web.FORM_PHONE_EXT') }}</label>
                                         <input type="text" id="artist-phone-ext1" name="artist-phone-ext1" value="">
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <label class="control-label" data-translate-text="LABEL_OPTIONAL">{{ __('web.LABEL_OPTIONAL') }}</label>        
                                 <div class="row">
@@ -453,10 +457,10 @@
                                         <label class="control-label" for="artist-2" data-translate-text="FORM_ARTIST2">{{ __('web.FORM_ARTIST2') }}</label>
                                         <div class="controls"><input class="signup-text" id="artist2" name="artist2" type="text"></div>
                                     </div>
-                                    <div class="control control-group col-lg-6 col-12">
+                                    <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone2" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
                                         <input type="text" id="artist-phone2" name="artist-phone2" value="">
-                                    </div>
+                                    </div>-->
                                     <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-affiliation2" data-translate-text="FORM_ARTIST_AFFILIATION">{{ __('web.FORM_ARTIST_AFFILIATION') }}</label>
                                         <select id="artist-affiliation2" name="artist-affiliation2" class="span2">
@@ -473,10 +477,10 @@
                                         <label class="control-label" for="artist-phone2" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
                                         <input type="text" id="artist-phone2" name="artist-phone2" value="">
                                     </div>-->
-                                    <div class="control control-group col-lg-6 col-12">
+                                    <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone-ext2" data-translate-text="FORM_PHONE_EXT">{{ __('web.FORM_PHONE_EXT') }}</label>
                                         <input type="text" id="artist-phone-ext2" name="artist-phone-ext2" value="">
-                                    </div>
+                                    </div>-->
                                 </div>
                                 @if(config('settings.dob_signup'))
                                     <div class="row">
