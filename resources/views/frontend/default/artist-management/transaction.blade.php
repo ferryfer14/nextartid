@@ -32,7 +32,8 @@
                     <div class="byline">Your History Transaction</div>
                 </div>
             </div>
-            <br/>            
+            @include('artist-management.nav-transaction')
+            <br/>
             <div id="page-content" class="p-0">
                 <div id="column1" class="full">
                     @if(count($transaction))
