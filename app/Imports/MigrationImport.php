@@ -9,6 +9,7 @@ use App\Models\Artist;
 use App\Models\Genre;
 use App\Models\Royalti;
 use App\Models\Song;
+use App\Models\Transaction;
 use App\Models\User;
 use Image;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,14 @@ class MigrationImport implements ToModel, WithHeadingRow
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
                 $album->save();
+
+                $trx_id = new_transaction();
+                $transaction = new Transaction();
+                $transaction->user_id = $user->id;
+                $transaction->album_id = $album->id;
+                $transaction->transaction_id = $trx_id;
+                $transaction->save();
+
                 $my_artist=array();
                 array_push($my_artist,'primary');
                 array_push($my_artist,'performer');
@@ -132,7 +141,7 @@ class MigrationImport implements ToModel, WithHeadingRow
                     $album->recording_year = $row['recording_year'];
                     $album->approved = 1;
                     $album->paid = $row['paid'];
-                $album->addMediaFromBase64(base64_encode(Image::make(file_get_contents($row['cover_url']))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                $album->addMediaFromBase64(base64_encode(Image::make(file_put_contents("file.jpg", fopen($row['cover_url'], 'r')))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
                 $album->save();
