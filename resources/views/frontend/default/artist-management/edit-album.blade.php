@@ -156,11 +156,10 @@
             </div>
             <div>
                 <p>
-                    {{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>
                     Display Artist : @foreach($album->artists as $artist) {!! $artist->name !!} @if(!$loop->last), @endif @endforeach<br/>
                     UPC : {{ $album->upc }}<br/>
                     Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
-                    Posting Date : {{ Date('Y-m-d', strtotime($album->created_at)) }}
+                    Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}
                 </p>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
@@ -182,7 +181,14 @@
                         </div>
                         <div class="metadata">
                             <div class="title">
-                                <a href="{{ $song->permalink_url }}">{!! $song->title !!}</a>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <a href="{{ $song->permalink_url }}">{!! $song->title !!}</a> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <span class="text-secondary">{{ $song->isrc }}</span>
+                                    </div>    
+                                </div>
                             </div>
                             <div class="artist">
                                 @foreach($song->artists as $artist)<a href="{{$artist->permalink_url}}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach

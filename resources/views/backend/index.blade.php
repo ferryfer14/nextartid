@@ -117,6 +117,7 @@
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Free Song', 'icon' => 'fa-music', 'permission' => 'admin_songs', 'route' => 'backend.free.song'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Export Albums', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.export'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_albums', 'route' => 'backend.album.royalti'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Migration', 'icon' => 'fa-upload', 'permission' => 'admin_albums', 'route' => 'backend.album.migration'])
                 </div>
             </div>
         </li>

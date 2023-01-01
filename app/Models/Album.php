@@ -29,6 +29,10 @@ class Album extends Model implements HasMedia
 
     protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music','song'];
 
+    protected $fillable = [
+        'user_id'
+    ];
+
     protected $hidden = ['media', 'user_id', 'artistIds', 'approved', 'updated_at'];
 
     protected static function boot()

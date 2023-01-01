@@ -12,7 +12,7 @@
             <td class="text-center">Rp {{ number_format((float)($trx->value_total), 0, ',', '.') }}</td>
             <td class="text-center">
                 @if($trx->status == 0)
-                    <span class="badge badge-danger">Pending</span>
+                    <span class="badge badge-warning">Pending</span>
                 @else
                     <span class="badge badge-success">Success</span>
                 @endif
