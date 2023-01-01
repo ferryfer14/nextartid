@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url', 'royalti', 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm'];
+    protected $appends = ['artwork_url', 'royalti' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm'];
 
     protected static function boot()
     {
@@ -66,6 +66,11 @@ class Artist extends Model implements HasMedia
                 return $media->getFullUrl('lg');
             }
         }
+    }
+
+    public function getSumWithdrawAttribute($value)
+    {
+        return WithdrawRoyalti::withoutGlobalScopes()->where('user_id', auth()->user()->id)->sum('value');
     }
     
     public function getBalanceConfirmAttribute($value)

@@ -41,6 +41,7 @@ use App\Models\Transaction;
 use App\Models\Payment;
 use App\Models\Royalti;
 use App\Models\Voucher;
+use App\Models\WithdrawRoyalti;
 use chillerlan\QRCode\QRCode;
 
 class ArtistManagementController extends Controller
@@ -187,6 +188,38 @@ class ArtistManagementController extends Controller
         }
 
         return $view;
+    }
+
+    public function withdrawRoyalti()
+    {
+        $this->request->validate([
+            'bank'              => 'required|numeric',
+            'another_bank'      => 'required_if:bank,==,0|max:20',
+            'account_name'      => 'required|string|max:50',
+            'account_number'    => 'required|numeric:max:20',
+            'value'             => 'required|numeric|min:100',
+        ],
+        [
+            'another_bank.required_if' => 'The another bank field is required when bank is Another Bank'
+        ]);
+
+        $artist = Artist::findOrFail(auth()->user()->artist_id);
+        if($this->request->input('value') <= round($artist->balance_confirm,3)){
+            $withdraw = new WithdrawRoyalti();
+            $withdraw->user_id = auth()->user()->id;
+            $withdraw->bank = $this->request->input('bank') == 1 ? 'BCA' : $this->request->input('another_bank');
+            $withdraw->name = $this->request->input('account_name');
+            $withdraw->account_number = $this->request->input('account_number');
+            $withdraw->value = $this->request->input('value');
+            $withdraw->save();
+    
+            return response()->json($withdraw);
+        }else{
+            return response()->json([
+                'message' => 'Your value exceeds the balance',
+                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_LIMIT_VALUE')))
+            ], 403);
+        }
     }
 
     public function uploaded()

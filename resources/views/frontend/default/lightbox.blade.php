@@ -1577,6 +1577,63 @@
             </div>
         </form>
     </div>
+    <div class="lightbox lightbox-withdraw-royalti hide">
+        <div class="lbcontainer">
+            <div id="create-playlist">
+                <form id="withdraw-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
+                    <div class="lightbox-header">
+                        <h2 class="title" data-translate-text="POPUP_WITHDRAW">{{ __('web.POPUP_WITHDRAW') }}</h2>
+                        @yield('lightbox-close')
+                    </div>
+                    <div class="lightbox-content">
+                        <div class="lightbox-content-block">
+                            <div class="error hide">
+                                <div class="message"></div>
+                            </div>
+                            <div class="control field">
+                                <label for="BANK">
+                                    <span data-translate-text="FORM_BANK">{{ __('web.FORM_BANK') }}</span>
+                                </label>
+                                <select class="select2" name="bank" placeholder="Select Your Bank" autocomplete="off" required>
+                                    <option value="1">BCA</option>
+                                    <option value="0">Others</option>
+                                </select>
+                            </div>
+                            <div class="control field another_bank d-none">
+                                <label for="FORM_BANK_OTHER">
+                                    <span data-translate-text="FORM_BANK_OTHER">{{ __('web.FORM_BANK_OTHER') }}</span>
+                                </label>
+                                <input name="another_bank" type="text">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_BANK_ACCOUNT_NAME">
+                                    <span data-translate-text="FORM_BANK_ACCOUNT_NAME">{{ __('web.FORM_BANK_ACCOUNT_NAME') }}</span>
+                                </label>
+                                <input name="account_name" required type="text">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_BANK_ACCOUNT">
+                                    <span data-translate-text="FORM_BANK_ACCOUNT">{{ __('web.FORM_BANK_ACCOUNT') }}</span>
+                                </label>
+                                <input name="account_number" type="number" required>
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span data-translate-text="FORM_VALUE">{{ __('web.FORM_VALUE') }}</span>
+                                </label>
+                                <input name="value" type="number" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lightbox-footer">
+                        <div class="right">
+                            <button class="btn btn-primary" type="submit" data-translate-text="SUBMIT">{{ __('web.SUBMIT') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-create-album hide">
         <div class="lbcontainer">
             <div id="create-playlist">

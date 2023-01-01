@@ -25,6 +25,7 @@
         albumMoodSelection: $("#album-mood-selection"),
         createAlbumForm: $("#create-album-form"),
         editAlbumForm: $("#edit-album-form"),
+        withdrawForm: $("#withdraw-form"),
         patnerAlbumForm: $("#patner-album-form"),
         podcastCategories: [],
         countries: [],
@@ -39,6 +40,51 @@
                 Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
                 return false;
             }
+
+            $.engineLightBox.show("lightbox-withdraw-royalti");
+            $('#withdraw-form').find("select[name='bank']").change(function() {
+                if(this.value == 0)
+                {
+                    $('#withdraw-form').find(".another_bank").removeClass('d-none');
+                }else{
+                    $('#withdraw-form').find(".another_bank").addClass('d-none');
+                }
+            });
+            Artist.withdrawForm.ajaxForm({
+                beforeSubmit: function (data, $form, options) {
+                    $.engineUtils.cleanStorage();
+                    var error = 0;
+                    Object.keys(data).forEach(function eachKey(key) {
+                        if (data[key].required && !data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").addClass("field-error");
+                            error++;
+                        } else if (data[key].required && data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").removeClass("field-error");
+                        }
+                    });
+                    if (error) return false;
+                    $form.find("[type='submit']").attr("disabled", "disabled");
+                },
+                success: function (response, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();
+                    $form.find("[type='submit']").removeAttr("disabled");
+                    $form.trigger("reset");
+                    $.engineLightBox.hide();
+                    Toast.show("success", Language.text.POPUP_REQUEST_WITHDRAW);
+                    $(window).trigger({
+                        type: "engineReloadCurrentPage"
+                    });
+                },
+                error: function (e, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();
+                    var errors = e.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        Toast.show("error", value[0], null);
+                    });
+                    $form.find('.error').removeClass('hide').html(e.responseJSON.errors[Object.keys(e.responseJSON.errors)[0]][0]);
+                    $form.find("[type='submit']").removeAttr("disabled");
+                }
+            });
         },
         withdraw: function(){
             var max = parseInt($(this).data('max'));
