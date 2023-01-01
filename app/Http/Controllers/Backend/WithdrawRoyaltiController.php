@@ -9,10 +9,11 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Order;
 use App\Models\Transaction;
+use App\Models\WithdrawRoyalti;
 use Illuminate\Http\Request;
 use DB;
 
-class PaidController
+class WithdrawRoyaltiController
 {
     private $request;
     private $select;
@@ -24,20 +25,20 @@ class PaidController
 
     public function index()
     {
-        $transaction = Transaction::withoutGlobalScopes()->where('status','1')->orderBy('transaction.id', 'desc');
+        $withdraw = WithdrawRoyalti::withoutGlobalScopes()->where('status','0')->orderBy('withdraw_royaltis.id', 'desc');
 
         isset($_GET['term']) ? $term = $_GET['term'] : $term = '';
         isset($_GET['created_from']) ? $created_from = date('Y-m-d',strtotime($_GET['created_from'])) : $created_from = '1970-01-01';
         isset($_GET['created_until']) ? $created_until = date('Y-m-d', strtotime($_GET['created_until'])) : $created_until = date('Y-m-d');
         
-        $transaction = $transaction->join('albums','albums.id','transaction.album_id');
-        $transaction = $transaction->whereRaw('albums.title LIKE "%' . $term . '%" and date(transaction.updated_at) >= "'.$created_from.'" and date(transaction.updated_at) <= "'.$created_until.'"  or transaction.transaction_id LIKE "%' . $term . '%" and date(transaction.updated_at) >= "'.$created_from.'" and date(transaction.updated_at) <= "'.$created_until.'"');
+        $withdraw = $withdraw->join('users','users.id','withdraw_royaltis.user_id');
+        $withdraw = $withdraw->whereRaw('users.name LIKE "%' . $term . '%" and date(withdraw_royaltis.created_at) >= "'.$created_from.'" and date(withdraw_royaltis.created_at) <= "'.$created_until.'"');
     
 
-        $transaction = $transaction->paginate(20);
+        $withdraw = $withdraw->paginate(20);
 
-        return view('backend.paid.index')
+        return view('backend.withdraw-royalti.index')
             ->with('term', $term)
-            ->with('paid', $transaction);
+            ->with('withdraw', $withdraw);
     }
 }
