@@ -1112,7 +1112,7 @@
                     } else {
                         Toast.show("success", Language.text.POPUP_CREATED_ALBUM_NOT_APPROVED);
                     }
-                    window.location.href = "/artist-management/albums/"+response.id;
+                    window.location.href = "/artist-management/albums/"+response.id+"/upload";
                     $(window).trigger({
                         type: "engineReloadCurrentPage"
                     });
