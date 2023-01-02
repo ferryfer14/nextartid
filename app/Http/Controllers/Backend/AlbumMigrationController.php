@@ -41,6 +41,6 @@ class AlbumMigrationController
         ]);
 
         Excel::import(new MigrationImport, $this->request->file('file'));
-        return redirect()->route('backend.album.migration')->with('status', 'success')->with('message', 'Import MIgration successfully!');
+        return redirect()->route('backend.album.migration')->with('status', 'success')->with('message', 'Import Migration successfully!');
     }
 }

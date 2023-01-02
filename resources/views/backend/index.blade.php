@@ -118,6 +118,7 @@
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Export Albums', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.export'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_albums', 'route' => 'backend.album.royalti'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Migration', 'icon' => 'fa-upload', 'permission' => 'admin_albums', 'route' => 'backend.album.migration'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Song Migration', 'icon' => 'fa-upload', 'permission' => 'admin_albums', 'route' => 'backend.song.migration'])
                 </div>
             </div>
         </li>

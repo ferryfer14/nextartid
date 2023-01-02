@@ -47,7 +47,7 @@ class MigrationImport implements ToModel, WithHeadingRow
         $genre = Genre::withoutGlobalScopes()->where('name','=',$row['primary_genre'])->first();
         $secondary_genre = Genre::withoutGlobalScopes()->where('name','=',$row['secondary_genre'])->first();
         if(isset($user)){
-            if($row['upc'] != '' && !Album::withoutGlobalScopes()->where('upc', $row['upc'])->exists()) {
+            if(isset($display_artist) && $row['upc'] != '' && !Album::withoutGlobalScopes()->where('upc', $row['upc'])->exists()) {
                 $album = new Album();
                     $album->user_id = $user->id;
                     $album->title = $row['title'];
@@ -75,7 +75,7 @@ class MigrationImport implements ToModel, WithHeadingRow
                     $album->recording_year = $row['recording_year'];
                     $album->approved = 1;
                     $album->paid = $row['paid'];
-                $album->addMediaFromBase64(base64_encode(Image::make(file_get_contents($row['cover_url']))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                $album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
                 $album->save();
@@ -112,39 +112,47 @@ class MigrationImport implements ToModel, WithHeadingRow
                     }
                 }
                 return $album;
-            }else if ($row['upc'] == '')
+            }else if (isset($display_artist) && $row['upc'] == '')
             {
                 $album = new Album();
-                    $album->user_id = $user->id;
-                    $album->title = $row['title'];
-                    $album->type = $album_type->id;
-                    $album->label = $row['label'];
-                    $album->remix_version = $row['remix_version'];
-                    $album->display_artist = $display_artist->id;
-                    $album->genre = $genre->id;
-                    $album->second_genre = $secondary_genre->id;
-                    $album->artistIds = $user->artist_id;
-                    $album->primary_artist = $row['primary_artist'];
-                    $album->composer = $row['composer'];
-                    $album->arranger = $row['arranger'];
-                    $album->lyricist = $row['lyricist'];
-                    $album->upc = $row['upc'];
-                    $album->grid = $row['grid'];
-                    $album->language = $row['language'];
-                    $album->ref = $row['ref'];
-                    $album->price_category = 3;
-                    $album->released_at = $row['original_release'];
-                    $album->created_at = $row['publish_date'];
-                    $album->license_name = $row['license_name'];
-                    $album->license_year = $row['license_year'];
-                    $album->recording_name = $row['recording_name'];
-                    $album->recording_year = $row['recording_year'];
-                    $album->approved = 1;
-                    $album->paid = $row['paid'];
-                $album->addMediaFromBase64(base64_encode(Image::make(file_put_contents("file.jpg", fopen($row['cover_url'], 'r')))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                $album->user_id = $user->id;
+                $album->title = $row['title'];
+                $album->type = $album_type->id;
+                $album->label = $row['label'];
+                $album->remix_version = $row['remix_version'];
+                $album->display_artist = $display_artist->id;
+                $album->genre = $genre->id;
+                $album->second_genre = $secondary_genre->id;
+                $album->artistIds = $user->artist_id;
+                $album->primary_artist = $row['primary_artist'];
+                $album->composer = $row['composer'];
+                $album->arranger = $row['arranger'];
+                $album->lyricist = $row['lyricist'];
+                $album->upc = $row['upc'];
+                $album->grid = $row['grid'];
+                $album->language = $row['language'];
+                $album->ref = $row['ref'];
+                $album->price_category = 3;
+                $album->released_at = $row['original_release'];
+                $album->created_at = $row['publish_date'];
+                $album->license_name = $row['license_name'];
+                $album->license_year = $row['license_year'];
+                $album->recording_name = $row['recording_name'];
+                $album->recording_year = $row['recording_year'];
+                $album->approved = 1;
+                $album->paid = $row['paid'];
+                $album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
                 ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
                 $album->save();
+
+                $trx_id = new_transaction();
+                $transaction = new Transaction();
+                $transaction->user_id = $user->id;
+                $transaction->album_id = $album->id;
+                $transaction->transaction_id = $trx_id;
+                $transaction->save();
+
                 $my_artist=array();
                 array_push($my_artist,'primary');
                 array_push($my_artist,'performer');
