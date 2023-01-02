@@ -24,7 +24,7 @@ class RoyaltiImport implements ToModel, WithHeadingRow
             return new Royalti([
                 "song_id" => $song->id,
                 "patner" => $row['channel'],
-                "value" => $row['taxesnet_total_client_currency'],
+                "value" => $row['net_total_USD'],
             ]);
         }
     }
