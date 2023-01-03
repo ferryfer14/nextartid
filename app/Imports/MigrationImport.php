@@ -42,11 +42,11 @@ class MigrationImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         $user = User::withoutGlobalScopes()->where('email','=',$row['email'])->first();
-        $display_artist = Artist::withoutGlobalScopes()->where('name','=',$row['primary_artist'])->where('user_id','=',$user->id)->first();
-        $album_type = AlbumType::withoutGlobalScopes()->where('name','=',$row['type'])->first();
-        $genre = Genre::withoutGlobalScopes()->where('name','=',$row['primary_genre'])->first();
-        $secondary_genre = Genre::withoutGlobalScopes()->where('name','=',$row['secondary_genre'])->first();
         if(isset($user)){
+            $display_artist = Artist::withoutGlobalScopes()->where('name','=',$row['primary_artist'])->where('user_id','=',$user->id)->first();
+            $album_type = AlbumType::withoutGlobalScopes()->where('name','=',$row['type'])->first();
+            $genre = Genre::withoutGlobalScopes()->where('name','=',$row['primary_genre'])->first();
+            $secondary_genre = Genre::withoutGlobalScopes()->where('name','=',$row['secondary_genre'])->first();
             if(isset($display_artist) && $row['upc'] != '' && !Album::withoutGlobalScopes()->where('upc', $row['upc'])->exists()) {
                 $album = new Album();
                     $album->user_id = $user->id;
