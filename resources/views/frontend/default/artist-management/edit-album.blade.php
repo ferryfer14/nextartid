@@ -156,7 +156,7 @@
             </div>
             <div>
                 <p>
-                    Display Artist : @foreach($album->artists as $artist) {!! $artist->name !!} @if(!$loop->last), @endif @endforeach<br/>
+                    Display Artist : {{ $album->primary_artist }} <br/>
                     UPC : {{ $album->upc }}<br/>
                     Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
                     Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}

@@ -60,7 +60,7 @@
                                         <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline"><h1>{!! $album->title !!}</h1></a>
                                         <p>
                                             {{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>
-                                            Display Artist : @foreach($album->artists as $artist) {!! $artist->name !!} @if(!$loop->last), @endif @endforeach<br/>
+                                            Display Artist : {{ $album->primary_artist }}<br/>
                                             UPC : {{ $album->upc }}<br/>
                                             Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
                                             Posting Date : {{ Date('Y-m-d', strtotime($album->created_at)) }}
