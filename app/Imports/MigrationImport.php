@@ -75,9 +75,9 @@ class MigrationImport implements ToModel, WithHeadingRow
                     $album->recording_year = $row['recording_year'];
                     $album->approved = 1;
                     $album->paid = $row['paid'];
-                $album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                /*$album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
-                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
+                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));*/
                 $album->save();
 
                 $trx_id = new_transaction();
@@ -141,9 +141,9 @@ class MigrationImport implements ToModel, WithHeadingRow
                 $album->recording_year = $row['recording_year'];
                 $album->approved = 1;
                 $album->paid = $row['paid'];
-                $album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                /*$album->addMediaFromBase64(base64_encode(Image::make($row['cover_url'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                 ->usingFileName(time(). '.jpg')
-                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
+                ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));*/
                 $album->save();
 
                 $trx_id = new_transaction();
