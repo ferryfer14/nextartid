@@ -103,6 +103,32 @@ class SongImport implements ToModel, WithHeadingRow
                         $song->allow_download = 1;
                         $song->copyright = $row['copyright'];
                         $song->save();
+
+                        $my_artist=array();
+                        array_push($my_artist,'primary');
+                        array_push($my_artist,'performer');
+                        array_push($my_artist,'producer');
+                        array_push($my_artist,'remixer');
+                        array_push($my_artist,'composer');
+                        array_push($my_artist,'lyricist');
+                        array_push($my_artist,'publisher');
+                        array_push($my_artist,'featuring');
+                        array_push($my_artist,'with');
+                        array_push($my_artist,'featuring');
+                        array_push($my_artist,'arranger');
+
+                        if(isset($row['participant'])){
+                            $participant = explode(";",$row['participant']);
+                            for($i=0;$i<count($participant);$i++)
+                            {
+                                $role = explode(":",$participant[$i]);
+                                DB::table('album_artist')->insert([
+                                    'song_id' => $song->id,
+                                    'artist_role' => array_search($role[0], $my_artist)+1,
+                                    'artist_name' => $role[1],
+                                ]);
+                            }
+                        }
                     }
 
                 }
