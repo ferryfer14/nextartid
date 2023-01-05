@@ -122,6 +122,21 @@
                 </div>
             </div>
         </li>
+        @if(\App\Models\Role::getValue('admin_users'))
+        <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserRoyalti" aria-expanded="false" aria-controls="collapseUserRoyalti">
+                    <i class="fas fa-fw fa-users"></i>
+                    <span>Users Royalti</span>
+                </a>
+                <div id="collapseUserRoyalti" class="collapse" aria-labelledby="headingBlog" data-parent="#accordionSidebar">
+                    <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'User Royalti', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.royalti'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'User Balance', 'icon' => 'fa-wallet', 'permission' => 'admin_users', 'route' => 'backend.users.add'])
+                    </div>
+                </div>
+            </li>
+        @endif
         @if(env('VIDEO_MODULE') == 'true')
             <hr class="sidebar-divider">
             @if(\App\Models\Role::getValue('admin_songs'))
