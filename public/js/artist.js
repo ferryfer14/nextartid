@@ -37,8 +37,8 @@
             var min = parseInt(el.data('min'));
             
             if(max < min) {
-                Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
-                return false;
+                //Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
+                //return false;
             }
 
             $.engineLightBox.show("lightbox-withdraw-royalti");

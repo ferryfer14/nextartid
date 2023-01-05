@@ -221,6 +221,7 @@ class ArtistManagementController extends Controller
             $balance->user_id = auth()->user()->id;
             $balance->jenis = 'Withdraw royalti';
             $balance->value = -$this->request->input('value');
+            $balance->status = 1;
             $balance->save();
             $withdraw = new WithdrawRoyalti();
             $withdraw->user_id = auth()->user()->id;
@@ -234,7 +235,9 @@ class ArtistManagementController extends Controller
             $withdraw->value_total = $this->request->input('value_total');
             $withdraw->save();
     
-            return response()->json($withdraw);
+            return response()->json([
+                'statu' => 'success'
+            ],200);
         }else{
             return response()->json([
                 'message' => 'Your value exceeds the balance',

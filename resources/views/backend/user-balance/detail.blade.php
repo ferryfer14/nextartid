@@ -24,7 +24,9 @@
                 <thead>
                     <tr>
                         <th>Detail</th>
-                        <th class="desktop">Value</th>
+                        <th class="text-center">Value</th>
+                        <th>Status</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,9 +37,17 @@
                                 @if($balance->value > 0)
                                     <span class="text-success">${{ number_format((float)$balance->value,6) }}</span>
                                 @else
-                                    <span class="text-danger">${{ number_format((float)$balance->value,6) }}</span>
+                                    <span class="text-danger">{{ str_replace('-','-$',number_format((float)$balance->value,6)) }}</span>
                                 @endif
                             </td>
+                            <td>
+                                @if($balance->status == 1)
+                                    <span class="badge badge-warning">Pending</span>
+                                @else
+                                    <span class="badge badge-success">Success</span>
+                                @endif
+                            </td>
+                            <td>{{ \Carbon\Carbon::parse($balance->created_at)->format('M j, Y H:i:s') }}</td>
                         </tr>
                     @endforeach
                 </tbody>

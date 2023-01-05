@@ -47,7 +47,7 @@ class UserBalanceController
 
     public function detail()
     {
-        $balance = Balance::withoutGlobalScopes()->where('user_id', $this->request->route('id'));
+        $balance = Balance::withoutGlobalScopes()->where('user_id', $this->request->route('id'))->orderBy('created_at','DESC');
         
         isset($_GET['q']) ? $term = $_GET['q'] : $term = '';
         if($term) {

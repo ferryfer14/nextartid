@@ -25,7 +25,7 @@ class Balance extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $fillable = ['user_id','jenis','value'];
+    protected $fillable = ['user_id','jenis','value','status'];
 
     protected static function boot()
     {
