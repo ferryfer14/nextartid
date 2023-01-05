@@ -1261,6 +1261,7 @@
                             <tr>
                                 <th class="text-left">Patner</th>
                                 <th class="text-center">Royalti</th>
+                                <th class="text-center">Date</th>
                             </tr>
                             </thead>
                             <tbody>

@@ -750,10 +750,11 @@
         royaltiSong: function (song) {
             __DEV__ && console.log('Royalti song', song);
             $('#detail-royalti > tbody').html('');
-            song.royalti.forEach(function(s) {
+            song.royalti_detail.forEach(function(s) {
                 $('#detail-royalti > tbody:last-child').append('<tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="royalti" data-id="'+s.id+'">'+
                 '<td class="text-left desktop">'+s.patner+'</td>'+
-                '<td class="text-center desktop">$'+s.total.toFixed(3)+'</td></tr>');
+                '<td class="text-center desktop">$'+s.value.toFixed(6)+'</td>'+
+                '<td class="text-center desktop">'+s.start_date+'</td></tr>');
             });
             $.engineLightBox.show("lightbox-royalti-song");
         },
