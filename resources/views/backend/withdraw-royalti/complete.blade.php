@@ -4,7 +4,8 @@
         <li class="breadcrumb-item">
             <a href="{{ route('backend.dashboard') }}">Control Panel</a>
         </li>
-        <li class="breadcrumb-item active">Withdraw ({{ $withdraw->total() }})</li>
+        <li class="breadcrumb-item active"><a href="{{ route('backend.withdraw.royalti') }}">Withdraw Pending</a></li>
+        <li class="breadcrumb-item active">Withdraw Complete ({{ $withdraw->total() }})</li>
     </ol>
     <div class="row">
         <div class="col-lg-12">
@@ -18,7 +19,7 @@
                         </div>
                         <div class="col-sm-6 text-right">
                             <a href="{{ route('backend.withdraw.royalti.complete') }}" class="btn btn-link p-0 m-0">
-                                <h6 class="m-0 font-weight-bold text-success">Complete</h6>
+                                <h6 class="m-0 font-weight-bold text-success">Success</h6>
                             </a>
                         </div>
                     </div>
@@ -74,7 +75,6 @@
                     <th class="desktop">Value Total</th>
                     <th>Status</th>
                     <th>Request Date</th>
-                    <th>Action</th>
                 </tr>
                 </thead>
                 @foreach ($withdraw as $index => $trx )
@@ -96,9 +96,6 @@
                             @endif
                         </td>
                         <td>{{ \Carbon\Carbon::parse($trx->created_at)->format('M j, Y') }}</td>
-                        <td class="desktop">
-                            <a class="row-button accept" onclick="return confirm('Are you sure want to complete this withdrawal?')" href="{{ route('backend.withdraw.royalti.accept', ['id' => $trx->id]) }}"><i class="fas fa-fw fa-check text-success"></i></a>
-                        </td>
                     </tr>
                 @endforeach
             </table>

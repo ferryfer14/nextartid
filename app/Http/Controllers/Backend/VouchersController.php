@@ -31,8 +31,8 @@ class VouchersController
 
     public function delete()
     {
-        Page::where('id', $this->request->route('id'))->delete();
-        return redirect()->route('backend.vouchers')->with('status', 'success')->with('message', 'Static page successfully deleted!');
+        Voucher::where('id', $this->request->route('id'))->delete();
+        return redirect()->route('backend.vouchers')->with('status', 'success')->with('message', 'Voucher successfully deleted!');
     }
 
     public function add()
