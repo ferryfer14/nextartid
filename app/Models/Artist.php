@@ -70,7 +70,7 @@ class Artist extends Model implements HasMedia
 
     public function getSumWithdrawAttribute($value)
     {
-        return WithdrawRoyalti::withoutGlobalScopes()->where('user_id', auth()->user()->id)->sum('value');
+        return WithdrawRoyalti::withoutGlobalScopes()->where('user_id', $this->attributes['user_id'])->sum('value');
     }
     
     public function getBalanceConfirmAttribute($value)
@@ -81,6 +81,16 @@ class Artist extends Model implements HasMedia
     public function getRoyaltiAttribute($value)
     {
         return Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw('SUM(value) as total')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner')->get();
+    }
+
+    public function getRoyaltiDetailAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->select('id','patner','value','start_date')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->get();
+    }
+
+    public function getWithdrawDetailAttribute($value)
+    {
+        return WithdrawRoyalti::withoutGlobalScopes()->whereIn('user_id', $this->attributes['user_id'])->get();
     }
 
     public function getMoodsAttribute()

@@ -27,6 +27,7 @@ use App\Models\AlbumArtist;
 use App\Models\AlbumSong;
 use App\Models\AlbumType;
 use App\Models\ArtistsRoles;
+use App\Models\Balance;
 use App\Models\User;
 use App\Models\Genre;
 use App\Models\Mood;
@@ -127,7 +128,6 @@ class ArtistManagementController extends Controller
         if($this->request->amount > auth()->user()->balance ) {
             abort(403, "No, don't do this.");
         }
-
         $withdraw = new Withdraw();
         $withdraw->user_id = auth()->user()->id;
         $withdraw->amount = $this->request->amount;
@@ -217,6 +217,11 @@ class ArtistManagementController extends Controller
 
         $artist = Artist::findOrFail(auth()->user()->artist_id);
         if($this->request->input('value') <= round($artist->balance_confirm,3)){
+            $balance = new Balance();
+            $balance->user_id = auth()->user()->id;
+            $balance->jenis = 'Withdraw royalti';
+            $balance->value = -$this->request->input('value');
+            $balance->save();
             $withdraw = new WithdrawRoyalti();
             $withdraw->user_id = auth()->user()->id;
             $withdraw->bank = $this->request->input('bank') == 1 ? 'BCA' : $this->request->input('another_bank');

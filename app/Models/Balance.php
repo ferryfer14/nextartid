@@ -15,19 +15,20 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 use Spatie\MediaLibrary\HasMedia;
 
-class Royalti extends Model
+class Balance extends Model
 {
     use InteractsWithMedia, SanitizedRequest;
+
+    protected $table = 'balance';
 
     protected $appends = [];
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $fillable = ['song_id','patner','value','start_date','end_date'];
+    protected $fillable = ['user_id','jenis','value'];
 
     protected static function boot()
     {
         parent::boot();
-        static::addGlobalScope(new PriorityScope);
     }
 }
