@@ -1470,6 +1470,12 @@ class ArtistManagementController extends Controller
         }
     }
 
+    public function statusTransaction()
+    {
+        $transaction = Transaction::withoutGlobalScopes()->where('transaction_id', $this->request->route('id'))->first();
+        return response()->json($transaction);
+    }
+
     public function editPatner()
     {
         $this->request->validate([
@@ -1537,7 +1543,10 @@ class ArtistManagementController extends Controller
                     $payment->bill_status = $res_qr['bill_status'];
                     $payment->save();
                     $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
-                    return response()->json($url_qr);
+                    return response()->json([
+                        'image' => $url_qr,
+                        'trx_id' => $trx_id
+                    ]);
                 }else{
                     $album->paid = 1;
                     $album->save();

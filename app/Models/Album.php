@@ -27,7 +27,7 @@ class Album extends Model implements HasMedia
 {
     use InteractsWithMedia, SanitizedRequest;
 
-    protected $appends = ['artwork_url', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music','song'];
+    protected $appends = ['artwork_url','transaction', 'artists', 'song_count', 'favorite', 'permalink_url', 'price', 'album_type','second_genre_music','song'];
 
     protected $fillable = [
         'user_id'
@@ -85,6 +85,11 @@ class Album extends Model implements HasMedia
         $ids = implode(',', $idsArray);
 
         return Artist::whereIn('id', explode(',', $this->attributes['artistIds']))->orderBy(DB::raw('FIELD(id, ' .  $ids . ')', 'FIELD'))->get();
+    }
+
+    public function getTransactionAttribute()
+    {
+        $transaction = Transaction::withoutGlobalScopes()->where('album_id', $this->id)->first();
     }
 
     public function getMoodsAttribute()

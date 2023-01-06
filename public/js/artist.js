@@ -37,8 +37,8 @@
             var min = parseInt(el.data('min'));
             
             if(max < min) {
-                //Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
-                //return false;
+                Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
+                return false;
             }
 
             $.engineLightBox.show("lightbox-withdraw-royalti");
@@ -1252,9 +1252,21 @@
                         Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').html("");
                         Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').addClass("text-center");
                         Artist.patnerAlbumForm.find('.title').html('Scan QR Code for pay this album');
-                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response+"'/>");
+                        Artist.patnerAlbumForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response.image+"'/>");
                         var timer2 = "5:01";
-                        setInterval(function() {
+                        var timing = setInterval(function() {
+                            $.ajax({
+                                url: route.route('frontend.homepage') + "artist-management/albums/statusTransaction/"+response.trx_id,
+                                type: 'get',
+                                dataType: 'json',
+                                success: function (response) {
+                                    $.engineUtils.cleanStorage();
+                                    if(response.status == 1){
+                                        Toast.show("success", "Payment Success");
+                                        location.reload();
+                                    }
+                                },
+                            });
                             var timer = timer2.split(':');
                             //by parsing integer, I avoid all extra string processing
                             var minutes = parseInt(timer[0], 10);
@@ -1269,7 +1281,11 @@
                             timer2 = minutes + ':' + seconds;
                         }, 1000);
                         setTimeout(function() {
-                            location.reload();
+                            //location.reload();
+                            clearInterval(timing);
+                            $.engineLightBox.hide();
+                            Artist.patnerAlbumForm.find("[name='payment']").val('');
+                            Artist.patnerAlbumForm.find('.lightbox-footer .right').html('<button class="btn btn-primary" type="submit" data-translate-text="SAVE">Save</button>');
                         }, 130000);
                     }else{
                         location.reload();
