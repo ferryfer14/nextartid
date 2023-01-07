@@ -51,7 +51,7 @@ class SongImport implements ToModel, WithHeadingRow
             $genre = Genre::withoutGlobalScopes()->where('name','=',$row['primary_genre'])->first();
             $secondary_genre = Genre::withoutGlobalScopes()->where('name','=',$row['secondary_genre'])->first();
             if(isset($display_artist) && isset($album) && $row['isrc'] != '' && !Song::withoutGlobalScopes()->where('isrc', $row['isrc'])->exists()) {
-                $tmp = explode('.', $row['audio_url']);
+                /*$tmp = explode('.', $row['audio_url']);
                 $lastElement = end($tmp);
                 $tmp_name = explode('/', $row['audio_url']);
                 $original_name = end($tmp_name);
@@ -70,10 +70,10 @@ class SongImport implements ToModel, WithHeadingRow
                 
                 $res = (new Upload)->handle($request, $user->artist_id, $album->id);
                 if(isset($res)){
-                    $song = Song::withoutGlobalScopes()->findOrFail($res->id);
-                    //$song = new Song();
-                    if(isset($song))
-                    {
+                    $song = Song::withoutGlobalScopes()->findOrFail($res->id);*/
+                    $song = new Song();
+                    /*if(isset($song))
+                    {*/
                         $song->clearMediaCollection('artwork');
                         $song->addMediaFromBase64(base64_encode(Image::make($row['cover_img'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                             ->usingFileName(time(). '.jpg')
@@ -81,8 +81,8 @@ class SongImport implements ToModel, WithHeadingRow
                         $song->type_song = $album->type;
                         $song->title               = $row['title'];
                         $song->display_artist      = $display_artist->id;
-                        //$song->user_id      = $user->id;
-                        //$song->artistIds      = $user->artist_id;
+                        $song->user_id      = $user->id;
+                        $song->artistIds      = $user->artist_id;
                         $song->primary_artist      = $row['primary_artist'];
                         $song->remix_version            = $row['remix_version'];
                         $song->composer            = $row['composer'];
@@ -120,11 +120,11 @@ class SongImport implements ToModel, WithHeadingRow
                         array_push($my_artist,'featuring');
                         array_push($my_artist,'arranger');
 
-                        /*DB::table('album_songs')->insert(
+                        DB::table('album_songs')->insert(
                             [ 'song_id' => $song->id, 'album_id' => $album->id ]
-                        );*/
+                        );
                 
-                        if(isset($row['participant'])){
+                        if($row['participant'] != ''){
                             $participant = explode(";",$row['participant']);
                             for($i=0;$i<count($participant);$i++)
                             {
@@ -136,12 +136,12 @@ class SongImport implements ToModel, WithHeadingRow
                                 ]);
                             }
                         }
-                    }
-                }
+                    //}
+                //}
                 return $album;
             }else if (isset($display_artist) && isset($album) && $row['isrc'] == '')
             {
-                $tmp = explode('.', $row['audio_url']);
+                /*$tmp = explode('.', $row['audio_url']);
                 $lastElement = end($tmp);
                 $tmp_name = explode('/', $row['audio_url']);
                 $original_name = end($tmp_name);
@@ -160,10 +160,10 @@ class SongImport implements ToModel, WithHeadingRow
                 
                 $res = (new Upload)->handle($request, $user->artist_id, $album->id);
                 if(isset($res)){
-                    $song = Song::withoutGlobalScopes()->findOrFail($res->id);
-                    //$song = new Song();
-                    if(isset($song))
-                    {
+                    $song = Song::withoutGlobalScopes()->findOrFail($res->id);*/
+                    $song = new Song();
+                    /*if(isset($song))
+                    {*/
                         $song->clearMediaCollection('artwork');
                         $song->addMediaFromBase64(base64_encode(Image::make($row['cover_img'])->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
                             ->usingFileName(time(). '.jpg')
@@ -211,11 +211,11 @@ class SongImport implements ToModel, WithHeadingRow
                         array_push($my_artist,'featuring');
                         array_push($my_artist,'arranger');
 
-                        /*DB::table('album_songs')->insert(
+                        DB::table('album_songs')->insert(
                             [ 'song_id' => $song->id, 'album_id' => $album->id ]
-                        );*/
+                        );
                 
-                        if(isset($row['participant'])){
+                        if($row['participant'] != ''){
                             $participant = explode(";",$row['participant']);
                             for($i=0;$i<count($participant);$i++)
                             {
@@ -227,8 +227,8 @@ class SongImport implements ToModel, WithHeadingRow
                                 ]);
                             }
                         }
-                    }
-                }
+                    //}
+                //}
                 return $album;
             }
         }

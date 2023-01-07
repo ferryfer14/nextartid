@@ -99,7 +99,7 @@ class MigrationImport implements ToModel, WithHeadingRow
                 array_push($my_artist,'with');
                 array_push($my_artist,'featuring');
                 array_push($my_artist,'arranger');
-                if(isset($row['participant'])){
+                if($row['participant'] != ''){
                     $participant = explode(";",$row['participant']);
                     for($i=0;$i<count($participant);$i++)
                     {
@@ -165,7 +165,7 @@ class MigrationImport implements ToModel, WithHeadingRow
                 array_push($my_artist,'with');
                 array_push($my_artist,'featuring');
                 array_push($my_artist,'arranger');
-                if(isset($row['participant'])){
+                if($row['participant'] != ''){
                     $participant = explode(";",$row['participant']);
                     for($i=0;$i<count($participant);$i++)
                     {
