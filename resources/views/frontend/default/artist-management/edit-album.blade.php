@@ -165,11 +165,11 @@
                 </div>
                 <div class="col-sm-3 m-0 p-0">
                     <p>
-                        Artist : {{ $album->primary_artist }} <br/>
-                        Composer : {{ $album->composer }}<br/>
-                        Arranger : {{ $album->arranger }}<br/>
-                        Lyricist : {{ $album->lyricist }}<br/>
-                        Others : @foreach($album->participants as $p) {{ $p->artist_name }}@if(!$loop->last), @endif @endforeach
+                        Artist : {{ $album->primary_artist }}@foreach($album->participants as $p) @if($p->artist_role == 1), {{ $p->artist_name }}@endif @endforeach<br/>
+                        Composer : {{ $album->composer }}@foreach($album->participants as $p) @if($p->artist_role == 5), {{ $p->artist_name }}@endif  @endforeach <br/>
+                        Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach <br/>
+                        Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach <br/>
+                        Others : @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach 
                     </p>
                 </div>
             </div>
