@@ -6,7 +6,7 @@
             </div>
         </td>
         <td><a href="{{ route('backend.albums.edit', ['id' => $album->id]) }}">{!! $album->title !!}</a></td>
-        <td class="desktop">@foreach($album->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</td>
+        <td class="desktop">{{ $album->primary_artist }}</td>
         <td>
             @if(isset($album->user) && $album->user->artist)
                 <a href="{{ route('backend.users.edit', ['id' => $album->user->id]) }}">{{ $album->user->name }}</a>

@@ -7,7 +7,7 @@
         <li class="breadcrumb-item"><a href="{{ route('backend.albums') }}">Albums</a></li>
         <li class="breadcrumb-item active">
             @if(isset($album))
-                <a href="{{ route('backend.albums.edit', ['id' => $album->id]) }}">{!! $album->title !!}</a> - @foreach($album->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach
+                <a href="{{ route('backend.albums.edit', ['id' => $album->id]) }}">{!! $album->title !!}</a> - {{ $album->primary_artist }}
             @else
                 Add New Album
             @endif
@@ -19,7 +19,7 @@
                 <div class="media mb-3">
                     <img class="mr-3" src="{{ $album->artwork_url }}">
                     <div class="media-body">
-                        <h5 class="m-0">{!! $album->title !!} - @foreach($album->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</h5>
+                        <h5 class="m-0">{!! $album->title !!} - {{ $album->primary_artist }}</h5>
                         <p>Songs: {{ $album->song_count }}</p>
                         <p class="m-0"><a href="{{ $album->permalink_url }}" class="btn btn-warning" target="_blank">Preview @if(! $album->approved) (only Moderator) @endif</a> <a href="{{ route('backend.albums.tracklist', ['id' => $album->id]) }}" class="btn btn-info">Tracks List</a> <a href="{{ route('backend.albums.upload', ['id' => $album->id]) }}" class="btn btn-success">Upload</a></p>
                     </div>

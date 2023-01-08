@@ -87,6 +87,11 @@ class Album extends Model implements HasMedia
         return Artist::whereIn('id', explode(',', $this->attributes['artistIds']))->orderBy(DB::raw('FIELD(id, ' .  $ids . ')', 'FIELD'))->get();
     }
 
+    public function getParticipantsAttribute()
+    {
+        return AlbumArtist::withoutGlobalScopes()->where('album_id',$this->id)->get();
+    }
+
     public function getTransactionAttribute()
     {
         $transaction = Transaction::withoutGlobalScopes()->where('album_id', $this->id)->first();

@@ -6,7 +6,7 @@
         </li>
         <li class="breadcrumb-item active"><a href="{{ url('/admin/songs') }}">Songs</a></li>
         @if(Route::currentRouteName() == 'backend.songs.edit')
-            <li class="breadcrumb-item active">{!! $song->title !!} - @foreach($song->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</li>
+            <li class="breadcrumb-item active">{!! $song->title !!} - {!! $song->primary_artist !!}</li>
         @endif
         @if(Route::currentRouteName() == 'backend.songs.add')
             <li class="breadcrumb-item active">Add New Song</li>
@@ -18,7 +18,7 @@
                 <div class="media mb-3">
                     <img class="mr-3" src="{{ $song->artwork_url }}">
                     <div class="media-body">
-                        <h5 class="m-0">{!! $song->title !!} - @foreach($song->artists as $artist)<a href="{{ url('admin/artists/edit/' . $artist->id) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</h5>
+                        <h5 class="m-0">{!! $song->title !!} - {!! $song->primary_artist !!}</h5>
                         <h5>
                             @if($song->mp3)
                                 <span class="badge badge-pill badge-dark">MP3</span>
@@ -60,9 +60,7 @@
                                     <label>Artist(s)</label>
                                     <select class="form-control multi-selector" data-ajax--url="{{ route('api.search.artist') }}" name="artistIds[]" multiple="" required>
                                         @if(Route::currentRouteName() == 'backend.songs.edit')
-                                            @foreach ($song->artists as $index => $artist)
-                                                <option value="{{ $artist->id }}" selected="selected" data-artwork="{{ $artist->artwork_url }}" data-title="{!! $artist->name !!}">{!! $artist->name !!}</option>
-                                            @endforeach
+                                            <option value="{{ $song->display_artists->id }}" selected="selected" data-artwork="{{ $song->display_artists->artwork_url }}" data-title="{!! $song->display_artists->name !!}">{!! $song->display_artists->name !!}</option>
                                         @endif
                                     </select>
                                 </div>

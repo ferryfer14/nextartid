@@ -154,13 +154,24 @@
                     </div>
                 </div>
             </div>
-            <div>
-                <p>
-                    Display Artist : {{ $album->primary_artist }} <br/>
-                    UPC : {{ $album->upc }}<br/>
-                    Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
-                    Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}
-                </p>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p>
+                        Display Artist : {{ $album->primary_artist }} <br/>
+                        UPC : {{ $album->upc }}<br/>
+                        Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
+                        Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}
+                    </p>
+                </div>
+                <div class="col-sm-3 m-0 p-0">
+                    <p>
+                        Artist : {{ $album->primary_artist }} <br/>
+                        Composer : {{ $album->composer }}<br/>
+                        Arranger : {{ $album->arranger }}<br/>
+                        Lyricist : {{ $album->lyricist }}<br/>
+                        Others : @foreach($album->participants as $p) {{ $p->artist_name }}@if(!$loop->last), @endif @endforeach
+                    </p>
+                </div>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
                 @foreach($album->songs as $song)

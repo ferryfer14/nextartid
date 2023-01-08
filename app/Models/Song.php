@@ -35,7 +35,7 @@ class Song extends Model implements HasMedia
         'id', 'title', 'genre','start_point' , 'mood', 'album_id', 'artworkId', 'releasedOn', 'copyright', 'approve'
     ];
 
-    protected $appends = ['artwork_url', 'artists', 'royalti','royalti_detail' , 'permalink_url', 'stream_url', 'favorite', 'library', 'streamable', 'allow_download', 'allow_high_quality_download'];
+    protected $appends = ['artwork_url', 'artists', 'display_artists', 'royalti','royalti_detail' , 'permalink_url', 'stream_url', 'favorite', 'library', 'streamable', 'allow_download', 'allow_high_quality_download'];
 
     protected $hidden = ['media', 'artistIds', 'description', 'user_id', 'user'];
 
@@ -81,6 +81,11 @@ class Song extends Model implements HasMedia
                 return $media->getFullUrl('lg');
             }
         }
+    }
+
+    public function getDisplayArtistsAttribute()
+    {
+        return Artist::withoutGlobalScopes()->where('id',$this->attributes['display_artist'])->first();
     }
 
     public function getArtistsAttribute()

@@ -1271,9 +1271,12 @@ class ArtistManagementController extends Controller
             $transaction->nilai_free_song = $album->free_song->free*$album->price->harga_discount;
             $transaction->save();
         }else{
-            $transaction->free_song_id = NULL;
-            $transaction->nilai_free_song = NULL;
-            $transaction->save();
+            if($transaction->free_song_id != NULL)
+            {
+                $transaction->free_song_id = NULL;
+                $transaction->nilai_free_song = NULL;
+                $transaction->save();
+            }
         }
         $view = View::make('artist-management.edit-album')
             ->with('artist', $this->artist)

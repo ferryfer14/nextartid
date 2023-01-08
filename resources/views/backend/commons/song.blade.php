@@ -11,7 +11,7 @@
         </td>
         <td>{!! $song->title !!}</td>
         <td id="track_{{ $song->id }}" class="editable" title="Click to edit">{!! $song->isrc !!}</td>
-        <td class="desktop">@foreach($song->artists as $artist)<a href="{{ route('backend.artists.edit', ['id' => $artist->id]) }}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</td>
+        <td class="desktop">{{ $song->primary_artist }}</td>
         @if($song->album)
             <td class="desktop">
                 <a href="{{ route('backend.albums.edit', ['id' => $song->album->id]) }}">{{ $song->album->title }}</a>
