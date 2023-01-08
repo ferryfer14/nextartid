@@ -42,11 +42,11 @@
                         <th class="th-priority">Priority</th>
                         <th class="th-image"></th>
                         <th>Title <span title="Double click to edit" data-toggle="tooltip" data-placement="top">(?)</span></th>
+                        <th class="desktop">ISRC</th>
                         <th class="desktop">Artist(s)</th>
                         <th class="desktop">Album</th>
                         <th class="desktop">Likes</th>
                         <th class="desktop">Plays</th>
-                        <th class="desktop">Approved</th>
                         <th class="desktop">Extra</th>
                         <th class="desktop">Disk</th>
                         <th class="th-2action">Action</th>
