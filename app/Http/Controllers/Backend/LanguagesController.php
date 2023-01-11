@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by NiNaCoder.
+ * Created by NextArt.
  * Date: 2019-05-25
  * Time: 20:58
  */
@@ -10,11 +10,11 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 
 use Illuminate\Routing\Controller;
-use NiNaCoder\Translation\Drivers\Translation;
-use NiNaCoder\Translation\Http\Requests\LanguageRequest;
+use NextArt\Translation\Drivers\Translation;
+use NextArt\Translation\Http\Requests\LanguageRequest;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use NiNaCoder\Translation\Http\Requests\TranslationRequest;
+use NextArt\Translation\Http\Requests\TranslationRequest;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Cache;
 

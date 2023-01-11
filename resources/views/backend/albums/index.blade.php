@@ -164,10 +164,10 @@
                         <th class="desktop">Artist(s)</th>
                         <th class="text-danger">Owner</th>
                         <th class="desktop">Genre(s)</th>
-                        <th class="desktop">Mood(s)</th>
+                        <!--<th class="desktop">Mood(s)</th>-->
                         <th class="desktop th-2action">Approved</th>
                         <th class="desktop text-center th-2action"><i class="fas fa-music"></i></th>
-                        <th class="desktop text-center th-2action"><i class="fas fa-comment fa-fw"></i></th>
+                        <!--<th class="desktop text-center th-2action"><i class="fas fa-comment fa-fw"></i></th>-->
                         <th class="th-4action">Action</th>
                         <th class="th-checkbox">
                             <label class="engine-checkbox">

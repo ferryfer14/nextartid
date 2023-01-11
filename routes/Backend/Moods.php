@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by NiNaCoder.
+ * Created by NextArt.
  * Date: 2019-07-06
  * Time: 22:27
  */

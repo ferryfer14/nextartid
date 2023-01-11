@@ -27,7 +27,7 @@ class EmailsTableSeeder extends Seeder
 <p>Please <a href="{{resetLink}}">click here</a> to reset your password.</p>
 <p>If you are not able to click on link please copy and paste: {{resetLink}} in your browser.</p>
 <p>Regards,</p>
-<p>Team NiNaCoder.</p>',
+<p>Team NextArt.</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-02 22:35:53',
             ),
@@ -58,7 +58,7 @@ class EmailsTableSeeder extends Seeder
                 'content' => '<p>{{name}}, Welcome to NiNa Sound</p>
 <p>Play and discover music you love on your phone for FREE.</p>
 <p>Regards,</p>
-<p>Team NiNaCoder.</p>',
+<p>Team NextArt.</p>',
                 'created_at' => NULL,
                 'updated_at' => '2019-08-24 03:03:33',
             ),
@@ -164,7 +164,7 @@ class EmailsTableSeeder extends Seeder
 <p><a href="{{url}}" target="_blank" rel="noopener">{{url}}</a></p>
 <p>Thanks for your high quality submission. Keep up the awesome work!</p>
 <p>Regards,</p>
-<p>NiNaCoder Team</p>',
+<p>NextArt Team</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-15 03:01:27',
             ),
@@ -180,7 +180,7 @@ class EmailsTableSeeder extends Seeder
 <p><a href="{{url}}" target="_blank" rel="noopener">{{url}}</a></p>
 <p>Thanks for your high quality submission. Keep up the awesome work!</p>
 <p>Regards,</p>
-<p>NiNaCoder Team</p>',
+<p>NextArt Team</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-15 03:01:13',
             ),
@@ -199,7 +199,7 @@ class EmailsTableSeeder extends Seeder
 <p>Check out this Help Centre article to understand why and how items get rejected.</p>
 <p>We hope to see a new submission from you soon!</p>
 <p>All the best!</p>
-<p>NiNaCoder team</p>',
+<p>NextArt team</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-15 02:58:15',
             ),
@@ -218,7 +218,7 @@ class EmailsTableSeeder extends Seeder
 <p>Check out this Help Centre article to understand why and how items get rejected.</p>
 <p>We hope to see a new submission from you soon!</p>
 <p>All the best!</p>
-<p>NiNaCoder team</p>',
+<p>NextArt team</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-15 02:58:00',
             ),
@@ -518,7 +518,7 @@ class EmailsTableSeeder extends Seeder
 <tbody>
 <tr style="height: 16px;">
 <td class="m_-8504956366380948631Spacer--gutter" style="border: 0px; border-collapse: collapse; margin: 0px; padding: 0px; color: #ffffff; font-size: 1px; line-height: 1px; height: 16px; width: 64px;">&nbsp;</td>
-<td class="m_-8504956366380948631Content" style="border: 0px; border-collapse: collapse; margin: 0px; padding: 0px; width: 472px; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, \'Helvetica Neue\', Ubuntu, sans-serif; vertical-align: middle; color: #8898aa; font-size: 12px; line-height: 16px; height: 16px;">If you have any questions, please send an email to <a href="mailto:ninacoder2510@gmail.com">ninacoder2510@gmail.com</a>. We\'ll get back to you as soon as we can.</td>
+<td class="m_-8504956366380948631Content" style="border: 0px; border-collapse: collapse; margin: 0px; padding: 0px; width: 472px; font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', Roboto, \'Helvetica Neue\', Ubuntu, sans-serif; vertical-align: middle; color: #8898aa; font-size: 12px; line-height: 16px; height: 16px;">If you have any questions, please send an email to <a href="mailto:NextArt2510@gmail.com">NextArt2510@gmail.com</a>. We\'ll get back to you as soon as we can.</td>
 <td class="m_-8504956366380948631Spacer--gutter" style="border: 0px; border-collapse: collapse; margin: 0px; padding: 0px; color: #ffffff; font-size: 1px; line-height: 1px; height: 16px; width: 64px;">&nbsp;</td>
 </tr>
 </tbody>
@@ -579,7 +579,7 @@ class EmailsTableSeeder extends Seeder
 <p>Email: {{email}}</p>
 <p>&nbsp;</p>
 <p>Sincerely,</p>
-<p>NiNaCoder</p>',
+<p>NextArt</p>',
                 'created_at' => NULL,
                 'updated_at' => '2020-07-22 01:21:35',
             ),
@@ -594,7 +594,7 @@ class EmailsTableSeeder extends Seeder
 <p>Hi {{name}},</p>
 <p>We just processed your payout for {{amount}}.</p>
 <p>Happy Spending!.</p>
-<p>Team NiNaCoder.</p>',
+<p>Team NextArt.</p>',
 
                     'created_at' => NULL,
                     'updated_at' => '2021-01-19 22:11:00',
@@ -610,7 +610,7 @@ class EmailsTableSeeder extends Seeder
 <p>Hi {{name}},</p>
 <p>Unfortunately your payout was rejected.</p>
 <p>If you have any questions, please contact support!</p>
-<p>Team NiNaCoder.</p>',
+<p>Team NextArt.</p>',
                     'created_at' => NULL,
                     'updated_at' => '2021-01-19 22:11:00',
                 )

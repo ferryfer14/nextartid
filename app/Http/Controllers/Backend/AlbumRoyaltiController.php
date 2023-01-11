@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by NiNaCoder.
+ * Created by NextArt.
  * Date: 2019-05-25
  * Time: 09:02
  */
@@ -38,7 +38,7 @@ class AlbumRoyaltiController
     public function exportPost()
     {
         $this->request->validate([
-            'file' => 'required|mimetypes:text/csv,text/plain,application/csv,text/comma-separated-values,text/anytext,application/octet-stream,application/txt',
+            'file' => 'required|mimetypes:text/csv,text/plain,application/csv,text/comma-separated-values,text/anytext,application/octet-stream,application/txt,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             'note' => 'required|string'
         ]);
 

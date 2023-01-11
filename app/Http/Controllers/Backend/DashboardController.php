@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by NiNaCoder.
+ * Created by NextArt.
  * Date: 2019-05-24
  * Time: 15:27
  */
@@ -19,7 +19,7 @@ use Cache;
 use Analytics;
 use Spatie\Analytics\Period;
 
-use NiNaCoder\Updater\UpdaterManager;
+use NextArt\Updater\UpdaterManager;
 
 class DashboardController
 {

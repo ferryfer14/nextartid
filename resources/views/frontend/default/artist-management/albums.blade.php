@@ -57,9 +57,9 @@
                                         </div>
                                     </div>
                                     <div class="module-inner">
-                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline"><h1>{!! $album->title !!}</h1></a>
+                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline" style="white-space: pre-wrap;"><h2>{!! $album->title !!}</h2></a>
                                         <p>
-                                            {{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>
+                                            <!--{{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>-->
                                             Display Artist : {{ $album->primary_artist }}<br/>
                                             UPC : {{ $album->upc }}<br/>
                                             Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
@@ -72,7 +72,8 @@
                     @else
                         <div class="empty-page followers">
                             <div class="empty-inner">
-                                <h2>{{ __('web.ARTIST_DIDNT_RELEASE_ANYTHING_YET', ['name' => $artist->name]) }}</h2>
+                                <!--<h2>{{ __('web.ARTIST_DIDNT_RELEASE_ANYTHING_YET', ['name' => $artist->name]) }}</h2>-->
+                                <h2>No Album yet, please make one.</h2>
                             </div>
                         </div>
                     @endif

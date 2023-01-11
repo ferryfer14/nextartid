@@ -784,7 +784,6 @@
             $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=genre]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=second_genre]'), User.userInfo.allow_genres);
             $.engineUtils.makeSelectOption(Artist.editSongForm.find('select[name=group_genre]'), User.userInfo.group_genre);
-
             Artist.editSongForm.find('.select2-container').remove();
             Artist.editSongForm.find('.select2')
                 .removeClass('select2-hidden-accessible')
@@ -856,6 +855,7 @@
                 Artist.editSongForm.find('.select2').select2({
                     width: '100%',
                     placeholder: "Please select",
+                    allowClear: true,
                     maximumSelectionLength: 4
                 });
                 Artist.editSongForm.find('.select2-tags').select2({
@@ -1066,7 +1066,7 @@
                 $('#create-album-form').find("select[name='second_genre']").removeAttr("disabled");
                 $('#create-album-form').find("select[name='second_genre']").append(options).trigger('change');
                 $('#create-album-form').find('select[name=second_genre]').prepend($('<option>', {
-                    hidden:true,
+                    hidden:false,
                     selected:true,
                    disabled: true,
                    value: '0',

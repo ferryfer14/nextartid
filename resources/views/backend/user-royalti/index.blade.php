@@ -47,7 +47,7 @@
                             @endif
                             <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? round($user->artist->balance_confirm,3) : '0' }}</td>
                             <td class="desktop">
-                                <a class="row-button albums" href="{{ route('backend.user.royalti.album', ['id' => $user->artist_id]) }}"><i class="fas fa-fw fa-music"></i></a>
+                                <a class="row-button albums" href="{{ route('backend.user.royalti.album', ['id' => $user->artist_id ?? 0]) }}"><i class="fas fa-fw fa-music"></i></a>
                             </td>
                         </tr>
                     @endforeach

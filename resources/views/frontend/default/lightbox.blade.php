@@ -1785,7 +1785,7 @@
                                                 8 => __('Featuring'),
                                                 9 => __('with'),
                                                 10 => __('Arranger'),
-                                            ), 'roles[]', 1, true) !!}
+                                            ), 'roles[]', NULL, false) !!}
                                             </div>
                                             <div class="col-md-7 d-flex align-items-center">
                                                 <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
@@ -2021,7 +2021,7 @@
                             </div>
                             <input name="id" type="hidden">
                             <div class="lightbox-with-artwork-block">
-                                <div class="img-container">
+                                <div class="img-container basic-tooltip" tooltip="Format: JPG, TIFF or PNG 3000x3000px">
                                     <img class="img" src="{{ asset('common/default/album.png') }}" data-default-artwork="{{ asset('artworks/defaults/album.png') }}"/>
                                     <div class="control artwork-select">
                                         <span>{{ __('web.EDIT') }}</span>

@@ -13,8 +13,8 @@
         <div class="container">
             <div class="page-header artist main small desktop"> <a class="img "> <img src="{{ $artist->artwork_url }}" alt="{{ $artist->name}}">  </a>
                 <div class="inner">
-                    <h1 title="{!! auth()->user()->name; !!}">{!! auth()->user()->name; !!}<span class="subpage-header"> / Primary Artists</span></h1>
-                    <div class="byline">Your's Primary Artists</div>
+                    <h1 title="{!! auth()->user()->name; !!}">{!! auth()->user()->email; !!}<span class="subpage-header"> / Primary Artists</span></h1>
+                    <div class="byline">Your Primary Artist lists</div>
                 </div>
             </div>
             @include('artist-management.nav-artist')

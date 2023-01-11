@@ -9,13 +9,13 @@
         <td class="desktop">{{ $album->primary_artist }}</td>
         <td>
             @if(isset($album->user) && $album->user->artist)
-                <a href="{{ route('backend.users.edit', ['id' => $album->user->id]) }}">{{ $album->user->name }}</a>
+                <a href="{{ route('backend.users.edit', ['id' => $album->user->id]) }}">{{ $album->user->email }}</a>
             @else
                 <span class="text-muted font-weight-light font-italic">System</span>
             @endif
         </td>
         <td class="desktop">@foreach($album->genres as $genre)<a href="{{ route('backend.genres.edit', ['id' => $genre->id]) }}" title="{{ $genre->name }}">{{$genre->name}}</a>@if(!$loop->last), @endif @endforeach</td>
-        <td class="desktop">@foreach($album->moods as $mood)<a href="{{ route('backend.moods.edit', ['id' => $mood->id]) }}" title="{{ $mood->name }}">{{$mood->name}}</a>@if(!$loop->last), @endif @endforeach</td>
+        <!--<td class="desktop">@foreach($album->moods as $mood)<a href="{{ route('backend.moods.edit', ['id' => $mood->id]) }}" title="{{ $mood->name }}">{{$mood->name}}</a>@if(!$loop->last), @endif @endforeach</td>-->
         <td class="desktop">
             @if($album->approved)
                 <span class="badge badge-pill badge-success">Yes</span>
@@ -24,7 +24,7 @@
             @endif
         </td>
         <td class="desktop text-center">{{ $album->song_count }}</td>
-        <td class="desktop text-center">{{ $album->comment_count }}</td>
+        <!--<td class="desktop text-center">{{ $album->comment_count }}</td>-->
         <td>
             <a class="row-button export" href="{{ route('backend.albums.export.csv', ['id' => $album->id]) }}"><i class="fas fa-fw fa-file-csv"></i></a>
             <a class="row-button edit" href="{{ route('backend.albums.edit', ['id' => $album->id]) }}"><i class="fas fa-fw fa-edit"></i></a>

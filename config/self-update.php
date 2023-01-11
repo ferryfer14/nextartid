@@ -121,16 +121,16 @@ return [
 
     'notifications' => [
         'notifications' => [
-            \NiNaCoder\Updater\Notifications\Notifications\UpdateSucceeded::class => ['mail'],
-            \NiNaCoder\Updater\Notifications\Notifications\UpdateFailed::class => ['mail'],
-            \NiNaCoder\Updater\Notifications\Notifications\UpdateAvailable::class => ['mail'],
+            \NextArt\Updater\Notifications\Notifications\UpdateSucceeded::class => ['mail'],
+            \NextArt\Updater\Notifications\Notifications\UpdateFailed::class => ['mail'],
+            \NextArt\Updater\Notifications\Notifications\UpdateAvailable::class => ['mail'],
         ],
 
         /*
          * Here you can specify the notifiable to which the notifications should be sent. The default
          * notifiable will use the variables specified in this config file.
          */
-        'notifiable' => \NiNaCoder\Updater\Notifications\Notifiable::class,
+        'notifiable' => \NextArt\Updater\Notifications\Notifiable::class,
 
         'mail' => [
             'to' => [
@@ -139,7 +139,7 @@ return [
             ],
 
             'from' => [
-                'address' => 'noreply@ninacoder.info',
+                'address' => 'noreply@NextArt.id',
                 'name' => 'MusicEngine Update',
             ],
         ],

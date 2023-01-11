@@ -25,7 +25,7 @@
             <div class="page-header artist main small desktop"> <a class="img "> <img src="{{ $artist->artwork_url }}" alt="{{ $artist->name}}">  </a>
                 <div class="inner">
                     <h1 title="{!! auth()->user()->email; !!}">{!! auth()->user()->email; !!}<span class="subpage-header"> / Artists</span></h1>
-                    <div class="byline">Managed your artists</div>
+                    <div class="byline">Your Display Artist lists</div>
                 </div>
             </div>
             @include('artist-management.nav-artist')

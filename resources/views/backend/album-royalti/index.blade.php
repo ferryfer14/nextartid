@@ -18,7 +18,7 @@
                 @csrf
                 <div class="form-group">
                     <label>File Csv</label>
-                    <input class="form-control" name="file" type="file" accept=".csv" autocomplete="off">
+                    <input class="form-control" name="file" type="file" accept=".csv,.xlsx" autocomplete="off">
                 </div>
                 <div class="form-group">
                     <label>Note</label>

@@ -23,7 +23,7 @@ class BannersTableSeeder extends Seeder
                 'banner_tag' => 'header',
                 'description' => 'Top banner',
                 'code' => '<div class="header-ad">
-<a href="http://ninacoder.info" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/97975081-20d8ad80-1dfb-11eb-8ffe-ba78c4fa9000.png" alt=""></a>
+<a href="http://NextArt.id" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/97975081-20d8ad80-1dfb-11eb-8ffe-ba78c4fa9000.png" alt=""></a>
 </div>',
                 'approved' => 1,
                 'short_place' => 0,
@@ -52,7 +52,7 @@ class BannersTableSeeder extends Seeder
                 'banner_tag' => 'footer',
                 'description' => 'Footer ad',
                 'code' => '<div class="footer-ad">
-<a href="http://ninacoder.info" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/93670112-d5747500-fac2-11ea-8bdf-56427ed7d2a2.jpg" alt=""></a>
+<a href="http://NextArt.id" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/93670112-d5747500-fac2-11ea-8bdf-56427ed7d2a2.jpg" alt=""></a>
 </div>',
                 'approved' => 1,
                 'short_place' => 0,
@@ -81,7 +81,7 @@ class BannersTableSeeder extends Seeder
                 'banner_tag' => 'sidebar',
                 'description' => 'Sidebar ad',
                 'code' => '<div class="sidebar-ad">
-<a href="http://ninacoder.info" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/97974829-bf184380-1dfa-11eb-9ad5-8849be2e2d9d.jpeg" alt=""></a>
+<a href="http://NextArt.id" target="_blank"><img src="https://user-images.githubusercontent.com/63708869/97974829-bf184380-1dfa-11eb-9ad5-8849be2e2d9d.jpeg" alt=""></a>
 </div>',
                 'approved' => 1,
                 'short_place' => 0,

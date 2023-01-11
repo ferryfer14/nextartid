@@ -71,6 +71,25 @@
 
 
 
+        @if(\App\Models\Role::getValue('admin_albums'))
+            <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-circle"></i>
+                        </div>
+                        <div class="mr-5 h2">{{ $dashboard->total_albums }} Albums</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.albums')  }}">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                        <i class="fa fa-angle-right"></i>
+                    </span>
+                    </a>
+                </div>
+
+            </div>
+        @endif
         @if(\App\Models\Role::getValue('admin_songs'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-primary o-hidden h-100">
@@ -107,46 +126,9 @@
                 </div>
             </div>
         @endif
-        @if(\App\Models\Role::getValue('admin_albums'))
-            <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
-                <div class="card text-white bg-danger o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fa fa-fw fa-circle"></i>
-                        </div>
-                        <div class="mr-5 h2">{{ $dashboard->total_albums }} Albums</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.albums')  }}">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                    </a>
-                </div>
-
-            </div>
-        @endif
-        @if(\App\Models\Role::getValue('admin_playlists'))
-            <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
-                <div class="card text-white bg-dark o-hidden h-100">
-                    <div class="card-body">
-                        <div class="card-body-icon">
-                            <i class="fa fa-fw fa-play"></i>
-                        </div>
-                        <div class="mr-5 h2">{{ $dashboard->total_playlists }} Playlists</div>
-                    </div>
-                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.playlists') }}">
-                        <span class="float-left">View Details</span>
-                        <span class="float-right">
-                        <i class="fa fa-angle-right"></i>
-                    </span>
-                    </a>
-                </div>
-            </div>
-        @endif
         @if(\App\Models\Role::getValue('admin_users'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
-                <div class="card text-white bg-gradient-info o-hidden h-100">
+                <div class="card text-white bg-dark o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-users"></i>
@@ -162,14 +144,34 @@
                 </div>
             </div>
         @endif
+        @if(\App\Models\Role::getValue('admin_users'))
+            <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
+                <div class="card text-white bg-gradient-info o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-dollar-sign"></i>
+                        </div>
+                        <div class="mr-5 h2">${{ $dashboard->statistics->total_users }}</div>
+                        <p class="float-left mb-0">Unconfirmed</p>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.users') }}">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                        <i class="fa fa-angle-right"></i>
+                    </span>
+                    </a>
+                </div>
+            </div>
+        @endif
         @if(\App\Models\Role::getValue('admin_subscriptions'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-secondary o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
-                            <i class="fa fa-fw fa-shopping-cart"></i>
+                            <i class="fa fa-fw fa-dollar-sign"></i>
                         </div>
-                        <div class="mr-5 h2">{{ $dashboard->statistics->total_subscriptions }} Subscriptions</div>
+                        <div class="mr-5 h2">${{ $dashboard->statistics->total_subscriptions }}</div>
+                        <p class="float-left mb-0">Confirmed</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.subscriptions') }}">
                         <span class="float-left">View Details</span>
@@ -187,7 +189,8 @@
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-money-bill"></i>
                         </div>
-                        <div class="mr-5 h2">{{ $dashboard->statistics->total_comments }} Comments</div>
+                        <div class="mr-5 h2">Rp{{ $dashboard->statistics->total_comments }}</div>
+                        <p class="float-left mb-0">Points Reward</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.comments') }}">
                         <span class="float-left">View Details</span>
@@ -203,9 +206,10 @@
                 <div class="card text-white bg-gradient-warning o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
-                            <i class="fa fa-fw fa-edit"></i>
+                            <i class="fa fa-fw fa-money-bill"></i>
                         </div>
-                        <div class="mr-5 h2">{{ $dashboard->statistics->total_posts }} Posts</div>
+                        <div class="mr-5 h2">Rp{{ $dashboard->statistics->total_posts }}</div>
+                        <p class="float-left mb-0">Vault</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.posts') }}">
                         <span class="float-left">View Details</span>

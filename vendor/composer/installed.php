@@ -865,21 +865,21 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'ninacoder-info/laravel-selfupdater' => array(
+        'NextArt-info/laravel-selfupdater' => array(
             'pretty_version' => '4.0',
             'version' => '4.0.0.0',
             'reference' => '5a36dd6c259aa2b4a513d96759b3e977c13b1120',
             'type' => 'library',
-            'install_path' => __DIR__ . '/../ninacoder-info/laravel-selfupdater',
+            'install_path' => __DIR__ . '/../NextArt-info/laravel-selfupdater',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'ninacoder-info/translation' => array(
+        'NextArt-info/translation' => array(
             'pretty_version' => 'v2.0.0',
             'version' => '2.0.0.0',
             'reference' => '94fcb5c6c73c45e2700897381d999ba1d11011d4',
             'type' => 'library',
-            'install_path' => __DIR__ . '/../ninacoder-info/translation',
+            'install_path' => __DIR__ . '/../NextArt-info/translation',
             'aliases' => array(),
             'dev_requirement' => false,
         ),

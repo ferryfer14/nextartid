@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Artisan;
-use NiNaCoder\Updater\UpdaterManager;
+use NextArt\Updater\UpdaterManager;
 
 class UpgradeCommand extends Command
 {

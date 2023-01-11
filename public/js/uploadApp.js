@@ -180,7 +180,8 @@
                                     };
                                     $(this).find('.artist-selection').select2({
                                         placeholder: "Select one or multi",
-                                        maximumSelectionLength: 4
+                                        maximumSelectionLength: 4,
+                                        allowClear: true,
                                     });
                                 }
 

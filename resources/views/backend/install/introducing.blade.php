@@ -7,6 +7,6 @@
     <p>2. Database username</p>
     <p>3. Database password</p>
     <p>4. Database host</p>
-    <p>Super, <a href="http://ninacoder.info/">ninacoder.info</a></p>
+    <p>Super, <a href="http://NextArt.id/">NextArt.id</a></p>
     <a href="{{ $_SERVER['PHP_SELF'] }}?step=requirements" class="btn btn-primary btn-block">Continue</a>
 @endsection

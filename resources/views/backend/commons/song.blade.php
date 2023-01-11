@@ -19,31 +19,31 @@
         @else
             <td></td>
         @endif
-        <td class="desktop">
-            @if($song->preview)
-                <span class="badge badge-pill badge-danger">PR</span>
-            @endif
-            @if($song->mp3)
-                <span class="badge badge-pill badge-dark">MP3</span>
-            @endif
-            @if($song->hd)
-                <span class="badge badge-pill badge-info">HD</span>
-            @endif
-            @if($song->hls)
-                <span class="badge badge-pill badge-warning">HLS</span>
-            @endif
-        </td>
-            <td class="desktop">
-                @if($song->getFirstMedia('audio'))
-                    <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('audio')->disk }}</span>
-                @elseif($song->getFirstMedia('hls'))
-                    <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hls')->disk }}</span>
-                @elseif($song->getFirstMedia('hd_audio'))
-                    <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hd_audio')->disk }}</span>
-                @elseif($song->getFirstMedia('hd_hls'))
-                    <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hd_hls')->disk }}</span>
-                @endif
-            </td>
+        <!--<td class="desktop">-->
+        <!--    @if($song->preview)-->
+        <!--        <span class="badge badge-pill badge-danger">PR</span>-->
+        <!--    @endif-->
+        <!--    @if($song->mp3)-->
+        <!--        <span class="badge badge-pill badge-dark">MP3</span>-->
+        <!--    @endif-->
+        <!--    @if($song->hd)-->
+        <!--        <span class="badge badge-pill badge-info">HD</span>-->
+        <!--    @endif-->
+        <!--    @if($song->hls)-->
+        <!--        <span class="badge badge-pill badge-warning">HLS</span>-->
+        <!--    @endif-->
+        <!--</td>-->
+            <!--<td class="desktop">-->
+            <!--    @if($song->getFirstMedia('audio'))-->
+            <!--        <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('audio')->disk }}</span>-->
+            <!--    @elseif($song->getFirstMedia('hls'))-->
+            <!--        <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hls')->disk }}</span>-->
+            <!--    @elseif($song->getFirstMedia('hd_audio'))-->
+            <!--        <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hd_audio')->disk }}</span>-->
+            <!--    @elseif($song->getFirstMedia('hd_hls'))-->
+            <!--        <span class="badge badge-pill badge-dark">{{ $song->getFirstMedia('hd_hls')->disk }}</span>-->
+            <!--    @endif-->
+            <!--</td>-->
         <td class="desktop">
             <a class="row-button edit" href="{{ route('backend.songs.edit', ['id' => $song->id]) }}" data-toggle="tooltip" data-placement="left" title="Edit this song"><i class="fas fa-fw fa-edit"></i></a>
             <a class="row-button delete"  href="{{ route('backend.songs.delete', ['id' => $song->id]) }}" onclick="return confirm('Are you sure want to delete this song?')" data-toggle="tooltip" data-placement="left" title="Delete this song"><i class="fas fa-fw fa-trash"></i></a>

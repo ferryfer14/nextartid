@@ -1,6 +1,6 @@
 <?php
 /**
- * Created by NiNaCoder.
+ * Created by NextArt.
  * Date: 2019-05-28
  * Time: 15:13
  */
@@ -673,7 +673,12 @@ class ArtistManagementController extends Controller
                 $song->isrc               = $this->request->input('isrc');
                 $song->iswc               = $this->request->input('iswc');
                 $song->genre               = $this->request->input('genre');
-                $song->second_genre        = $this->request->input('second_genre');
+                if($this->request->input('second_genre') != 0)
+                {
+                    $song->second_genre        = $this->request->input('second_genre');
+                }else{
+                    $song->second_genre        = $this->request->input('second_genre');
+                }
                 $song->group_genre         = $this->request->input('group_genre');
                 $song->language            = $this->request->input('language');
                 $song->lirik                = $this->request->input('lirik');
@@ -1133,7 +1138,10 @@ class ArtistManagementController extends Controller
         }else{
             $album->label           = $this->request->input('label');
         }
-        $album->second_genre        = $this->request->input('second_genre');
+        if($this->request->input('second_genre') != 0)
+        {
+            $album->second_genre        = $this->request->input('second_genre');
+        }
         $album->group_genre         = $this->request->input('group_genre');
         $mood                       = $this->request->input('mood');
         $album->type                = $this->request->input('type');
@@ -1271,7 +1279,7 @@ class ArtistManagementController extends Controller
             $transaction->nilai_free_song = $album->free_song->free*$album->price->harga_discount;
             $transaction->save();
         }else{
-            if($transaction->free_song_id != NULL)
+            if(isset($transaction->free_song_id))
             {
                 $transaction->free_song_id = NULL;
                 $transaction->nilai_free_song = NULL;

@@ -103,12 +103,15 @@ class MigrationImport implements ToModel, WithHeadingRow
                     $participant = explode(";",$row['participant']);
                     for($i=0;$i<count($participant);$i++)
                     {
-                        $role = explode(":",$participant[$i]);
-                        DB::table('album_artist')->insert([
-                            'album_id' => $album->id,
-                            'artist_role' => array_search($role[0], $my_artist)+1,
-                            'artist_name' => $role[1],
-                        ]);
+                        if($participant[$i] != '')
+                        {
+                            $role = explode(":",$participant[$i]);
+                            DB::table('album_artist')->insert([
+                                'album_id' => $album->id,
+                                'artist_role' => array_search($role[0], $my_artist)+1,
+                                'artist_name' => $role[1],
+                            ]);   
+                        }
                     }
                 }
                 return $album;
@@ -169,12 +172,15 @@ class MigrationImport implements ToModel, WithHeadingRow
                     $participant = explode(";",$row['participant']);
                     for($i=0;$i<count($participant);$i++)
                     {
-                        $role = explode(":",$participant[$i]);
-                        DB::table('album_artist')->insert([
-                            'album_id' => $album->id,
-                            'artist_role' => array_search($role[0], $my_artist)+1,
-                            'artist_name' => $role[1],
-                        ]);
+                        if($participant[$i] != '')
+                        {
+                            $role = explode(":",$participant[$i]);
+                            DB::table('album_artist')->insert([
+                                'album_id' => $album->id,
+                                'artist_role' => array_search($role[0], $my_artist)+1,
+                                'artist_name' => $role[1],
+                            ]);   
+                        }
                     }
                 }
                 return $album;

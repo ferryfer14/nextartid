@@ -1149,7 +1149,7 @@ return array (
   'SETTINGS_DISABLE_PLAYER_KEYBOARD_SHORTCUTS' => 'Vô hiệu hóa phím tắt trình phát.',
   'SETTINGS_DISABLE_PREFETCH' => 'Không đệm trước bài hát tiếp theo trong Hàng đợi của tôi.',
   'SETTINGS_DISABLE_PREFETCH_SUBTEXT' => 'Bộ đệm trước cho phép chuyển đổi nhanh chóng và liền mạch giữa các bài hát.',
-  'SETTINGS_EMAIL_TIP' => 'Luôn cập nhật địa chỉ email của bạn để đảm bảo rằng bạn được thông báo về hoạt động tài khoản và các tính năng mới nhất của bạn. Thay đổi tùy chọn email của bạn trong <a href=\'https://musicengine.ninacoder.info/settings/preferences\'> Thông báo</a>.',
+  'SETTINGS_EMAIL_TIP' => 'Luôn cập nhật địa chỉ email của bạn để đảm bảo rằng bạn được thông báo về hoạt động tài khoản và các tính năng mới nhất của bạn. Thay đổi tùy chọn email của bạn trong <a href=\'https://musicengine.NextArt.id/settings/preferences\'> Thông báo</a>.',
   'SETTINGS_EXTEND_SUBSCRIPTION' => 'Gia hạn đăng ký',
   'SETTINGS_FADEIN' => 'Khi tôi phát hoặc tạm dừng một bài hát, hãy làm mờ dần bài hát trong hoặc ngoài.',
   'SETTINGS_GENERAL' => 'Chung',

@@ -29,7 +29,7 @@
             <div class="page-header artist main small desktop"> <a class="img "> <img src="{{ $artist->artwork_url }}" alt="{{ $artist->name}}">  </a>
                 <div class="inner">
                     <h1 title="{!! auth()->user()->email; !!}">{!! auth()->user()->email; !!}<span class="subpage-header"> / Artists</span></h1>
-                    <div class="byline">Your History Transaction</div>
+                    <div class="byline">Your Transaction History</div>
                 </div>
             </div>
             @include('artist-management.nav-transaction')
