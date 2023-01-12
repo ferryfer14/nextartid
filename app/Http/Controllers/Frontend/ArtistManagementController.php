@@ -210,10 +210,12 @@ class ArtistManagementController extends Controller
         $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
         $this->request->validate([
             'value'             => 'required|numeric|min:'.$nominal_fee->min_convert,
+        ],[
+            'value.min' => 'value value must be more than '.$nominal_fee->min_convert
         ]);
 
         $artist = Artist::findOrFail(auth()->user()->artist_id);
-        if($this->request->input('value') <= round($artist->balance_confirm,3)){
+        if($this->request->input('value') == round($artist->balance_confirm,3)){
             $balance = new Balance();
             $balance->user_id = auth()->user()->id;
             $balance->jenis = 'Convert royalti';
@@ -244,7 +246,7 @@ class ArtistManagementController extends Controller
             ],200);
         }else{
             return response()->json([
-                'message' => 'Your value exceeds the balance',
+                'message' => 'Your value must be same your balance',
                 'errors' => array('message' => array(__('web.POPUP_WITHDRAW_LIMIT_VALUE')))
             ], 403);
         }

@@ -1666,7 +1666,7 @@
     <div class="lightbox lightbox-withdraw-royalti hide">
         <div class="lbcontainer">
             <div id="create-playlist">
-                <form id="withdraw-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
+                <form id="withdraw-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.converts.royalti') }}" enctype="multipart/form-data" novalidate>
                     <div class="lightbox-header">
                         <h2 class="title" data-translate-text="POPUP_WITHDRAW">{{ __('web.POPUP_WITHDRAW') }}</h2>
                         @yield('lightbox-close')
