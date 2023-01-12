@@ -258,43 +258,39 @@ class ArtistManagementController extends Controller
     {
         $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
         $this->request->validate([
-            'bank'              => 'required|numeric',
-            'another_bank'      => 'required_if:bank,==,0|max:20',
-            'account_name'      => 'required|string|max:50',
-            'account_number'    => 'required|numeric:max:20',
-            'value'             => 'required|numeric|min:'.$nominal_fee->min_convert,
-        ],
-        [
-            'another_bank.required_if' => 'The another bank field is required when bank is Another Bank'
+            'value'             => 'required|numeric|min:10000',
         ]);
-
-        $artist = Artist::findOrFail(auth()->user()->artist_id);
-        if($this->request->input('value') <= round($artist->balance_confirm,3)){
-            $balance = new Balance();
-            $balance->user_id = auth()->user()->id;
-            $balance->jenis = 'Withdraw royalti';
-            $balance->value = -$this->request->input('value');
-            $balance->status = 1;
-            $balance->save();
-            $withdraw = new WithdrawRoyalti();
-            $withdraw->user_id = auth()->user()->id;
-            $withdraw->bank = $this->request->input('bank') == 1 ? 'BCA' : $this->request->input('another_bank');
-            $withdraw->name = $this->request->input('account_name');
-            $withdraw->account_number = $this->request->input('account_number');
-            $withdraw->value = $this->request->input('value');
-            $withdraw->value_idr = $this->request->input('value_idr');
-            $withdraw->value_tax = $this->request->input('value_tax');
-            $withdraw->value_admin = $this->request->input('value_admin');
-            $withdraw->value_total = $this->request->input('value_total');
-            $withdraw->save();
-    
-            return response()->json([
-                'statu' => 'success'
-            ],200);
+        if(isset(auth()->user()->payment_bank) && isset(auth()->user()->account_bank))
+        {
+            $artist = Artist::findOrFail(auth()->user()->artist_id);
+            if($this->request->input('value') <= $artist->balance_idr){
+                $balance = new Balance();
+                $balance->user_id = auth()->user()->id;
+                $balance->jenis = 'Withdraw Balance';
+                $balance->value = -$this->request->input('value');
+                $balance->status = 1;
+                $balance->save();
+                $withdraw = new WithdrawRoyalti();
+                $withdraw->user_id = auth()->user()->id;
+                $withdraw->bank = 'BCA';
+                $withdraw->name = auth()->user()->account_bank;
+                $withdraw->account_number = auth()->user()->payment_bank;
+                $withdraw->value = $this->request->input('value');
+                $withdraw->save();
+        
+                return response()->json([
+                    'statu' => 'success'
+                ],200);
+            }else{
+                return response()->json([
+                    'message' => 'Your value exceeds the balance',
+                    'errors' => array('message' => array(__('web.POPUP_WITHDRAW_LIMIT_VALUE')))
+                ], 403);
+            }
         }else{
             return response()->json([
-                'message' => 'Your value exceeds the balance',
-                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_LIMIT_VALUE')))
+                'message' => 'Your account bank not found',
+                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_BANK_NOT_FOUNDS')))
             ], 403);
         }
     }

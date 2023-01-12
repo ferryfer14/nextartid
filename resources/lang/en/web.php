@@ -1348,6 +1348,7 @@ return [
     "POPUP_DELETE_PODCAST_DENIED" => "You don't have permission to delete this podcast. The podcast has reacted the limited time it can be deleted.",
     "POPUP_DELETED_PODCAST" => "Your podcast has been successfully deleted.",
     "POPUP_WITHDRAW_LIMIT_VALUE" => "Your value must be same your balance",
+    "POPUP_WITHDRAW_BANK_NOT_FOUND" => "Your account bank is not found, please input your account bank in profile",
     "POPUP_SUBSCRIBED_PLAYLIST" => "You have successfully subscribed to :playlistLink.",
     "POPUP_FOLLOWED_ARTIST" => "You are now following :artistLink.",
     "POPUP_FOLLOWED_USER" => "You have successfully followed :userLink.",

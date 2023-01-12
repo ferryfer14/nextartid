@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class WithdrawRoyalti extends Model
 {
     protected $appends = ['users'];
-    protected $fillable = ['bank','name','account_number','value','value_idr','value_tax','value_admin','value_total','status'];
+    protected $fillable = ['bank','name','account_number','value','status'];
 
     public function getUsersAttribute($value)
     {
