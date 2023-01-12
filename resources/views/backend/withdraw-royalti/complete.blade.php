@@ -27,7 +27,7 @@
                 <div class="card-body p-0">
                     <div class="accordion" id="collapseMetaTags">
                         <div id="collapseOne" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
-                            <form class="search-form" action="{{ route('backend.paid') }}">
+                            <form class="search-form" action="{{ route('backend.withdraw.royalti.complete') }}">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keyword</label>
                                     <div class="col-sm-10">
@@ -68,11 +68,7 @@
                     <th class="desktop">Bank</th>
                     <th class="desktop">Name</th>
                     <th class="desktop">Account Number</th>
-                    <th class="desktop">Value</th>
-                    <th class="desktop">Value IDR</th>
-                    <th class="desktop">Value Tax</th>
-                    <th class="desktop">Value Admin</th>
-                    <th class="desktop">Value Total</th>
+                    <th class="desktop">Value</th>=
                     <th>Status</th>
                     <th>Request Date</th>
                 </tr>
@@ -83,11 +79,7 @@
                         <td>{{ $trx->bank }}</td>
                         <td>{{ $trx->name }}</td>
                         <td>{{ $trx->account_number }}</td>
-                        <td>${{ $trx->value }}</td>
-                        <td><span>Rp {{ number_format((float)($trx->value_idr), 0, ',', '.') }}</span></td>
-                        <td><span class="text-danger">Rp {{ number_format((float)($trx->value_tax), 0, ',', '.') }}</span></td>
-                        <td><span class="text-danger">Rp {{ number_format((float)($trx->value_admin), 0, ',', '.') }}</span></td>
-                        <td><span class="text-success">Rp {{ number_format((float)($trx->value_total), 0, ',', '.') }}</span></td>
+                        <td><span>Rp {{ number_format((float)($trx->value), 0, ',', '.') }}</span></td>
                         <td>
                             @if($trx->status == 0)
                                 <span class="badge badge-warning">Pending</span>
