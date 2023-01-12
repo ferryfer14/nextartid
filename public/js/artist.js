@@ -43,7 +43,7 @@
             }*/
 
             $.engineLightBox.show("lightbox-withdraw-balance");
-            Artist.withdrawForm.ajaxForm({
+            Artist.withdrawBalanceForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {
                     $.engineUtils.cleanStorage();
                     var error = 0;
