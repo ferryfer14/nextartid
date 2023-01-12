@@ -116,7 +116,7 @@
                         <!--@include('artist-management.actions')-->
                     </div>
                     <ul class="stat-summary">
-                        <li><a class="basic-tooltip" tooltip="Available Royalty"><span class="num">${{ round($artist->balance_confirm,3)-round($artist->sum_withdraw,3) }}</span><span class="label" data-translate-text="BALANCE">{{ __('web.BALANCE') }}</span></a></li>
+                        <li><a class="basic-tooltip" tooltip="Available Royalty"><span class="num">${{ round($artist->balance_confirm,3) }}</span><span class="label" data-translate-text="BALANCE">{{ __('web.BALANCE') }}</span></a></li>
                     </ul>
                 </div>
             </div>
