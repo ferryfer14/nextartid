@@ -103,8 +103,8 @@
                         var exchange_rate_gap = Math.floor(idr*response.exchange_rate_gap/100);
                         var kurs = idr-exchange_rate_gap;
                         var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
-                        var tax = nilai*response.admin.charge_tax/100;
-                        var admin = (nilai-tax)*response.admin.charge_admin/100;
+                        var admin = (nilai)*response.admin.charge_admin/100;
+                        var tax = (nilai-admin)*response.admin.charge_tax/100;
                         var total = nilai-tax-admin;
                         $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
                         $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
