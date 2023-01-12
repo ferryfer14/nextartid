@@ -196,7 +196,7 @@ class AuthController
         $user->save();
         
         /** Send activation email if registration method is advanced */
-        //if(config('settings.registration_method') == 1) {
+        if(config('settings.registration_method') == 1) {
             
             //if( $this->request->input('isArtist')  == 'on') {
                 //DB::table('artist_requests')->insert(['user_id' => $user->id]);
@@ -245,7 +245,7 @@ class AuthController
                 'artistRequest' => $artistRequest->id,
                 'email' => 'sent'
             ]);
-        //}
+        }
         
         /** If registration method is simplified then login the user right away  */
         $login = [
