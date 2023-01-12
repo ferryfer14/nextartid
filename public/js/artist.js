@@ -33,6 +33,13 @@
 
         },
         withdrawRoyalti: function(el){
+            /*var max = parseInt(el.data('max'));
+            var min = parseInt(el.data('min'));
+            
+            if(max < min) {
+                Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
+                return false;
+            }*/
 
             $.engineLightBox.show("lightbox-withdraw-royalti");
             $('#withdraw-form').find('input[name=value]').keyup(function() {
@@ -46,11 +53,14 @@
                     success: function (response) {
                         console.log(response);
                         var idr = Math.floor(response.idr);
-                        var nilai = $('#withdraw-form').find('input[name=value]').val()*idr;
+                        var exchange_rate_gap = idr*response.exchange_rate_gap/100;
+                        var kurs = idr-exchange_rate_gap;
+                        var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
                         var tax = nilai*response.admin.charge_tax/100;
                         var admin = (nilai-tax)*response.admin.charge_admin/100;
                         var total = nilai-tax-admin;
                         $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
+                        $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
                         $('#withdraw-form').find('input[name=value_idr]').val(nilai);
                         $('#withdraw-form').find('input[name=value_tax]').val(tax);
                         $('#withdraw-form').find('input[name=value_admin]').val(admin);
