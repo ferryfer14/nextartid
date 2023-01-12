@@ -223,14 +223,16 @@ class ArtistManagementController extends Controller
             $balance->save();
             $song =  Song::withoutGlobalScopes()->where('user_id',auth()->user()->id)->get();
             foreach($song as $s){
-                $royalti = new Royalti();
-                $royalti->song_id = $s->id;
-                $royalti->patner = 'Nextart';
-                $royalti->value = -$s->sum_royalti;
-                $royalti->start_date = date('Y-m-d');
-                $royalti->end_date = date('Y-m-d');
-                $royalti->country = 'ID';
-                $royalti->save();
+                if($s->sum_royalti > 0){
+                    $royalti = new Royalti();
+                    $royalti->song_id = $s->id;
+                    $royalti->patner = 'Nextart';
+                    $royalti->value = -$s->sum_royalti;
+                    $royalti->start_date = date('Y-m-d');
+                    $royalti->end_date = date('Y-m-d');
+                    $royalti->country = 'ID';
+                    $royalti->save();
+                }
             }
             $convert = new ConvertRoyalti();
             $convert->user_id = auth()->user()->id;
