@@ -133,6 +133,7 @@
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Royalti', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.royalti'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Balance', 'icon' => 'fa-wallet', 'permission' => 'admin_users', 'route' => 'backend.user.balance'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Request NPWP', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.npwp'])
                     </div>
                 </div>
             </li>
@@ -243,6 +244,10 @@
         @endif
         <hr class="sidebar-divider">
         @include('backend.commons.sidebar-menu', ['name' => 'Price Song', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_pricing', 'route' => 'backend.pricing.edit', 'params' => ['id' => '1']])
+        <hr class="sidebar-divider">
+        @include('backend.commons.sidebar-menu', ['name' => 'Nominal NPWP', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_users', 'route' => 'backend.nominal.npwp.edit', 'params' => ['id' => '1']])
+        <hr class="sidebar-divider">
+        @include('backend.commons.sidebar-menu', ['name' => 'Fee Convert', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_users', 'route' => 'backend.nominal.fee.edit', 'params' => ['id' => '1']])
         <hr class="sidebar-divider">
         @if(\App\Models\Role::getValue('admin_users'))
             <li class="nav-item">

@@ -86,7 +86,7 @@
                             <input class="span4" name="soundcloud" maxlength="175" value="{{ $artist->soundcloud }}" type="text">
                         </div>
                     </div>
-                    <div class="content row">
+                    <!--<div class="content row">
                         <div class="fields col-lg-6 col-12">
                             <label class="control-label" for="genre" data-translate-text="FROM_DEFAULT_GENRE">{{ __('web.FROM_DEFAULT_GENRE') }}</label>
                             <select class="select2" name="genre[]" placeholder="Select genres" multiple autocomplete="off">
@@ -107,7 +107,7 @@
                         <div class="description col-lg-6 col-12 desktop">
                             <p data-translate-text="ARTIST_MOOD_TIP">{{ __('web.ARTIST_MOOD_TIP') }}</p>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="content row">
                         <div class="fields col-lg-6 col-12">
                             <div class="control">
@@ -120,6 +120,79 @@
                         </div>
                         <div class="description col-lg-6 col-12 desktop">
                             <p data-translate-text="ARTIST_BIO_TIP">{{ __('web.ARTIST_BIO_TIP') }}</p>
+                        </div>
+                    </div>
+                    <h2 class="mt-5" data-translate-text="IDENTITY_USER">Identity User</h2>
+                    <div class="content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" for="website" data-translate-text="FORM_NIK">Identity Number (NIK)</label>
+                            <input class="span4" name="nik" value="{{ auth()->user()->nik }}" type="number">
+                        </div>
+                    </div>
+                    <div class="user-picture-container content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" data-translate-text="IDENTITY_CARD_USER">Identity Card User (KTP/SIM/PASPOR)</label>
+                            <div class="user-img-container">
+                                <img src="{{ auth()->user()->artwork_ktp_url }}" class="ktp-picture-preview">
+                            </div>
+                            <div class="user-picture-right">
+                                <div class="upload-button-container">
+                                    <div id="upload-pic" class="button-upload-form">
+                                        <a id="entity-art-browse" class="btn" data-translate-text="UPLOAD_PROFILE_IMAGE">{{ __('web.UPLOAD_PROFILE_IMAGE') }}</a>
+                                        <input class="uploader invisible-input" id="upload-ktp-pic" name="artwork_ktp" accept="image/*" title="" type="file">
+                                    </div>
+                                    <span id="user-pic-filename"></span>
+                                </div>
+                                <p class="help-text" data-translate-text="SETTINGS_PICTURE_REQS">{{ __('web.SETTINGS_PICTURE_REQS') }}</p>
+                                <p><a id="user-picture-import-twitter" class="disabled btn hide" data-translate-text="SETTINGS_PICTURE_IMPORT_TWITTER">{{ __('web.SETTINGS_PICTURE_IMPORT_TWITTER') }}</a></p>
+                            </div>
+                        </div>
+                        <div class="description col-lg-6 col-12 desktop">
+                            <p data-translate-text="SETTINGS_PICTURE_TIP">{!! __('web.SETTINGS_PICTURE_TIP') !!}</p>
+                        </div>
+                    </div>
+                    <h2 class="mt-5" data-translate-text="IDENTITY_USER">User's Tax ID <span class="text-danger">(Need Approval Administrator)</span></h2>
+                    
+                    <div class="content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" for="website" data-translate-text="FORM_NPWP">Status Tax ID</label>
+                            <span class="{{ auth()->user()->status_npwp == 0 ? 'text-danger' : (auth()->user()->status_npwp == 2 ? 'text-warning' : 'text-success') }}">{{ auth()->user()->status_npwp == 0 ? 'Not Approve': (auth()->user()->status_npwp == 2 ? 'OnCheck': 'Approve') }}</span>
+                        </div>
+                    </div>
+                    <div class="content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" for="website" data-translate-text="FORM_NPWP">Variant Tax</label>
+                            {!! makeDropDown(array(
+                                1 => __('Individual'),
+                                2 => __('Organization'),
+                            ), 'variant_npwp', auth()->user()->variant_npwp, false) !!}
+                        </div>
+                    </div><div class="content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" for="website" data-translate-text="FORM_NPWP">Tax ID (NPWP Number)</label>
+                            <input class="span4" name="npwp" value="{{ auth()->user()->npwp }}" type="text">
+                        </div>
+                    </div>
+                    <div class="user-picture-container content row">
+                        <div class="fields col-lg-6 col-12">
+                            <label class="control-label" data-translate-text="IDENTITY_CARD_USER">Tax ID Card (NPWP)</label>
+                            <div class="user-img-container">
+                                <img src="{{ auth()->user()->artwork_npwp_url }}" class="npwp-picture-preview">
+                            </div>
+                            <div class="user-picture-right">
+                                <div class="upload-button-container">
+                                    <div id="upload-pic" class="button-upload-form">
+                                        <a id="entity-art-browse" class="btn" data-translate-text="UPLOAD_PROFILE_IMAGE">{{ __('web.UPLOAD_PROFILE_IMAGE') }}</a>
+                                        <input class="uploader invisible-input" id="upload-npwp-pic" name="artwork_npwp" accept="image/*" title="" type="file">
+                                    </div>
+                                    <span id="user-pic-filename"></span>
+                                </div>
+                                <p class="help-text" data-translate-text="SETTINGS_PICTURE_REQS">{{ __('web.SETTINGS_PICTURE_REQS') }}</p>
+                                <p><a id="user-picture-import-twitter" class="disabled btn hide" data-translate-text="SETTINGS_PICTURE_IMPORT_TWITTER">{{ __('web.SETTINGS_PICTURE_IMPORT_TWITTER') }}</a></p>
+                            </div>
+                        </div>
+                        <div class="description col-lg-6 col-12 desktop">
+                            <p data-translate-text="SETTINGS_PICTURE_TIP">{!! __('web.SETTINGS_PICTURE_TIP') !!}</p>
                         </div>
                     </div>
                     <h2 class="mt-5" data-translate-text="WITHDRAW_PAYMENT_METHOD">Withdrawal Payment method</h2>
@@ -143,27 +216,20 @@
                         <div class="fields col-lg-6 col-12">
                             <div class="control">
                                 <div class="d-flex">
-                                    <input class="hide custom-checkbox" id="payment_bank" type="radio" name="payment_method" value="bank" @if(auth()->user()->payment_method == 'bank') checked @endif>
-                                    <label class="cbx" for="payment_bank"></label>
-                                    <label class="lbl" for="payment_bank">Bank Transfer - Minimum {{ \App\Models\Role::getUserValue('monetization_bank_min_withdraw', auth()->user()->id) }} {{ config('settings.currency', 'USD') }}.</label>
+                                    <label class="lbl" for="payment_bank">Bank Transfer - BCA</label>
+                                    <label class="lbl" for="payment_bank">Account Name</label>
                                 </div>
-                                <textarea type="text" class="span6" rows="5" name="bank_details" maxlength="180">{{ auth()->user()->payment_bank }}</textarea>
+                                <input type="text" name="account_bank" value="{{ auth()->user()->account_bank }}">
+                            </div>
+                            <div class="control mt-2">
+                                <div class="d-flex">
+                                    <label class="lbl" for="payment_bank">Account Number</label>
+                                </div>
+                                <input type="number" name="payment_bank" value="{{ auth()->user()->payment_bank }}">
                             </div>
                         </div>
                         <div class="description col-lg-6 col-12 desktop">
-                            <p>Please note that a $35.00 transaction fee is charged on all Bank Transfers (SWIFT).
-                                <br>
-                                Please fill in your bank details as complete as possible, including:
-                                <br>
-                                - Your Address
-                                <br>
-                                - Your bank's Address
-                                <br>
-                                - The name of the account holder
-                                <br>
-                                - Your account number and if possible IBAN
-                                <br>
-                                - Your bank's SWIFT code
+                            <p>Please note that we only accept BCA bank.
                             </p>
                         </div>
                     </div>
@@ -182,4 +248,5 @@
             </form>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 @endsection

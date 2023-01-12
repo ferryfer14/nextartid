@@ -2134,13 +2134,46 @@
                     Toast.show('error', Language.text.SETTINGS_PICTURE_FAILED, null);
                 }
             },
+            imgKtpSelect: function () {
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext === "gif" || ext === "png" || ext === "jpeg" || ext === "jpg")) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#artist-profile-form').find('img.ktp-picture-preview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    Toast.show('error', Language.text.SETTINGS_PICTURE_FAILED, null);
+                }
+            },
+            imgNpwpSelect: function () {
+                var input = this;
+                var url = $(this).val();
+                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                if (input.files && input.files[0] && (ext === "gif" || ext === "png" || ext === "jpeg" || ext === "jpg")) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#artist-profile-form').find('img.npwp-picture-preview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                } else {
+                    Toast.show('error', Language.text.SETTINGS_PICTURE_FAILED, null);
+                }
+            },
             save: function (response, $form) {
+                location.reload();
                 $("img.profile-img, img.artist-picture-preview").attr("src", response.artwork_url);
                 $form.find("[type='submit']").removeAttr("disabled").addClass("btn-success");
             }
         }
     };
+
+    $('#artist-profile-form').find("input[name='npwp']").mask('00.000.000.0-000.000');
     $(document).on("change", "#upload-artist-pic", Artist.profile.imgSelect);
+    $(document).on("change", "#upload-ktp-pic", Artist.profile.imgKtpSelect);
+    $(document).on("change", "#upload-npwp-pic", Artist.profile.imgNpwpSelect);
     $(document).ready(Artist.onAlbumArtworkChange);
     $(document).ready(function () {
         Artist.claim.continueButton.bind('click', Artist.claim.account);

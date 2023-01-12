@@ -525,6 +525,13 @@ class ArtistManagementController extends Controller
             'bio' => 'nullable|max:180',
             'genre' => 'nullable|array',
             'mood' => 'nullable|array',
+            'nik' => 'required|numeric|digits_between:1,50',
+            'account_bank' => 'required_unless:payment_bank,""|nullable|string|max:50',
+            'payment_bank' => 'required_unless:account_bank,""|nullable|numeric|digits_between:1,20',
+        ],
+        [
+            'account_bank.required_unless' => 'The account bank field is required',
+            'payment_bank.required_unless' => 'The payment bank field is required'
         ]);
 
         $artist->name = $this->request->input('name');
@@ -577,14 +584,45 @@ class ArtistManagementController extends Controller
             $user->save();
         }
 
-        if($this->request->input('payment_method') == 'bank') {
+        /*if($this->request->input('payment_method') == 'bank') {
             $this->request->validate([
                 'bank_details' => 'required|string',
             ]);
             $user->payment_method = 'bank';
             $user->payment_bank = $this->request->input('bank_details');
             $user->save();
+        }*/
+
+        if ($this->request->hasFile('artwork_ktp')) {
+            $this->request->validate([
+                'nik' => 'required|numeric|digits_between:1,50',
+                'artwork_ktp' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+            ]);
+            $user->nik = $this->request->input('nik');
+            $user->clearMediaCollection('artwork_ktp');
+            $user->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork_ktp'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                ->usingFileName(time(). '.jpg')
+                ->toMediaCollection('artwork_ktp', config('settings.storage_artwork_location', 'public'));
         }
+
+        if ($this->request->hasFile('artwork_npwp')) {
+            $this->request->validate([
+                'variant_npwp' => 'required|numeric',
+                'npwp' => 'required|string',
+                'artwork_npwp' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+            ]);
+            $user->status_npwp = 2;
+            $user->npwp = $this->request->input('npwp');
+            $user->clearMediaCollection('artwork_npwp');
+            $user->addMediaFromBase64(base64_encode(Image::make($this->request->file('artwork_npwp'))->orientate()->fit(intval(config('settings.image_artwork_max', 500)),  intval(config('settings.image_artwork_max', 500)))->encode('jpg', config('settings.image_jpeg_quality', 90))->encoded))
+                ->usingFileName(time(). '.jpg')
+                ->toMediaCollection('artwork_npwp', config('settings.storage_artwork_location', 'public'));
+        }
+
+        $user->payment_method = 'bank';
+        $user->account_bank = $this->request->input('account_bank');
+        $user->payment_bank = $this->request->input('payment_bank');
+        $user->save();
 
         return response()->json($artist);
     }

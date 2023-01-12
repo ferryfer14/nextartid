@@ -643,7 +643,6 @@
 <script src="{{ asset('js/add_fields.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('skins/default/js/custom.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('embed/embed.js?skin=embedplayer10&icon_set=radius&version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
-
 @if(is_array(config('modules.js')))
     @foreach(config('modules.js') as $javascript)
         <script src="{{ asset($javascript) }}?version={{ env('APP_VERSION') }}" type="text/javascript"></script>

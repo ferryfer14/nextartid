@@ -38,6 +38,7 @@
                         <tr>
                             <th class="th-image"></th>
                             <th class="text-left">Title</th>
+                            <th class="desktop">ISRC</th>
                             <th class="desktop">Plays</th>
                             <th class="desktop">Favs</th>
                             <th class="desktop">Royalty</th>
@@ -68,6 +69,7 @@
                                             <span class="text-muted">{!! $song->title !!}</span>
                                         @endif
                                     </td>
+                                    <td class="text-center desktop">{{ $song->isrc }}</td>
                                     <td class="text-center desktop">{{ $song->plays }}</td>
                                     <td class="text-center desktop">{{ $song->loves }}</td>
                                     <td class="text-center desktop">${{ round($song->sum_royalti,3) }}</td>

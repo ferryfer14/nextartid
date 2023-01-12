@@ -25,7 +25,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     protected $appends = [
-        'artwork_url', 'permalink_url', 'favorite'
+        'artwork_url','artwork_ktp_url','artwork_npwp_url', 'permalink_url', 'favorite'
     ];
 
     protected $hidden = [
@@ -67,11 +67,69 @@ class User extends Authenticatable implements HasMedia
             ->width(300)
             ->height(300)
             ->performOnCollections('artwork')->nonOptimized()->nonQueued();
+            
+        $this->addMediaConversion('sm')
+            ->width(60)
+            ->height(60)
+            ->performOnCollections('artwork_ktp')->nonOptimized()->nonQueued();
+
+        $this->addMediaConversion('md')
+            ->width(120)
+            ->height(120)
+            ->performOnCollections('artwork_ktp')->nonOptimized()->nonQueued();
+
+        $this->addMediaConversion('lg')
+            ->width(300)
+            ->height(300)
+            ->performOnCollections('artwork_ktp')->nonOptimized()->nonQueued();
+            
+        $this->addMediaConversion('sm')
+            ->width(60)
+            ->height(60)
+            ->performOnCollections('artwork_npwp')->nonOptimized()->nonQueued();
+
+        $this->addMediaConversion('md')
+            ->width(120)
+            ->height(120)
+            ->performOnCollections('artwork_npwp')->nonOptimized()->nonQueued();
+
+        $this->addMediaConversion('lg')
+            ->width(300)
+            ->height(300)
+            ->performOnCollections('artwork_npwp')->nonOptimized()->nonQueued();
     }
 
     public function getArtworkUrlAttribute($value)
     {
         $media = $this->getFirstMedia('artwork');
+        if(! $media) {
+            return asset( 'common/default/user.png');
+        } else {
+            if($media->disk == 's3') {
+                return $media->getTemporaryUrl(Carbon::now()->addMinutes(intval(config('settings.s3_signed_time', 5))),'lg');
+            } else {
+                return $media->getFullUrl('lg');
+            }
+        }
+    }
+
+    public function getArtworkKtpUrlAttribute($value)
+    {
+        $media = $this->getFirstMedia('artwork_ktp');
+        if(! $media) {
+            return asset( 'common/default/user.png');
+        } else {
+            if($media->disk == 's3') {
+                return $media->getTemporaryUrl(Carbon::now()->addMinutes(intval(config('settings.s3_signed_time', 5))),'lg');
+            } else {
+                return $media->getFullUrl('lg');
+            }
+        }
+    }
+
+    public function getArtworkNpwpUrlAttribute($value)
+    {
+        $media = $this->getFirstMedia('artwork_npwp');
         if(! $media) {
             return asset( 'common/default/user.png');
         } else {
