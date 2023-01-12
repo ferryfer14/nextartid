@@ -635,6 +635,7 @@
 <script src="{{ asset('js/nowplaying.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/contextmenu.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/player.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script src="{{ asset('js/artist.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/payment.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('js/artistCore.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
@@ -643,7 +644,6 @@
 <script src="{{ asset('js/add_fields.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('skins/default/js/custom.js?version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
 <script src="{{ asset('embed/embed.js?skin=embedplayer10&icon_set=radius&version=' . env('APP_VERSION')) }}" type="text/javascript"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 @if(is_array(config('modules.js')))
     @foreach(config('modules.js') as $javascript)
         <script src="{{ asset($javascript) }}?version={{ env('APP_VERSION') }}" type="text/javascript"></script>
