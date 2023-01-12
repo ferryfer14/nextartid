@@ -132,6 +132,7 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function(response, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();        
                     User.SignUp.hideError();
                     if($form.attr('action') === route.route('frontend.auth.info.validate')) {
                         console.log(response);
