@@ -1346,7 +1346,7 @@ return [
     "POPUP_DELETED_ALBUM" => "Your album has been successfully deleted.",
     "POPUP_DELETE_PODCAST_DENIED" => "You don't have permission to delete this podcast. The podcast has reacted the limited time it can be deleted.",
     "POPUP_DELETED_PODCAST" => "Your podcast has been successfully deleted.",
-    "POPUP_WITHDRAW_LIMIT_VALUE" => "Your value exceeds the balance",
+    "POPUP_WITHDRAW_LIMIT_VALUE" => "Your value must be same your balance",
     "POPUP_SUBSCRIBED_PLAYLIST" => "You have successfully subscribed to :playlistLink.",
     "POPUP_FOLLOWED_ARTIST" => "You are now following :artistLink.",
     "POPUP_FOLLOWED_USER" => "You have successfully followed :userLink.",
