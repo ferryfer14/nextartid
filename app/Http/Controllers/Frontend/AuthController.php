@@ -239,7 +239,7 @@ class AuthController
                 }
             //}
             
-            //(new Email)->verifyAccount($user, route('frontend.account.verify', ['code' => $verifyCoder]));
+            (new Email)->verifyAccount($user, route('frontend.account.verify', ['code' => $verifyCoder]));
             
             return response()->json([
                 'artistRequest' => $artistRequest->id,
