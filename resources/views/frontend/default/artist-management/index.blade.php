@@ -22,10 +22,10 @@
                         <!--    <svg height="26" viewBox="0 0 24 24" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>-->
                         <!--    <span data-translate-text="SHARE">{{ __('web.SHARE') }}</span>-->
                         <!--</a>-->
-                        <!--<a class="btn" data-action="withdraw" data-min="{{ \App\Models\Role::getUserValue('monetization_paypal_min_withdraw', auth()->user()->id) }}" data-max="{{ intval(auth()->user()->balance) }}">
+                        <a class="btn withdraw-balance" data-action="withdraw_balance">
                             <svg height="26" width="14" viewBox="0 0 511.854 511.854" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m480.927 190.854c16.542 0 30-13.458 30-30v-38.844c0-12.317-7.377-23.234-18.8-27.831l-224.952-91.98c-7.325-2.951-15.252-2.899-22.391-.042-.166.067 3.765-1.54-225.058 92.023-11.423 4.596-18.8 15.514-18.8 27.831v38.845c0 16.542 13.458 30 30 30h18v226h-18c-16.542 0-30 13.458-30 30v35c0 16.542 13.458 30 30 30h450c16.542 0 30-13.458 30-30v-35c0-16.542-13.458-30-30-30h-18v-226h18.001zm0 256c.019 35.801.1 35 0 35h-450v-35zm-402-30v-226h34v226zm64 0v-226h66v226zm96 0v-226h34v226zm64 0v-226h66v226zm96 0v-226h34v226zm-368-256c0-41.843-.045-38.826.105-38.887l224.895-91.957 224.895 91.957c.155.062.105-2.857.105 38.887-4.986 0-444.075 0-450 0z"/></g><g><path d="m255.927 64.854c-8.284 0-15 6.716-15 15v32c0 8.284 6.716 15 15 15s15-6.716 15-15v-32c0-8.284-6.716-15-15-15z"/></g></g></svg>
                             <span data-translate-text="WITHDRAW">{{ __('web.WITHDRAW') }}</span>
-                        </a>-->
+                        </a>
                     </div>
                     <div class="description">
                         <p id="user-bio"></p>
@@ -89,7 +89,7 @@
                                       <path d="M4 10.781c.148 1.667 1.513 2.85 3.591 3.003V15h1.043v-1.216c2.27-.179 3.678-1.438 3.678-3.3 0-1.59-.947-2.51-2.956-3.028l-.722-.187V3.467c1.122.11 1.879.714 2.07 1.616h1.47c-.166-1.6-1.54-2.748-3.54-2.875V1H7.591v1.233c-1.939.23-3.27 1.472-3.27 3.156 0 1.454.966 2.483 2.661 2.917l.61.162v4.031c-1.149-.17-1.94-.8-2.131-1.718H4zm3.391-3.836c-1.043-.263-1.6-.825-1.6-1.616 0-.944.704-1.641 1.8-1.828v3.495l-.2-.05zm1.591 1.872c1.287.323 1.852.859 1.852 1.769 0 1.097-.826 1.828-2.2 1.939V8.73l.348.086z"/>
                                     </svg>
                                 </div>
-                                <p class="d-block text-center mt-2 mb-2 counter">${{ round($artist->balance_confirm,3)-round($artist->sum_withdraw,3) }}</p>
+                                <p class="d-block text-center mt-2 mb-2 counter">${{ round($artist->balance_confirm,3) }}</p>
                                 <p class="d-block text-center font-weight-bold mt-0">Confirmed Royalty</p>
                             </div>
                         </div>
@@ -130,7 +130,7 @@
                                       <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
                                     </svg>
                                 </div>
-                                <p class="d-block text-center mt-2 mb-2 counter">Rp 0</p>
+                                <p class="d-block text-center mt-2 mb-2 counter">Rp {{ number_format((float)($artist->balance_idr), 0, ',', '.') }}</p>
                                 <p class="d-block text-center font-weight-bold mt-0">IDR Balance</p>
                             </div>
                         </div>

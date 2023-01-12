@@ -1585,7 +1585,7 @@
     <div class="lightbox lightbox-withdraw-balance hide">
         <div class="lbcontainer">
             <div id="create-playlist">
-                <form id="balance-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
+                <form id="withdraw-balance-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
                     <div class="lightbox-header">
                         <h2 class="title" data-translate-text="POPUP_WITHDRAW">{{ __('web.POPUP_WITHDRAW') }}</h2>
                         @yield('lightbox-close')
@@ -1594,33 +1594,6 @@
                         <div class="lightbox-content-block">
                             <div class="error hide">
                                 <div class="message"></div>
-                            </div>
-                            <div class="control field">
-                                <label for="BANK">
-                                    <span data-translate-text="FORM_BANK">{{ __('web.FORM_BANK') }}</span>
-                                </label>
-                                <select class="select2" name="bank" placeholder="Select Your Bank" autocomplete="off" required>
-                                    <option value="1">BCA</option>
-                                    <option value="0">Others</option>
-                                </select>
-                            </div>
-                            <div class="control field another_bank d-none">
-                                <label for="FORM_BANK_OTHER">
-                                    <span data-translate-text="FORM_BANK_OTHER">{{ __('web.FORM_BANK_OTHER') }}</span>
-                                </label>
-                                <input name="another_bank" type="text">
-                            </div>
-                            <div class="control field">
-                                <label for="FORM_BANK_ACCOUNT_NAME">
-                                    <span data-translate-text="FORM_BANK_ACCOUNT_NAME">{{ __('web.FORM_BANK_ACCOUNT_NAME') }}</span>
-                                </label>
-                                <input name="account_name" required type="text">
-                            </div>
-                            <div class="control field">
-                                <label for="FORM_BANK_ACCOUNT">
-                                    <span data-translate-text="FORM_BANK_ACCOUNT">{{ __('web.FORM_BANK_ACCOUNT') }}</span>
-                                </label>
-                                <input name="account_number" type="number" required>
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">
@@ -1633,24 +1606,6 @@
                                     <span>Value IDR</span>
                                 </label>
                                 <input name="value_idr" readonly type="number">
-                            </div>
-                            <div class="control field">
-                                <label for="FORM_VALUE">
-                                    <span id="tax">Charge Tax</span>
-                                </label>
-                                <input name="value_tax" readonly type="number">
-                            </div>
-                            <div class="control field">
-                                <label for="FORM_VALUE">
-                                    <span id="admin">Charge Admin</span>
-                                </label>
-                                <input name="value_admin" readonly type="number">
-                            </div>
-                            <div class="control field">
-                                <label for="FORM_VALUE">
-                                    <span>Value Total</span>
-                                </label>
-                                <input name="value_total" readonly type="number">
                             </div>
                         </div>
                     </div>
