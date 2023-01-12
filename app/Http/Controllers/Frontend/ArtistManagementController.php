@@ -290,7 +290,7 @@ class ArtistManagementController extends Controller
         }else{
             return response()->json([
                 'message' => 'Your account bank not found',
-                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_BANK_NOT_FOUNDS')))
+                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_BANK_NOT_FOUND')))
             ], 403);
         }
     }
