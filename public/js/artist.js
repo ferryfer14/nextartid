@@ -53,7 +53,7 @@
                     success: function (response) {
                         console.log(response);
                         var idr = Math.floor(response.idr);
-                        var exchange_rate_gap = idr*response.exchange_rate_gap/100;
+                        var exchange_rate_gap = Math.floor(idr*response.exchange_rate_gap/100);
                         var kurs = idr-exchange_rate_gap;
                         var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
                         var tax = nilai*response.admin.charge_tax/100;
