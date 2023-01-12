@@ -31,7 +31,7 @@
                         <p id="user-bio"></p>
                     </div>
                     <ul class="stat-summary">
-                        <li><a class="basic-tooltip" tooltip="Total Royalties that have been generated"><span class="num">${{ round($artist->balance_confirm,3)-round($artist->sum_withdraw,3) }}</span><span class="label" data-translate-text="BALANCE">{{ __('web.BALANCE') }}</span></a></li>
+                        <li><a class="basic-tooltip" tooltip="Balance Idr"><span class="num">Rp {{ number_format((float)($artist->balance_idr), 0, ',', '.') }}</span><span class="label" data-translate-text="BALANCEF">{{ __('web.BALANCE') }}</span></a></li>
                         <li><a class="basic-tooltip" tooltip="Total Albums that have been created" href="{{ route('frontend.auth.user.artist.manager.albums') }}"><span id="album-count" class="num">{{ $artist->album_count }}</span><span class="label" data-translate-text="ALBUMS">Albums</span></a></li>
                         <li><a class="basic-tooltip" tooltip="Total Songs that have been uploaded" href="{{ route('frontend.auth.user.artist.manager.uploaded') }}"><span id="song-count" class="num">{{ $artist->song_count }}</span><span class="label" data-translate-text="SONGS">Songs</span></a></li>
                         <!--<li><a href="{{ route('frontend.artist.followers', ['id' => $artist->id, 'slug' => str_slug($artist->name)]) }}"><span id="follower-count" class="num">{{ $artist->follower_count }}</span><span class="label" data-translate-text="">{{ __('web.FOLLOWERS') }}</span></a></li>-->

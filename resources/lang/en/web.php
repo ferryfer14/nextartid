@@ -1334,7 +1334,7 @@ return [
     "POPUP_CREATED_PLAYLIST" => "Your new Playlist, :playlistLink, has been successfully created.",
     "POPUP_EDITED_PLAYLIST" => "Your Playlist, :playlistLink, has been successfully edited.",
     "POPUP_CREATED_ALBUM" => "Your new Podcast, :albumLink, has been successfully created.",
-    "POPUP_REQUEST_WITHDRAW" => "Your withdraw, has been successfully created. Please wait 1x24 hours",
+    "POPUP_REQUEST_WITHDRAW" => "Your withdraw, has been successfully convert, you can check your balance on dashboards",
     "POPUP_CREATED_ALBUM_NOT_APPROVED" => "Your new podcast has been successfully created. You'll receive an email once your podcast has been reviewed.",
     "POPUP_EDITED_ALBUM" => "Your Album, :albumLink, has been successfully edited.",
     "POPUP_EDIT_SONG_DENIED" => "You don't have permission to edit this song. The song has reacted the limited time it can be edited.",
