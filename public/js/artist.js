@@ -51,7 +51,6 @@
                     type: 'post',
                     dataType: 'json',
                     success: function (response) {
-                        console.log(response.exchange_rate_gap);
                         var idr = Math.floor(response.idr);
                         var exchange_rate_gap = idr*response.exchange_rate_gap/100;
                         console.log(exchange_rate_gap);
