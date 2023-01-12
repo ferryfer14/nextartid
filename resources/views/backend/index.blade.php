@@ -226,6 +226,8 @@
         @endif
         <hr class="sidebar-divider">
         @include('backend.commons.sidebar-menu', ['name' => 'Withdraw', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_transactions', 'route' => 'backend.withdraw.royalti'])
+        <hr class="sidebar-divider">
+        @include('backend.commons.sidebar-menu', ['name' => 'Convert Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_transactions', 'route' => 'backend.convert.royalti'])
         @if(\App\Models\Role::getValue('admin_subscriptions'))
             <hr class="sidebar-divider">
             <li class="nav-item">

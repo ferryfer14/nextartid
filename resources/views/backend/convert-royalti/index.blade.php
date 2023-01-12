@@ -4,8 +4,7 @@
         <li class="breadcrumb-item">
             <a href="{{ route('backend.dashboard') }}">Control Panel</a>
         </li>
-        <li class="breadcrumb-item active"><a href="{{ route('backend.withdraw.royalti') }}">Withdraw Pending</a></li>
-        <li class="breadcrumb-item active">Withdraw Complete ({{ $withdraw->total() }})</li>
+        <li class="breadcrumb-item active">Convert Royalti Complete ({{ $convert->total() }})</li>
     </ol>
     <div class="row">
         <div class="col-lg-12">
@@ -17,17 +16,12 @@
                                 <h6 class="m-0 font-weight-bold text-primary">Advanced search</h6>
                             </button>
                         </div>
-                        <div class="col-sm-6 text-right">
-                            <a href="{{ route('backend.withdraw.royalti.complete') }}" class="btn btn-link p-0 m-0">
-                                <h6 class="m-0 font-weight-bold text-success">Success</h6>
-                            </a>
-                        </div>
                     </div>
                 </div>
                 <div class="card-body p-0">
                     <div class="accordion" id="collapseMetaTags">
                         <div id="collapseOne" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
-                            <form class="search-form" action="{{ route('backend.withdraw.royalti.complete') }}">
+                            <form class="search-form" action="{{ route('backend.convert.royalti') }}">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keyword</label>
                                     <div class="col-sm-10">
@@ -65,21 +59,24 @@
                 <thead>
                 <tr>
                     <th>User Name</th>
-                    <th class="desktop">Bank</th>
-                    <th class="desktop">Name</th>
-                    <th class="desktop">Account Number</th>
                     <th class="desktop">Value</th>
+                    <th class="desktop">Value IDR</th>
+                    <th class="desktop">Value Tax</th>
+                    <th class="desktop">Value Admin</th>
+                    <th class="desktop">Value Total</th>
                     <th>Status</th>
                     <th>Request Date</th>
                 </tr>
                 </thead>
-                @foreach ($withdraw as $index => $trx )
+                @foreach ($convert as $index => $trx )
                     <tr>
                         <td>{{ $trx->users->name }}</td>
-                        <td>{{ $trx->bank }}</td>
-                        <td>{{ $trx->name }}</td>
-                        <td>{{ $trx->account_number }}</td>
-                        <td><span>Rp {{ number_format((float)($trx->value), 0, ',', '.') }}</span></td>
+                        <td>${{ $trx->value }}</td>
+                        <td><span>Rp {{ number_format((float)($trx->value_idr), 0, ',', '.') }}</span></td>
+                        <td><span class="text-danger">Rp {{ number_format((float)($trx->value_tax), 0, ',', '.') }}</span></td>
+                        <td><span class="text-danger">Rp {{ number_format((float)($trx->value_admin), 0, ',', '.') }}</span></td>
+                        <td><span class="text-success">Rp {{ number_format((float)($trx->value_total), 0, ',', '.') }}</span></td>
+                        
                         <td>
                             @if($trx->status == 0)
                                 <span class="badge badge-warning">Pending</span>
@@ -92,7 +89,7 @@
                 @endforeach
             </table>
             <div class="pagination pagination-right">
-                {{ $withdraw->appends(request()->input())->links() }}
+                {{ $convert->appends(request()->input())->links() }}
             </div>
         </div>
     </div>
