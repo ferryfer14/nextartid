@@ -1601,12 +1601,6 @@
                                 </label>
                                 <input name="value" type="number" required>
                             </div>
-                            <div class="control field">
-                                <label for="FORM_VALUE">
-                                    <span>Value IDR</span>
-                                </label>
-                                <input name="value_idr" readonly type="number">
-                            </div>
                         </div>
                     </div>
                     <div class="lightbox-footer">
