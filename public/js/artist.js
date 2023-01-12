@@ -33,23 +33,15 @@
 
         },
         withdrawRoyalti: function(el){
-            var max = parseInt(el.data('max'));
+            /*var max = parseInt(el.data('max'));
             var min = parseInt(el.data('min'));
             
             if(max < min) {
                 Toast.show('failed', null, Language.text.TOOLTIP_WITHDRAW_FAILED);
                 return false;
-            }
+            }*/
 
             $.engineLightBox.show("lightbox-withdraw-royalti");
-            $('#withdraw-form').find("select[name='bank']").change(function() {
-                if(this.value == 0)
-                {
-                    $('#withdraw-form').find(".another_bank").removeClass('d-none');
-                }else{
-                    $('#withdraw-form').find(".another_bank").addClass('d-none');
-                }
-            });
             $('#withdraw-form').find('input[name=value]').keyup(function() {
                 $.ajax({
                     url: route.route('frontend.auth.user.artist.manager') + "/idr/dollar",
@@ -61,12 +53,14 @@
                     success: function (response) {
                         console.log(response);
                         var idr = Math.floor(response.idr);
-                        var nilai = $('#withdraw-form').find('input[name=value]').val()*idr;
-                        var tax = nilai*response.admin.charge_tax/100;
-                        var admin = (nilai-tax)*response.admin.charge_admin/100;
+                        var exchange_rate_gap = idr*response.exchange_rate_gap/100;
+                        var kurs = idr-exchange_rate_gap;
+                        var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
+                        var admin = nilai*response.admin.charge_admin/100;
+                        var tax = (nilai-admin)*response.admin.charge_tax/100;
                         var total = nilai-tax-admin;
-                        $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
                         $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
+                        $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
                         $('#withdraw-form').find('input[name=value_idr]').val(nilai);
                         $('#withdraw-form').find('input[name=value_tax]').val(tax);
                         $('#withdraw-form').find('input[name=value_admin]').val(admin);

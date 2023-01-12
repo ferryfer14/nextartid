@@ -37,6 +37,7 @@ use Carbon\Carbon;
 use Image;
 use App\Models\Role;
 use App\Models\Country;
+use App\Models\NominalFee;
 use App\Models\Patner;
 use App\Models\Transaction;
 use App\Models\Payment;
@@ -195,21 +196,61 @@ class ArtistManagementController extends Controller
         $this->request->validate([
             'value'              => 'required|numeric',
         ]);
-        
+        $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
         $r=file_get_contents( "https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/usd/idr.json");
         $json = json_decode($r, true);
         $json['admin'] = User::findOrFail(auth()->user()->id);
+        $json['exchange_rate_gap']=$nominal_fee->exchange_rate_gap;
         return response()->json($json);
+    }
+
+    public function convertRoyalti()
+    {
+        $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
+        $this->request->validate([
+            'value'             => 'required|numeric|min:'.$nominal_fee->min_convert,
+        ]);
+
+        $artist = Artist::findOrFail(auth()->user()->artist_id);
+        if($this->request->input('value') <= round($artist->balance_confirm,3)){
+            $balance = new Balance();
+            $balance->user_id = auth()->user()->id;
+            $balance->jenis = 'Withdraw royalti';
+            $balance->value = -$this->request->input('value');
+            $balance->status = 1;
+            $balance->save();
+            $withdraw = new WithdrawRoyalti();
+            $withdraw->user_id = auth()->user()->id;
+            $withdraw->bank = $this->request->input('bank') == 1 ? 'BCA' : $this->request->input('another_bank');
+            $withdraw->name = $this->request->input('account_name');
+            $withdraw->account_number = $this->request->input('account_number');
+            $withdraw->value = $this->request->input('value');
+            $withdraw->value_idr = $this->request->input('value_idr');
+            $withdraw->value_tax = $this->request->input('value_tax');
+            $withdraw->value_admin = $this->request->input('value_admin');
+            $withdraw->value_total = $this->request->input('value_total');
+            $withdraw->save();
+    
+            return response()->json([
+                'statu' => 'success'
+            ],200);
+        }else{
+            return response()->json([
+                'message' => 'Your value exceeds the balance',
+                'errors' => array('message' => array(__('web.POPUP_WITHDRAW_LIMIT_VALUE')))
+            ], 403);
+        }
     }
 
     public function withdrawRoyalti()
     {
+        $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
         $this->request->validate([
             'bank'              => 'required|numeric',
             'another_bank'      => 'required_if:bank,==,0|max:20',
             'account_name'      => 'required|string|max:50',
             'account_number'    => 'required|numeric:max:20',
-            'value'             => 'required|numeric|min:0',
+            'value'             => 'required|numeric|min:'.$nominal_fee->min_convert,
         ],
         [
             'another_bank.required_if' => 'The another bank field is required when bank is Another Bank'

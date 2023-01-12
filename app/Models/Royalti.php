@@ -23,7 +23,7 @@ class Royalti extends Model
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $fillable = ['song_id','patner','value','start_date','end_date'];
+    protected $fillable = ['song_id', 'patner', 'value', 'start_date', 'end_date', 'country'];
 
     protected static function boot()
     {

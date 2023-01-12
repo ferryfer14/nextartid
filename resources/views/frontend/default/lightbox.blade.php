@@ -1582,10 +1582,10 @@
             </div>
         </form>
     </div>
-    <div class="lightbox lightbox-withdraw-royalti hide">
+    <div class="lightbox lightbox-withdraw-balance hide">
         <div class="lbcontainer">
             <div id="create-playlist">
-                <form id="withdraw-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
+                <form id="balance-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
                     <div class="lightbox-header">
                         <h2 class="title" data-translate-text="POPUP_WITHDRAW">{{ __('web.POPUP_WITHDRAW') }}</h2>
                         @yield('lightbox-close')
@@ -1645,6 +1645,60 @@
                                     <span id="admin">Charge Admin</span>
                                 </label>
                                 <input name="value_admin" readonly type="number">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Value Total</span>
+                                </label>
+                                <input name="value_total" readonly type="number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lightbox-footer">
+                        <div class="right">
+                            <button class="btn btn-primary" type="submit" data-translate-text="SUBMIT">{{ __('web.SUBMIT') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="lightbox lightbox-withdraw-royalti hide">
+        <div class="lbcontainer">
+            <div id="create-playlist">
+                <form id="withdraw-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.withdraw.royalti') }}" enctype="multipart/form-data" novalidate>
+                    <div class="lightbox-header">
+                        <h2 class="title" data-translate-text="POPUP_WITHDRAW">{{ __('web.POPUP_WITHDRAW') }}</h2>
+                        @yield('lightbox-close')
+                    </div>
+                    <div class="lightbox-content">
+                        <div class="lightbox-content-block">
+                            <div class="error hide">
+                                <div class="message"></div>
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span data-translate-text="FORM_VALUE">{{ __('web.FORM_VALUE') }}</span>
+                                </label>
+                                <input name="value" type="number" required>
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Value IDR</span>
+                                </label>
+                                <input name="value_idr" readonly type="number">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span id="admin">Charge Admin</span>
+                                </label>
+                                <input name="value_admin" readonly type="number">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span id="tax">Charge Tax</span>
+                                </label>
+                                <input name="value_tax" readonly type="number">
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">

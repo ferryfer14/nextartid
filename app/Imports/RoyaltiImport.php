@@ -33,6 +33,7 @@ class RoyaltiImport implements ToModel, WithHeadingRow
                 "value" => $row['net_total_usd'],
                 "start_date" => $row['start_date'],
                 "end_date" => $row['end_date'],
+                "country" => $row['country']
             ]);
         }
     }
