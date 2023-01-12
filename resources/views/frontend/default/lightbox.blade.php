@@ -325,7 +325,7 @@
     </div>
     <div class="lightbox lightbox-signup hide">
         <div class="lbcontainer">
-            <form id="singup-form" method="POST" action="{{ route('frontend.auth.info.validate') }}">
+            <form id="singup-form" method="POST" data-url="/auth/userInfoValidate" action="{{ route('frontend.auth.info.validate') }}">
                 <div class="lightbox-header">
                     <h2 class="title" data-translate-text="POPUP_SIGNUP_TITLE">{{ __('web.POPUP_SIGNUP_TITLE') }}</h2>
                     @yield('lightbox-close')

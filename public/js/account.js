@@ -132,14 +132,13 @@
                     $form.find("[type='submit']").attr("disabled", "disabled");
                 },
                 success: function(response, textStatus, xhr, $form) {
-                    $.engineUtils.cleanStorage();        
                     User.SignUp.hideError();
-                    if($form.attr('action') === route.route('frontend.auth.info.validate')) {
-                        console.log(response);
+                    if($form.attr('data-url') === route.route('frontend.auth.info.validate')) {
                         User.SignUp.stepTwo();
                         $form.attr('action', route.route('frontend.auth.signup'));
+                        $form.attr('data-url', route.route('frontend.auth.signup'));
                         $form.find("[type='submit']").html(Language.text.IM_FINISHED);
-                    } else if($form.attr('action') === route.route('frontend.auth.signup')) {
+                    } else if($form.attr('data-url') === route.route('frontend.auth.signup')) {
                         User.SignUp.signuprForm.find("[type='submit']").addClass("hide");
                         if(response.activation !== undefined) {
                             $(".lightbox-signup .lb-nav-outer").addClass("hide");
