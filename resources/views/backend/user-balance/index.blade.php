@@ -27,6 +27,7 @@
                         <th class="desktop">Email</th>
                         <th class="desktop">Joined</th>
                         <th class="desktop">Last visited</th>
+                        <th>Balance Idr</th>
                         <th>Balance Confirm</th>
                         <th>Balance Unconfirm</th>
                         <th>Action</th>
@@ -46,7 +47,8 @@
                             @else
                                 <td class="desktop">Unknown</td>
                             @endif
-                            <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? (round($user->artist->balance_confirm,3)-round($user->artist->sum_withdraw,3)) : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($user->artist->balance_idr) ? $user->artist->balance_idr : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? (round($user->artist->balance_confirm,3)) : '0' }}</td>
                             <td class="text-center desktop">$0</td>
                             <td class="desktop">
                                 <a class="row-button detail" href="{{ route('backend.user.balance.detail', ['id' => $user->id]) }}"><i class="fas fa-fw fa-list"></i></a>

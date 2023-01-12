@@ -28,6 +28,7 @@ use App\Models\AlbumSong;
 use App\Models\AlbumType;
 use App\Models\ArtistsRoles;
 use App\Models\Balance;
+use App\Models\ConvertRoyalti;
 use App\Models\User;
 use App\Models\Genre;
 use App\Models\Mood;
@@ -215,21 +216,28 @@ class ArtistManagementController extends Controller
         if($this->request->input('value') <= round($artist->balance_confirm,3)){
             $balance = new Balance();
             $balance->user_id = auth()->user()->id;
-            $balance->jenis = 'Withdraw royalti';
-            $balance->value = -$this->request->input('value');
-            $balance->status = 1;
+            $balance->jenis = 'Convert royalti';
+            $balance->value = $this->request->input('value_total');
             $balance->save();
-            $withdraw = new WithdrawRoyalti();
-            $withdraw->user_id = auth()->user()->id;
-            $withdraw->bank = $this->request->input('bank') == 1 ? 'BCA' : $this->request->input('another_bank');
-            $withdraw->name = $this->request->input('account_name');
-            $withdraw->account_number = $this->request->input('account_number');
-            $withdraw->value = $this->request->input('value');
-            $withdraw->value_idr = $this->request->input('value_idr');
-            $withdraw->value_tax = $this->request->input('value_tax');
-            $withdraw->value_admin = $this->request->input('value_admin');
-            $withdraw->value_total = $this->request->input('value_total');
-            $withdraw->save();
+            $song =  Song::withoutGlobalScopes()->where('user_id',auth()->user()->id)->get();
+            foreach($song as $s){
+                $royalti = new Royalti();
+                $royalti->song_id = $s->id;
+                $royalti->patner = 'Nextart';
+                $royalti->value = -$s->sum_royalti;
+                $royalti->start_date = date('Y-m-d');
+                $royalti->end_date = date('Y-m-d');
+                $royalti->country = 'ID';
+                $royalti->save();
+            }
+            $convert = new ConvertRoyalti();
+            $convert->user_id = auth()->user()->id;
+            $convert->value = $this->request->input('value');
+            $convert->value_idr = $this->request->input('value_idr');
+            $convert->value_tax = $this->request->input('value_tax');
+            $convert->value_admin = $this->request->input('value_admin');
+            $convert->value_total = $this->request->input('value_total');
+            $convert->save();
     
             return response()->json([
                 'statu' => 'success'

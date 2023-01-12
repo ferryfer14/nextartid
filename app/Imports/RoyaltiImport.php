@@ -22,11 +22,11 @@ class RoyaltiImport implements ToModel, WithHeadingRow
     {
         $song = Song::withoutGlobalScopes()->where('isrc','=',$row['isrc'])->first();
         if(isset($song)){
-            $balance = new Balance();
+            /*$balance = new Balance();
             $balance->user_id = $song->user_id;
             $balance->jenis = "Royalti ".$row['channel'];
             $balance->value = $row['net_total_usd'];
-            $balance->save();
+            $balance->save();*/
             return new Royalti([
                 "song_id" => $song->id,
                 "patner" => $row['channel'],
