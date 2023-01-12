@@ -47,7 +47,7 @@
                             @else
                                 <td class="desktop">Unknown</td>
                             @endif
-                            <td class="text-center desktop">${{ isset($user->artist->balance_idr) ? $user->artist->balance_idr : '0' }}</td>
+                            <td class="text-center desktop">{{ isset($user->artist->balance_idr) ? $user->artist->balance_idr : '0' }}</td>
                             <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? (round($user->artist->balance_confirm,3)) : '0' }}</td>
                             <td class="text-center desktop">$0</td>
                             <td class="desktop">
