@@ -184,6 +184,7 @@ return [
         Laravel\Passport\PassportServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Pbmedia\LaravelFFMpeg\FFMpegServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class
     ],
 
@@ -241,6 +242,7 @@ return [
         'Cart' => Darryldecode\Cart\Facades\CartFacade::class,
         'FFMpeg' => Pbmedia\LaravelFFMpeg\FFMpegFacade::class,
         'Advert' => App\Advert\Facade\AdvertFacade::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class
     ],
 ];

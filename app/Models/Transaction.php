@@ -17,6 +17,11 @@ class Transaction extends Model
         return Album::withoutGlobalScopes()->where('id', $this->attributes['album_id'])->first();
     }
 
+    public function getUsersAttribute($value)
+    {
+        return User::findOrFail($this->attributes['user_id']);
+    }
+
     public function getPaymentsAttribute($value)
     {
         return Payment::where('transaction_id', $this->attributes['transaction_id'])->orderBy('created_at','DESC')->groupBy('transaction_id')->first();

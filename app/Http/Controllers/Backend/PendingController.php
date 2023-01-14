@@ -9,8 +9,10 @@ namespace App\Http\Controllers\Backend;
 
 use App\Models\Album;
 use App\Models\Order;
+use App\Models\Email;
 use App\Models\Payment;
 use App\Models\Transaction;
+use App\Models\User;
 use App\Models\Voucher;
 use Illuminate\Http\Request;
 use DB;
@@ -103,6 +105,8 @@ class PendingController
             $transaction->fill($this->request->except('_token'));
 
             $transaction->save();
+            $user = User::withoutGlobalScopes()->where('id',$transaction->user_id)->first();
+            (new Email)->paymentHasBeenPaid($user, 'Rp ' . number_format((float)($amount_payment), 0, ',', '.'));
 
             return redirect()->route('backend.pending')->with('status', 'success')->with('message', 'Transaction successfully paid!');
         }else{

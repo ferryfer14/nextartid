@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/albums/delete', 'ArtistManagementController@deleteAlbum')->name('auth.user.artist.manager.albums.delete');
     Route::post('artist-management/albums/sort', 'ArtistManagementController@sortAlbumSongs')->name('auth.user.artist.manager.albums.sort');
     Route::get('artist-management/albums/{id}', 'ArtistManagementController@showAlbum')->name('auth.user.artist.manager.albums.show');
+    Route::get('artist-management/invoice/{id}', 'ArtistManagementController@invoiceAlbum')->name('auth.user.artist.manager.albums.invoice');
     Route::get('artist-management/albums/{id}/upload', 'ArtistManagementController@uploadAlbum')->name('auth.user.artist.manager.albums.upload');
     Route::post('artist-management/albums/{id}/upload', 'ArtistManagementController@handleUpload')->name('auth.user.artist.manager.albums.upload.post');
 

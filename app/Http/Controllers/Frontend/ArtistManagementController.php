@@ -38,6 +38,7 @@ use Carbon\Carbon;
 use Image;
 use App\Models\Role;
 use App\Models\Country;
+use App\Models\Email;
 use App\Models\NominalFee;
 use App\Models\Patner;
 use App\Models\Transaction;
@@ -46,6 +47,8 @@ use App\Models\Royalti;
 use App\Models\Voucher;
 use App\Models\WithdrawRoyalti;
 use chillerlan\QRCode\QRCode;
+use PDF;
+use Dompdf\Options;
 
 class ArtistManagementController extends Controller
 {
@@ -1571,7 +1574,17 @@ class ArtistManagementController extends Controller
     public function statusTransaction()
     {
         $transaction = Transaction::withoutGlobalScopes()->where('transaction_id', $this->request->route('id'))->first();
+        if($transaction->status == 1){
+            (new Email)->paymentHasBeenPaid(auth()->user(), 'Rp ' . number_format((float)($amount_payment), 0, ',', '.'));
+        }
         return response()->json($transaction);
+    }
+    public function invoiceAlbum()
+    {
+        $transaction = Transaction::withoutGlobalScopes()->where('id', $this->request->route('id'))->first();
+        $pdf = PDF::loadview('artist-management.invoice', ['transaction' => $transaction]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('laporan-pegawai-pdf');
     }
 
     public function editPatner()
@@ -1659,6 +1672,7 @@ class ArtistManagementController extends Controller
                     $payment->open_bill_id = '';
                     $payment->bill_status = 'Paid';
                     $payment->save();
+                    (new Email)->paymentHasBeenPaid(auth()->user(), 'Rp ' . number_format((float)($amount_payment), 0, ',', '.'));
                     return response()->json('');
                 }
             }else{
