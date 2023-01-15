@@ -13,7 +13,7 @@
                     <div class="metadata">
                         <div class="title">
                             <!--<p class="text-secondary">Title Album</p>-->
-                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne{{ $album->id }}" aria-expanded="true" aria-controls="collapseOne">
                                 <h3 class="m-0 font-weight-bold text-primary">{{ $album->title }}</h3>
                             </a>
                         </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="card-body p-0">
             <div class="accordion" id="collapseMetaTags">
-                <div id="collapseOne" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
+                <div id="collapseOne{{ $album->id }}" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
                     <h4 class="m-0 font-weight-bold text-primary">Songs</h4>
                     <table class="table artist-management">
                         <thead>
