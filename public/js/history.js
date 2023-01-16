@@ -136,6 +136,9 @@
           } else if (a.hasClass("song-royalti") === true) {
             var song = $.engineUtils.getSongData(a);
             Artist.royaltiSong(song);
+          } else if (a.hasClass("unconfirm-royalti") === true) {
+            var song = $.engineUtils.getSongData(a);
+            Artist.royaltiUnconfirm(song);
           } else if (a.hasClass("artist-royalti") === true) {
             var artist = $.engineUtils.getArtistData(a);
             Artist.royaltiArtist(artist);

@@ -33,6 +33,8 @@ class RoyaltiUnconfirm extends Model
 
     public function getSongAttribute($value)
     {
-        return Song::withoutGlobalScopes()->where('id', $this->attributes['song_id'])->first();
+        if(isset($this->attributes['song_id'])){
+            return Song::withoutGlobalScopes()->where('id', $this->attributes['song_id'])->first();
+        }
     }
 }
