@@ -126,6 +126,11 @@ class Album extends Model implements HasMedia
     {
         return Royalti::withoutGlobalScopes()->whereIn('song_id', AlbumSong::withoutGlobalScopes()->select('song_id')->where('album_id', $this->id)->get())->sum('value');
     }
+
+    public function getSumUnconfirmAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->whereIn('song_id', AlbumSong::withoutGlobalScopes()->select('song_id')->where('album_id', $this->id)->get())->sum('value');
+    }
     
     public function getPatnersAttribute($value)
     {

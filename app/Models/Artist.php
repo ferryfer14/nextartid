@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url', 'royalti','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm'];
+    protected $appends = ['artwork_url', 'royalti','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm','balance_unconfirm'];
 
     protected static function boot()
     {
@@ -76,6 +76,11 @@ class Artist extends Model implements HasMedia
     public function getBalanceConfirmAttribute($value)
     {
         return Royalti::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->sum('value');
+    }
+
+    public function getBalanceUnconfirmAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->sum('value');
     }
 
     public function getBalanceIdrAttribute($value)

@@ -133,6 +133,7 @@
                 <div id="collapseUserRoyalti" class="collapse" aria-labelledby="headingBlog" data-parent="#accordionSidebar">
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Royalti', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.royalti'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'User Unconfirm', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.unconfirm'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Balance', 'icon' => 'fa-wallet', 'permission' => 'admin_users', 'route' => 'backend.user.balance'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Contract', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.contract'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'Request NPWP', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.npwp'])

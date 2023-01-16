@@ -316,6 +316,21 @@ class Song extends Model implements HasMedia
         return Royalti::withoutGlobalScopes()->select('id','patner','value','start_date')->where('song_id', $this->id)->get();
     }
 
+    public function getSumUnconfirmAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->where('song_id', $this->id)->sum('value');
+    }
+
+    public function getUnconfirmAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->select('id','patner')->selectRaw('SUM(value) as total')->where('song_id', $this->id)->groupBy('patner')->get();
+    }
+
+    public function getUnconfirmDetailAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->select('id','patner','value','start_date')->where('song_id', $this->id)->get();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
