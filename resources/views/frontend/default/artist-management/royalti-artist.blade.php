@@ -4,10 +4,17 @@
         <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="artist" data-id="{{ $artist->id }}">
             <td class="text-center desktop">{{ $artist->name }}</td>
             <td class="text-right desktop">${{ round($artist->balance_confirm,3) }}</td>
+            <td class="text-right desktop">${{ round($artist->balance_unconfirm,3) }}</td>
             <td class="text-right desktop"></td>
             <td class="text-right secondary-actions-container">
                 <div class="row-actions secondary align-items-stretch">
-                    <a class="btn options artist-royalti" data-type="artist" data-id="{{ $artist->id }}">
+                    <a class="btn options artist-royalti basic-tooltip" tooltip="Detail Royalti Confirm"  data-type="artist" data-id="{{ $artist->id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                            <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
+                        </svg>
+                    </a>
+                    <a class="btn options artist-unconfirm basic-tooltip" tooltip="Detail Royalti Unconfirm"  data-type="artist" data-id="{{ $artist->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
@@ -55,7 +62,8 @@
                             <thead>
                             <tr>
                                 <th class="text-center">Artist Name</th>
-                                <th class="text-right basic-tooltip" tooltip="Upto Today Royalty">Royalty</th>
+                                <th class="text-right basic-tooltip" tooltip="Upto Today Royalty">Royalty confirm</th>
+                                <th class="text-right basic-tooltip" tooltip="Royalty Unconfirm">Royalty Unconfirm</th>
                                 <th class="text-right"></th>
                                 <th class="text-right"></th>
                             </tr>

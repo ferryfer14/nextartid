@@ -142,6 +142,9 @@
           } else if (a.hasClass("artist-royalti") === true) {
             var artist = $.engineUtils.getArtistData(a);
             Artist.royaltiArtist(artist);
+          }else if (a.hasClass("artist-unconfirm") === true) {
+            var artist = $.engineUtils.getArtistData(a);
+            Artist.unconfirmArtist(artist);
           } else if (a.hasClass("remove_voucher") === true) {
             Artist.removeVoucher(a);
           } else if (a.hasClass("episode-row-edit") === true) {
