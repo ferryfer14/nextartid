@@ -1660,6 +1660,7 @@ class ArtistManagementController extends Controller
                     ]);
                 }else{
                     $album->paid = 1;
+                    $album->ref = $transaction->transaction_id;
                     $album->save();
                     $transaction->status = 1;
                     $transaction->save();

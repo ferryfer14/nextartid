@@ -53,7 +53,8 @@ class PaymentController
             $transaction->save();
             $album = Album::withoutGlobalScopes()->where('id',$transaction->album_id)->first();
             $album->paid = 1;
-            $album->ref = $this->request->input('yt_trx_id');
+            $album->ref = $transaction->transaction_id;
+            //$album->ref = $this->request->input('yt_trx_id');
             $album->save();
             return response()->json([
                 'success' => true,

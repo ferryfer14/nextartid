@@ -4,8 +4,138 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d44c3d3443942a2305892beafc0a22be",
+    "content-hash": "08df6a381b81164cb869a338b1badca1",
     "packages": [
+        {
+            "name": "NextArt-info/laravel-selfupdater",
+            "version": "4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NextArt-info/laravel-selfupdater.git",
+                "reference": "5a36dd6c259aa2b4a513d96759b3e977c13b1120"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NextArt-info/laravel-selfupdater/zipball/5a36dd6c259aa2b4a513d96759b3e977c13b1120",
+                "reference": "5a36dd6c259aa2b4a513d96759b3e977c13b1120",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-zip": "*",
+                "guzzlehttp/guzzle": "6.*",
+                "laravel/framework": "^6.0|^7.0|^8.0",
+                "php": ">=7.3"
+            },
+            "require-dev": {
+                "dg/bypass-finals": "^1.1",
+                "mikey179/vfsstream": "^1.6",
+                "mockery/mockery": "^1.3",
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.4|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NextArt\\Updater\\UpdaterServiceProvider"
+                    ],
+                    "aliases": {
+                        "Updater": "NextArt\\Updater\\UpdaterFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NextArt\\Updater\\": "src/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NextArt",
+                    "email": "NextArt2510@gmail.com",
+                    "homepage": "https://nextart.id",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Holger Lösken",
+                    "email": "holger.loesken@NextArt-info.de",
+                    "homepage": "http://codedge.de",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Providing an auto-updating functionality for your self-hosted Laravel application.",
+            "keywords": [
+                "auto update",
+                "auto-update",
+                "laravel",
+                "laravel application",
+                "self update",
+                "self-hosted laravel application",
+                "self-update",
+                "update"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/NextArt-info",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-10-05T15:40:35+00:00"
+        },
+        {
+            "name": "NextArt-info/translation",
+            "version": "v2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/NextArt-info/translation.git",
+                "reference": "94fcb5c6c73c45e2700897381d999ba1d11011d4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/NextArt-info/translation/zipball/94fcb5c6c73c45e2700897381d999ba1d11011d4",
+                "reference": "94fcb5c6c73c45e2700897381d999ba1d11011d4",
+                "shasum": ""
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0.0",
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "NextArt\\Translation\\TranslationServiceProvider",
+                        "NextArt\\Translation\\TranslationBindingsServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "NextArt\\Translation\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NextArt",
+                    "email": "master@nextart.id"
+                }
+            ],
+            "description": "A tool for managing all of your Laravel translations",
+            "time": "2020-04-19T21:12:10+00:00"
+        },
         {
             "name": "aerni/laravel-spotify",
             "version": "v1.6.1",

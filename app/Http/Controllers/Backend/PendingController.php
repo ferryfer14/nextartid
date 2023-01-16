@@ -63,6 +63,7 @@ class PendingController
         if($this->request->input('amount') == 0 || $this->request->input('amount') == $transaction->amount-$transaction->nilai_voucher-$transaction->nilai_free_song){
             $album = Album::withoutGlobalScopes()->findOrFail($transaction->album_id);
             $album->paid = 1;
+            $album->ref = $transaction->transaction_id; 
             $album->save();
             $transaction->status = 1;
             $transaction->payment_type = 'Manual';
