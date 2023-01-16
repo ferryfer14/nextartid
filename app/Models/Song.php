@@ -88,6 +88,11 @@ class Song extends Model implements HasMedia
         return Artist::withoutGlobalScopes()->where('id',$this->attributes['display_artist'])->first();
     }
 
+    public function getUsersAttribute()
+    {
+        return User::withoutGlobalScopes()->where('id',$this->attributes['user_id'])->first();
+    }
+
     public function getArtistsAttribute()
     {
         $idsArray = array_filter(explode(',', $this->attributes['artistIds']));
