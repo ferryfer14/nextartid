@@ -33,7 +33,7 @@ class DashboardController
         $dashboard->total_artists = DB::table('artists')->count();
         $dashboard->total_albums = DB::table('albums')->count();
         $dashboard->total_playlists = DB::table('playlists')->count();
-        $dashboard->total_confirm = Royalti::withoutGlobalScopes()->sum('value');
+        $dashboard->total_confirm = Royalti::withoutGlobalScopes()->where('value','>','0')->sum('value');
         $dashboard->total_unconfirm = RoyaltiUnconfirm::withoutGlobalScopes()->sum('value');
         $dashboard->total_balance_idr = Balance::withoutGlobalScopes()->sum('value');
 
