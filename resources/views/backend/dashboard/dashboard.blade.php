@@ -151,7 +151,7 @@
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-dollar-sign"></i>
                         </div>
-                        <div class="mr-5 h2">${{ $dashboard->statistics->total_unconfirm }}</div>
+                        <div class="mr-5 h2">${{ $dashboard->total_unconfirm }}</div>
                         <p class="float-left mb-0">Unconfirmed</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.users') }}">
@@ -170,7 +170,7 @@
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-dollar-sign"></i>
                         </div>
-                        <div class="mr-5 h2">${{ $dashboard->statistics->total_confirm }}</div>
+                        <div class="mr-5 h2">${{ $dashboard->total_confirm }}</div>
                         <p class="float-left mb-0">Confirmed</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.subscriptions') }}">
