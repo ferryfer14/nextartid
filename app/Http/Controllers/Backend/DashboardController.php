@@ -17,6 +17,9 @@ use Carbon\Carbon;
 use App\Models\Post;
 use Cache;
 use Analytics;
+use App\Models\Balance;
+use App\Models\Royalti;
+use App\Models\RoyaltiUnconfirm;
 use Spatie\Analytics\Period;
 
 use NextArt\Updater\UpdaterManager;
@@ -30,6 +33,9 @@ class DashboardController
         $dashboard->total_artists = DB::table('artists')->count();
         $dashboard->total_albums = DB::table('albums')->count();
         $dashboard->total_playlists = DB::table('playlists')->count();
+        $dashboard->total_confirm = Royalti::withoutGlobalScopes()->sum('value');
+        $dashboard->total_unconfirm = RoyaltiUnconfirm::withoutGlobalScopes()->sum('value');
+        $dashboard->total_balance_idr = Balance::withoutGlobalScopes()->sum('value');
 
         $maxFileSize = (@ini_get('post_max_size') != '') ? @ini_get('post_max_size') : "Unknown";
         $safeMode = (@ini_get('safe_mode') == 1) ? "<span class=\"text-danger\">Safe mode IS <strong>ON!</strong>  We required off, please set <strong>safe mode</strong> to <strong>off</strong></span>" : "<span class=\"text-success\">Safe mode IS <strong>OFF!</strong></span>";
