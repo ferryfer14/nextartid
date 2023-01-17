@@ -304,12 +304,16 @@
                                     <div class="controls">
                                         <input class="login-text" id="login-password" name="password" type="password">
                                     </div>
-                                    <div class="d-flex">
-                                        <input class="hide custom-checkbox" type="radio" name="gender" id="show-password" value="O">
-                                        <label class="cbx" for="show-password"></label>
-                                        <label class="lbl" for="show-password">Show Password</label>
+                                    <div class="row">
+                                        <div class="col-sm-6 d-flex">
+                                            <input class="hide custom-checkbox" type="radio" name="gender" id="show-password" value="O">
+                                            <label class="cbx" for="show-password"></label>
+                                            <label class="lbl" for="show-password">Show Password</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a class="forgot small" data-translate-text="FORM_FORGOT_PASSWORD">{{ __('web.FORM_FORGOT_PASSWORD') }}</a>
+                                        </div>
                                     </div>
-                                    <a class="forgot small" data-translate-text="FORM_FORGOT_PASSWORD">{{ __('web.FORM_FORGOT_PASSWORD') }}</a>
                                 </div>
                             </div>
                         </form>
