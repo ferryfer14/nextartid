@@ -306,7 +306,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-6 d-flex">
-                                            <input class="hide custom-checkbox" type="radio" name="gender" id="show-password" value="O">
+                                            <input class="hide custom-checkbox" type="radio" name="show-password" id="show-password" value="O">
                                             <label class="cbx" for="show-password"></label>
                                             <label class="lbl" for="show-password">Show Password</label>
                                         </div>

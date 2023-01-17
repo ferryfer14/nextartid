@@ -239,6 +239,14 @@
         updateStatus: false,
         show: function() {
             $.engineLightBox.show("lightbox-login");
+            User.SignIn.signinForm.find('#show-password').change(function() {
+                if(this.checked)
+                {
+                    User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
+                }else{
+                    User.SignIn.signinForm.find('#login-password').get(0).type = 'password';
+                }
+            });
         },
         showError: function(el, msg){
             this.error_box.removeClass("hide").html(msg);
