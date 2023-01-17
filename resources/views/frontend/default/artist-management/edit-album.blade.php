@@ -157,10 +157,10 @@
             <div class="row">
                 <div class="col-sm-3">
                     <p>
-                        Display Artist : {{ $album->primary_artist }} <br/>
-                        UPC : {{ $album->upc }}<br/>
-                        Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
-                        Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}
+                        <span class="label">Display Artist : {{ $album->primary_artist }} </span><br/>
+                        <span class="label">UPC : {{ $album->upc }}</span><br/>
+                        <span class="label">Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}</span><br/>
+                        <span class="label">Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}</span>
                     </p>
                 </div>
                 <div class="col-sm-3 m-0 p-0">
@@ -174,6 +174,31 @@
                 </div>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
+                <div class="module module-row song tall artist-management can-drag drag-handle">
+                    <div class="drag-handle">
+                    <!--    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    --></div>
+                    <div class="img-container">
+                    </div>
+                    <div class="metadata">
+                        <div class="title">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    Title
+                                </div>
+                                <div class="col-sm-6">
+                                    <span class="text-secondary">ISRC</span>
+                                </div>    
+                            </div>
+                        </div>
+                        <div class="artist">
+                            Artist
+                        </div>
+                        <div class="duration"></div>
+                    </div>
+                    <div class="row-actions secondary">
+                    </div>
+                </div>
                 @foreach($album->songs as $song)
                     <script>var song_data_{{ $song->id }} = {!! json_encode($song) !!}</script>
                     <div class="module module-row song tall artist-management can-drag drag-handle" data-song-id="{{$song->id}}" data-type="song" data-id="{{$song->id}}">
