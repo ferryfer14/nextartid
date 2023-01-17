@@ -166,10 +166,11 @@
                     <span class="label">Composer : {{ $album->composer }}@foreach($album->participants as $p) @if($p->artist_role == 5), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     <span class="label">Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     <span class="label"> Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach </span><br/>
-                    @php
-                    $others = "";
+                    @php    
+                        $others = @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach;
+                        $others = preg_replace(strrev("/,/"),strrev(""),strrev($others),1);
                     @endphp
-                    <span class="label">Others : @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach </span>
+                    <span class="label">Others : {{ $others }} </span>
                 </div>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
