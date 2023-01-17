@@ -517,7 +517,6 @@
                     $('body').removeClass('signed-in');
                     User.userInfo = {};
                     User.SignIn.updateStatus = false;
-                    location.href(route.route('frontend.homepage'));
                     if(window.location.pathname === route.route('frontend.homepage')) {
                         $(window).trigger({
                             type: "engineReloadCurrentPage"
@@ -529,6 +528,7 @@
                             href: route.route('frontend.homepage')
                         });
                     }
+                    location.reload();
                     $('.after-login').addClass('hide');
                     $('.before-login').removeClass('hide');
                     $('body').removeClass('embed_hd_on');
