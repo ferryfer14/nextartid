@@ -208,7 +208,7 @@
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-money-bill"></i>
                         </div>
-                        <div class="mr-5 h2">Rp{{ number_format((float)($dashboard->total_balance_idr), 0, ',', '.') }}</div>
+                        <div class="mr-5 h2">Rp {{ number_format((float)($dashboard->total_balance_idr), 0, ',', '.') }}</div>
                         <p class="float-left mb-0">Vault</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.posts') }}">
