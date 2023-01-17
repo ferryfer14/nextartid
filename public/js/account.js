@@ -522,11 +522,13 @@
                             type: "engineReloadCurrentPage"
                         });
                     } else {
+                        $.engineUtils.cleanStorage();
                         $(window).trigger({
-                            type: 'engineSiteContentChange',
+                            type: 'engineNeedHistoryChange',
                             href: route.route('frontend.homepage')
                         });
                     }
+                    location.reload();
                     $('.after-login').addClass('hide');
                     $('.before-login').removeClass('hide');
                     $('body').removeClass('embed_hd_on');
