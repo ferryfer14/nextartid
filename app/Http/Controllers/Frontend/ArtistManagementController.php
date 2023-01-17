@@ -1584,8 +1584,7 @@ class ArtistManagementController extends Controller
         $transaction = Transaction::withoutGlobalScopes()->where('id', $this->request->route('id'))->first();
         $pdf = PDF::loadview('artist-management.invoice', ['transaction' => $transaction]);
         $pdf->setPaper('a4', 'portrait');
-        $pdf->download('Invoice-'.$transaction->transaction_id.'.pdf');
-        return response()->json(array("success" => true));
+        return $pdf->stream('Invoice-'.$transaction->transaction_id.'.pdf');
     }
 
     public function editPatner()
