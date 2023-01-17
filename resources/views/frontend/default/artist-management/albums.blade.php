@@ -57,7 +57,7 @@
                                         </div>
                                     </div>
                                     <div class="module-inner">
-                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline" style="white-space: pre-wrap;"><h2>{!! $album->title !!}</h2></a>
+                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline" style="white-space: pre-wrap;"><h2 style="margin-bottom: 10px;">{!! $album->title !!}</h2></a>
                                         <p>
                                             <!--{{ $album->language == 1 ? 'Indonesia' : 'English' }}<br/>-->
                                             Display Artist : {{ $album->primary_artist }}<br/>
