@@ -240,7 +240,8 @@
         show: function() {
             $.engineLightBox.show("lightbox-login");
             User.SignIn.signinForm.find('#show-password').change(function() {
-                if(this.checked)
+                User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
+                if(User.SignIn.signinForm.find('#show-password').is(":checked"))
                 {
                     User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
                 }else{
