@@ -47,6 +47,7 @@
                     <ul class="stat-summary">
                         <li><a class="basic-tooltip" tooltip="Available Royalty"><span class="num">${{ round($artist->balance_confirm,3) }}</span><span class="label" data-translate-text="BALANCE_CONFIRM">Balance Confirm</span></a></li>
                         <li><a class="basic-tooltip" tooltip="Available Royalty"><span class="num">${{ round($artist->balance_unconfirm,3) }}</span><span class="label" data-translate-text="BALANCE_UNCONFIRM">Balance Unconfirm</span></a></li>
+                        <li><a class="basic-tooltip" tooltip="Available Royalty"><span class="num">Rp {{ number_format((float)($artist->balance_idr), 0, ',', '.') }}</span><span class="label" data-translate-text="BALANCE_IDR">Balance IDR</span></a></li>
                     </ul>
                 </div>
             </div>
