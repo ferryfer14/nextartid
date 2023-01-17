@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="font-size: 90%;">
                 <div class="col-sm-3">
                     <span class="label">Display Artist : {{ $album->primary_artist }} </span><br/>
                     <span class="label">UPC : {{ $album->upc }}</span><br/>
@@ -166,6 +166,9 @@
                     <span class="label">Composer : {{ $album->composer }}@foreach($album->participants as $p) @if($p->artist_role == 5), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     <span class="label">Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     <span class="label"> Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach </span><br/>
+                    @php
+                    $others = "";
+                    @endphp
                     <span class="label">Others : @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach </span>
                 </div>
             </div>
@@ -173,9 +176,9 @@
                 <div class="module module-row song tall artist-management can-drag drag-handle">
                     <div class="drag-handle">
                     <!--    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M11 18c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2-8c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0-6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm6 4c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                    --></div>
-                    <div class="img-container">
                     </div>
+                    <div class="img-container">
+                    </div>-->
                     <div class="metadata">
                         <div class="title">
                             <div class="row">
