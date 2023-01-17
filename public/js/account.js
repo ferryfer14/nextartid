@@ -239,15 +239,6 @@
         updateStatus: false,
         show: function() {
             $.engineLightBox.show("lightbox-login");
-            User.SignIn.signinForm.find('#show-password').change(function() {
-                User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
-                if(User.SignIn.signinForm.find('#show-password').is(":checked"))
-                {
-                    User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
-                }else{
-                    User.SignIn.signinForm.find('#login-password').get(0).type = 'password';
-                }
-            });
         },
         showError: function(el, msg){
             this.error_box.removeClass("hide").html(msg);
@@ -263,6 +254,15 @@
             User.SignIn.signinForm.keypress(function(e) {
                 if (e.which === 13) {
                     User.SignIn.submitButton.trigger('click');
+                }
+            });
+            User.SignIn.signinForm.find('#show-password').change(function() {
+                User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
+                if(User.SignIn.signinForm.find('#show-password').is(":checked"))
+                {
+                    User.SignIn.signinForm.find('#login-password').get(0).type = 'text';
+                }else{
+                    User.SignIn.signinForm.find('#login-password').get(0).type = 'password';
                 }
             });
         },
