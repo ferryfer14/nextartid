@@ -167,7 +167,13 @@
                     <span class="label">Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     <span class="label"> Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach </span><br/>
                     @php    
-                        $others = @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach;
+                        $others = ;
+                        foreach($album->participants as $p) 
+                        {
+                            if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){
+                                $others .= $p->artist_name.',';
+                            }
+                        }
                         $others = preg_replace(strrev("/,/"),strrev(""),strrev($others),1);
                     @endphp
                     <span class="label">Others : {{ $others }} </span>
