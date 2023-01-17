@@ -156,21 +156,17 @@
             </div>
             <div class="row">
                 <div class="col-sm-3">
-                    <p>
-                        <span class="label">Display Artist : {{ $album->primary_artist }} </span><br/>
-                        <span class="label">UPC : {{ $album->upc }}</span><br/>
-                        <span class="label">Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}</span><br/>
-                        <span class="label">Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}</span>
-                    </p>
+                    <span class="label">Display Artist : {{ $album->primary_artist }} </span><br/>
+                    <span class="label">UPC : {{ $album->upc }}</span><br/>
+                    <span class="label">Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}</span><br/>
+                    <span class="label">Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}</span>
                 </div>
                 <div class="col-sm-3 m-0 p-0">
-                    <p>
-                        Artist : {{ $album->primary_artist }}@foreach($album->participants as $p) @if($p->artist_role == 1), {{ $p->artist_name }}@endif @endforeach<br/>
-                        Composer : {{ $album->composer }}@foreach($album->participants as $p) @if($p->artist_role == 5), {{ $p->artist_name }}@endif  @endforeach <br/>
-                        Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach <br/>
-                        Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach <br/>
-                        Others : @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach 
-                    </p>
+                    <span class="label">Artist : {{ $album->primary_artist }}@foreach($album->participants as $p) @if($p->artist_role == 1), {{ $p->artist_name }}@endif @endforeach</span><br/>
+                    <span class="label">Composer : {{ $album->composer }}@foreach($album->participants as $p) @if($p->artist_role == 5), {{ $p->artist_name }}@endif  @endforeach </span><br/>
+                    <span class="label">Arranger : {{ $album->arranger }}@foreach($album->participants as $p) @if($p->artist_role == 11), {{ $p->artist_name }}@endif  @endforeach </span><br/>
+                    <span class="label"> Lyricist : {{ $album->lyricist }}@foreach($album->participants as $p) @if($p->artist_role == 6), {{ $p->artist_name }}@endif  @endforeach </span><br/>
+                    <span class="label">Others : @foreach($album->participants as $p) @if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){{ $p->artist_name }}, @endif  @endforeach </span>
                 </div>
             </div>
             <div id="column1" class="full album-song-sortable" data-type="album" data-id="{{ $album->id }}">
@@ -228,7 +224,7 @@
                                 </div>
                             </div>
                             <div class="artist">
-                                @foreach($song->artists as $artist)<a href="{{$artist->permalink_url}}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach
+                                {{ $song->primary_artist }}
                             </div>
                             <div class="duration">{{humanTime($song->duration)}}</div>
                         </div>
