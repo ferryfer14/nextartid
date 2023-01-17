@@ -523,7 +523,7 @@
                         });
                     } else {
                         $(window).trigger({
-                            type: 'engineReloadCurrentPage',
+                            type: 'engineSiteContentChange',
                             href: route.route('frontend.homepage')
                         });
                     }

@@ -172,7 +172,7 @@
                                                     <a href="{{ $song->permalink_url }}">{!! $song->title !!}</a>
                                                 </div>
                                                 <div class="artist">
-                                                    @foreach($song->artists as $artist)<a href="{{$artist->permalink_url}}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach
+                                                    {{ $song->primary_artist }}
                                                 </div>
                                                 <div class="duration">{{humanTime($song->duration)}}</div>
                                             </div>
