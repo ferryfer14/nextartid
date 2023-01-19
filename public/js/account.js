@@ -377,6 +377,11 @@
                     } else {
                         $('#artist-management-link').addClass('hide');
                     }
+                    if(User.userInfo.is_admin) {
+                        $('#admin-panel-link').removeClass('hide');
+                    } else {
+                        $('#admin-panel-link').addClass('hide');
+                    }
                     Notifications.getCount();
                     $('#see-more-notifications').attr('href', route.route('frontend.user.notifications', {'username' : User.userInfo.username}))
                     $('.after-login').removeClass('hide');

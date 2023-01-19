@@ -1063,7 +1063,7 @@
             var url = window.location.href.replace(/\/$/, '');
             var album_segment = url.substring(url.lastIndexOf('/') + 1);
             var album = window['album_data_' + album_segment];
-            if(album.paid == 1){
+            if(album.paid == 1 && User.userInfo.is_admin == false){
                 Artist.editSongForm.find("[name='title']").prop('readonly','readonly');
                 Artist.editSongForm.find("[name='album_version']").prop('readonly','readonly');
                 Artist.editSongForm.find("[name='label']").prop('readonly','readonly');
@@ -1366,6 +1366,7 @@
             });
         },
         editAlbum: function (el) {
+            console.log(User.userInfo);
             var album = window['album_data_' + el.data('id')];
             var artist_roles = window['artist_roles_' + el.data('id')];
             Artist.albumSongsSelection.find("option").remove();
@@ -1555,7 +1556,7 @@
                 objTo.appendChild(divtest);
             }
 
-            if(album.paid == 1){
+            if(album.paid == 1 && User.userInfo.is_admin == false){
                 Artist.editAlbumForm.find("[name='title']").prop('readonly','readonly');
                 Artist.editAlbumForm.find("[name='remix_version']").prop('readonly','readonly');
                 Artist.editAlbumForm.find("[name='label']").prop('readonly','readonly');

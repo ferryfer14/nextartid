@@ -28,6 +28,7 @@ use App\Models\AlbumSong;
 use App\Models\AlbumType;
 use App\Models\ArtistsRoles;
 use App\Models\Balance;
+use App\Models\Banned;
 use App\Models\ConvertRoyalti;
 use App\Models\User;
 use App\Models\Genre;
@@ -44,6 +45,7 @@ use App\Models\Patner;
 use App\Models\Transaction;
 use App\Models\Payment;
 use App\Models\Royalti;
+use App\Models\Session;
 use App\Models\Voucher;
 use App\Models\WithdrawRoyalti;
 use chillerlan\QRCode\QRCode;
@@ -1364,6 +1366,51 @@ class ArtistManagementController extends Controller
         return $album->makeVisible(['approved',$album->id]);
     }
 
+    public function backAdmin()
+    {
+        $email_admin = \Session::get('email_admin') ?? "";
+        $credentials = [
+            'email' => $email_admin,
+            'admin' => 1
+        ];
+        if(auth()->attempt($credentials, true))
+        {
+            $this->userBannedCheck();
+            
+            if(env('SESSION_DRIVER') == 'database') {
+                $conCurrentCount = Session::where('user_id')->count();
+                if(intval(Role::getValue('option_concurent')) != 0 && $conCurrentCount >= intval(Role::getValue('option_concurent'))) {
+                    $lastSession = Session::where('user_id')->first();
+                    $lastSession->delete();
+                }
+            }
+            \Session::forget('login_admin');
+            \Session::forget('email_admin');
+            return redirect()->route('backend.login');
+        }
+    }
+
+    private function userBannedCheck(){
+        if(auth()->user()->banned) {
+            $banned = Banned::find(auth()->user()->id);
+            if(isset($banned->end_at)) {
+                if(Carbon::now()->timestamp >= Carbon::parse($banned->end_at)->timestamp){
+                    User::where('id', auth()->user()->id)
+                    ->update(['banned' => 0]);
+                    Banned::destroy($banned->user_id);
+                } else {
+                    return response()->json([
+                        'message' => 'Unauthorized',
+                        'errors' => array('message' => array(__('auth.banned', ['banned_reason' => $banned->reason, 'banned_time' =>  Carbon::parse($banned->end_at)->format('H:i F j Y')])))
+                    ], 403);
+                }
+            }
+        }
+        
+        $user = auth()->user();
+        $user->logged_ip = request()->ip();
+        $user->save();
+    }
 
     public function showAlbum()
     {

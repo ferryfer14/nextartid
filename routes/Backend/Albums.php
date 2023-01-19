@@ -20,6 +20,7 @@ Route::group(['middleware' => 'role:admin_albums'], function() {
     Route::post('albums/track-list/{id}', 'AlbumsController@trackListMassAction')->name('albums.tracklist.mass.action');
     Route::get('albums/delete/{id}', 'AlbumsController@delete')->name('albums.delete');
     Route::get('albums/upload/{id}', 'AlbumsController@upload')->name('albums.upload');
+    Route::get('albums/login-user/{id}', 'AlbumsController@loginUser')->name('albums.login.user');
     Route::post('albums/reject/{id}', 'AlbumsController@reject')->name('albums.edit.reject.post');
     Route::get('albums/export-excel', 'AlbumsController@exportIntoExcel')->name('albums.export.excel');
     Route::get('albums/export-csv', 'AlbumsController@exportIntoCSV')->name('albums.export.csv');

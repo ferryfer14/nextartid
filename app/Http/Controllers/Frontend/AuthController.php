@@ -355,7 +355,7 @@ class AuthController
                 
                 $credentials = [
                     'email' => $this->request->email,
-                    'password' => $this->request->password,
+                    'password' => $this->request->password
                 ];
             }
         }
@@ -725,6 +725,7 @@ class AuthController
      */
     public function logout()
     {
+        \Session::flush();
         auth()->logout();
         return Response::json(array(
             'success' => true,
@@ -764,7 +765,8 @@ class AuthController
             'notif_playlist', 'notif_shares', 'notif_features', 'email_verified',
             'playlist_count', 'favorite_count', 'following_count', 'follower_count', 'can_stream_high_quality', 'can_upload', 'track_skip_limit'])
             ->makeHidden(['roles']);
-            
+            $user->is_admin = \Session::get('login_admin') ?? false;
+            $user->email_admin = \Session::get('email_admin') ?? '';
             $user->can_upload = auth()->user()->can_upload;
             $user->can_stream_high_quality = auth()->user()->can_stream_high_quality;
             $user->track_skip_limit = auth()->user()->track_skip_limit;

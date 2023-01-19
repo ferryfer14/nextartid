@@ -27,8 +27,9 @@
         <!--<td class="desktop text-center">{{ $album->comment_count }}</td>-->
         <td>
             <a class="row-button export" href="{{ route('backend.albums.export.csv', ['id' => $album->id]) }}"><i class="fas fa-fw fa-file-csv"></i></a>
-            <a class="row-button edit" href="{{ route('backend.albums.edit', ['id' => $album->id]) }}"><i class="fas fa-fw fa-edit"></i></a>
+            <!--<a class="row-button edit" href="{{ route('backend.albums.edit', ['id' => $album->id]) }}"><i class="fas fa-fw fa-edit"></i></a>-->
             <a class="row-button upload" href="{{ route('backend.albums.upload', ['id' => $album->id]) }}"><i class="fas fa-fw fa-upload"></i></a>
+            <a class="row-button login-user" href="{{ route('backend.albums.login.user', ['id' => $album->id]) }}"><i class="fas fa-fw fa-sign-in-alt"></i></a>
             <a class="row-button delete" onclick="return confirm('Are you sure want to delete this album?');" href="{{ route('backend.albums.delete', ['id' => $album->id]) }}"><i class="fas fa-fw fa-trash"></i></a>
         </td>
         <td>

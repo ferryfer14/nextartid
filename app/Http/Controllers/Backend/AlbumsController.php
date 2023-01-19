@@ -16,6 +16,10 @@ use App\Models\Album;
 use Image;
 use App\Models\Song;
 use App\Exports\AlbumsExport;
+use App\Models\Banned;
+use App\Models\Role;
+use App\Models\Session;
+use App\Models\User;
 use Excel;
 
 class AlbumsController
@@ -386,6 +390,54 @@ class AlbumsController
         $album = Album::withoutGlobalScopes()->findOrFail($this->request->route('id'));
         return view('backend.albums.upload')
             ->with('album', $album);;
+    }
+
+    private function userBannedCheck(){
+        if(auth()->user()->banned) {
+            $banned = Banned::find(auth()->user()->id);
+            if(isset($banned->end_at)) {
+                if(Carbon::now()->timestamp >= Carbon::parse($banned->end_at)->timestamp){
+                    User::where('id', auth()->user()->id)
+                    ->update(['banned' => 0]);
+                    Banned::destroy($banned->user_id);
+                } else {
+                    return response()->json([
+                        'message' => 'Unauthorized',
+                        'errors' => array('message' => array(__('auth.banned', ['banned_reason' => $banned->reason, 'banned_time' =>  Carbon::parse($banned->end_at)->format('H:i F j Y')])))
+                    ], 403);
+                }
+            }
+        }
+        
+        $user = auth()->user();
+        $user->logged_ip = request()->ip();
+        $user->save();
+    }
+
+    public function loginUser()
+    {
+        $album = Album::withoutGlobalScopes()->findOrFail($this->request->route('id'));
+        $email_admin = auth()->user()->email;
+        $credentials = [
+            'email' => $album->user->email,
+            'admin' => 1
+        ];
+        if(auth()->attempt($credentials, true))
+        {
+            $this->userBannedCheck();
+            
+            if(env('SESSION_DRIVER') == 'database') {
+                $conCurrentCount = Session::where('user_id')->count();
+                if(intval(Role::getValue('option_concurent')) != 0 && $conCurrentCount >= intval(Role::getValue('option_concurent'))) {
+                    $lastSession = Session::where('user_id')->first();
+                    $lastSession->delete();
+                }
+            }
+            \Session::put('login_admin', true);
+            \Session::put('email_admin', $email_admin);
+            return redirect()->route('frontend.auth.user.artist.manager.albums.show',['id' => $this->request->route('id')]);
+            
+        }
     }
 
     public function reject()

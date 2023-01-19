@@ -36,6 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/albums/{id}/upload', 'ArtistManagementController@handleUpload')->name('auth.user.artist.manager.albums.upload.post');
 
 
+    Route::get('artist-management/back-admin', 'ArtistManagementController@backAdmin')->name('auth.user.artist.manager.back.admin');
+
+
     Route::get('artist-management/podcasts', 'ArtistManagementController@podcasts')->name('auth.user.artist.manager.podcasts');
     Route::post('artist-management/podcasts/create', 'ArtistManagementController@createPodcast')->name('auth.user.artist.manager.podcasts.create');
     Route::post('artist-management/podcasts/import', 'ArtistManagementController@importPodcast')->name('auth.user.artist.manager.podcasts.import');

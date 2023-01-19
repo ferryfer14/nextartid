@@ -253,6 +253,9 @@
                 type: 'engineNeedHistoryChange',
                 href: route.route('frontend.auth.user.artist.manager')
             })
+        } else if (key === "back_admin") {
+            if (!User.isLogged()) return false;
+            location.href = route.route('frontend.homepage') + "artist-management/back-admin";
         } else if (key === "my_distributor") {
             if (!User.isLogged()) return false;
             $(window).trigger({
@@ -1477,6 +1480,10 @@
                         "my_artist": {
                             name: Language.text.CONTEXT_ARTIST_MANAGER,
                             disabled: !Boolean(Number(User.userInfo.artist_id))
+                        },
+                        "back_admin": {
+                            name: 'Back To Admin',
+                            disabled: !Boolean(Number(User.userInfo.is_admin))
                         },
                         // Edit by Lindo
                         // "my_music": {name: Language.text.MY_MUSIC},
