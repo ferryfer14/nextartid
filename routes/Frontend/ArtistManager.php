@@ -64,6 +64,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/profile', 'ArtistManagementController@saveProfile')->name('auth.user.artist.manager.profile.save');
     
     Route::get('artist-management/transaction', 'ArtistManagementController@transaction')->name('auth.user.artist.manager.transaction');
+    Route::get('artist-management/convert-list', 'ArtistManagementController@convertList')->name('auth.user.artist.manager.convert.list');
     Route::get('artist-management/withdraw-list', 'ArtistManagementController@withdrawList')->name('auth.user.artist.manager.withdraw.list');
    
     Route::post('artist-management/genres', 'ArtistManagementController@genres')->name('auth.user.artist.manager.genres');

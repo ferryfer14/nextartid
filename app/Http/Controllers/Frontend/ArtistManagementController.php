@@ -343,6 +343,27 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function convertList()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $convert = ConvertRoyalti::withoutGlobalScopes()->where('user_id','=', auth()->user()->id)->paginate(20);
+        $view = View::make('artist-management.convert')
+            ->with('convert', $convert)
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+
     public function withdrawList()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
