@@ -457,6 +457,7 @@
                     url: url,
                     type: "post",
                     success: function (response) {
+                        console.log(response);
                         Artist.chart.buildChart(response.data);
                     }
                 });
@@ -471,6 +472,22 @@
                     purple: 'rgb(153, 102, 255)',
                     grey: 'rgb(201, 203, 207)'
                 };
+
+                window.chartColor = [
+                     'rgb(255, 99, 132)',
+                     'rgb(255, 159, 64)',
+                     'rgb(255, 205, 86)',
+                     'rgb(75, 192, 192)',
+                     'rgb(54, 162, 235)',
+                     'rgb(153, 102, 255)',
+                     'rgb(201, 203, 207)',
+                     'rgb(255,255,255)',
+                     'rgb(5, 237, 245)',
+                     'rgb(21, 0, 247)',
+                     'rgb(247, 5, 235)',
+                     'rgb(28, 235, 5)',
+                     'rgb(13, 117, 1)'
+                ];
 
 
                 $("#artist-management-chart").empty();
@@ -545,28 +562,18 @@
                 };
                 var color = Chart.helpers.color;
                 var lineChartData = {
-                    labels: data.period,
-                    datasets: [{
-                        label: 'Play',
-                        fill: false,
-                        data: data.playSong,
-                        pointBackgroundColor: window.chartColors.green,
-                        borderColor: window.chartColors.green,
-                    }, {
-                        label: 'Favorite',
-                        borderColor: window.chartColors.red,
-                        pointBackgroundColor: window.chartColors.red,
-                        fill: false,
-                        data: data.favoriteSong
-                    }, {
-                        label: 'Collection',
-                        borderColor: window.chartColors.orange,
-                        pointBackgroundColor: window.chartColors.orange,
-                        fill: true,
-                        data: data.collectSong,
-                        backgroundColor: window.chartColors.orange.replace(/rgb/i, "rgba").replace(/\)/i, ',0.4)'),
-                    }]
+                    labels: data.date,
+                    datasets: []
                 };
+                for(var i = 0; i < data.dsp.length; i++){
+                    lineChartData.datasets.push({
+                        label : data.dsp[i],
+                        borderColor: window.chartColor[i],
+                        pointBackgroundColor: window.chartColor[i],
+                        fill: true,
+                        data: data.royalti[i],
+                    });
+                }
                 var chartEl = document.getElementById('artistManagerChart');
                 window.myLine = new Chart(chartEl, {
                     type: 'line',

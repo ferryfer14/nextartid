@@ -1061,7 +1061,7 @@ class ArtistManagementController extends Controller
         return $languages;
     }
 
-    public function artistChart()
+    public function artistOldChart()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
 
@@ -1122,6 +1122,23 @@ class ArtistManagementController extends Controller
             'success' => true,
             'data' => $data
 
+        ));
+    }
+    public function artistChart()
+    {   
+        $data = array();
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $royalti = [];
+        for($i = 0; $i< count($this->artist->royalti_dsp); $i++){
+            $royalti[] = royaltiDsp($this->artist->royalti_month, $this->artist->royalti_dsp[$i]);
+        }
+        $data['dsp'] = $this->artist->royalti_dsp;
+        $data['date'] = $this->artist->royalti_tanggal;
+        $data['royalti'] = $royalti;
+
+        return response()->json(array(
+            'success' => true,
+            'data' => $data
         ));
     }
 

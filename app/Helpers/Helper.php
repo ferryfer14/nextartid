@@ -1169,6 +1169,20 @@ if (!function_exists('fileSizeConverter')) {
     }
 }
 
+if (!function_exists('royaltiDsp')) {
+    function royaltiDsp($data, $dsp)
+    {
+        $result = array();
+        foreach($data as $x => $d){
+            if($d->patner === $dsp){
+                $result[] = $d->total;
+            }
+        }
+
+        return $result;
+    }
+}
+
 if (!function_exists('clearUrlForMetatags')) {
     function clearUrlForMetatags($a)
     {

@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url', 'royalti','unconfirm','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm','balance_unconfirm'];
+    protected $appends = ['artwork_url','royalti_tanggal', 'royalti','royalti_month','royalti_dsp','unconfirm','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm','balance_unconfirm'];
 
     protected static function boot()
     {
@@ -91,6 +91,21 @@ class Artist extends Model implements HasMedia
     public function getRoyaltiAttribute($value)
     {
         return Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw('SUM(value) as total')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner')->get();
+    }
+    
+    public function getRoyaltiDspAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->select('id','patner')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner')->get()->pluck('patner');
+    }
+    
+    public function getRoyaltiMonthAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner',DB::raw("DATE_FORMAT(start_date, '%Y-%m')"))->get();
+    }
+    
+    public function getRoyaltiTanggalAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->selectRaw("DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner',DB::raw("DATE_FORMAT(start_date, '%Y-%m')"))->get()->pluck('date');
     }
     
     public function getUnconfirmAttribute($value)
