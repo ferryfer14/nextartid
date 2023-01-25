@@ -90,7 +90,7 @@ class ArtistManagementController extends Controller
             ->where('user_id', auth()->user()->id)
             ->first();
 
-        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $artists = Artist::withoutGlobalScopes()->where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
             array_push($my_artist,$ar['name']);
@@ -113,7 +113,6 @@ class ArtistManagementController extends Controller
             ->with('albums', $this->artist->albums)
             ->with('artist', $this->artist)
             ->with('my_artist', $my_artist)
-            //->with('my_song', $albums)
             ->with('songs_revenue', $songs_revenue)
             ->with('episodes_revenue', $episodes_revenue)
             ->with('counts', $counts);

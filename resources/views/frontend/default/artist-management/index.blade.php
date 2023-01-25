@@ -136,16 +136,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="card shadow mb-5">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h2 class="m-0 font-weight-bold">Royalty Confirm chart</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="artist-management-chart-block">
-                            <canvas id="artistManagerChart" class="artist-management-chart"></canvas>
-                        </div>
-                    </div>
-                </div>
                 @if(count($songs))
                     <div class="card shadow">
                         <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -154,6 +144,37 @@
                         <div class="card-body">
                             <div id="recent-songs-grid">
                                 <div class="grid-canvas">
+                                    <div class="module module-row song tall artist-management">
+                                        <div class="img-container">
+                                        </div>
+                                        <div class="metadata">
+                                            <div class="row" style="line-height: 58px;">
+                                                <div class="col-sm-4">
+                                                    Title
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            Artist
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            Release Date
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            ISRC
+                                                        </div>
+                                                        <div class="col-sm-6">
+                                                            Favorite Country
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     @foreach($songs as $song)
                                         <script>var song_data_{{ $song->id }} = {!! json_encode($song->makeVisible(['description', 'copyright', 'released_at'])) !!}</script>
                                         <div class="module module-row song tall artist-management" data-type="song" data-id="{{$song->id}}">
@@ -168,13 +189,33 @@
                                                 </div>
                                             </div>
                                             <div class="metadata">
-                                                <div class="title">
-                                                    <a href="{{ $song->permalink_url }}">{!! $song->title !!}</a>
+                                                <div class="row" style="line-height: 58px;">
+                                                    <div class="col-sm-4">
+                                                        <a href="{{ $song->permalink_url }}">{!! $song->title !!}</a>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                {{ $song->primary_artist }}
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                {{ date('d M,Y', strtotime($song->album->created_at)) }}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <div class="row">
+                                                            <div class="col-sm-6">
+                                                                {{ $song->isrc }}
+                                                            </div>
+                                                            <div class="col-sm-6">
+                                                                @foreach($song->royalti_country as $c)
+                                                                    {{ $c->country }}@if(!$loop->last), @endif
+                                                                @endforeach
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div class="artist">
-                                                    {{ $song->primary_artist }}
-                                                </div>
-                                                <div class="duration">{{humanTime($song->duration)}}</div>
                                             </div>
                                             <!--<div class="row-actions secondary">
                                                 <a class="btn options song-row-edit" data-type="song" data-id="{{ $song->id }}">
@@ -193,7 +234,19 @@
                             </div>
                         </div>
                     </div>
+                    <br/>
                 @endif
+                <div class="card shadow mb-5">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h2 class="m-0 font-weight-bold">Royalty Confirm chart</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="artist-management-chart-block">
+                            <canvas id="artistManagerChart" class="artist-management-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <br/>
             </div>
         </div>
     </div>
