@@ -247,6 +247,16 @@
                     </div>
                 </div>
                 <br/>
+                <div class="card shadow mb-5">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h2 class="m-0 font-weight-bold">Top DSP chart</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="artist-management-donutchart-block">
+                            <canvas id="artistManagerDonutChart" class="artist-management-donutchart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

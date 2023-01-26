@@ -77,5 +77,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/languages ', 'ArtistManagementController@languages')->name('auth.user.artist.manager.languages ');
 
     Route::post('artist-management/chart/overview', 'ArtistManagementController@artistChart')->name('auth.user.artist.manager.chart.overview');
+    Route::post('artist-management/chart/dsp', 'ArtistManagementController@dspChart')->name('auth.user.artist.manager.chart.dsp');
     Route::post('artist-management/chart/song/{id}', 'ArtistManagementController@songChart')->name('auth.user.artist.manager.chart.song');
 });

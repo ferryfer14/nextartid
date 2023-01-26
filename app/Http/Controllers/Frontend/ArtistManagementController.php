@@ -1123,6 +1123,21 @@ class ArtistManagementController extends Controller
 
         ));
     }
+    public function dspChart()
+    {
+        $data = array();
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $royalti = [];
+        for($i = 0; $i< count($this->artist->royalti_dsp); $i++){
+            $royalti[] = royaltiDsp($this->artist->royalti_total_dsp, $this->artist->royalti_dsp[$i]);
+        }
+        $data['dsp'] = $this->artist->royalti_dsp;
+        $data['royalti'] = $royalti;
+        return response()->json(array(
+            'success' => true,
+            'data' => $data
+        ));
+    }
     public function artistChart()
     {   
         $data = array();

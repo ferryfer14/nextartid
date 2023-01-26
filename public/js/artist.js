@@ -442,6 +442,104 @@
                 });
             }
         },
+        donutChart : {
+            loadData: function () {
+                var a = window.location.href.toString().split(window.location.host)[1];
+                var b = a.split("/")[2];
+                a = a.split("/")[1];
+                if (a !== "artist-management" && a !== "song") return false;
+                if (!$(".artist-management-donutchart").length) return false;
+                __DEV__ && console.log("Loading stats donutChart");
+                var url = route.route('frontend.auth.user.artist.manager') + "/chart/dsp";
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    success: function (response) {
+                        console.log(response);
+                        Artist.donutChart.buildChart(response.data);
+                    }
+                });
+            },
+            buildChart: function (data) {
+                $("#artist-management-donutchart").empty();
+                var chartEl = document.getElementById('artistManagerDonutChart');
+                window.chartColor = [
+                     'rgb(255, 99, 132)',
+                     'rgb(255, 159, 64)',
+                     'rgb(255, 205, 86)',
+                     'rgb(75, 192, 192)',
+                     'rgb(54, 162, 235)',
+                     'rgb(153, 102, 255)',
+                     'rgb(201, 203, 207)',
+                     'rgb(255,255,255)',
+                     'rgb(5, 237, 245)',
+                     'rgb(21, 0, 247)',
+                     'rgb(247, 5, 235)',
+                     'rgb(28, 235, 5)',
+                     'rgb(13, 117, 1)'
+                ];
+                /*var lineChartData = {
+                    labels: ["MONEY MARKET", "FIXED INCOME", "SPECIALTY", "DOMESTIC STOCK", "INTERNATIONAL STOCK", "BROKERAGELINK"],
+                    datasets: [{
+                        label: "Test",
+                        data: [47, 19, 71, 51, 22, 19],
+                        backgroundColor: [
+                            'rgba(255, 153, 102, 1)',
+                            'rgba(198, 201, 202, 1)',
+                            'rgba(128, 116, 110, 1)',
+                            'rgba(42, 210, 201, 1)',
+                            'rgba(97, 71, 103, 1)',
+                            'rgba(95, 122, 118, 1)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 153, 102, 1)',
+                            'rgba(198, 201, 202, 1)',
+                            'rgba(128, 116, 110, 1)',
+                            'rgba(42, 210, 201, 1)',
+                            'rgba(97, 71, 103, 1)',
+                            'rgba(95, 122, 118, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };*/
+
+                var lineChartData = {
+                    labels: data.dsp,
+                    datasets: []
+                };
+                for(var i = 0; i < data.dsp.length; i++){
+                    lineChartData.datasets.push({
+                        label : data.dsp[i],
+                        borderColor: window.chartColor[i],
+                        backgroundColor: window.chartColor[i],
+                        borderWidth: 1,
+                        data: data.royalti[i],
+                    });
+                }
+                window.myLine = new Chart(chartEl, {
+                    type: 'doughnut',
+                    data: lineChartData,
+                    options: {
+                        title: {
+                            display: false,
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true,                            
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                boxWidth: 10,
+                                padding: 12
+                            }
+                        },
+                    }
+                });
+            }
+        },
         chart: {
             loadData: function () {
                 var a = window.location.href.toString().split(window.location.host)[1];
@@ -2285,7 +2383,10 @@
     });
     $(window).on("enginePageHasBeenLoaded", function () {
         var a = window.location.href.toString().split(window.location.host)[1];
-        if (a === '/artist-management') Artist.chart.loadData()
+        if (a === '/artist-management') {
+            Artist.chart.loadData();
+            Artist.donutChart.loadData();
+        }
     });
     $(document).on('change', '.custom-file-input', function (event) {
         $(this).next('.custom-file-label').html(event.target.files[0].name);
