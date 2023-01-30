@@ -37,10 +37,12 @@ class Upload
             if(config('settings.max_audio_file_size') == 0) {
                 $request->validate([
                     'file.*' => 'required|mimetypes:application/octet-stream,audio/ogg,audio/x-wav,audio/wav,audio/mpeg,audio/flac,audio/x-hx-aac-adts,audio/x-m4a,video/mp4,video/x-ms-wma,audio/ac3,audio/aac',
+                    // 'file.*' => 'required|mimetypes:application/octet-stream,audio/x-wav,audio/wav,audio/mpeg,
                 ]);
             } else {
                 $request->validate([
                     'file.*' => 'required|mimetypes:application/octet-stream,audio/ogg,audio/x-wav,audio/wav,audio/mpeg,audio/flac,audio/x-hx-aac-adts,audio/x-m4a,video/mp4,video/x-ms-wma,audio/ac3,audio/aac|max:' . config('settings.max_audio_file_size', 51200),
+                    // 'file.*' => 'required|mimetypes:application/octet-stream,audio/x-wav,audio/wav,audio/mpeg|max:' . config('settings.max_audio_file_size', 51200),
                 ]);
             }
         } else {
@@ -109,7 +111,8 @@ class Upload
             }
 
             Validator::make($data, [
-                'bitRate' => ['required', 'numeric', 'min:' . config('settings.min_audio_bitrate', 64), 'max:' . config('settings.max_audio_bitrate', 320)],
+                // 'bitRate' => ['required', 'numeric', 'min:' . config('settings.min_audio_bitrate', 64), 'max:' . config('settings.max_audio_bitrate', 320)],
+                'bitRate' => ['required', 'numeric', 'in:1411,1536,2116,2304,2822'],
                 'playtimeSeconds' => ['required', 'numeric', 'min:' . config('settings.min_audio_duration', 60), 'max:' . config('settings.max_audio_duration', 300)],
             ])->validate();
 
@@ -260,7 +263,8 @@ class Upload
 
                 if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->exists()) {
                     $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->firstOrFail();
-                    $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+                    $transaction->transaction_id = str_replace('NEX','',$transaction->transaction_id);
+
                     $transaction->amount = $amount;
                     $transaction->save();
                     $trx_id = $transaction->transaction_id;
@@ -286,7 +290,8 @@ class Upload
 
                         if(Transaction::withoutGlobalScopes()->where('album_id', '=', $row->id)->exists()) {
                             $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $row->id)->firstOrFail();
-                            $transaction->transaction_id = str_replace('NXA','',$transaction->transaction_id);
+                            $transaction->transaction_id = str_replace('NEX','',$transaction->transaction_id);
+
                             $transaction->amount = $amount;
                             $transaction->save();
                             $trx_id = $transaction->transaction_id;

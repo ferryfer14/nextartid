@@ -38,7 +38,7 @@
                             <td>{{ $album->title }}</td>
                             <td class="desktop">{{ $album->upc }}</td>
                             <td class="desktop">{{ $album->primary_artist }}</td>
-                            <td class="text-center desktop">${{ isset($album->sum_royalti) ? round($album->sum_royalti,3) : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($album->sum_royalti) ? round($album->sum_royalti,2) : '0' }}</td>
                             <td class="desktop">
                                 <a class="row-button songs" href="{{ route('backend.user.royalti.song', ['id' => $album->id, 'artist_id' => $artistIds]) }}"><i class="fas fa-fw fa-music"></i></a>
                             </td>

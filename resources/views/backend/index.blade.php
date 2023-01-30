@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Music Engine - Control Panel</title>
+    <title>NextArt Admin - Control Panel</title>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!-- Custom fonts for this template-->
@@ -46,7 +46,7 @@
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-music"></i>
             </div>
-            <div class="sidebar-brand-text mx-2">Music Engine</div>
+            <div class="sidebar-brand-text mx-2">NextArt</div>
         </a>
         <hr class="sidebar-divider my-0">
         @include('backend.commons.sidebar-menu', ['name' => 'Dashboard', 'icon' => 'fa-tachometer-alt', 'permission' => 'admin_access', 'route' => 'backend.dashboard'])
@@ -78,7 +78,7 @@
         </li>
         @endif
         <hr class="sidebar-divider">
-        @include('backend.commons.sidebar-menu', ['name' => 'Manage patners', 'icon' => 'fa-tags', 'permission' => 'admin_patners', 'route' => 'backend.patners'])
+        @include('backend.commons.sidebar-menu', ['name' => 'Manage DSP', 'icon' => 'fa-tags', 'permission' => 'admin_patners', 'route' => 'backend.patners'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage genres', 'icon' => 'fa-tags', 'permission' => 'admin_genres', 'route' => 'backend.genres'])
         @include('backend.commons.sidebar-menu', ['name' => 'Group genres', 'icon' => 'fa-tags', 'permission' => 'admin_group_genre', 'route' => 'backend.group-genre'])
         @include('backend.commons.sidebar-menu', ['name' => 'Manage moods', 'icon' => 'fa-smile', 'permission' => 'admin_moods', 'route' => 'backend.moods'])
@@ -158,44 +158,44 @@
                 </li>
             @endif
         @endif
-        <hr class="sidebar-divider">
-        @if(\App\Models\Role::getValue('admin_radio'))
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRadio" aria-expanded="false" aria-controls="collapseRadio">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <span>Radio</span>
-                </a>
-                <div id="collapseRadio" class="collapse" aria-labelledby="headingRadio" data-parent="#accordionSidebar">
-                    <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Radio category', 'icon' => 'fa-radiation-alt', 'permission' => 'admin_radio', 'route' => 'backend.radios'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Edit stations', 'icon' => 'fa-satellite-dish', 'permission' => 'admin_radio', 'route' => 'backend.stations'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Countries', 'icon' => 'fa-flag', 'permission' => 'admin_radio', 'route' => 'backend.countries'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Region', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.regions'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Cities', 'icon' => 'fa-city', 'permission' => 'admin_radio', 'route' => 'backend.cities'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Country\'s Languages', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.country.languages'])
-                    </div>
-                </div>
-            </li>
-        @endif
-        <hr class="sidebar-divider">
-        @if(\App\Models\Role::getValue('admin_radio'))
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePodcast" aria-expanded="false" aria-controls="collapsePodcast">
-                    <i class="fas fa-broadcast-tower"></i>
-                    <span>Podcast</span>
-                </a>
-                <div id="collapsePodcast" class="collapse" aria-labelledby="headingPodcast" data-parent="#accordionSidebar">
-                    <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Podcast category', 'icon' => 'fa-radiation-alt', 'permission' => 'admin_radio', 'route' => 'backend.podcast-categories'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Edit Podcast', 'icon' => 'fa-satellite-dish', 'permission' => 'admin_radio', 'route' => 'backend.podcasts'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Countries', 'icon' => 'fa-flag', 'permission' => 'admin_radio', 'route' => 'backend.countries'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Region', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.regions'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Cities', 'icon' => 'fa-city', 'permission' => 'admin_radio', 'route' => 'backend.cities'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Country\'s Languages', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.country.languages'])
-                    </div>
-                </div>
-            </li>
-        @endif
+        <!--<hr class="sidebar-divider">-->
+        <!--@if(\App\Models\Role::getValue('admin_radio'))-->
+        <!--    <li class="nav-item">-->
+        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseRadio" aria-expanded="false" aria-controls="collapseRadio">-->
+        <!--            <i class="fas fa-broadcast-tower"></i>-->
+        <!--            <span>Radio</span>-->
+        <!--        </a>-->
+        <!--        <div id="collapseRadio" class="collapse" aria-labelledby="headingRadio" data-parent="#accordionSidebar">-->
+        <!--            <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Radio category', 'icon' => 'fa-radiation-alt', 'permission' => 'admin_radio', 'route' => 'backend.radios'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Edit stations', 'icon' => 'fa-satellite-dish', 'permission' => 'admin_radio', 'route' => 'backend.stations'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Countries', 'icon' => 'fa-flag', 'permission' => 'admin_radio', 'route' => 'backend.countries'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Region', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.regions'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Cities', 'icon' => 'fa-city', 'permission' => 'admin_radio', 'route' => 'backend.cities'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Country\'s Languages', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.country.languages'])-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </li>-->
+        <!--@endif-->
+        <!--<hr class="sidebar-divider">-->
+        <!--@if(\App\Models\Role::getValue('admin_radio'))-->
+        <!--    <li class="nav-item">-->
+        <!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePodcast" aria-expanded="false" aria-controls="collapsePodcast">-->
+        <!--            <i class="fas fa-broadcast-tower"></i>-->
+        <!--            <span>Podcast</span>-->
+        <!--        </a>-->
+        <!--        <div id="collapsePodcast" class="collapse" aria-labelledby="headingPodcast" data-parent="#accordionSidebar">-->
+        <!--            <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Podcast category', 'icon' => 'fa-radiation-alt', 'permission' => 'admin_radio', 'route' => 'backend.podcast-categories'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Edit Podcast', 'icon' => 'fa-satellite-dish', 'permission' => 'admin_radio', 'route' => 'backend.podcasts'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Countries', 'icon' => 'fa-flag', 'permission' => 'admin_radio', 'route' => 'backend.countries'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Region', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.regions'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Cities', 'icon' => 'fa-city', 'permission' => 'admin_radio', 'route' => 'backend.cities'])-->
+        <!--                @include('backend.commons.sidebar-sub-menu', ['name' => 'Country\'s Languages', 'icon' => 'fa-globe-americas', 'permission' => 'admin_radio', 'route' => 'backend.country.languages'])-->
+        <!--            </div>-->
+        <!--        </div>-->
+        <!--    </li>-->
+        <!--@endif-->
         @if(\App\Models\Role::getValue('admin_earnings'))
             <hr class="sidebar-divider">
             <li class="nav-item">

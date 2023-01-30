@@ -38,7 +38,7 @@ class SongsController
 
     public function index(Request $request)
     {
-        $songs = Song::withoutGlobalScopes();
+        $songs = Song::withoutGlobalScopes()->orderBy('id', 'desc');
 
         if ($this->request->has('term'))
         {
@@ -215,7 +215,7 @@ class SongsController
 
         $song = new Song();
 
-        $song->title = $this->request->input('title');
+        $song->title = ucwords($this->request->input('title'));
         $artistIds = $this->request->input('artistIds');
         $albumIds = $this->request->input('albumIds');
         $song->description = $this->request->input('description');
@@ -270,7 +270,7 @@ class SongsController
         if ($this->request->hasFile('artwork'))
         {
             $this->request->validate([
-                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=3000,min_height=3000,max_width=5000,max_height=5000|max:' . config('settings.max_image_file_size', 8096)
             ]);
 
             $song->clearMediaCollection('artwork');
@@ -369,11 +369,28 @@ class SongsController
 
         $song = Song::withoutGlobalScopes()->findOrFail($this->request->route('id'));
 
-        $song->title = $this->request->input('title');
+        $song->title = ucwords($this->request->input('title'));
         $artistIds = $this->request->input('artistIds');
         $albumIds = $this->request->input('albumIds');
         $song->description = $this->request->input('description');
         $song->price = $this->request->input('price');
+
+        $song->remix_version = ucwords($this->request->input('remix_version'));
+        $song->label = $this->request->input('label');
+        $song->composer = ucwords($this->request->input('composer'));
+        $song->arranger = ucwords($this->request->input('arranger'));
+        $song->lyricist = ucwords($this->request->input('lyricist'));
+        $song->language = ucwords($this->request->input('language'));
+        $song->isrc = $this->request->input('isrc');
+        $song->iswc = $this->request->input('iswc');
+        $song->publisher_year = $this->request->input('publisher_year');
+        $song->publisher_name = $this->request->input('publisher_name');
+        $song->lirik = $this->request->input('lirik');
+        $song->explicit = $this->request->input('explicit');
+        $song->language = $this->request->input('language');
+        $song->separately = $this->request->input('separately');
+        $song->start_point = $this->request->input('start_point');
+
 
         if(is_array($albumIds)) {
             DB::table('album_songs')->where('song_id', '=', $song->id)->delete();
@@ -433,7 +450,7 @@ class SongsController
         if ($this->request->hasFile('artwork'))
         {
             $this->request->validate([
-                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+                'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=3000,min_height=3000,max_width=5000,max_height=5000|max:' . config('settings.max_image_file_size', 8096)
             ]);
 
             $song->clearMediaCollection('artwork');

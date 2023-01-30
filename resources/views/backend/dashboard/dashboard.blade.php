@@ -79,6 +79,8 @@
                             <i class="fa fa-fw fa-circle"></i>
                         </div>
                         <div class="mr-5 h2">{{ $dashboard->total_albums }} Albums</div>
+                        <p class="float-left mb-0">{{ $dashboard->total_albums_paid }} Paid / {{ $dashboard->total_albums_unpaid }} Unpaid</p>
+                        <p class="float-left mb-0">{{ $dashboard->total_albums_single }} Single / {{ $dashboard->total_albums_ep }} EP / {{ $dashboard->total_albums_lp }} LP</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.albums')  }}">
                         <span class="float-left">View Details</span>
@@ -133,7 +135,15 @@
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-users"></i>
                         </div>
-                        <div class="mr-5 h2">{{ $dashboard->statistics->total_users }} Users</div>
+                        <a href="{{ route('backend.users') }}">
+                            <div class="mr-5 h2">{{ $dashboard->statistics->total_users }} Users</div>
+                        </a>
+                        <a href="{{ route('backend.users') }}">
+                            <p class="float-left mb-0">{{ $dashboard->statistics->total_users_has_album }} Users has Album</p>
+                        </a><br>
+                        <a href="{{ route('backend.users') }}">
+                            <p class="text-warning float-left mb-0">{{ $dashboard->statistics->total_users - $dashboard->statistics->total_users_has_album}} Users no Album</p>
+                        </a>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.users') }}">
                         <span class="float-left">View Details</span>
@@ -144,17 +154,17 @@
                 </div>
             </div>
         @endif
-        @if(\App\Models\Role::getValue('admin_users'))
+        @if(\App\Models\Role::getValue('admin_earnings'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-gradient-info o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-dollar-sign"></i>
                         </div>
-                        <div class="mr-5 h2">${{ round($dashboard->total_unconfirm,3) }}</div>
+                        <div class="mr-5 h4">${{ round($dashboard->total_unconfirm,2) }}</div>
                         <p class="float-left mb-0">Unconfirmed</p>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.users') }}">
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.user.unconfirm') }}">
                         <span class="float-left">View Details</span>
                         <span class="float-right">
                         <i class="fa fa-angle-right"></i>
@@ -163,17 +173,17 @@
                 </div>
             </div>
         @endif
-        @if(\App\Models\Role::getValue('admin_subscriptions'))
+        @if(\App\Models\Role::getValue('admin_earnings'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-secondary o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-dollar-sign"></i>
                         </div>
-                        <div class="mr-5 h2">${{ round($dashboard->total_confirm,3) }}</div>
+                        <div class="mr-5 h4">${{ round($dashboard->total_confirm,2) }}</div>
                         <p class="float-left mb-0">Confirmed</p>
                     </div>
-                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.subscriptions') }}">
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.user.balance') }}">
                         <span class="float-left">View Details</span>
                         <span class="float-right">
                         <i class="fa fa-angle-right"></i>
@@ -182,14 +192,14 @@
                 </div>
             </div>
         @endif
-        @if(\App\Models\Role::getValue('admin_comments'))
+        @if(\App\Models\Role::getValue('admin_earnings'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-success o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-money-bill"></i>
                         </div>
-                        <div class="mr-5 h2">Rp 0</div>
+                        <div class="mr-5 h4">0</div>
                         <p class="float-left mb-0">Points Reward</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.comments') }}">
@@ -201,14 +211,14 @@
                 </div>
             </div>
         @endif
-        @if(\App\Models\Role::getValue('admin_posts'))
+        @if(\App\Models\Role::getValue('admin_earnings'))
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
                 <div class="card text-white bg-gradient-warning o-hidden h-100">
                     <div class="card-body">
                         <div class="card-body-icon">
                             <i class="fa fa-fw fa-money-bill"></i>
                         </div>
-                        <div class="mr-5 h2">Rp {{ number_format((float)($dashboard->total_balance_idr), 0, ',', '.') }}</div>
+                        <div class="mr-5 h4">Rp{{ number_format((float)($dashboard->total_balance_idr), 0, ',', '.') }}</div>
                         <p class="float-left mb-0">Vault</p>
                     </div>
                     <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.posts') }}">
@@ -226,8 +236,13 @@
                     <div class="card-body">
                         <div class="card-body-icon">
                         </div>
-                        <div class="mr-5 h2">{{ $stats->revenue }} {{ config('settings.currency', 'USD') }}</div>
-                        <p class="float-left mb-0">Total Revenue</p>
+                        <div class="mr-5 h2">Paid Value</div>
+                        <div class="mr-5"><b>{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_manual_paid + $dashboard->total_qris_paid, 0, ',', '.') }}</b></div>
+                        <p class="float-left mb-0">Total Manual Paid</p><br>
+                        <p class="float-left mb-0">{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_manual_paid, 0, ',', '.') }}</p><br>
+                        <!--<button onclick="myFunction()">Try it</button><p id="myDIV" class="float-left mb-0">{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_manual_paid, 0, ',', '.') }}</p><br>-->
+                        <p class="float-left mb-0">Total QRIS Paid</p><br>
+                        <p class="float-left mb-0">{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_qris_paid, 0, ',', '.') }}</p><br>
                     </div>
                 </div>
             </div>
@@ -236,8 +251,12 @@
                     <div class="card-body">
                         <div class="card-body-icon">
                         </div>
-                        <div class="mr-5 h2">{{ $stats->commission }} {{ config('settings.currency', 'USD') }}</div>
-                        <p class="float-left mb-0">Artist's Commission</p>
+                        <div class="mr-5 h2">Free Value</div>
+                        <div class="mr-5"><b>{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_free_voucher + $dashboard->total_free_song, 0, ',', '.') }}</b></div>
+                        <p class="float-left mb-0">Total Voucher Value</p><br>
+                        <p class="float-left mb-0">{{ config('settings.currency', 'USD') }} {{ number_format((float) $dashboard->total_free_voucher, 0, ',', '.') }}</p><br>
+                        <p class="float-left mb-0">Total Free Song</p><br>
+                        <p class="float-left mb-0">{{ config('settings.currency', 'USD') }} {{  number_format((float) $dashboard->total_free_song, 0, ',', '.') }}</p>
                     </div>
                 </div>
             </div>
@@ -246,10 +265,16 @@
                     <div class="card-body">
                         <div class="card-body-icon">
                         </div>
-                        <div class="mr-5 h2">{{ $stats->song->revenue }} {{ config('settings.currency', 'USD') }}</div>
-                        <p class="float-left mb-0">Songs Sales</p>
-                        <p class="float-right mb-0">{{ $stats->song->count }} items</p>
+                        <div class="mr-5 h2">{{ $dashboard->total_yesterday_albums }} Albums</div>
+                        <p class="float-left mb-0">Yesterday Paid Albums</p><br>
+                        <p class="float-left mb-0">{{ $dashboard->total_yesterday_albums_paid }} items</p>
                     </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.posts') }}">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                        <i class="fa fa-angle-right"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
             <div class="col-xl-3 col-lg-6 col-sm-6 mb-3">
@@ -257,12 +282,29 @@
                     <div class="card-body">
                         <div class="card-body-icon">
                         </div>
-                        <div class="mr-5 h2">{{ $stats->album->revenue }} {{ config('settings.currency', 'USD') }}</div>
-                        <p class="float-left mb-0">Albums Sales</p>
-                        <p class="float-right mb-0">{{ $stats->album->count }} items</p>
+                        <div class="mr-5 h2">{{ $dashboard->total_today_albums }} Albums</div>
+                        <p class="float-left mb-0">Today Paid Albums</p><br>
+                        <p class="float-left mb-0">{{ $dashboard->total_today_albums_paid }} items</p>
                     </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{{ route('backend.posts') }}">
+                        <span class="float-left">View Details</span>
+                        <span class="float-right">
+                        <i class="fa fa-angle-right"></i>
+                        </span>
+                    </a>
                 </div>
             </div>
+            <script>
+                function myFunction() {
+                  var x = document.getElementById("myDIV");
+                  if (x.style.display === "none") {
+                    x.style.display = "block";
+                  } else {
+                    x.style.display = "none";
+                  }
+                }
+            </script>
+
         @endif
     </div>
     <div id="update-alert" class="alert alert-info d-none" data-version="{{ env('APP_VERSION') }}">
@@ -640,3 +682,4 @@
         </div>
     @endif
 @endsection
+

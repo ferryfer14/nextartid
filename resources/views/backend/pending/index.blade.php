@@ -10,7 +10,7 @@
         <div class="col-lg-12">
             <form mothod="GET" action="">
                 <div class="form-group input-group">
-                    <input type="text" class="form-control" name="q" value="{{ $term }}" placeholder="Enter album name or transaction id without prefix NXA">
+                    <input type="text" class="form-control" name="q" value="{{ $term }}" placeholder="Enter album name or transaction id without prefix NEX">
                     <span class="input-group-append">
 			        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
 			    </span>
@@ -36,7 +36,7 @@
                 @foreach ($pending as $index => $pen )
                     @if($pen->transaction_id)
                         <tr>
-                            <td>NXA{{ $pen->transaction_id }}</td>
+                            <td>NEX{{ $pen->transaction_id }}</td>
                             <td>{{ isset($pen->albums->title) ? $pen->albums->title : '' }}</td>
                             <td><span>Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
                             <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_voucher), 0, ',', '.') }}</span></td>

@@ -25,7 +25,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keyword</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="term" class="form-control" placeholder="Enter album name or transaction id without prefix NXA" value="{{ request()->input('term') }}">
+                                        <input type="text" name="term" class="form-control" placeholder="Enter album name or transaction id without prefix NEX" value="{{ request()->input('term') }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">

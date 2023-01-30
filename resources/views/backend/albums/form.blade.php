@@ -32,133 +32,165 @@
                     <div class="card-header p-0 position-relative">
                         <ul class="nav">
                             <li class="nav-item"><a class="nav-link active" href="#overview" data-toggle="pill"><i class="fas fa-fw fa-newspaper"></i> Overview</a></li>
-                            {{-- Edit by Lindo --}}
-                            {{-- <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li> --}}
+                            <li class="nav-item"><a href="#streamable" class="nav-link" data-toggle="pill"><i class="fas fa-fw fa-lock"></i> Advanced</a></li>
                         </ul>
                     </div>
                     <div class="card-body">
                         <div class="tab-content mt-2" id="myTabContent">
-                            {{-- Edit by Lindo --}}
-                            {{-- <div id="overview" class="tab-pane fade show active">
-                                @csrf
-                                <div class="form-group multi-artists">
-                                    <label>Artists</label>
-                                    <select class="form-control multi-selector" data-ajax--url="{{ route('api.search.artist') }}" name="artistIds[]" multiple="">
-                                        @if(isset($album))
-                                            @foreach ($album->artists as $index => $artist)
-                                                <option value="{{ $artist->id }}" selected="selected" data-artwork="{{ $artist->artwork_url }}" data-title="{!! $artist->name !!}">{!! $artist->name !!}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
+                            @csrf
+                            <div class="form-group multi-artists">
+                                <label>Artists</label>
+                                <select class="form-control multi-selector" data-ajax--url="{{ route('api.search.artist') }}" name="artistIds[]" multiple="">
+                                    @if(isset($album))
+                                        @foreach ($album->artists as $index => $artist)
+                                            <option value="{{ $artist->id }}" selected="selected" data-artwork="{{ $artist->artwork_url }}" data-title="{!! $artist->name !!}">{!! $artist->name !!}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Album Name</label>
+                                <input name="title" class="form-control" value="{{ isset($album) && ! old('title') ? $album->title : old('title') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Artwork</label>
+                                <div class="input-group col-xs-12">
+                                    <input type="file" name="artwork" class="file-selector" accept="image/*">
+                                    <span class="input-group-addon"><i class="fas fa-fw fa-image"></i></span>
+                                    <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+                                    <span class="input-group-btn"><button class="browse btn btn-primary input-lg" type="button"><i class="fas fa-fw fa-file"></i> Browse</button></span>
                                 </div>
-                                <div class="form-group">
-                                    <label>Album Name</label>
-                                    <input name="name" class="form-control" value="{{ isset($album) && ! old('title') ? $album->title : old('title') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="switch">
+                                        {!! makeCheckBox('update-song-artwork') !!}
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label class="pl-6 col-form-label">Also update artwork for all songs in this album</label>
                                 </div>
-                                <div class="form-group">
-                                    <label>Artwork</label>
-                                    <div class="input-group col-xs-12">
-                                        <input type="file" name="artwork" class="file-selector" accept="image/*">
-                                        <span class="input-group-addon"><i class="fas fa-fw fa-image"></i></span>
-                                        <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
-                                        <span class="input-group-btn"><button class="browse btn btn-primary input-lg" type="button"><i class="fas fa-fw fa-file"></i> Browse</button></span>
+                            </div>
+                            <div class="form-group">
+                                <label>Remix or Version:</label>
+                                <input name="remix_version" class="form-control" value="{{ isset($album) && ! old('remix_version') ? $album->remix_version : old('remix_version') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Label</label>
+                                <input name="label" class="form-control" value="{{ isset($album) && ! old('label') ? $album->label : old('label') }}" required>
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--    <label>Display Artist</label>-->
+                            <!--    <input name="name" class="form-control" value="{{ isset($album) && ! old('label') ? $album->label : old('label') }}">-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label>Composer:</label>
+                                <input name="composer" class="form-control" value="{{ isset($album) && ! old('composer') ? $album->composer : old('composer') }}" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Arranger:</label>
+                                <input name="arranger" class="form-control" value="{{ isset($album) && ! old('arranger') ? $album->arranger : old('arranger') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Lyricist:</label>
+                                <input name="lyricist" class="form-control" value="{{ isset($album) && ! old('lyricist') ? $album->lyricist : old('lyricist') }}">
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--    <label>Others</label>-->
+                            <!--    <input name="name" class="form-control" value="{{ isset($album) && ! old('lyricist') ? $album->lyricist : old('lyricist') }}" required>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label>Primary Genre:</label>
+                                <select multiple="" class="form-control select2-active" name="genre[]">
+                                    @php
+                                        $genre = isset($album) && ! old('genre') ? $album->genre : old('genre');
+                                        $genre = is_array($genre) ? $genre : explode(',', $genre);
+                                    @endphp
+                                    {!! genreSelection($genre) !!}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Secondary Genre:</label>
+                                <select multiple="" class="form-control select2-active" name="genre[]">
+                                    {!! genreSelection(explode(',', isset($album) && ! old('second_genre') ? $album->second_genre : old('second_genre'))) !!}
+                                </select>
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--    <label>Local Genre</label>-->
+                            <!--    <select multiple="" class="form-control select2-active" name="genre[]">-->
+                            <!--        {!! genreSelection(explode(',', isset($album) && ! old('group_genre') ? $album->group_genre : old('group_genre'))) !!}-->
+                            <!--    </select>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label>Language:</label>
+                                <input name="language" class="form-control" value="{{ isset($album) && ! old('language') ? ($album->language == 1 ? 'Indonesia' : 'English') : old('language') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Release UPC code:</label>
+                                <input name="upc" class="form-control" value="{{ isset($album) && ! old('upc') ? $album->upc : old('upc') }}">
+                            </div>
+                            <div class="control field">
+                                <label>Global Release Identifier (GRid):</label>
+                                <input name="grid_code" class="form-control" value="{{ isset($album) && ! old('grid') ? $album->grid : old('grid') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Release description:</label>
+                                <input name="description" class="form-control" value="{{ isset($album) && ! old('description') ? $album->description : old('description') }}">
+                            </div>
+                            <div class="form-group">
+                                <label>Original release date:</label>
+                                <input type="text" class="form-control datepicker" name="released_at" value="{{ isset($album) && ! old('released_at') ? \Carbon\Carbon::parse($album->released_at)->format('m/d/Y') : old('released_at') }}" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Schedule publish date:</label>
+                                <input type="text" class="form-control datepicker" name="created_at" value="{{ isset($album) && ! old('created_at') ? \Carbon\Carbon::parse($album->created_at)->format('m/d/Y') : old('created_at') }}" autocomplete="off" required>
+                            </div>
+                            <div class="form-group">
+                                <label>License Holder:</label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input name="license_year" class="form-control" value="{{ isset($album) && ! old('license_year') ? $album->license_year : old('license_year') }}" required>
+                                    </div>        
+                                    <div class="col-md-9">
+                                        <input name="license_name" class="form-control" value="{{ isset($album) && ! old('license_name') ? $album->license_name : old('license_name') }}" required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label class="switch">
-                                            {!! makeCheckBox('update-song-artwork') !!}
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <label class="pl-6 col-form-label">Also update artwork for all songs in this album</label>
+                            </div>
+                            <div class="form-group">
+                                <label>(P) copyright for sound recordings:</label>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <input name="recording_year" class="form-control" value="{{ isset($album) && ! old('recording_year') ? $album->recording_year : old('recording_year') }}" required>
+                                    </div>        
+                                    <div class="col-md-9">
+                                        <input name="recording_name" class="form-control" value="{{ isset($album) && ! old('recording_name') ? $album->recording_name : old('recording_name') }}" required>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea class="form-control" rows="3" name="description">{{ isset($album) && ! old('description') ? $album->description : old('description') }}</textarea>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-12">
+                                    <label class="switch">
+                                        {!! makeCheckBox('approved', isset($album) && ! old('approved') ? $album->approved : old('approved')) !!}
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <label class="pl-6 col-form-label">Approve this album</label>
                                 </div>
-                                <div class="form-group">
-                                    <label>Genre(s)</label>
-                                    <select multiple="" class="form-control select2-active" name="genre[]">
-                                        {!! genreSelection(explode(',', isset($album) && ! old('genre') ? $album->genre : old('genre'))) !!}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Mood(s)</label>
-                                    <select multiple="" class="form-control select2-active" name="mood[]">
-                                        {!! moodSelection(explode(',', isset($album) && ! old('mood') ? $album->mood : old('mood'))) !!}
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Copyright</label>
-                                    <input type="text" class="form-control" name="copyright" value="{{ isset($album) && ! old('copyright') ? $album->copyright : old('copyright') }}">
-                                </div>
-                                <div class="form-group">
-                                    <label>Released At</label>
-                                    <input type="text" class="form-control datepicker" name="released_at" value="{{ isset($album) && ! old('released_at') ? \Carbon\Carbon::parse($album->released_at)->format('m/d/Y') : old('released_at') }}" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <label>Schedule Publish</label>
-                                    <input type="text" class="form-control datepicker" name="created_at" value="{{ isset($album) && ! old('created_at') ? \Carbon\Carbon::parse($album->created_at)->format('m/d/Y') : old('created_at') }}" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label class="switch">
-                                            {!! makeCheckBox('selling', isset($album) && ! old('selling') ? $album->selling : old('selling')) !!}
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <label class="pl-6 col-form-label">Allow to sell this album</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Price</label>
-                                    <input type="text" class="form-control" name="price" value="{{ isset($album) && ! old('price') ? $album->price : old('price') }}">
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label class="switch">
-                                            {!! makeCheckBox('approved', isset($album) && ! old('approved') ? $album->approved : old('approved')) !!}
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <label class="pl-6 col-form-label">Approve this album</label>
-                                    </div>
-                                </div>
-                            </div> --}}
-                            <div id="streamable" class="tab-pane fade">
-                                <div class="alert alert-info">Note: You can configure additional song playable and downloadable parameters for different groups in this section.</div>
-                                @if(cache()->has('usergroup'))
-                                    @foreach(cache()->get('usergroup') as $group)
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">{{ $group->name }}</label>
-                                            <div class="col-sm-9">
-                                                {!! makeDropDown([
-                                                        0 => 'Group Settings',
-                                                        1 => 'Playable',
-                                                        2 => 'Playable And Downloadable',
-                                                        3 => 'Play And Download Denied'
-                                                    ], 'group_extra[' . $group->id . ']', isset($options) && isset($options[$group->id]) ? $options[$group->id] : 0)
-                                                !!}
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
-                        @if(isset($album) && ! $album->approved)
-                            <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reject</button>
-                        @endif
-                        @if(Route::currentRouteName() == 'backend.albums.edit')
-                            <input type="hidden" name="file_id" value="{{ $album->file_id }}">
-                            @if(! $album->approved)
-                                <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reject</button>
-                            @endif
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                            <a class="btn btn-danger"  href="{{ route('backend.songs.delete', ['id' => $album->id]) }}" onclick="return confirm('Are you sure want to delete this song?')" data-toggle="tooltip" data-placement="left" title="Delete this song"><i class="fas fa-fw fa-trash"></i></a>
-                        @endif
-                        @if(Route::currentRouteName() == 'backend.albums.add')
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                        @endif
+                        <!--@if(isset($album) && ! $album->approved)-->
+                        <!--    <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reject</button>-->
+                        <!--@endif-->
+                        <!--@if(Route::currentRouteName() == 'backend.albums.edit')-->
+                        <!--    <input type="hidden" name="file_id" value="{{ $album->file_id }}">-->
+                        <!--    @if(! $album->approved)-->
+                        <!--        <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reject</button>-->
+                        <!--    @endif-->
+                        <!--    <button type="reset" class="btn btn-secondary">Reset</button>-->
+                        <!--    <a class="btn btn-danger"  href="{{ route('backend.songs.delete', ['id' => $album->id]) }}" onclick="return confirm('Are you sure want to delete this song?')" data-toggle="tooltip" data-placement="left" title="Delete this song"><i class="fas fa-fw fa-trash"></i></a>-->
+                        <!--@endif-->
+                        <!--@if(Route::currentRouteName() == 'backend.albums.add')-->
+                        <!--    <button type="submit" class="btn btn-primary">Submit</button>-->
+                        <!--@endif-->
                     </div>
                 </div>
             </form>

@@ -5,7 +5,7 @@
             <a href="{{ route('backend.dashboard') }}">Control Panel</a>
         </li>
         <li class="breadcrumb-item active"><a href="{{ url('admin/pending') }}">Transaction Pending Manual</a></li>
-        <li class="breadcrumb-item active">{{ isset($pending) ? 'NXA'.$pending->transaction_id : 'Add new transaction pending'}}</li>
+        <li class="breadcrumb-item active">{{ isset($pending) ? 'NEX'.$pending->transaction_id : 'Add new transaction pending'}}</li>
     </ol>
     <div class="row">
         <div class="col-lg-12">

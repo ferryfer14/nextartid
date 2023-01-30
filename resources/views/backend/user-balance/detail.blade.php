@@ -5,7 +5,7 @@
             <a href="{{ route('backend.dashboard') }}">Control Panel</a>
         </li>
         <li class="breadcrumb-item active"><a href="{{ route('backend.user.balance') }}">User Balance</a></li>
-        <li class="breadcrumb-item active">Detail Balance</li>
+        <li class="breadcrumb-item active">Balance Details</li>
     </ol>
     <div class="row">
         <div class="col-lg-12">

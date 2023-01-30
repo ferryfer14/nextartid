@@ -13,7 +13,7 @@
                     <div class="metadata">
                         <div class="title">
                             <!--<p class="text-secondary">Title Album</p>-->
-                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne{{ $album->id }}" aria-expanded="true" aria-controls="collapseOne">
+                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne{{ $album->id }}" aria-expanded="true" aria-controls="collapseOne{{ $album->id }}">
                                 <h3 class="m-0 font-weight-bold text-primary">{{ $album->title }}</h3>
                             </a>
                         </div>
@@ -50,14 +50,14 @@
                             <th class="text-right"></th>
                         </tr>
                         </thead>
-                        <tbody class="infinity-load-more">
+                        <tbody>
                             @foreach ($album->song as $index => $song)
                                 <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="song" data-id="{{ $song->id }}">
                                     <td style="width: 60px">
                                         <div class="img-container">
                                             <img class="img" src="{{$song->artwork_url}}" alt="{!! $song->title !!}">
                                             <div class="row-actions primary song-play-action">
-                                                @if(! $song->pending)
+                                                @if(!$song->pending)
                                                     <a class="btn play-lg play-object" data-type="song" data-id="{{ $song->id }}">
                                                         <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
                                                         <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>

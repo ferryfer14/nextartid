@@ -39,7 +39,7 @@
                         @endif
                         <div id="upload-file-button" class="btn btn-primary">
                             <span data-translate-text="CHOOSE_A_FILE">{{ __('web.CHOOSE_A_FILE') }}</span>
-                            <input id="upload-file-input" type="file" accept="audio/*" name="file">
+                            <input id="upload-file-input" type="file" accept="audio/wav,audio/x-wav" name="file">
                         </div>
                     </div>
                 </form>

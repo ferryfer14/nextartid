@@ -97,36 +97,93 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label>Description</label>
-                                    <textarea rows="4" class="form-control" name="description">{{ isset($song) && ! old('description') ? $song->description : old('description') }}</textarea>
+                                    <label>Remix or Version:</label>
+                                    <input name="remix_version" class="form-control" value="{{ isset($song) && ! old('remix_version') ? $song->remix_version : old('remix_version') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Label</label>
+                                    <input name="label" class="form-control" value="{{ isset($song) && ! old('label') ? $song->label : old('label') }}" required>
+                                </div>
+                                <!--<div class="form-group">-->
+                                <!--    <label>Display Artist</label>-->
+                                <!--    <input name="name" class="form-control" value="{{ isset($song) && ! old('label') ? $song->label : old('label') }}">-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label>Composer:</label>
+                                    <input name="composer" class="form-control" value="{{ isset($song) && ! old('composer') ? $song->composer : old('composer') }}" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Arranger:</label>
+                                    <input name="arranger" class="form-control" value="{{ isset($song) && ! old('arranger') ? $song->arranger : old('arranger') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>Lyricist:</label>
+                                    <input name="lyricist" class="form-control" value="{{ isset($song) && ! old('lyricist') ? $song->lyricist : old('lyricist') }}">
+                                </div>
+                                <!--<div class="form-group">-->
+                                <!--    <label>Others</label>-->
+                                <!--    <input name="name" class="form-control" value="{{ isset($song) && ! old('lyricist') ? $song->lyricist : old('lyricist') }}" required>-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label>Primary Genre:</label>
+                                    <select multiple="" class="form-control select2-active" name="genre[]">
+                                        @php
+                                            $genre = isset($song) && ! old('genre') ? $song->genre : old('genre');
+                                            $genre = is_array($genre) ? $genre : explode(',', $genre);
+                                        @endphp
+                                        {!! genreSelection($genre) !!}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Secondary Genre:</label>
+                                    <select multiple="" class="form-control select2-active" name="genre[]">
+                                        {!! genreSelection(explode(',', isset($song) && ! old('second_genre') ? $song->second_genre : old('second_genre'))) !!}
+                                    </select>
+                                </div>
+                                <!--<div class="form-group">-->
+                                <!--    <label>Local Genre</label>-->
+                                <!--    <select multiple="" class="form-control select2-active" name="genre[]">-->
+                                <!--        {!! genreSelection(explode(',', isset($song) && ! old('group_genre') ? $song->group_genre : old('group_genre'))) !!}-->
+                                <!--    </select>-->
+                                <!--</div>-->
+                                <div class="form-group">
+                                    <label>Release ISRC code:</label>
+                                    <input name="isrc" class="form-control" value="{{ isset($song) && ! old('isrc') ? $song->isrc : old('isrc') }}">
+                                </div>
+                                <div class="control field">
+                                    <label>ISWC code:</label>
+                                    <input name="iswc" class="form-control" value="{{ isset($song) && ! old('iswc') ? $song->iswc : old('iswc') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label>(P) Publishing rights:</label>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input name="publisher_year" class="form-control" value="{{ isset($song) && ! old('publisher_year') ? $song->publisher_year : old('publisher_year') }}" required>
+                                        </div>        
+                                        <div class="col-md-9">
+                                            <input name="publisher_name" class="form-control" value="{{ isset($song) && ! old('publisher_name') ? $song->publisher_name : old('publisher_name') }}" required>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Lyrics</label>
-                                    <textarea rows="10" class="form-control" name="lyrics">{{ (isset($lyric) && isset($lyric->id)) && ! old('lyrics') ? $lyric->lyrics : old('lyrics') }}</textarea>
+                                    <textarea rows="10" class="form-control" name="lirik"> {{ (isset($song) && isset($song->lirik)) &&! old('lirik') ? $song->lirik : old('lirik') }}</textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label>Genres</label>
-                                    <select multiple="" class="form-control select2-active" name="genre[]">
-                                        {!! genreSelection(explode(',', isset($song) && ! old('genre') ? $song->genre : old('genre'))) !!}
-                                    </select>
+                                    <label>Explicit:</label>
+                                    <input name="explicit" class="form-control" value="{{ isset($song) && ! old('explicit') ? ($song->explicit == 0 ? 'No' : 'Yes') : old('explicit') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Moods</label>
-                                    <select multiple="" class="form-control select2-active" name="mood[]">
-                                        {!! moodSelection(explode(',', isset($song) && ! old('mood') ? $song->mood : old('mood'))) !!}
-                                    </select>
+                                    <label>Language:</label>
+                                    <input name="language" class="form-control" value="{{ isset($song) && ! old('language') ? ($song->language == 1 ? 'Indonesia' : 'English') : old('language') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Tags</label>
-                                    {!! makeTagSelector('tags[]', isset($song) && ! old('tags') ? array_column($song->tags->toArray(), 'tag')  : old('tags')) !!}
+                                    <label>Available separately:</label>
+                                    <input name="separately" class="form-control" value="{{ isset($song) && ! old('separately') ? ($song->separately == 0 ? 'No' : 'Yes') : old('separately') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label>Released At</label>
-                                    <input type="text" class="form-control datepicker" name="released_at" value="{{ \Carbon\Carbon::parse( isset($song) && ! old('released_at') ? $song->released_at : old('released_at'))->format('m/d/Y') }}" autocomplete="off">
-                                </div>
-                                <div class="form-group">
-                                    <label>Copyright</label>
-                                    <input type="text" class="form-control" name="copyright" value="{{ isset($song) && ! old('copyright') ? $song->copyright : old('copyright') }}">
+                                    <label>Start Point Time (TikTok):</label>
+                                    <input name="start_point" class="form-control" value="{{ isset($song) && ! old('start_point') ? $song->start_point : old('start_point') }}">
                                 </div>
                                 @if(isset($song->bpm))
                                     <div class="form-group">
@@ -134,32 +191,28 @@
                                         <input type="text" class="form-control" name="bpm" value="{{ isset($song) && ! old('bpm') ? $song->bpm : old('bpm') }}">
                                     </div>
                                 @endif
-                                <div class="form-group">
-                                    <label>Youtube ID</label>
-                                    <input type="text" class="form-control" name="youtube_id" value="{{ isset($song) && ! old('youtube') ? (isset($song->log->youtube) ? $song->log->youtube : '') : old('youtube') }}">
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label class="switch">
-                                            {!! makeCheckBox('selling', isset($song) && ! old('selling') ? $song->selling : old('selling')) !!}
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <label class="pl-6 col-form-label">Allow to sell this song</label>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Price</label>
-                                    <input type="text" class="form-control" name="price" value="{{ isset($song) && ! old('price') ? $song->price : old('price') }}">
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label class="switch">
-                                            {!! makeCheckBox('allow_comments', isset($song) && ! old('allow_comments') ? $song->allow_comments : old('allow_comments') ) !!}
-                                            <span class="slider round"></span>
-                                        </label>
-                                        <label class="pl-6 col-form-label">Allow to comment</label>
-                                    </div>
-                                </div>
+                                <!--<div class="form-group">-->
+                                <!--    <div class="col-sm-12">-->
+                                <!--        <label class="switch">-->
+                                <!--            {!! makeCheckBox('selling', isset($song) && ! old('selling') ? $song->selling : old('selling')) !!}-->
+                                <!--            <span class="slider round"></span>-->
+                                <!--        </label>-->
+                                <!--        <label class="pl-6 col-form-label">Allow to sell this song</label>-->
+                                <!--    </div>-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--    <label>Price</label>-->
+                                <!--    <input type="text" class="form-control" name="price" value="{{ isset($song) && ! old('price') ? $song->price : old('price') }}">-->
+                                <!--</div>-->
+                                <!--<div class="form-group">-->
+                                <!--    <div class="col-sm-12">-->
+                                <!--        <label class="switch">-->
+                                <!--            {!! makeCheckBox('allow_comments', isset($song) && ! old('allow_comments') ? $song->allow_comments : old('allow_comments') ) !!}-->
+                                <!--            <span class="slider round"></span>-->
+                                <!--        </label>-->
+                                <!--        <label class="pl-6 col-form-label">Allow to comment</label>-->
+                                <!--    </div>-->
+                                <!--</div>-->
                                 @if(Route::currentRouteName() == 'backend.songs.edit')
                                     <div class="form-group">
                                         <div class="col-sm-12">
@@ -172,34 +225,10 @@
                                     </div>
                                 @endif
                             </div>
-                            <div id="streamable" class="tab-pane fade">
-                                <div class="alert alert-info">Note: You can configure additional song playable and downloadable parameters for different groups in this section.</div>
-                                @if(cache()->has('usergroup'))
-                                    @foreach(cache()->get('usergroup') as $group)
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 col-form-label">{{ $group->name }}</label>
-                                            <div class="col-sm-9">
-                                                {!! makeDropDown([
-                                                        0 => 'Group Settings',
-                                                        1 => 'Playable',
-                                                        2 => 'Playable And Downloadable',
-                                                        3 => 'Play And Download Denied'
-                                                    ], 'group_extra[' . $group->id . ']', isset($options) && isset($options[$group->id]) ? $options[$group->id] : 0)
-                                                !!}
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
                         </div>
                         @if(Route::currentRouteName() == 'backend.songs.edit')
                             <input type="hidden" name="file_id" value="{{ $song->file_id }}">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            @if(! $song->approved)
-                                <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Reject</button>
-                            @endif
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                            <a class="btn btn-danger"  href="{{ route('backend.songs.delete', ['id' => $song->id]) }}" onclick="return confirm('Are you sure want to delete this song?')" data-toggle="tooltip" data-placement="left" title="Delete this song"><i class="fas fa-fw fa-trash"></i></a>
                         @endif
                         @if(Route::currentRouteName() == 'backend.songs.add')
                             <button type="submit" class="btn btn-primary">Submit</button>

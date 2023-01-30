@@ -3,7 +3,7 @@
     @foreach ($transaction as $trx)
         @if(isset($trx->payments))
             <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="transaction" data-id="{{ $trx->id }}">
-                <td class="text-center desktop"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">NXA{{ $trx->transaction_id }}</a></td>
+                <td class="text-center desktop"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">NEX{{ $trx->transaction_id }}</a></td>
                 <td class="text-center"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">{{$trx->albums->title}}</a></td>
                 <td class="text-center">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</td>
                 <td class="text-center text-danger">Rp {{ number_format((float)($trx->nilai_voucher), 0, ',', '.') }}</td>

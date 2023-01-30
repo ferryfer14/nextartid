@@ -6,6 +6,8 @@
             </div>
         </td>
         <td><a href="{{ route('backend.albums.edit', ['id' => $album->id]) }}">{!! $album->title !!}</a></td>
+        <td id="album_{{ $album->id }}" class="editable" title="Click to edit">{!! $album->upc !!}</td>
+        <!--<td class="desktop">{{ $album->upc }}</td>-->
         <td class="desktop">{{ $album->primary_artist }}</td>
         <td>
             @if(isset($album->user) && $album->user->artist)
@@ -14,7 +16,7 @@
                 <span class="text-muted font-weight-light font-italic">System</span>
             @endif
         </td>
-        <td class="desktop">@foreach($album->genres as $genre)<a href="{{ route('backend.genres.edit', ['id' => $genre->id]) }}" title="{{ $genre->name }}">{{$genre->name}}</a>@if(!$loop->last), @endif @endforeach</td>
+        <!--<td class="desktop">@foreach($album->genres as $genre)<a href="{{ route('backend.genres.edit', ['id' => $genre->id]) }}" title="{{ $genre->name }}">{{$genre->name}}</a>@if(!$loop->last), @endif @endforeach</td>-->
         <!--<td class="desktop">@foreach($album->moods as $mood)<a href="{{ route('backend.moods.edit', ['id' => $mood->id]) }}" title="{{ $mood->name }}">{{$mood->name}}</a>@if(!$loop->last), @endif @endforeach</td>-->
         <td class="desktop">
             @if($album->approved)

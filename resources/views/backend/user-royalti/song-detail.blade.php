@@ -33,7 +33,7 @@
                     @foreach ($royaltis as $index => $royalti)
                         <tr>
                             <td>{{ $royalti->patner }}</td>
-                            <td class="text-center desktop">${{ isset($royalti->value) ? round($royalti->value,3) : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($royalti->value) ? round($royalti->value,2) : '0' }}</td>
                         </tr>
                     @endforeach
                 </tbody>
