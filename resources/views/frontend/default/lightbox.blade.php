@@ -1726,7 +1726,7 @@
                                 <label for="FORM_VALUE">
                                     <span data-translate-text="FORM_VALUE">{{ __('web.FORM_VALUE') }}</span>
                                 </label>
-                                <input name="value" type="number" required>
+                                <input name="value" readonly type="number" required>
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">

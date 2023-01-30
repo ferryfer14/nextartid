@@ -1143,13 +1143,31 @@ class ArtistManagementController extends Controller
     {   
         $data = array();
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $startDate = date('Y-m');
+        $endDate = date('Y-m');
+        for($i = 0; $i< count($this->artist->royalti_tanggal); $i++){
+            if($i==0){
+                $startDate = $this->artist->royalti_tanggal[$i];
+            }else{
+                $endDate = $this->artist->royalti_tanggal[$i];
+            }
+        }
+        $period = new CarbonPeriod($startDate, '1 month', $endDate);
 
+        $dateWhere = array();
+        foreach ($period as $date) {
+            $dateString = date('Y-m', strtotime($date->toDateString()));
+            array_push($dateWhere, $dateString);
+        }
+        
+        // Convert to associative array
+        $this->artist->royalti_month = Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',auth()->user()->artist_id)->pluck('id'))->whereIn(DB::raw("DATE_FORMAT(start_date,'%Y-%m')"), $dateWhere)->groupBy('patner','date')->get();
         $royalti = [];
         for($i = 0; $i< count($this->artist->royalti_dsp); $i++){
             $royalti[] = royaltiDsp($this->artist->royalti_month, $this->artist->royalti_dsp[$i]);
         }
         $data['dsp'] = $this->artist->royalti_dsp;
-        $data['date'] = $this->artist->royalti_tanggal;
+        $data['date'] = $dateWhere;
         $data['royalti'] = $royalti;
 
         return response()->json(array(
@@ -1595,6 +1613,10 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         if(Song::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+            $album = Album::withoutGlobalScopes()->findOrFail($song->album->id);
+            $transaction = Transaction::withoutGlobalScopes()->where('album_id', $song->album_id)->first();
+            $transaction->amount = $album->price->harga_discount*$album->song_count;
+            $transaction->save();
             if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($song->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
                 return response()->json([
                     'message' => 'React the limited time to edit',

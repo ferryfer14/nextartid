@@ -110,7 +110,7 @@ class Artist extends Model implements HasMedia
     
     public function getRoyaltiTanggalAttribute($value)
     {
-        return Royalti::withoutGlobalScopes()->selectRaw("DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('date')->get()->pluck('date');
+        return Royalti::withoutGlobalScopes()->selectRaw("DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('date')->get()->pluck('date')->toArray();
     }
     
     public function getUnconfirmAttribute($value)

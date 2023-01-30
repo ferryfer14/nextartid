@@ -89,31 +89,30 @@
             }*/
 
             $.engineLightBox.show("lightbox-withdraw-royalti");
-            $('#withdraw-form').find('input[name=value]').keyup(function() {
-                $.ajax({
-                    url: route.route('frontend.auth.user.artist.manager') + "/idr/dollar",
-                    data: {
-                        'value': $('#withdraw-form').find('input[name=value]').val()
-                    },
-                    type: 'post',
-                    dataType: 'json',
-                    success: function (response) {
-                        console.log(response);
-                        var idr = Math.floor(response.idr);
-                        var exchange_rate_gap = Math.floor(idr*response.exchange_rate_gap/100);
-                        var kurs = idr-exchange_rate_gap;
-                        var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
-                        var admin = (nilai)*response.admin.charge_admin/100;
-                        var tax = (nilai-admin)*response.admin.charge_tax/100;
-                        var total = nilai-tax-admin;
-                        $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
-                        $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
-                        $('#withdraw-form').find('input[name=value_idr]').val(nilai);
-                        $('#withdraw-form').find('input[name=value_tax]').val(tax);
-                        $('#withdraw-form').find('input[name=value_admin]').val(admin);
-                        $('#withdraw-form').find('input[name=value_total]').val(total);
-                    }
-                });
+            $('#withdraw-form').find('input[name=value]').val(el.data('royalti'));
+            $.ajax({
+                url: route.route('frontend.auth.user.artist.manager') + "/idr/dollar",
+                data: {
+                    'value': el.data('royalti')
+                },
+                type: 'post',
+                dataType: 'json',
+                success: function (response) {
+                    console.log(response);
+                    var idr = Math.floor(response.idr);
+                    var exchange_rate_gap = Math.floor(idr*response.exchange_rate_gap/100);
+                    var kurs = idr-exchange_rate_gap;
+                    var nilai = $('#withdraw-form').find('input[name=value]').val()*kurs;
+                    var admin = (nilai)*response.admin.charge_admin/100;
+                    var tax = (nilai-admin)*response.admin.charge_tax/100;
+                    var total = nilai-tax-admin;
+                    $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
+                    $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
+                    $('#withdraw-form').find('input[name=value_idr]').val(nilai);
+                    $('#withdraw-form').find('input[name=value_tax]').val(tax);
+                    $('#withdraw-form').find('input[name=value_admin]').val(admin);
+                    $('#withdraw-form').find('input[name=value_total]').val(total);
+                }
             });
             Artist.withdrawForm.ajaxForm({
                 beforeSubmit: function (data, $form, options) {
