@@ -1593,12 +1593,17 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         if(Song::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+            $album = Album::withoutGlobalScopes()->findOrFail($song->album_id);
+            $transaction = Transaction::withoutGlobalScopes()->where('album_id', $song->album_id)->first();
+            $transaction->amount = $album->price->harga_discount*$album->song_count;
+            $transaction->save();
             if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($song->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
                 return response()->json([
                     'message' => 'React the limited time to edit',
                     'errors' => array('message' => array(__('web.POPUP_DELETE_SONG_DENIED')))
                 ], 403);
             } else {
+
                 $song->delete();
                 return response()->json(array('success' => true));
             }
