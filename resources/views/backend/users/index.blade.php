@@ -21,14 +21,14 @@
                         <div id="collapseOne" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
                             <form class="search-form" action="{{ route('backend.users') }}">
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <div class="input-group mr-3">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text">Username</div>
-                                            </div>
-                                            <input type="text" class="form-control" name="username" value="{{ request()->input('username') }}">
-                                        </div>
-                                    </div>
+                                    <!--<div class="form-group col-md-6">-->
+                                    <!--    <div class="input-group mr-3">-->
+                                    <!--        <div class="input-group-prepend">-->
+                                    <!--            <div class="input-group-text">Username</div>-->
+                                    <!--        </div>-->
+                                    <!--        <input type="text" class="form-control" name="username" value="{{ request()->input('username') }}">-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
                                     <div class="form-group col-md-6">
                                         <div class="input-group mr-3">
                                             <div class="input-group-prepend">
@@ -139,14 +139,15 @@
                     <tr>
                         <th class="th-image"></th>
                         <th>Name</th>
-                        <th class="desktop">Username</th>
+                        <!--<th class="desktop">Username</th>-->
                         <th class="desktop">Email</th>
+                        <th class="desktop">Mobile</th>
                         <th class="desktop">Group</th>
                         <th class="desktop">Joined</th>
-                        <th class="desktop">Last visited</th>
-                        <th class="desktop text-center th-2action" data-toggle="tooltip" title="Number of news articles"><i class="fas fa-newspaper"></i></th>
+                        <!--<th class="desktop">Last visited</th>-->
+                        <!--<th class="desktop text-center th-2action" data-toggle="tooltip" title="Number of news articles"><i class="fas fa-newspaper"></i></th>-->
                         <th class="desktop text-center th-2action" data-toggle="tooltip" title="Number of songs"><i class="fas fa-music"></i></th>
-                        <th class="desktop text-center th-2action" data-toggle="tooltip" title="Comments"><i class="fas fa-comment fa-fw"></i></th>
+                        <!--<th class="desktop text-center th-2action" data-toggle="tooltip" title="Comments"><i class="fas fa-comment fa-fw"></i></th>-->
                         <th class="th-2action desktop">Action</th>
                         <th class="th-checkbox">
                             <label class="engine-checkbox">

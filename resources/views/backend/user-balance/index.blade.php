@@ -48,8 +48,9 @@
                                 <td class="desktop">Unknown</td>
                             @endif
                             <td class="text-center desktop">{{ isset($user->artist->balance_idr) ? 'Rp '.number_format((float)($user->artist->balance_idr), 0, ',', '.') : '0' }}</td>
-                            <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? (round($user->artist->balance_confirm,3)) : '0' }}</td>
-                            <td class="text-center desktop">${{ isset($user->artist->balance_unconfirm) ? (round($user->artist->balance_unconfirm,3)) : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($user->artist->balance_confirm) ? (round($user->artist->balance_confirm,2)) : '0' }}</td>
+                            <td class="text-center desktop">${{ isset($user->artist->balance_unconfirm) ? (round($user->artist->balance_unconfirm,2)) : '0' }}</td>
+
                             <td class="desktop">
                                 <a class="row-button detail" href="{{ route('backend.user.balance.detail', ['id' => $user->id]) }}"><i class="fas fa-fw fa-list"></i></a>
                             </td>

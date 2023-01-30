@@ -70,7 +70,7 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
         array_push($my_artist,'producer');
         array_push($my_artist,'remixer');
         array_push($my_artist,'composer');
-        array_push($my_artist,'lyricist');
+        // array_push($my_artist,'lyricist');
         array_push($my_artist,'publisher');
         array_push($my_artist,'featuring');
         array_push($my_artist,'with');
@@ -94,8 +94,8 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
         ->leftJoin('genres as g','g.id',(new Song)->getTable() . '.genre')
         ->leftJoin('genres as sg','sg.id',(new Song)->getTable() . '.second_genre')
         ->where('al.paid','=','1')
-        ->whereDate('al.created_at','>=', date('Y-m-d', strtotime($this->start)))
-        ->whereDate('al.created_at','<=', date('Y-m-d', strtotime($this->finish)))
+        ->whereDate('al.inserted_at','>=', date('Y-m-d', strtotime($this->start)))
+        ->whereDate('al.inserted_at','<=', date('Y-m-d', strtotime($this->finish)))
         ->get();    
         foreach ($song as $s) {
             $song_roles = DB::table('album_artist')
@@ -194,10 +194,12 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
             [
                 '',
                 $song->album->upc ?? 'auto',
-                'NEX'.Carbon::now()->timestamp,
+                $song->album->ref,
+                // 'NEX'.Carbon::now()->timestamp,
                 $song->album->grid,
                 $song->album->title,
-                $song->album->remix_version,
+                // $song->album->remix_version,
+                $song->album->remix_version = strtolower($song->album->remix_version) === 'original' || strtolower($song->album->remix_version) ? '' : $song->album->remix_version,
                 $song->album->user->email,
                 $song->album->label,
                 substr('primary:'.$song->album->primary_artist.';composer:'.$song->album->composer.';arranger:'.$song->album->arranger.';'.$song->roles_album, 0, -1),
@@ -220,7 +222,8 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
                 $song->isrc ?? 'auto',
                 $song->iswc,
                 $song->title,
-                $song->remix_version,
+                // $song->remix_version,
+                $song->remix_version = strtolower($song->remix_version) === 'original' || strtolower($song->remix_version) ? '' : $song->remix_version,
                 substr('primary:'.$song->primary_artist.';composer:'.$song->composer.';arranger:'.$song->arranger.';'.$song->roles_song, 0, -1),
                 $song->genre_name,                
                 $song->second_genre_name,          
@@ -235,10 +238,12 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
             [
                 '',
                 $song->album->upc ?? 'auto',
-                'NEX'.Carbon::now()->timestamp,
+                $song->album->ref,
+                // 'NEX'.Carbon::now()->timestamp,
                 $song->album->grid,
                 $song->album->title,
-                $song->album->remix_version,
+                // $song->album->remix_version,
+                $song->album->remix_version = strtolower($song->album->remix_version) === 'original' || strtolower($song->album->remix_version) ? '' : $song->album->remix_version,
                 $song->album->user->email,
                 $song->album->label,
                 substr('primary:'.$song->album->primary_artist.';composer:'.$song->album->composer.';arranger:'.$song->album->arranger.';'.$song->roles_album, 0, -1),
@@ -261,7 +266,8 @@ class AlbumRangeExport implements FromCollection,WithHeadings,WithColumnFormatti
                 $song->isrc ?? 'auto',
                 $song->iswc,
                 $song->title,
-                $song->remix_version,
+                // $song->remix_version,
+                $song->remix_version = strtolower($song->remix_version) === 'original' || strtolower($song->remix_version) ? '' : $song->remix_version,
                 substr('primary:'.$song->primary_artist.';composer:'.$song->composer.';arranger:'.$song->arranger.';'.$song->roles_song, 0, -1),
                 $song->genre_name,                
                 $song->second_genre_name,          

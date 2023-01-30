@@ -104,7 +104,8 @@ class UsersController
         {
             $users = $users->paginate(intval($this->request->input('results_per_page')));
         } else {
-            $users = $users->paginate(20);
+            // $users = $users->paginate(20);
+            $users = $users->orderBy('created_at', 'desc')->paginate(20);
         }
 
         $total_users = User::count();

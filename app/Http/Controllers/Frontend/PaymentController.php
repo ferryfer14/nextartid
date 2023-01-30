@@ -50,6 +50,7 @@ class PaymentController
             $payment->save();
             $transaction = Transaction::withoutGlobalScopes()->where('transaction_id',$payment->transaction_id)->first();
             $transaction->status = 1;
+            $transaction->yt_trx_id = $this->request->input('yt_trx_id');
             $transaction->save();
             $album = Album::withoutGlobalScopes()->where('id',$transaction->album_id)->first();
             $album->paid = 1;

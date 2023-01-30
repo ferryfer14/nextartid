@@ -21,7 +21,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keyword</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="term" class="form-control" placeholder="Enter album name or transaction id without prefix NXA" value="{{ request()->input('term') }}">
+                                        <input type="text" name="term" class="form-control" placeholder="Enter album name or transaction id without prefix NEX" value="{{ request()->input('term') }}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -69,7 +69,7 @@
                 @foreach ($paid as $index => $pen )
                     @if($pen->transaction_id)
                         <tr>
-                            <td>NXA{{ $pen->transaction_id }}</td>
+                            <td>NEX{{ $pen->transaction_id }}</td>
                             <td>{{ isset($pen->albums->title) ? $pen->albums->title : '' }}</td>
                             <td><span>Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
                             <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_voucher), 0, ',', '.') }}</span></td>

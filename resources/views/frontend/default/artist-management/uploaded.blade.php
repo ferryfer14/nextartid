@@ -13,7 +13,7 @@
                     <div class="metadata">
                         <div class="title">
                             <!--<p class="text-secondary">Title Album</p>-->
-                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne{{ $album->id }}" aria-expanded="true" aria-controls="collapseOne">
+                            <a class="btn btn-link p-0 m-0" data-toggle="collapse" data-target="#collapseOne{{ $album->id }}" aria-expanded="true" aria-controls="collapseOne{{ $album->id }}">
                                 <h3 class="m-0 font-weight-bold text-primary">{{ $album->title }}</h3>
                             </a>
                         </div>
@@ -50,14 +50,14 @@
                             <th class="text-right"></th>
                         </tr>
                         </thead>
-                        <tbody class="infinity-load-more">
+                        <tbody>
                             @foreach ($album->song as $index => $song)
                                 <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="song" data-id="{{ $song->id }}">
                                     <td style="width: 60px">
                                         <div class="img-container">
                                             <img class="img" src="{{$song->artwork_url}}" alt="{!! $song->title !!}">
                                             <div class="row-actions primary song-play-action">
-                                                @if(! $song->pending)
+                                                @if(!$song->pending)
                                                     <a class="btn play-lg play-object" data-type="song" data-id="{{ $song->id }}">
                                                         <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
                                                         <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
@@ -121,7 +121,7 @@
                     <h1 title="{!! auth()->user()->email !!}">{!! auth()->user()->email !!}<span class="subpage-header"> / Royalty</span></h1>
                     <div class="byline">Royalty History.</div>
                     <div class="actions-primary">
-                        <a class="btn withdraw-royalti" data-min="100" data-max="{{ round($artist->balance_confirm,3)-round($artist->sum_withdraw,3) }}">
+                        <a class="btn withdraw-royalti" data-royalti="{{round($artist->balance_confirm,3)}}" data-min="100" data-max="{{ round($artist->balance_confirm,3)-round($artist->sum_withdraw,3) }}">
                             <svg height="26" width="14" viewBox="0 0 511.854 511.854" xmlns="http://www.w3.org/2000/svg"><g><g><path d="m480.927 190.854c16.542 0 30-13.458 30-30v-38.844c0-12.317-7.377-23.234-18.8-27.831l-224.952-91.98c-7.325-2.951-15.252-2.899-22.391-.042-.166.067 3.765-1.54-225.058 92.023-11.423 4.596-18.8 15.514-18.8 27.831v38.845c0 16.542 13.458 30 30 30h18v226h-18c-16.542 0-30 13.458-30 30v35c0 16.542 13.458 30 30 30h450c16.542 0 30-13.458 30-30v-35c0-16.542-13.458-30-30-30h-18v-226h18.001zm0 256c.019 35.801.1 35 0 35h-450v-35zm-402-30v-226h34v226zm64 0v-226h66v226zm96 0v-226h34v226zm64 0v-226h66v226zm96 0v-226h34v226zm-368-256c0-41.843-.045-38.826.105-38.887l224.895-91.957 224.895 91.957c.155.062.105-2.857.105 38.887-4.986 0-444.075 0-450 0z"/></g><g><path d="m255.927 64.854c-8.284 0-15 6.716-15 15v32c0 8.284 6.716 15 15 15s15-6.716 15-15v-32c0-8.284-6.716-15-15-15z"/></g></g></svg>
                             <span>Convert Royalty to Wallet</span>
                         </a>

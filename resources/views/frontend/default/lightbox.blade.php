@@ -317,6 +317,7 @@
                                 </div>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -409,31 +410,31 @@
                                 <div class="row">
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="signup-email" data-translate-text="FORM_EMAIL_ADDRESS">{{ __('web.FORM_EMAIL_ADDRESS') }}</label>
-                                        <div class="controls"><input class="signup-text" id="signup-email" name="email" type="text"></div>
+                                        <div class="controls"><input class="signup-text" id="signup-email" name="email" type="text" required></div>
                                     </div>
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="signup-fname" data-translate-text="FORM_NAME">{{ __('web.FORM_NAME') }}</label>
-                                        <div class="controls"><input class="signup-text" id="signup-fname" name="name" type="text"></div>
+                                        <div class="controls"><input class="signup-text" id="signup-fname" name="name" type="text" autocapitalize="words" required></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="signup-password1" data-translate-text="FORM_PASSWORD">{{ __('web.FORM_PASSWORD') }}</label>
-                                        <div class="controls"><input class="signup-text" id="signup-password1" name="password" type="password"></div>
+                                        <div class="controls"><input class="signup-text" id="signup-password1" name="password" type="password" required></div>
                                     </div>
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="signup-password2" data-translate-text="FORM_CONFIRM_PASSWORD">{{ __('web.FORM_CONFIRM_PASSWORD') }}</label>
-                                        <div class="controls"><input class="signup-text" id="signup-password2" name="password_confirmation" type="password"></div>
+                                        <div class="controls"><input class="signup-text" id="signup-password2" name="password_confirmation" type="password" required></div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="phone" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
-                                        <input type="text" id="phone" name="phone" value="">
+                                        <input type="text" id="phone" name="phone" value="" required>
                                     </div>
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-1" data-translate-text="FORM_ARTIST1">{{ __('web.FORM_ARTIST1') }}</label>
-                                        <div class="controls"><input class="signup-text" id="artist1" name="artist1" type="text"></div>
+                                        <div class="controls"><input class="signup-text" id="artist1" name="artist1" type="text" autocapitalize="words" required></div>
                                     </div>
                                     <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone1" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
@@ -464,7 +465,7 @@
                                 <div class="row">
                                     <div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-2" data-translate-text="FORM_ARTIST2">{{ __('web.FORM_ARTIST2') }}</label>
-                                        <div class="controls"><input class="signup-text" id="artist2" name="artist2" type="text"></div>
+                                        <div class="controls"><input class="signup-text" id="artist2" name="artist2" type="text" autocapitalize="words"></div>
                                     </div>
                                     <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone2" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
@@ -883,12 +884,15 @@
                         <button class="btn btn-primary" type="submit" data-translate-text="SAVE_CHANGES">{{ __('web.SAVE_CHANGES') }}</button>
                     </div>
                     <div class="left">
+
                         <div class="row ml-0 mr-0 mt-2">
                             <input class="hide custom-checkbox" id="edit-playlist-checkbox" type="checkbox" name="visibility">
                             <label class="cbx" for="edit-playlist-checkbox"></label>
                             <label class="lbl" for="edit-playlist-checkbox">{{ __('web.MAKE_PUBLIC') }}</label>
                         </div>
+
                     </div>
+
                 </div>
             </form>
         </div>
@@ -1260,7 +1264,7 @@
         <div class="lbcontainer">
             <div id="royalti-unconfirm">
                 <div class="lightbox-header">
-                    <h2 class="title">Detail Royalti Unconfirm</h2>
+                    <h2 class="title">Unconfirmed Royalty Details</h2>
                     @yield('lightbox-close')
                 </div>
                 <div class="lightbox-content">
@@ -1268,8 +1272,8 @@
                         <table id="detail-royalti" class="table detail-royalti">
                             <thead>
                             <tr>
-                                <th class="text-left">Patner</th>
-                                <th class="text-center">Royalti</th>
+                                <th class="text-left">Digital Service Provide (DSP) Partners</th>
+                                <th class="text-center">Royalty</th>
                                 <th class="text-center">Date</th>
                             </tr>
                             </thead>
@@ -1285,7 +1289,8 @@
         <div class="lbcontainer">
             <div id="upload-song">
                 <div class="lightbox-header">
-                    <h2 class="title">Detail Royalti Confirm</h2>
+                    <h2 class="title">Confirmed Royalty Details</h2>
+
                     @yield('lightbox-close')
                 </div>
                 <div class="lightbox-content">
@@ -1293,8 +1298,8 @@
                         <table id="detail-royalti" class="table detail-royalti">
                             <thead>
                             <tr>
-                                <th class="text-left">Patner</th>
-                                <th class="text-center">Royalti</th>
+                                <th class="text-center">Digital Service Provide (DSP) Partners</th>
+                                <th class="text-center">Royalty</th>
                                 <th class="text-center">Date</th>
                             </tr>
                             </thead>
@@ -1310,7 +1315,7 @@
         <div class="lbcontainer">
             <div id="royalti-unconfirm">
                 <div class="lightbox-header">
-                    <h2 class="title">Detail Royalti Unconfirm</h2>
+                    <h2 class="title">Unconfirmed Royalty Details</h2>
                     @yield('lightbox-close')
                 </div>
                 <div class="lightbox-content">
@@ -1318,8 +1323,8 @@
                         <table id="detail-royalti" class="table detail-royalti">
                             <thead>
                             <tr>
-                                <th class="text-left">Patner</th>
-                                <th class="text-center">Royalti</th>
+                                <th class="text-left">Digital Service Provide (DSP) Partners</th>
+                                <th class="text-center">Royalty</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1334,7 +1339,7 @@
         <div class="lbcontainer">
             <div id="upload-song">
                 <div class="lightbox-header">
-                    <h2 class="title">Detail Royalti Confirm</h2>
+                    <h2 class="title">Confirmed Royalty Details</h2>
                     @yield('lightbox-close')
                 </div>
                 <div class="lightbox-content">
@@ -1342,8 +1347,8 @@
                         <table id="detail-royalti" class="table detail-royalti">
                             <thead>
                             <tr>
-                                <th class="text-left">Patner</th>
-                                <th class="text-center">Royalti</th>
+                                <th class="text-left">Digital Service Provide (DSP) Partners</th>
+                                <th class="text-center">Royalty</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -1498,7 +1503,7 @@
                                     </label>
                                     <input name="isrc" type="text" placeholder="Your ISRC Code" readonly>
                                     <input name="isrc-code" type="checkbox" checked="checked">
-                                    I don't have one, assign a UPC code to this release automatically
+                                    I don't have one, assign a ISRC code to this release automatically
                                 </div>
                                 <div class="control field">
                                     <label for="iswc-code">
@@ -1624,10 +1629,15 @@
                                                 <label class="lbl" for="edit-song-comments">{{ __('web.ALLOW_COMMENTS') }}</label>
                                             </div>
                                         </div>
+
                                     </div>
+
                                 </div>
+
                                 <div class="control field">
+
                                     <div class="row">
+
                                         <div class="col-6">
                                             <div class="row ml-0 mr-0 mt-2 downloadable-check-box">
                                                 <input class="hide custom-checkbox" type="checkbox" name="downloadable" id="edit-song-downloadable">
@@ -1635,6 +1645,7 @@
                                                 <label class="lbl" for="edit-song-downloadable">{{ __('web.ALLOW_DOWNLOAD') }}</label>
                                             </div>
                                         </div>
+
                                         <div class="col-6">
                                             <div class="row ml-0 mr-0 mt-2 selling-check-box" data-toggle="collapse" href="#edit-song-collapse-id" role="button" aria-expanded="false" aria-controls="edit-song-collapse-id">
                                                 <input class="hide custom-checkbox" type="checkbox" name="selling" id="edit-song-selling">
@@ -1642,14 +1653,18 @@
                                                 <label class="lbl" for="edit-song-selling">{{ __('web.SELL_THIS_SONG') }}</label>
                                             </div>
                                         </div>
+
                                     </div>
+
                                 </div>
+
                                 <div class="control field collapse" id="edit-song-collapse-id">
                                     <label for="created_at">
                                         <span data-translate-text="FORM_PRICE">{{ __('web.FORM_PRICE') }} </span>
                                     </label>
                                     <input name="price" type="number" step="1" min="{{ \App\Models\Role::getValue('monetization_song_min_price') }}" max="{{ \App\Models\Role::getValue('monetization_song_max_price') }}" placeholder="{{ __('web.SELL_THIS_SONG_TIP') }}" autocomplete="off">
                                 </div>
+
                             </div>
                             <input name="id" type="hidden">
                             <input name="type" value="song" type="hidden">
@@ -1711,29 +1726,29 @@
                                 <label for="FORM_VALUE">
                                     <span data-translate-text="FORM_VALUE">{{ __('web.FORM_VALUE') }}</span>
                                 </label>
-                                <input name="value" type="number" required>
+                                <input name="value" readonly type="number" required>
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">
-                                    <span>Value IDR</span>
+                                    <span>IDR Convertion</span>
                                 </label>
                                 <input name="value_idr" readonly type="number">
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">
-                                    <span id="admin">Charge Admin</span>
+                                    <span id="admin">NextArt fee</span>
                                 </label>
                                 <input name="value_admin" readonly type="number">
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">
-                                    <span id="tax">Charge Tax</span>
+                                    <span id="tax">Tax (PPh)</span>
                                 </label>
                                 <input name="value_tax" readonly type="number">
                             </div>
                             <div class="control field">
                                 <label for="FORM_VALUE">
-                                    <span>Value Total</span>
+                                    <span>Final</span>
                                 </label>
                                 <input name="value_total" readonly type="number">
                             </div>
@@ -1765,7 +1780,7 @@
                                 <div class="img-container">
                                     <img class="img" src="{{ asset('common/default/album.png') }}" data-default-artwork="{{ asset('artworks/defaults/album.png') }}"/>
                                     <div class="control artwork-select">
-                                        <span>{{ __('web.EDIT') }}</span>
+                                        <span>{{ __('web.EDIT') }}</span> 
                                         <input class="input-album-artwork" name="artwork" accept="image/*" title="" type="file">
                                     </div>
                                 </div>
@@ -1793,13 +1808,13 @@
                                         <label for="title">
                                             <span data-translate-text="FORM_TITLE">{{ __('FORM_TITLE') }}</span>
                                         </label>
-                                        <input name="title" type="text" required>
+                                        <input name="title" type="text" autocapitalize="words" required>
                                     </div>
                                     <div class="control field">
                                         <label>
                                             <span data-translate-text="{{ __('FORM_ALBUM_VERSION') }}">{{ __('Remix or Version (optional)') }}</span>
                                         </label>
-                                        <input name="remix_version" type="text" placeholder="Remix or Version" autocomplete="off">
+                                        <input name="remix_version" type="text" placeholder="Remix or Version" autocapitalize="words" autocomplete="off">
                                     </div>
                                     <div class="control field">
                                         <label for="name">
@@ -1825,7 +1840,7 @@
                                                 <input type="text" class="form-control" value="Primary Artist" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="primary-artist" readonly type="text" placeholder="Primary Artist Name" autocomplete="off">
+                                                <input name="primary-artist" readonly type="text" placeholder="Primary Artist Name" autocapitalize="words" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -1833,7 +1848,7 @@
                                                 <input type="text" class="form-control" value="Composer" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="composer" type="text" placeholder="Artist Name" autocomplete="off">
+                                                <input name="composer" type="text" placeholder="Artist Name" autocapitalize="words" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -1841,7 +1856,7 @@
                                                 <input type="text" class="form-control" value="Arranger" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="arranger" type="text" placeholder="Artist Name" autocomplete="off">
+                                                <input name="arranger" type="text" placeholder="Artist Name" autocapitalize="words" autocomplete="off">
                                             </div>
                                         </div>
                                         <div class="row">
@@ -1849,7 +1864,7 @@
                                                 <input type="text" class="form-control" value="Lyricist" readonly="">
                                             </div>
                                             <div class="col-md-7">
-                                                <input name="lyricist" type="text" placeholder="Artist Name" autocomplete="off">
+                                                <input name="lyricist" type="text" placeholder="Artist Name" autocapitalize="words" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1873,7 +1888,7 @@
                                             ), 'roles[]', NULL, false) !!}
                                             </div>
                                             <div class="col-md-7 d-flex align-items-center">
-                                                <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocomplete="off">          
+                                                <input name="additional-artist[]" type="text" placeholder="Additional Artist Role Name" autocapitalize="words" autocomplete="off">          
                                                 <a class="bg-success text-white btn-add-artist-album p-1">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
                                                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
@@ -1909,7 +1924,7 @@
                                         <label for="language">
                                             <span data-translate-text="FORM_LANGUAGE">{{ ('FORM_LANGUAGE') }}</span>
                                         </label>
-                                        <select name="language" placeholder="Select language" autocomplete="off">
+                                        <select name="language" placeholder="Select language" autocomplete="off" required>
                                             <option value="1" selected>Indonesia</option>
                                             <option value="2">English</option>
                                         </select>
@@ -1997,10 +2012,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input title="The Year of the recording" type="text" name="recording_year" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input title="The Year of the recording" type="text" name="recording_year" required placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                    <input title="The Record Company Name" name="recording_name" type="text" placeholder="Recording Name" autocomplete="off">
+                                                    <input title="The Record Company Name" name="recording_name" required type="text" placeholder="Recording Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -2011,7 +2026,7 @@
                                         </label>
                                         <input type="text" name="check" value="Entire World" readonly="">
                                     </div>
-                                    <div class="control field mb-0">
+                                    <div class="control field mb-0 hide">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="row ml-0 mr-0 mt-2">
@@ -2029,7 +2044,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="control field">
+                                    <div class="control field hide">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="row ml-0 mr-0 mt-2" data-toggle="collapse" href="#create-album-collapse-id" role="button" aria-expanded="false" aria-controls="create-album-collapse-id">
@@ -2046,6 +2061,7 @@
                                         </label>
                                         <input name="price" type="number" step="1" min="{{ \App\Models\Role::getValue('monetization_album_min_price') }}" max="{{ \App\Models\Role::getValue('monetization_album_max_price') }}" placeholder="{{ __('web.SELL_THIS_SONG_TIP') }}" autocomplete="off">
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -2075,7 +2091,7 @@
                             <div class="select_all">
                                 <input name="id" type="hidden">
                                 <input name="payment" type="hidden">
-                                <input name="patner_all" value="1" id='select_all_patner' type='checkbox'> Select All    
+                                <input name="patner_all" value="0" id='select_all_patner' type='checkbox'> Select All    
                                 <hr class="sidebar-divider m-0 mb-1">
                             </div>
                             <div class="lightbox-with-artwork-block">
@@ -2353,10 +2369,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input type="text" name="license_year" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input type="text" name="license_year" required placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                <input name="license_name" type="text" placeholder="License Holder Name" autocomplete="off">
+                                                <input name="license_name" type="text" required placeholder="License Holder Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -2366,10 +2382,10 @@
                                         </label>
                                         <div class="row">
                                             <div class="col-md-3">
-                                                <input title="The Year of the recording" type="text" name="recording_year" placeholder="Year" class="form-control" autocomplete="off">
+                                                <input title="The Year of the recording" type="text" name="recording_year" required placeholder="Year" class="form-control" autocomplete="off">
                                             </div>
                                             <div class="col-md-9">
-                                                    <input title="The Record Company Name" name="recording_name" type="text" placeholder="Recording Name" autocomplete="off">
+                                                    <input title="The Record Company Name" name="recording_name" required type="text" placeholder="Recording Name" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -2379,7 +2395,8 @@
                                             <span data-translate-text="FORM_TERRITORIES">{{ ('FORM_TERRITORIES') }}</span>
                                         </label>
                                         <input type="text" name="check" value="Entire World" readonly="">
-                                    </div>                                    <div class="control field mb-0">
+                                    </div>
+                                    <div class="control field mb-0 hide">
                                         <div class="row">
                                             <div class="col-6">
                                                 <div class="row ml-0 mr-0 mt-2">
@@ -2397,7 +2414,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="control field">
+                                    <div class="control field hide">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="row ml-0 mr-0 mt-2" data-toggle="collapse" href="#edit-album-collapse-id" role="button" aria-expanded="false" aria-controls="edit-album-collapse-id">
@@ -2414,6 +2431,41 @@
                                         </label>
                                         <input name="price" type="number" step="1" min="{{ \App\Models\Role::getValue('monetization_album_min_price') }}" max="{{ \App\Models\Role::getValue('monetization_album_max_price') }}" placeholder="{{ __('web.SELL_THIS_SONG_TIP') }}" autocomplete="off">
                                     </div>
+                                    <!--<div class="control field mb-0">-->
+                                    <!--    <div class="row">-->
+                                    <!--        <div class="col-6">-->
+                                    <!--            <div class="row ml-0 mr-0 mt-2">-->
+                                    <!--                <input class="hide custom-checkbox" type="checkbox" name="visibility" id="edit-album-visibility">-->
+                                    <!--                <label class="cbx" for="edit-album-visibility"></label>-->
+                                    <!--                <label class="lbl" for="edit-album-visibility">{{ __('web.MAKE_PUBLIC') }}</label>-->
+                                    <!--            </div>-->
+                                    <!--        </div>-->
+                                    <!--        <div class="col-6">-->
+                                    <!--            <div class="row ml-0 mr-0 mt-2">-->
+                                    <!--                <input class="hide custom-checkbox" type="checkbox" name="comments" id="edit-album-comments">-->
+                                    <!--                <label class="cbx" for="edit-album-comments"></label>-->
+                                    <!--                <label class="lbl" for="edit-album-comments">{{ __('web.ALLOW_COMMENTS') }}</label>-->
+                                    <!--            </div>-->
+                                    <!--        </div>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                    <!--<div class="control field">-->
+                                    <!--    <div class="row">-->
+                                    <!--        <div class="col-12">-->
+                                    <!--            <div class="row ml-0 mr-0 mt-2" data-toggle="collapse" href="#edit-album-collapse-id" role="button" aria-expanded="false" aria-controls="edit-album-collapse-id">-->
+                                    <!--                <input class="hide custom-checkbox" type="checkbox" name="selling" id="edit-album-selling">-->
+                                    <!--                <label class="cbx" for="edit-album-selling"></label>-->
+                                    <!--                <label class="lbl" for="edit-album-selling">{{ __('web.SELL_THIS_ALBUM') }}</label>-->
+                                    <!--            </div>-->
+                                    <!--        </div>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
+                                    <!--<div class="control field collapse" id="edit-album-collapse-id">-->
+                                    <!--    <label for="created_at">-->
+                                    <!--        <span data-translate-text="FORM_PRICE">{{ __('web.FORM_PRICE') }} </span>-->
+                                    <!--    </label>-->
+                                    <!--    <input name="price" type="number" step="1" min="{{ \App\Models\Role::getValue('monetization_album_min_price') }}" max="{{ \App\Models\Role::getValue('monetization_album_max_price') }}" placeholder="{{ __('web.SELL_THIS_SONG_TIP') }}" autocomplete="off">-->
+                                    <!--</div>-->
                                 </div>
                             </div>
                         </div>
@@ -2973,7 +3025,7 @@
 </div>
 @if(session()->has('musictoken'))
     <script>
-        setInterval(function() {
+        var intervalId = setInterval(function() {
             var musictoken = "{{ \Session::get('musictoken') }}";
                 if(musictoken){
                     var html = '<div id="map" style="display:block; visibility:hidden">'+
@@ -2982,8 +3034,9 @@
                     $("div#map").remove();
                     setTimeout(function(){
                         $(document).find("body").append(html);
-                    }, 5000);    
+                        clearInterval(intervalId);
+                    }, 2000);    
                 }
-        }, 10000);
+        }, 5000);
     </script>
 @endif

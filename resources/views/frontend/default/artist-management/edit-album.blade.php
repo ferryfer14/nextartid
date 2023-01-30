@@ -14,7 +14,11 @@
                 <div class="inner">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h1 title="{!! $album->title !!}">{!! $album->title !!}, ({{ $album->remix_version }})</h1>
+                            @if(empty($album->remix_version))
+                                <h1 title="{!! $album->title !!}">{!! $album->title !!}</h1>
+                                @else
+                                <h1 title="{!! $album->title !!}">{!! $album->title !!} ({{ $album->remix_version}})</h1>
+                            @endif
                             <div class="mt-2">
                                 <a class="btn edit" data-type="album" data-id="{{ $album->id }}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="26" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
@@ -55,19 +59,19 @@
                                 <li class="basic-tooltip" tooltip="Before tax">
                                     <a href="{{ route('frontend.auth.user.artist.manager.uploaded') }}">
                                         <span class="num">${{ round($album->sum_royalti,3) }}</span>
-                                        <span class="label" data-translate-text="ROYALTI">Royalti</span>
+                                        <span class="label" data-translate-text="ROYALTI">Royalty</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="{{ route('frontend.auth.user.artist.manager.uploaded') }}">
-                                        <span class="num">{{ $album->song_count }}</span>
+                                        <span class="text-center num">{{ $album->song_count }}</span>
                                         <span class="label" data-translate-text="SONGS">Songs</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <span id="album-count" class="num">{{ $artist->album_count }}</span>
-                                    <span class="label" data-translate-text="">Duration</span>
-                                </li>
+                                <!--<li>-->
+                                <!--    <span id="album-count" class="num">{{ $artist->album_count }}</span>-->
+                                <!--    <span class="label" data-translate-text="">Duration</span>-->
+                                <!--</li>-->
                                 <li>
                                     <span class="num">
                                         @if($album->approved) Approved @else <span class="badge badge-warning basic-tooltip" tooltip="To get this album published, it needs to be approved by Admin.">Processing</span> @endif
@@ -75,10 +79,16 @@
                                     <span class="label" data-translate-text="">Status</span>
                                 </li>
                                 <li>
-                                    <span class="num">
+                                    <span class="text-center num">
                                         @if($album->paid) Paid @else <span class="badge badge-warning basic-tooltip" tooltip="To get this album paid, you have to pay this album.">Unpaid</span> @endif
                                     </span>
-                                    <span class="label" data-translate-text="">Status Payment</span>
+                                    <span class="label" data-translate-text="">Payment Status</span>
+                                </li>
+                                <li>
+                                    <span class="text-center num">
+                                        {{ $album->type == 4 ? 'Single' : ($album->type == 5 ? 'EP' : ($album->type == 6 ? 'LP' : 'Album')) }}
+                                    </span>
+                                    <span class="label" data-translate-text="">Album Type</span>
                                 </li>
                             </ul>
                         </div>
@@ -158,8 +168,9 @@
                 <div class="col-sm-3">
                     <span class="label">Display Artist : {{ $album->primary_artist }} </span><br/>
                     <span class="label">UPC : {{ $album->upc }}</span><br/>
-                    <span class="label">Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}</span><br/>
-                    <span class="label">Posting Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}</span>
+                    <span class="label">Digital Release : {{ Date('Y-m-d', strtotime($album->created_at)) }}</span><br/>
+                    <span class="label">Original Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}</span><br/>
+                    <span class="label">Created Date : {{ Date('Y-m-d', strtotime($album->inserted_at)) }}</span>
                 </div>
                 <div class="col-sm-3 m-0 p-0">
                     <span class="label">Artist : {{ $album->primary_artist }}@foreach($album->participants as $p) @if($p->artist_role == 1), {{ $p->artist_name }}@endif @endforeach</span><br/>
@@ -171,10 +182,11 @@
                         foreach($album->participants as $p) 
                         {
                             if($p->artist_role != 1 && $p->artist_role != 5 && $p->artist_role != 11 && $p->artist_role != 6){
-                                $others .= $p->artist_name.',';
+                                $others .= $p->artist_name.', ';
                             }
                         }
                         $others = preg_replace(strrev("/,/"),strrev(""),strrev($others),1);
+                        $others = ucwords(strrev($others));
                     @endphp
                     <span class="label">Others : {{ $others }} </span>
                 </div>
@@ -235,6 +247,7 @@
                             </div>
                             <div class="artist">
                                 {{ $song->primary_artist }}
+                                <!--@foreach($song->artists as $artist)<a href="{{$artist->permalink_url}}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach-->
                             </div>
                             <div class="duration">{{humanTime($song->duration)}}</div>
                         </div>

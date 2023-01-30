@@ -161,9 +161,10 @@
                     <tr>
                         <th class="th-image"></th>
                         <th>Name</th>
+                        <th class="desktop">UPC</th>
                         <th class="desktop">Artist(s)</th>
                         <th class="text-danger">Owner</th>
-                        <th class="desktop">Genre(s)</th>
+                        <!--<th class="desktop">Genre(s)</th>-->
                         <!--<th class="desktop">Mood(s)</th>-->
                         <th class="desktop th-2action">Approved</th>
                         <th class="desktop text-center th-2action"><i class="fas fa-music"></i></th>
@@ -183,26 +184,26 @@
                 </table>
                 <div class="row">
                     <div class="col-6">{{ $albums->appends(request()->input())->links() }}</div>
-                    <div class="col-6">
-                        <div class="form-inline float-sm-right">
-                            <div class="form-group mb-2">
-                                <select name="action" class="form-control mr-2">
-                                    <option value="">-- Action --</option>
-                                    <option value="add_genre">Add Genre</option>
-                                    <option value="change_genre">Change Genre</option>
-                                    <option value="add_mood">Add Mood</option>
-                                    <option value="change_mood">Change Mood</option>
-                                    <option value="change_artist">Change Artist</option>
-                                    <option value="approve">Approve (Publish)</option>
-                                    <option value="not_approve">Send for Moderation</option>
-                                    <option value="comments">Enable Comments</option>
-                                    <option value="not_comments">Disable Comments</option>
-                                    <option value="delete">Delete</option>
-                                </select>
-                            </div>
-                            <button id="start-mass-action" type="button" class="btn btn-primary mb-2">Start</button>
-                        </div>
-                    </div>
+                    <!--<div class="col-6">-->
+                    <!--    <div class="form-inline float-sm-right">-->
+                    <!--        <div class="form-group mb-2">-->
+                    <!--            <select name="action" class="form-control mr-2">-->
+                    <!--                <option value="">-- Action --</option>-->
+                    <!--                <option value="add_genre">Add Genre</option>-->
+                    <!--                <option value="change_genre">Change Genre</option>-->
+                    <!--                <option value="add_mood">Add Mood</option>-->
+                    <!--                <option value="change_mood">Change Mood</option>-->
+                    <!--                <option value="change_artist">Change Artist</option>-->
+                    <!--                <option value="approve">Approve (Publish)</option>-->
+                    <!--                <option value="not_approve">Send for Moderation</option>-->
+                    <!--                <option value="comments">Enable Comments</option>-->
+                    <!--                <option value="not_comments">Disable Comments</option>-->
+                    <!--                <option value="delete">Delete</option>-->
+                    <!--            </select>-->
+                    <!--        </div>-->
+                    <!--        <button id="start-mass-action" type="button" class="btn btn-primary mb-2">Start</button>-->
+                    <!--    </div>-->
+                    <!--</div>-->
                 </div>
             </form>
         </div>

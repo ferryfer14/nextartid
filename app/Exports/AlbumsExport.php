@@ -37,11 +37,21 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
     public function columnFormats(): array
     {
         return [
+            'A'     => NumberFormat::FORMAT_TEXT,
             'B2'    => NumberFormat::FORMAT_GENERAL,
             'B3:B6' => NumberFormat::FORMAT_NUMBER,
-            'O' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            'P' => NumberFormat::FORMAT_DATE_YYYYMMDD,
-            // 'B6' => NumberFormat::FORMAT_NUMBER,
+            'C:N'   => NumberFormat::FORMAT_TEXT,
+            'O:P'   => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            // 'P'  => NumberFormat::FORMAT_DATE_YYYYMMDD,
+            'S'     => NumberFormat::FORMAT_NUMBER,
+            'T'     => NumberFormat::FORMAT_TEXT,
+            'U'     => NumberFormat::FORMAT_NUMBER,
+            'V:X'   => NumberFormat::FORMAT_TEXT,
+            'Y'     => NumberFormat::FORMAT_NUMBER,
+            'Z:AH'  => NumberFormat::FORMAT_TEXT,
+            'AI'    => NumberFormat::FORMAT_NUMBER,
+            'AJ:AK'  => NumberFormat::FORMAT_TEXT,
+            // 'B6' => NumberFormat::FORMAT_NUMBER, 
         ];
     }
 /*    public function getCsvSettings(): array
@@ -69,7 +79,7 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
         array_push($my_artist,'producer');
         array_push($my_artist,'remixer');
         array_push($my_artist,'composer');
-        array_push($my_artist,'lyricist');
+        // array_push($my_artist,'lyricist');
         array_push($my_artist,'publisher');
         array_push($my_artist,'featuring');
         array_push($my_artist,'with');
@@ -99,6 +109,11 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
         foreach($album_roles as $r){
             $roles_album .= $this->roles($r->artist_role).':'.$r->artist_name.';';
         }
+        // foreach($album_roles as $r){
+        //     if($r->artist_role != "lyricist") {
+        //         $roles_album .= $this->roles($r->artist_role).':'.$r->artist_name.';';
+        //     }
+        // }
         foreach ($album as $a) {
             $a->roles_album = $roles_album;
         }
@@ -116,6 +131,11 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
             foreach($song_roles as $r){
                 $roles_song .= $this->roles($r->artist_role).':'.$r->artist_name.';';
             }
+            // foreach($song_roles as $r){
+            //     if($r->artist_role != "lyricist") {
+            //         $roles_song .= $this->roles($r->artist_role).':'.$r->artist_name.';';
+            //     }
+            // }
             $s->roles_song = $roles_song;
         }
         foreach ($song as $s) {
@@ -190,10 +210,12 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
             [
                 '',
                 $song->album->upc ?? 'auto',
-                'NEX'.Carbon::now()->timestamp,
+                // 'NEX'.Carbon::now()->timestamp,
+                'NEX'.$song->album->ref,
                 $song->album->grid,
                 $song->album->title,
-                $song->album->remix_version,
+                // $song->album->remix_version,
+                $song->album->remix_version = strtolower($song->album->remix_version) === 'original' || strtolower($song->album->remix_version) === "remix" ? '' : $song->album->remix_version,
                 $song->album->user->email,
                 $song->album->label,
                 substr('primary:'.$song->album->primary_artist.';composer:'.$song->album->composer.';arranger:'.$song->album->arranger.';'.$song->roles_album, 0, -1),
@@ -216,10 +238,11 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->isrc ?? 'auto',
                 $song->iswc,
                 $song->title,
-                $song->remix_version,
+                // $song->remix_version,
+                $song->remix_version = strtolower($song->remix_version) === 'original' || strtolower($song->remix_version) === "remix" ? '' : $song->remix_version,
                 substr('primary:'.$song->primary_artist.';composer:'.$song->composer.';arranger:'.$song->arranger.';'.$song->roles_song, 0, -1),
                 $song->genre_name,                
-                $song->second_genre_name,          
+                $song->second_genre_name,
                 $song->language == '1' ? 'ID' : 'EN',
                 $song->explicit == '0' ? 'no' : 'yes',
                 $song->publisher_year,
@@ -231,10 +254,12 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
             [
                 '',
                 $song->album->upc ?? 'auto',
-                'NEX'.Carbon::now()->timestamp,
+                // 'NEX'.Carbon::now()->timestamp,
+                'NEX'.$song->album->ref,
                 $song->album->grid,
                 $song->album->title,
-                $song->album->remix_version,
+                // $song->album->remix_version,
+                $song->album->remix_version = strtolower($song->album->remix_version) === 'original' || strtolower($song->album->remix_version) === "remix" ? '' : $song->album->remix_version,
                 $song->album->user->email,
                 $song->album->label,
                 substr('primary:'.$song->album->primary_artist.';composer:'.$song->album->composer.';arranger:'.$song->album->arranger.';'.$song->roles_album, 0, -1),
@@ -257,7 +282,8 @@ class AlbumsExport implements FromCollection,WithHeadings,WithColumnFormatting,W
                 $song->isrc ?? 'auto',
                 $song->iswc,
                 $song->title,
-                $song->remix_version,
+                // $song->remix_version,
+                $song->remix_version = strtolower($song->remix_version) === 'original' || strtolower($song->remix_version) === "remix" ? '' : $song->remix_version,
                 substr('primary:'.$song->primary_artist.';composer:'.$song->composer.';arranger:'.$song->arranger.';'.$song->roles_song, 0, -1),
                 $song->genre_name,                
                 $song->second_genre_name,          

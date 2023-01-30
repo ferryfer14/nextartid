@@ -48,6 +48,7 @@ use App\Models\Royalti;
 use App\Models\Session;
 use App\Models\Voucher;
 use App\Models\WithdrawRoyalti;
+use Carbon\CarbonPeriod;
 use chillerlan\QRCode\QRCode;
 use PDF;
 use Dompdf\Options;
@@ -774,13 +775,13 @@ class ArtistManagementController extends Controller
                 }
 
                 $song->type_song           = $this->request->input('type');
-                $song->title               = $this->request->input('title');
+                $song->title               = ucwords($this->request->input('title'));
                 $song->display_artist      = $this->request->input('display_artist');
                 $song->primary_artist      = $this->request->input('primary-artist');
-                $song->remix_version            = $this->request->input('remix_version');
-                $song->composer            = $this->request->input('composer');
-                $song->arranger            = $this->request->input('arranger');
-                $song->lyricist            = $this->request->input('lyricist');
+                $song->remix_version       = ucwords($this->request->input('remix_version'));
+                $song->composer            = ucwords($this->request->input('composer'));
+                $song->arranger            = ucwords($this->request->input('arranger'));
+                $song->lyricist            = ucwords($this->request->input('lyricist'));
                 $song->label               = $this->request->input('label');
                 $song->isrc               = $this->request->input('isrc');
                 $song->iswc               = $this->request->input('iswc');
@@ -1142,12 +1143,31 @@ class ArtistManagementController extends Controller
     {   
         $data = array();
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $startDate = date('Y-m');
+        $endDate = date('Y-m');
+        for($i = 0; $i< count($this->artist->royalti_tanggal); $i++){
+            if($i==0){
+                $startDate = $this->artist->royalti_tanggal[$i];
+            }else{
+                $endDate = $this->artist->royalti_tanggal[$i];
+            }
+        }
+        $period = new CarbonPeriod($startDate, '1 month', $endDate);
+
+        $dateWhere = array();
+        foreach ($period as $date) {
+            $dateString = date('Y-m', strtotime($date->toDateString()));
+            array_push($dateWhere, $dateString);
+        }
+        
+        // Convert to associative array
+        $this->artist->royalti_month = Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',auth()->user()->artist_id)->pluck('id'))->whereIn(DB::raw("DATE_FORMAT(start_date,'%Y-%m')"), $dateWhere)->groupBy('patner','date')->get();
         $royalti = [];
         for($i = 0; $i< count($this->artist->royalti_dsp); $i++){
             $royalti[] = royaltiDsp($this->artist->royalti_month, $this->artist->royalti_dsp[$i]);
         }
         $data['dsp'] = $this->artist->royalti_dsp;
-        $data['date'] = $this->artist->royalti_tanggal;
+        $data['date'] = $dateWhere;
         $data['royalti'] = $royalti;
 
         return response()->json(array(
@@ -1266,8 +1286,8 @@ class ArtistManagementController extends Controller
             'group_genre' => 'required|not_in:0',
             'copyright' => 'nullable|string|max:100',
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
-            'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
-            'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+            'released_at' => 'required|date_format:m/d/Y',
+            'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=3000,min_height=3000,max_width=5000,max_height=5000|max:' . config('settings.max_image_file_size', 8096)
         ]);
 
         $album = new Album();
@@ -1593,7 +1613,7 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         if(Song::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
-            $album = Album::withoutGlobalScopes()->findOrFail($song->album_id);
+            $album = Album::withoutGlobalScopes()->findOrFail($song->album->id);
             $transaction = Transaction::withoutGlobalScopes()->where('album_id', $song->album_id)->first();
             $transaction->amount = $album->price->harga_discount*$album->song_count;
             $transaction->save();
@@ -1603,7 +1623,6 @@ class ArtistManagementController extends Controller
                     'errors' => array('message' => array(__('web.POPUP_DELETE_SONG_DENIED')))
                 ], 403);
             } else {
-
                 $song->delete();
                 return response()->json(array('success' => true));
             }
@@ -1813,7 +1832,7 @@ class ArtistManagementController extends Controller
             if($album->paid == 0){
                 $this->request->validate([
                     'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
-                    'released_at' => 'required|date_format:m/d/Y|before:' . Carbon::now(),
+                    'released_at' => 'required|date_format:m/d/Y',
                 ]);
             }
             if($album->type != $this->request->input('type')) {
@@ -1834,7 +1853,7 @@ class ArtistManagementController extends Controller
                 if ($this->request->hasFile('artwork'))
                 {
                     $this->request->validate([
-                        'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
+                        'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=3000,min_height=3000,max_width=5000,max_height=5000|max:' . config('settings.max_image_file_size', 8096)
                     ]);
 
                     $album->clearMediaCollection('artwork');
@@ -1843,19 +1862,19 @@ class ArtistManagementController extends Controller
                         ->toMediaCollection('artwork', config('settings.storage_artwork_location', 'public'));
                 }
 
-                $album->title = $this->request->input('title');
+                $album->title = ucwords($this->request->input('title'));
                 $album->description = $this->request->input('description');
                 $album->visibility = $this->request->input('visibility');
                 $album->genre = $this->request->input('genre');
-                $album->remix_version       = $this->request->input('remix_version');
+                $album->remix_version       = ucwords($this->request->input('remix_version'));
                 $album->group_genre = $this->request->input('group_genre');
                 $album->label               = $this->request->input('label');
                 $album->second_genre = $this->request->input('second_genre');
                 $mood = $this->request->input('mood');
-                $album->primary_artist      = $this->request->input('primary-artist');
-                $album->composer            = $this->request->input('composer');
-                $album->arranger            = $this->request->input('arranger');
-                $album->lyricist            = $this->request->input('lyricist');
+                $album->primary_artist      = ucwords($this->request->input('primary-artist'));
+                $album->composer            = ucwords($this->request->input('composer'));
+                $album->arranger            = ucwords($this->request->input('arranger'));
+                $album->lyricist            = ucwords($this->request->input('lyricist'));
                 $album->type = $this->request->input('type');
                 $album->description = $this->request->input('description');
                 $album->copyright = $this->request->input('copyright');
@@ -2088,7 +2107,7 @@ class ArtistManagementController extends Controller
             'description' => 'nullable|string|max:1000',
             'created_at' => 'nullable|date_format:m/d/Y|after:' . Carbon::now(),
             'released_at' => 'nullable|date_format:m/d/Y|before:' . Carbon::now(),
-            'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096),
+            'artwork' => 'required|image|mimes:jpeg,png,jpg,gif|dimensions:min_width=3000,min_height=3000,max_width=5000,max_height=5000|max:' . config('settings.max_image_file_size', 8096),
             'language_id' => 'nullable|numeric',
             'country_code' => 'nullable|string|max:3',
         ]);

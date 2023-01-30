@@ -125,7 +125,7 @@ class AlbumsController
         {
             $albums = $albums->paginate(intval($this->request->input('results_per_page')));
         } else {
-            $albums = $albums->paginate(20);
+            $albums = $albums->orderBy('id', 'desc')->paginate(20);
         }
 
         return view('backend.albums.index')
