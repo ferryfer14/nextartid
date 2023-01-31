@@ -95,7 +95,7 @@ class Artist extends Model implements HasMedia
     
     public function getRoyaltiDspAttribute($value)
     {
-        return Royalti::withoutGlobalScopes()->select('id','patner')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->groupBy('patner')->get()->pluck('patner');
+        return Royalti::withoutGlobalScopes()->select('id','patner')->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->whereRaw('value > 0')->groupBy('patner')->get()->pluck('patner');
     }
      
     public function getRoyaltiTotalDspAttribute($value)

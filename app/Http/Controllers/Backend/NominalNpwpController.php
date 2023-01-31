@@ -44,6 +44,19 @@ class NominalNpwpController
         $nominal_npwp->fill($this->request->except('_token'));
 
         $nominal_npwp->save();
+        DB::table('users')
+            ->where('variant_npwp', 2)
+            ->where('status_npwp', 1)
+            ->update(['charge_tax' => $this->request->input('organization')]);
+
+        DB::table('users')
+            ->where('variant_npwp', 1)
+            ->where('status_npwp', 1)
+            ->update(['charge_tax' => $this->request->input('individual')]);
+
+        DB::table('users')
+        ->whereIn('status_npwp', [0,2])
+        ->update(['charge_tax' => $this->request->input('without_npwp')]);
         return redirect()->route('backend.nominal.npwp.edit', ['1'])->with('status', 'success')->with('message', 'Nominal NPWP successfully edited!');
     }
 }
