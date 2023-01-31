@@ -1161,7 +1161,7 @@ class ArtistManagementController extends Controller
         }
         
         // Convert to associative array
-        $this->artist->royalti_month = Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',auth()->user()->artist_id)->pluck('id'))->whereIn(DB::raw("DATE_FORMAT(start_date,'%Y-%m')"), $dateWhere)->groupBy('patner','date')->get();
+        $this->artist->royalti_month = Royalti::withoutGlobalScopes()->select('id','patner')->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',auth()->user()->artist_id)->pluck('id'))->whereIn(DB::raw("DATE_FORMAT(start_date,'%Y-%m')"), $dateWhere)->whereRaw('value > 0')->groupBy('patner','date')->get();
         $royalti = [];
         for($i = 0; $i< count($this->artist->royalti_dsp); $i++){
             $royalti[] = royaltiDsp($this->artist->royalti_month, $this->artist->royalti_dsp[$i]);
