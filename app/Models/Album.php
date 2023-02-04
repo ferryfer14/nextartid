@@ -119,7 +119,7 @@ class Album extends Model implements HasMedia
 
     public function getSecondGenreMusicAttribute($value)
     {
-        return Genre::where('id', $this->attributes['second_genre'])->first();
+        return Genre::where('id', $this->attributes['second_genre'] ?? 0)->first();
     }
 
     public function getSumRoyaltiAttribute($value)
