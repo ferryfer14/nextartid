@@ -251,6 +251,8 @@ class Album extends Model implements HasMedia
         Love::where('loveable_type', $this->getMorphClass())->where('loveable_id', $this->id)->delete();
         Activity::where('activityable_type', $this->getMorphClass())->where('activityable_id', $this->id)->delete();
         AlbumLog::where('album_id', $this->id)->delete();
+        Song::whereIn('song_id', AlbumSong::withoutGlobalScopes()->select('song_id')->where('album_id', $this->id)->get())->delete();
+        AlbumArtist::where('album_id', $this->id)->delete();
         AlbumSong::where('album_id', $this->id)->delete();
         Popular::where('album_id', $this->id)->delete();
 

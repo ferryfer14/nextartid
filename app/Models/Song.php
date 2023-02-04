@@ -365,6 +365,7 @@ class Song extends Model implements HasMedia
     {
         DB::table('playlist_songs')->where('song_id', $this->id)->delete();
         DB::table('album_songs')->where('song_id', $this->id)->delete();
+        AlbumArtist::where('song_id', $this->id)->delete();
         Comment::where('commentable_type', $this->getMorphClass())->where('commentable_id', $this->id)->delete();
         Love::where('loveable_type', $this->getMorphClass())->where('loveable_id', $this->id)->delete();
         Notification::where('notificationable_type', $this->getMorphClass())->where('notificationable_id', $this->id)->delete();
