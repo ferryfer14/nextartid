@@ -1301,7 +1301,7 @@ class ArtistManagementController extends Controller
         }else{
             $album->label           = $this->request->input('label');
         }
-        if($this->request->input('second_genre') != 0)
+        if($this->request->input('second_genre') != '' && $this->request->input('second_genre') != 0 )
         {
             $album->second_genre        = $this->request->input('second_genre');
         }
