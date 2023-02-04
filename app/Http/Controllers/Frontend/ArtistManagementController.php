@@ -1282,7 +1282,6 @@ class ArtistManagementController extends Controller
             'genre' => 'required|not_in:0',
             'display_artist' => 'required',
             'language' => 'required',
-            'second_genre' => 'nullable',
             'group_genre' => 'required|not_in:0',
             'copyright' => 'nullable|string|max:100',
             'created_at' => 'required|date_format:m/d/Y|after:' . Carbon::now()->addDays($this->minDateRelease())->toDateString(),
