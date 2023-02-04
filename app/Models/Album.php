@@ -119,7 +119,7 @@ class Album extends Model implements HasMedia
 
     public function getSecondGenreMusicAttribute($value)
     {
-        if($this->attributes['second_genre'] != null && $this->attributes['second_genre'] != ''){
+        if(isset($this->attributes['second_genre'])){
             return Genre::where('id', $this->attributes['second_genre'])->first();
         }
         return Genre::where('id', 0)->first();
