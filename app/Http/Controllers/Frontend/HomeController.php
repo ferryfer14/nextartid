@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Channel;
 use App\Models\Slide;
+use App\Models\Slider;
 use View;
 use MetaTag;
 use Auth;
@@ -31,6 +32,7 @@ class HomeController
         $home = new \stdClass();
 
         if(! Cache::has('homepage')) {
+            $home->slider = Slider::where('discover', 1)->orderBy('priority', 'asc')->get();
             $home->channels = Channel::where('allow_home', 1)->orderBy('priority', 'asc')->get();
             $home->slides = Slide::where('allow_home', 1)->get();
             Cache::put('homepage', json_encode($home), Carbon::now()->addHour());

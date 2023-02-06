@@ -998,7 +998,7 @@
                                                         <br>
 
                                                         <div class="input-group col-xs-12 position-relative">
-                                                            <input name="save_con[image_artwork_lg]" value="{{ config('settings.image_artwork_lg', 300) }}" class="form-control" type="text">
+                                                            <input name="save_con[image_artwork_lg]" value="{{ config('settings.image_artwork_lg', 900) }}" class="form-control" type="text">
                                                             <span class="input-group-btn">
                                                         <span class="browse btn btn-secondary input-lg">Large</span>
                                                     </span>

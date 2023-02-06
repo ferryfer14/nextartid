@@ -21,10 +21,10 @@
                 </div>
                 <div class="form-group">
                     <label>Organization %</label>
-                    <input class="form-control" type="number" name="organization" value="{{ isset($nominal_npwp) && ! old('organization') ? $nominal_npwp->organization : old('organization') }}" required>
+                    <input class="form-control" type="number" step='any' name="organization" value="{{ isset($nominal_npwp) && ! old('organization') ? $nominal_npwp->organization : old('organization') }}" required>
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Save">
+                    <input type="submit" class="btn btn-primary" value="submit">
                 </div>
             </form>
         </div>

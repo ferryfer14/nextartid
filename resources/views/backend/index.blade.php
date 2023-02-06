@@ -123,6 +123,18 @@
                 </div>
             </div>
         </li>
+        <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLanding" aria-expanded="false" aria-controls="collapseAlbum">
+                <i class="fas fa-fw fa-home"></i>
+                <span>Landing</span>
+            </a>
+            <div id="collapseLanding" class="collapse" aria-labelledby="headingMusic" data-parent="#accordionSidebar">
+                <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage Slider', 'icon' => 'fa-image', 'permission' => 'admin_slideshow', 'route' => 'backend.slider'])
+                </div>
+            </div>
+        </li>
         @if(\App\Models\Role::getValue('admin_users'))
         <hr class="sidebar-divider">
             <li class="nav-item">
