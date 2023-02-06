@@ -1,5 +1,56 @@
 @if(Route::currentRouteName() == 'frontend.homepage')
     <div id="landing-hero" class="p-0">
+        <div class="content home-section swiper apple-music-look home-content-container" style="margin-bottom: 0px;">
+            <div class="swiper-container swiper-container-slide">
+                <div class="swiper-wrapper">
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://img.freepik.com/free-photo/wide-angle-shot-single-tree-growing-clouded-sky-during-sunset-surrounded-by-grass_181624-22807.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://thumbs.dreamstime.com/b/tree-field-orange-sky-14335903.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://thumbs.dreamstime.com/b/tree-field-orange-sky-14335903.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://thumbs.dreamstime.com/b/tree-field-orange-sky-14335903.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://thumbs.dreamstime.com/b/tree-field-orange-sky-14335903.jpg" alt="First slide">
+                        </div>
+                    </div>
+                    <div class="module module-cell swiper station swiper-slide draggable" data-toggle="contextmenu" data-trigger="right" style="width: 100%; height: 500px;">
+                        <div class="img-container" style="width: 100%; height:100%;">
+                            <img class="img" style="height: 100%;" src="https://thumbs.dreamstime.com/b/tree-field-orange-sky-14335903.jpg" alt="First slide">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="home-pageable-nav previous-pageable-nav swiper-arrow-left" style="left: 20px !important; bottom: 50% !important;">
+                <div class="icon pagable-icon">
+                    <svg height="16" viewBox="0 0 501.5 501.5" width="16" xmlns="http://www.w3.org/2000/svg"><g><path d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"></path></g></svg>
+                </div>
+            </a>
+            <a class="home-pageable-nav next-pageable-nav swiper-arrow-right" style="right: 20px !important; bottom: 50% !important;">
+                <div class="icon pagable-icon">
+                    <svg height="16" viewBox="0 0 501.5 501.5" width="16" xmlns="http://www.w3.org/2000/svg"><g><path d="M302.67 90.877l55.77 55.508L254.575 250.75 358.44 355.116l-55.77 55.506L143.56 250.75z"></path></g></svg>
+                </div>
+            </a>
+        </div>
         <div class="claim-hero">
             <div class="container claim-container">
                 <div class="row">

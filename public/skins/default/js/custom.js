@@ -24,6 +24,7 @@
 
   window.PageSwiper = {
     init: function () {
+      console.log('init swipe');
       setTimeout(function () {
         var swipes = [];
         $(".swiper-container-channel").each(function (i, obj) {
@@ -51,9 +52,12 @@
           spaceBetween: 0,
           watchSlidesProgress: !0,
           watchSlidesVisibility: !0,
-          loop: $.engineUtils.isMobile(),
+          loop: true,
           simulateTouch: false,
           slidesPerGroup: 1,
+          autoplay: {
+            delay: 3000,
+          },
           navigation: {
             nextEl: $(".swiper-container-slide")
               .parents(".home-section")
