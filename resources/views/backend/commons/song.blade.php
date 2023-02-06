@@ -10,7 +10,8 @@
             </a>
         </td>
         <td>{!! $song->title !!}</td>
-        <td id="track_{{ $song->id }}" class="editable" title="Click to edit">{!! $song->isrc !!}</td>
+        <td id="track_{{ $song->id }}" type="isrc" class="editable" title="Click to edit">{!! $song->isrc !!}</td>
+        <td id="track_{{ $song->id }}" type="iswc" class="editable" title="Click to edit">{!! $song->iswc !!}</td>
         <td class="desktop">{{ $song->primary_artist }}</td>
         @if($song->album)
             <td class="desktop">

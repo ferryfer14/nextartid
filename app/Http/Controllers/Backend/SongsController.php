@@ -561,6 +561,19 @@ class SongsController
         return response()->json($song);
     }
 
+    public function editIswcPost()
+    {
+        $this->request->validate([
+            'iswc' => 'required|string|max:100'
+        ]);
+
+        $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+        $song->iswc = $this->request->input('iswc');
+        $song->save();
+
+        return response()->json($song);
+    }
+
     public function reject()
     {
         $this->request->validate([

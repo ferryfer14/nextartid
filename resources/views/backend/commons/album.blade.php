@@ -6,7 +6,7 @@
             </div>
         </td>
         <td><a href="{{ route('backend.albums.edit', ['id' => $album->id]) }}">{!! $album->title !!}</a></td>
-        <td id="album_{{ $album->id }}" class="editable" title="Click to edit">{!! $album->upc !!}</td>
+        <td id="album_{{ $album->id }}" type="upc" class="editable" title="Click to edit">{!! $album->upc !!}</td>
         <!--<td class="desktop">{{ $album->upc }}</td>-->
         <td class="desktop">{{ $album->primary_artist }}</td>
         <td>

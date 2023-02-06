@@ -205,6 +205,10 @@
                             <a href="{{ request()->fullUrlWithQuery(["isrc" => request()->get('isrc') == 'asc' ? 'desc' : 'asc' ]) }}">Isrc</a>
                            ISRC
                         </th>
+                        <th class="desktop">
+                            <a href="{{ request()->fullUrlWithQuery(["iswc" => request()->get('iswc') == 'asc' ? 'desc' : 'asc' ]) }}">Iswc</a>
+                           ISWC
+                        </th>
                         <th class="desktop">Artist(s)</th>
                         <th class="desktop">Album</th>
                         <th class="desktop th-5action">Media</th>

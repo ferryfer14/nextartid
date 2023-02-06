@@ -20,5 +20,6 @@ Route::group(['middleware' => 'role:admin_songs'], function() {
     Route::get('songs/delete/{id}', 'SongsController@delete')->name('songs.delete');
     Route::post('songs/edit-title', 'SongsController@editTitlePost')->name('songs.edit.title.post');
     Route::post('songs/edit-isrc', 'SongsController@editIsrcPost')->name('songs.edit.isrc.post');
+    Route::post('songs/edit-iswc', 'SongsController@editIswcPost')->name('songs.edit.iswc.post');
     Route::post('songs/reject/{id}', 'SongsController@reject')->name('songs.edit.reject.post');
 });

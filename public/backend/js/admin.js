@@ -165,11 +165,13 @@
         e.stopPropagation();
         var currentEle = $(this);
         var editClass = $(this).attr("id");
+        var type = $(this).attr("type");
         var value = $.trim($(this).html());
-        updateVal(currentEle, value, editClass);
+        updateVal(currentEle, value, type, editClass);
     });
 
-    function updateVal(currentEle, value, editClass) {
+    function updateVal(currentEle, value, type, editClass) {
+        console.log(type);
         $(currentEle).html('<input class="form-control thVal_' + editClass + '" type="text" value="' + value + '" />');
         $(".thVal_" + editClass).focus();
         $(".thVal_" + editClass).click(function(e) {
@@ -181,12 +183,60 @@
             return false;
         });
         $(".thVal_" + editClass).keyup(function(event) {
-            if (event.keyCode == 13) {
+            if(type == 'isrc'){
+                if (event.keyCode == 13) {
+                    var song_id = editClass;
+                    var isrcName = $(".thVal_" + editClass).val();
+                    $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                    if (isrcName != value) {
+                        $.post(admin_path + '/songs/edit-isrc', {
+                            action: "edit",
+                            id: song_id.replace('track_', ''),
+                            isrc: isrcName
+                        }, function(data) {
+
+                        });
+                    }
+                }
+            }else if(type == 'iswc'){
+                if (event.keyCode == 13) {
+                    var song_id = editClass;
+                    var iswcName = $(".thVal_" + editClass).val();
+                    $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                    if (iswcName != value) {
+                        $.post(admin_path + '/songs/edit-iswc', {
+                            action: "edit",
+                            id: song_id.replace('track_', ''),
+                            iswc: iswcName
+                        }, function(data) {
+
+                        });
+                    }
+                }
+            }else if(type == 'upc'){
+                if (event.keyCode == 13) {
+                    var album_id = editClass;
+                    var upcName = $(".thVal_" + editClass).val();
+                    $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                    if (upcName != value) {
+                        $.post(admin_path + '/album/edit-upc', {
+                            action: "edit",
+                            id: album_id.replace('album_', ''),
+                            isrc: upcName
+                        }, function(data) {
+
+                        });
+                    }
+                }
+            }
+        });
+        $(".thVal_" + editClass).blur(function (e) {
+            if(type == 'isrc'){
                 var song_id = editClass;
                 var isrcName = $(".thVal_" + editClass).val();
                 $.trim($(currentEle).html($(".thVal_" + editClass).val()));
                 if (isrcName != value) {
-                    $.post(admin_path + '/songs/edit-isrc', {
+                    $.post(admin_path +  '/songs/edit-isrc', {
                         action: "edit",
                         id: song_id.replace('track_', ''),
                         isrc: isrcName
@@ -194,23 +244,39 @@
 
                     });
                 }
-            }
-        });
-        $(".thVal_" + editClass).blur(function (e) {
-            var song_id = editClass;
-            var isrcName = $(".thVal_" + editClass).val();
-            $.trim($(currentEle).html($(".thVal_" + editClass).val()));
-            if (isrcName != value) {
-                $.post(admin_path +  '/songs/edit-isrc', {
-                    action: "edit",
-                    id: song_id.replace('track_', ''),
-                    isrc: isrcName
-                }, function(data) {
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                e.stopPropagation();
+            }else if(type == 'iswc'){
+                var song_id = editClass;
+                var iswcName = $(".thVal_" + editClass).val();
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                if (iswcName != value) {
+                    $.post(admin_path +  '/songs/edit-iswc', {
+                        action: "edit",
+                        id: song_id.replace('track_', ''),
+                        iswc: iswcName
+                    }, function(data) {
 
-                });
+                    });
+                }
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                e.stopPropagation();
+            }else if(type == 'upc'){
+                var album_id = editClass;
+                var upcName = $(".thVal_" + editClass).val();
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                if (upcName != value) {
+                    $.post(admin_path +  '/albums/edit-upc', {
+                        action: "edit",
+                        id: album_id.replace('album_', ''),
+                        upc: upcName
+                    }, function(data) {
+
+                    });
+                }
+                $.trim($(currentEle).html($(".thVal_" + editClass).val()));
+                e.stopPropagation();
             }
-            $.trim($(currentEle).html($(".thVal_" + editClass).val()));
-            e.stopPropagation();
         });
         /*$(".thVal_" + editClass).keyup(function(event) {
             if (event.keyCode == 13) {

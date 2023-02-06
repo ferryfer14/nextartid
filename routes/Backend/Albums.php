@@ -23,5 +23,6 @@ Route::group(['middleware' => 'role:admin_albums'], function() {
     Route::get('albums/login-user/{id}', 'AlbumsController@loginUser')->name('albums.login.user');
     Route::post('albums/reject/{id}', 'AlbumsController@reject')->name('albums.edit.reject.post');
     Route::get('albums/export-excel', 'AlbumsController@exportIntoExcel')->name('albums.export.excel');
+    Route::post('albums/edit-upc', 'AlbumsController@editUpcPost')->name('albums.edit.upc.post');
     Route::get('albums/export-csv', 'AlbumsController@exportIntoCSV')->name('albums.export.csv');
 });

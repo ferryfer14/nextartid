@@ -223,6 +223,20 @@ class AlbumsController
         return redirect()->route('backend.albums')->with('status', 'success')->with('message', 'Album successfully added!');
     }
 
+
+    public function editUpcPost()
+    {
+        $this->request->validate([
+            'upc' => 'required|string|max:100'
+        ]);
+
+        $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
+        $album->upc = $this->request->input('upc');
+        $album->save();
+
+        return response()->json($album);
+    }
+
     public function exportIntoExcel()
     {
         return Excel::download(new AlbumsExport, 'Album.xlsx');
