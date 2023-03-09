@@ -81,7 +81,7 @@ class SongsController
             $songs = $songs->where('mood', 'REGEXP', '(^|,)(' . implode(',', $this->request->input('mood')) . ')(,|$)');
         }
 
-        if ($this->request->input('created_from'))
+        if ($this->request->input('created_from') != '')
         {
             $songs = $songs->where('created_at', '>=', Carbon::parse($this->request->input('created_from')));
         }
@@ -91,7 +91,7 @@ class SongsController
             $songs = $songs->where('created_at', '<=', Carbon::parse($this->request->input('created_until')));
         }
 
-        if ($this->request->input('comment_count_from'))
+        if ($this->request->input('comment_count_from') != '')
         {
             $songs = $songs->where('comment_count', '>=', intval($this->request->input('comment_count_from')));
         }
@@ -101,12 +101,12 @@ class SongsController
             $songs = $songs->where('comment_count', '<=', intval($this->request->input('comment_count_until')));
         }
 
-        if ($this->request->input('duration_from'))
+        if ($this->request->input('duration_from') != '')
         {
             $songs = $songs->where('duration', '>=', intval($this->request->input('duration_from')));
         }
 
-        if ($this->request->has('duration_until'))
+        if ($this->request->input('duration_until') != '')
         {
             $songs = $songs->where('duration', '<=', intval($this->request->input('duration_until')));
         }

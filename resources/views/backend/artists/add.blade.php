@@ -16,6 +16,13 @@
                     <input class="form-control" name="name" required>
                 </div>
                 <div class="form-group">
+                    <label>User</label>
+                    <div class="col-xs-12">
+                        <select class="form-control multi-selector-without-sortable" data-ajax--url="{{ route('api.search.email') }}" name="email">
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>Artwork</label>
                     <div class="input-group col-xs-12">
                         <input type="file" name="artwork" class="file-selector" accept="image/*" required>

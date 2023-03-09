@@ -14,6 +14,7 @@ use Config;
 use App\Models\Artist;
 use App\Models\Song;
 use App\Models\Album;
+use App\Models\User;
 use Auth;
 use Image;
 use Carbon\Carbon;
@@ -146,6 +147,7 @@ class ArtistsController
     {
         $this->request->validate([
             'name' => 'required|string',
+            'email' => 'required|string',
             'genre' => 'array',
             'mood' => 'array',
             'artwork' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:' . config('settings.max_image_file_size', 8096)
@@ -154,6 +156,8 @@ class ArtistsController
         $artist = new Artist();
 
         $artist->name = $this->request->input('name');
+        $artist->user_id = $this->request->input('email');
+        $artist->verified = 1;
         $genre = $this->request->input('genre');
         $mood = $this->request->input('mood');
 

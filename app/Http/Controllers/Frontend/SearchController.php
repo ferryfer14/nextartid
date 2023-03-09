@@ -248,6 +248,38 @@ class SearchController
         return $view;
     }
 
+    public function email()
+    {
+        $result = (Object) array();
+        $result->users = User::select("email as name", "id", "username")->where('email', 'like', '%' . $this->term . '%')->paginate($this->limit);
+
+        if( $this->request->is('api*') || $this->request->wantsJson() )
+        {
+            return response()->json($result->users);
+        }
+
+        $view = View::make('search.user')
+            ->with('result', $result)
+            ->with('term', $this->term);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        $item = new \stdClass();
+        $item->term = $this->term;
+        getMetatags($item);
+
+        return $view;
+    }
+
     public function user()
     {
         $result = (Object) array();

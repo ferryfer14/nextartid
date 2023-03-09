@@ -12,5 +12,6 @@ Route::get('search/artist', 'SearchController@artist')->name('search.artist');
 Route::get('search/album', 'SearchController@album')->name('search.album');
 Route::get('search/playlist', 'SearchController@playlist')->name('search.playlist');
 Route::get('search/user', 'SearchController@user')->name('search.user');
+Route::get('search/email', 'SearchController@email')->name('search.email');
 Route::get('search/station', 'SearchController@station')->name('search.station');
 Route::get('search/podcast', 'SearchController@podcast')->name('search.podcast');
