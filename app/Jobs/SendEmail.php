@@ -8,6 +8,8 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use App\Models\Email;
+use App\Models\LogEmail;
+use Exception;
 use Mail;
 
 class SendEmail implements ShouldQueue
@@ -57,12 +59,27 @@ class SendEmail implements ShouldQueue
      */
     public function handle()
     {
-        Mail::send([], [], function ($message) {
-            $template = Email::where('type', '=', $this->type)->first();
-            $message->from($this->from ? $this->from : env('APP_ADMIN_EMAIL'));
-            $message->to($this->mail);
-            $message->subject((config('settings.mail_title') ? config('settings.mail_title') . ' ' : '') . $this->parse($this->data, $template->subject));
-            $message->setBody($this->parse($this->data, $template->content), 'text/html');;
-        });
+        try {
+            Mail::send([], [], function ($message) {
+                $template = Email::where('type', '=', $this->type)->first();
+                $message->from($this->from ? $this->from : env('APP_ADMIN_EMAIL'));
+                $message->to($this->mail);
+                $message->subject((config('settings.mail_title') ? config('settings.mail_title') . ' ' : '') . $this->parse($this->data, $template->subject));
+                $message->setBody($this->parse($this->data, $template->content), 'text/html');;
+            });
+        }
+        catch(Exception $e) {
+            // bird is clearly not the word
+            $this->failed($e);
+        }
+    }
+
+    public function failed($exception)
+    {
+        $log = new LogEmail();
+        $log->email = $this->mail;
+        $log->message = $exception->getMessage();
+        $log->save();
+        // etc...
     }
 }
