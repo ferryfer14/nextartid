@@ -32,7 +32,7 @@ class ArtistsController
     {
         $artists = Artist::withoutGlobalScopes();
 
-        if ($this->request->has('term'))
+        if ($this->request->input('term') != '')
         {
             $artists = $artists->where('name', 'like', '%' . $this->request->input('term') . '%');
         }
@@ -78,7 +78,7 @@ class ArtistsController
             $artists = $artists->where('created_at', '>=', Carbon::parse($this->request->input('created_from')));
         }
 
-        if ($this->request->has('created_until'))
+        if ($this->request->input('created_until') != '')
         {
             $artists = $artists->where('created_at', '<=', Carbon::parse($this->request->input('created_until')));
         }
