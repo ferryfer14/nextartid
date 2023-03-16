@@ -255,7 +255,6 @@ class Album extends Model implements HasMedia
         AlbumArtist::where('album_id', $this->id)->delete();
         AlbumSong::where('album_id', $this->id)->delete();
         Popular::where('album_id', $this->id)->delete();
-
         return parent::delete();
     }
 

@@ -1593,12 +1593,13 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         if(Album::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $album = Album::withoutGlobalScopes()->findOrFail($this->request->input('id'));
-            if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($album->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
+            if($album->paid == 1) {
                 return response()->json([
-                    'message' => 'React the limited time to edit',
-                    'errors' => array('message' => array(__('web.POPUP_DELETE_ALBUM_DENIED')))
+                    'message' => 'Album paid',
+                    'errors' => array('message' => "Album is paid can't delete")
                 ], 403);
             } else {
+                $album->clearMediaCollection('artwork');
                 $album->delete();
                 return response()->json(array('success' => true));
             }
