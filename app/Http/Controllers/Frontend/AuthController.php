@@ -213,6 +213,7 @@ class AuthController
                 $artistRequest->artist_name = $this->request->input('artist1');
                 $artistRequest->phone = '';
                 $artistRequest->ext = '';
+                $artistRequest->approved = 1;
                 //$artistRequest->phone = $this->request->input('artist-phone1');
                 //$artistRequest->ext = $this->request->input('artist-phone-ext1');
                 //$artistRequest->affiliation = $this->request->input('artist-affiliation1');
@@ -231,6 +232,7 @@ class AuthController
                     $artistRequest->artist_name = $this->request->input('artist2');
                     $artistRequest->phone = '';
                     $artistRequest->ext = '';
+                    $artistRequest->approved = 1;
                     //$artistRequest->phone = $this->request->input('artist-phone2');
                     //$artistRequest->ext = $this->request->input('artist-phone-ext2');
                     //$artistRequest->affiliation = $this->request->input('artist-affiliation2');
