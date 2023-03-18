@@ -140,7 +140,7 @@
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUserRoyalti" aria-expanded="false" aria-controls="collapseUserRoyalti">
                     <i class="fas fa-fw fa-users"></i>
-                    <span>Users Royalti</span>
+                    <span>Manage Users</span>
                 </a>
                 <div id="collapseUserRoyalti" class="collapse" aria-labelledby="headingBlog" data-parent="#accordionSidebar">
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
@@ -149,6 +149,7 @@
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Balance', 'icon' => 'fa-wallet', 'permission' => 'admin_users', 'route' => 'backend.user.balance'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'User Contract', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.contract'])
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'Request NPWP', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.npwp'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'User Artist', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.artist'])
                     </div>
                 </div>
             </li>
