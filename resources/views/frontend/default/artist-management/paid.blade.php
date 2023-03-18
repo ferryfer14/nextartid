@@ -45,7 +45,10 @@
                             @foreach($artist->albums as $album)
                                 <script>var album_data_{{ $album->id }} = {!! json_encode($album) !!}</script>
                                 <div class="module module-cell small grid-item">
-                                    <div class="img-container">
+                                    <div class="img-container {{ $album->takedown == 1 ? "basic-tooltip" : "" }}" tooltip="{{ $album->takedown == 1 ? "Take Down" : "" }}">
+                                        @if($album->takedown == 1)
+                                            <div class="img-overlay"></div>
+                                        @endif
                                         <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
                                         <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
                                         <div class="actions primary">

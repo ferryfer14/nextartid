@@ -114,6 +114,7 @@
                 <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage Album Type', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.type'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Albums', 'icon' => 'fa-compact-disc', 'permission' => 'admin_albums', 'route' => 'backend.albums'])
+                    @include('backend.commons.sidebar-sub-menu', ['name' => 'Albums Takedown', 'icon' => 'fa-compact-disc', 'permission' => 'admin_albums', 'route' => 'backend.albums.list.takedown'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Free Song', 'icon' => 'fa-music', 'permission' => 'admin_songs', 'route' => 'backend.free.song'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Export Albums', 'icon' => 'fa-list', 'permission' => 'admin_albums', 'route' => 'backend.album.export'])
                     @include('backend.commons.sidebar-sub-menu', ['name' => 'Import Royalti', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_albums', 'route' => 'backend.album.royalti'])

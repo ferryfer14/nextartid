@@ -1203,7 +1203,7 @@ class ArtistManagementController extends Controller
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->orderBy('inserted_at','desc')->paginate(20));
-
+        $albums = Album::withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->get();
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
@@ -1211,6 +1211,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.albums')
             ->with('artist', $this->artist)
+            ->with('albums', $albums)
             ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
@@ -1225,7 +1226,8 @@ class ArtistManagementController extends Controller
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->paginate(20));
-
+        $albums = Album::withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->get();
+        
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
@@ -1233,6 +1235,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.release')
             ->with('artist', $this->artist)
+            ->with('albums', $albums)
             ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
@@ -1247,7 +1250,8 @@ class ArtistManagementController extends Controller
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('paid','1')->paginate(20));
-
+        $albums = Album::withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->get();
+        
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
@@ -1255,6 +1259,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.paid')
             ->with('artist', $this->artist)
+            ->with('albums', $albums)
             ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
@@ -1269,7 +1274,8 @@ class ArtistManagementController extends Controller
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->where('paid','0')->paginate(20));
-
+        $albums = Album::withoutGlobalScopes()->where('created_at', 'like', '%' . Date('Y-m-d') . '%')->get();
+        
         $artists = Artist::where('user_id', auth()->user()->id)->get();
         $my_artist = array();
         foreach($artists as $ar){
@@ -1277,6 +1283,7 @@ class ArtistManagementController extends Controller
         }
         $view = View::make('artist-management.unpaid')
             ->with('artist', $this->artist)
+            ->with('albums', $albums)
             ->with('my_artist', $my_artist);
 
         if($this->request->ajax()) {
