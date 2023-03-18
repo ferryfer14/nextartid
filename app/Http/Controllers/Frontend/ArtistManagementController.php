@@ -1643,21 +1643,24 @@ class ArtistManagementController extends Controller
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
         if(Song::withoutGlobalScopes()->where('user_id', '=', auth()->user()->id)->where('id', '=', $this->request->input('id'))->exists()) {
             $song = Song::withoutGlobalScopes()->findOrFail($this->request->input('id'));
-            $album = Album::withoutGlobalScopes()->findOrFail($song->album->id);
-            $transaction = Transaction::withoutGlobalScopes()->where('album_id', $song->album_id)->first();
-            $transaction->amount = $album->price->harga_discount*$album->song_count;
-            $transaction->save();
-            if(intval(Role::getValue('artist_day_edit_limit')) != 0 && Carbon::parse($song->created_at)->addDay(Role::getValue('artist_day_edit_limit'))->lt(Carbon::now())) {
+            if(!isset($song)) {
                 return response()->json([
-                    'message' => 'React the limited time to edit',
-                    'errors' => array('message' => array(__('web.POPUP_DELETE_SONG_DENIED')))
+                    'message' => 'Can not delete Song',
+                    'errors' => array('message' => "Song Not Found")
                 ], 403);
             } else {
+                $album = Album::withoutGlobalScopes()->findOrFail($song->album->id);
+                $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->first();
+                $transaction->amount = $album->price->harga_discount*($album->song_count-1);
+                $transaction->save();
                 $song->delete();
                 return response()->json(array('success' => true));
             }
         } else {
-            abort(403, 'Not your song.');
+            return response()->json([
+                'message' => 'Can not delete Song',
+                'errors' => array('message' => "Song Not Found")
+            ], 403);
         }
     }
 
