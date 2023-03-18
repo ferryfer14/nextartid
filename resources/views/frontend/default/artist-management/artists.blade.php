@@ -36,6 +36,9 @@
                         <div class="card shadow">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                 <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Artists</h2>
+                                <a class="btn add-artist {{count($artists) < $artist->user->max_artist ? "" : "hide"}}">
+                                    <span data-translate-text="ADD_ARTIST">Add Artist</span>
+                                </a>
                             </div>
                             <div class="card-body">
                                 <table class="table artist-management">

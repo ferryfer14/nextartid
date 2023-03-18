@@ -157,6 +157,8 @@
             Artist.createAlbum();
           } else if (a.hasClass("withdraw-royalti") === true) {
             Artist.withdrawRoyalti(a);
+          } else if (a.hasClass("add-artist") === true) {
+            Artist.addArtist(a);
           } else if (a.hasClass("withdraw-balance") === true) {
             Artist.withdrawBalance(a);
           } else if (a.hasClass("add-video") === true) {

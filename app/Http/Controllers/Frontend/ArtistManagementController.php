@@ -259,6 +259,29 @@ class ArtistManagementController extends Controller
         }
     }
 
+    public function addArtist()
+    {
+        $this->request->validate([
+            'name' => 'required|max:100',
+            'twitter' => 'nullable|url|max:100',
+            'youtube' => 'nullable|url|max:100',
+            'instagram' => 'nullable|url|max:100',
+            'bio' => 'nullable|max:180',
+        ]);
+        $artist = new Artist();
+        $artist->user_id = auth()->user()->id;
+        $artist->name = $this->request->input('name');
+        $artist->twitter = $this->request->input('twitter');
+        $artist->youtube = $this->request->input('youtube');
+        $artist->instagram = $this->request->input('instagram');
+        $artist->bio = $this->request->input('bio');
+        $artist->verified = 1;
+        $artist->save();
+
+        return response()->json([
+            'status' => 'success'
+        ],200);
+    }
     public function withdrawRoyalti()
     {
         $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
@@ -284,7 +307,7 @@ class ArtistManagementController extends Controller
                 $withdraw->save();
         
                 return response()->json([
-                    'statu' => 'success'
+                    'status' => 'success'
                 ],200);
             }else{
                 return response()->json([

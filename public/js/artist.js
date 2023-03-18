@@ -26,6 +26,7 @@
         createAlbumForm: $("#create-album-form"),
         editAlbumForm: $("#edit-album-form"),
         withdrawForm: $("#withdraw-form"),
+        addArtistForm: $("#add-artist-form"),
         withdrawBalanceForm: $("#withdraw-balance-form"),
         patnerAlbumForm: $("#patner-album-form"),
         podcastCategories: [],
@@ -64,6 +65,44 @@
                     $form.trigger("reset");
                     $.engineLightBox.hide();
                     Toast.show("success", Language.text.POPUP_REQUEST_WITHDRAW_BALANCE);
+                    $(window).trigger({
+                        type: "engineReloadCurrentPage"
+                    });
+                },
+                error: function (e, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();
+                    var errors = e.responseJSON.errors;
+                    $.each(errors, function (key, value) {
+                        Toast.show("error", value[0], null);
+                    });
+                    $form.find('.error').removeClass('hide').html(e.responseJSON.errors[Object.keys(e.responseJSON.errors)[0]][0]);
+                    $form.find("[type='submit']").removeAttr("disabled");
+                }
+            });
+        },
+        addArtist: function(el){
+            $.engineLightBox.show("lightbox-new-artist");
+            Artist.addArtistForm.ajaxForm({
+                beforeSubmit: function (data, $form, options) {
+                    $.engineUtils.cleanStorage();
+                    var error = 0;
+                    Object.keys(data).forEach(function eachKey(key) {
+                        if (data[key].required && !data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").addClass("field-error");
+                            error++;
+                        } else if (data[key].required && data[key].value) {
+                            $form.find("[name='" + data[key].name + "']").closest(".control").removeClass("field-error");
+                        }
+                    });
+                    if (error) return false;
+                    $form.find("[type='submit']").attr("disabled", "disabled");
+                },
+                success: function (response, textStatus, xhr, $form) {
+                    $.engineUtils.cleanStorage();
+                    $form.find("[type='submit']").removeAttr("disabled");
+                    $form.trigger("reset");
+                    $.engineLightBox.hide();
+                    Toast.show("success", "Add Artist Successfully");
                     $(window).trigger({
                         type: "engineReloadCurrentPage"
                     });

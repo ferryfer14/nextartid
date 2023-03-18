@@ -1709,6 +1709,60 @@
             </div>
         </div>
     </div>
+    <div class="lightbox lightbox-new-artist hide">
+        <div class="lbcontainer">
+            <div id="create-playlist">
+                <form id="add-artist-form" class="ajax-form" method="post" action="{{ route('frontend.auth.user.artist.manager.add.artist') }}" enctype="multipart/form-data" novalidate>
+                    <div class="lightbox-header">
+                        <h2 class="title">Add Artist</h2>
+                        @yield('lightbox-close')
+                    </div>
+                    <div class="lightbox-content">
+                        <div class="lightbox-content-block">
+                            <div class="error hide">
+                                <div class="message"></div>
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Artist Name</span>
+                                </label>
+                                <input name="name" type="text" required>
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Instagram</span>
+                                </label>
+                                <input name="instagram" type="text">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Twitter</span>
+                                </label>
+                                <input name="twitter" type="text">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Youtube</span>
+                                </label>
+                                <input name="youtube" type="text">
+                            </div>
+                            <div class="control field">
+                                <label for="FORM_VALUE">
+                                    <span>Bio</span>
+                                </label>    
+                                <textarea type="text" name="bio" maxlength="180"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lightbox-footer">
+                        <div class="right">
+                            <button class="btn btn-primary" type="submit" data-translate-text="SUBMIT">{{ __('web.SUBMIT') }}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-withdraw-royalti hide">
         <div class="lbcontainer">
             <div id="create-playlist">
