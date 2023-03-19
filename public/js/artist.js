@@ -147,10 +147,10 @@
                     var total = nilai-tax-admin;
                     $('#withdraw-form').find('#tax').html('Charge Tax '+response.admin.charge_tax+'%');
                     $('#withdraw-form').find('#admin').html('Charge Admin '+response.admin.charge_admin+'%');
-                    $('#withdraw-form').find('input[name=value_idr]').val(nilai);
-                    $('#withdraw-form').find('input[name=value_tax]').val(tax);
-                    $('#withdraw-form').find('input[name=value_admin]').val(admin);
-                    $('#withdraw-form').find('input[name=value_total]').val(total);
+                    $('#withdraw-form').find('input[name=value_idr]').val(Math.floor(nilai));
+                    $('#withdraw-form').find('input[name=value_tax]').val(Math.floor(tax));
+                    $('#withdraw-form').find('input[name=value_admin]').val(Math.floor(admin));
+                    $('#withdraw-form').find('input[name=value_total]').val(Math.floor(total));
                 }
             });
             Artist.withdrawForm.ajaxForm({

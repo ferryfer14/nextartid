@@ -9,7 +9,7 @@
                         <img class="img" width="50" height="50" src="{{$album->artwork_url}}" alt="{!! $album->title !!}">
                     </div>
                 </div>
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <div class="metadata">
                         <div class="title">
                             <!--<p class="text-secondary">Title Album</p>-->
@@ -27,9 +27,14 @@
                     <!--<p class="text-secondary">Royalty</p>-->
                     <h4 class="m-0 font-weight-bold text-primary">${{ round($album->sum_royalti,3) }}</h4>                 
                 </div>
-                <div class="col-sm-1">   
+                <div class="col-sm-2">   
                     <!--<p class="text-secondary">Royalty</p>-->
                     <h4 class="m-0 font-weight-bold text-primary">${{ round($album->sum_unconfirm,3) }}</h4>                 
+                </div>
+                <div class="col-sm-1">   
+                    <a class="btn export" target="_blank" href="{{ route('frontend.auth.user.artist.manager.export.csv', ['id' => $album->id]) }}">
+                        <span data-translate-text="EXPORT">Export</span>
+                    </a>                
                 </div>
             </div>
         </div>
@@ -144,7 +149,7 @@
                                 <div class="img-container">
                                 </div>
                             </div>
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <div class="metadata">
                                     <div class="title">
                                         <!--<p class="text-secondary">Title Album</p>-->
@@ -163,6 +168,10 @@
                             <div class="col-sm-2">   
                                 <!--<p class="text-secondary">Royalty</p>-->
                                 <h4 class="m-0 font-weight-bold text-primary">Unconfirm</h4>                 
+                            </div>
+                            <div class="col-sm-1">   
+                                <!--<p class="text-secondary">Royalty</p>-->
+                                <h4 class="m-0 font-weight-bold text-primary">Action</h4>                 
                             </div>
                         </div>
                     </div>

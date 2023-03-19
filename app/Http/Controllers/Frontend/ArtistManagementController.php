@@ -52,6 +52,9 @@ use Carbon\CarbonPeriod;
 use chillerlan\QRCode\QRCode;
 use PDF;
 use Dompdf\Options;
+use App\Exports\AlbumsExport;
+use App\Exports\RoyaltiExport;
+use Excel;
 
 class ArtistManagementController extends Controller
 {
@@ -632,7 +635,6 @@ class ArtistManagementController extends Controller
             'payment_bank.required_unless' => 'The payment bank field is required'
         ]);
 
-        $artist->name = $this->request->input('name');
         $artist->location = $this->request->input('location');
         $artist->website = $this->request->input('website');
         $artist->facebook = $this->request->input('facebook');
@@ -717,12 +719,19 @@ class ArtistManagementController extends Controller
                 ->toMediaCollection('artwork_npwp', config('settings.storage_artwork_location', 'public'));
         }
 
+        $user->name = $this->request->input('name');
         $user->payment_method = 'bank';
         $user->account_bank = $this->request->input('account_bank');
         $user->payment_bank = $this->request->input('payment_bank');
         $user->save();
 
         return response()->json($artist);
+    }
+
+    public function exportIntoCSV()
+    {
+        $album = Album::withoutGlobalScopes()->findOrFail($this->request->route('id'));
+        return Excel::download(new RoyaltiExport($this->request->route('id')), date('Ymd').str_replace(' ','_',$album->title).'.csv');
     }
 
     public function editSongPost()

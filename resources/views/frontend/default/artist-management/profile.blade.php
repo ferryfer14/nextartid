@@ -39,7 +39,7 @@
                     <div class="content row">
                         <div class="fields col-lg-6 col-12">
                             <label class="control-label" for="name" data-translate-text="FORM_ARTIST_BAND_NAME">{{ __('web.FORM_ARTIST_BAND_NAME') }}</label>
-                            <input class="span4" name="name" maxlength="175" value="{!! $artist->name !!}" type="text">
+                            <input class="span4" name="name" maxlength="175" value="{!! $artist->user->name !!}" type="text">
                         </div>
                         <div class="description col-lg-6 col-12 desktop">
                             <p data-translate-text="SETTINGS_NAME_TIP">This will be displayed on your <a href="{{ $artist->permalink_url }}">artist page</a>, so be sure to use a name people will be able to recognize and search for.</p>

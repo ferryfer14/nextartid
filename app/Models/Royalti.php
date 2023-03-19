@@ -30,4 +30,8 @@ class Royalti extends Model
         parent::boot();
         static::addGlobalScope(new PriorityScope);
     }
+    public function song()
+    {
+        return $this->belongsTo(Song::class);
+    }
 }

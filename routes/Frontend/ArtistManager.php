@@ -36,7 +36,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('artist-management/albums/{id}/upload', 'ArtistManagementController@uploadAlbum')->name('auth.user.artist.manager.albums.upload');
     Route::post('artist-management/albums/{id}/upload', 'ArtistManagementController@handleUpload')->name('auth.user.artist.manager.albums.upload.post');
 
-
+    Route::get('artist-management/export-csv/{id}', 'ArtistManagementController@exportIntoCSV')->name('auth.user.artist.manager.export.csv');
     Route::get('artist-management/back-admin', 'ArtistManagementController@backAdmin')->name('auth.user.artist.manager.back.admin');
 
 
