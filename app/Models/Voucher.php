@@ -11,5 +11,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
 {
-    protected $fillable = ['code', 'type','amount', 'description', 'usage_limit', 'minimum_spend', 'maximum_spend', 'access', 'expired_at'];
+    protected $fillable = ['code', 'type','amount', 'description', 'usage_limit', 'minimum_spend', 'maximum_spend', 'access', 'expired_at', 'user'];
 }

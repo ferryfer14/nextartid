@@ -16,6 +16,18 @@
                     <input class="form-control" type="text" name="code" value="{{ isset($voucher) && ! old('code') ? $voucher->code : old('code') }}" required>
                 </div>
                 <div class="form-group">
+                    <label>User</label>
+                    <div class="col-xs-12">
+                        <select class="form-control multi-selector-without-sortable" data-ajax--url="{{ route('api.search.email') }}" name="user[]" multiple>
+                            @if(isset($voucher) && $voucher->user != null)
+                                @foreach (\App\Models\User::whereIn('id', explode(",", $voucher->user))->get() as $index => $user)
+                                    <option value="{{ $user->id }}" selected="selected" data-artwork="{{ $user->artwork_url }}" data-title="{{ $user->email }}">{{ $user->email }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>Description:</label>
                     <textarea name="description" class="form-control" rows="5">{{ isset($voucher) && ! old('description') ? $voucher->description : old('description') }}</textarea>
                 </div>

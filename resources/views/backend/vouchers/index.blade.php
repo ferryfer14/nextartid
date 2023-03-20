@@ -18,6 +18,7 @@
                 <thead>
                 <tr>
                     <th>Code</th>
+                    <th class="desktop">Spesific User</th>
                     <th class="desktop">Type</th>
                     <th class="desktop">Discount amount</th>
                     <th class="desktop">Used</th>
@@ -30,6 +31,13 @@
                 @foreach ($vouchers as $index => $voucher)
                     <tr>
                         <td><a href="{{ route('backend.vouchers.edit', ['id' => $voucher->id]) }}">{{ $voucher->code }}</a></td>
+                        <td class="desktop">
+                            @if($voucher->user != null)
+                                @foreach (\App\Models\User::whereIn('id', explode(",", $voucher->user))->get() as $index => $user)
+                                    {{ $user->name }}@if(!$loop->last), @endif
+                                @endforeach 
+                            @endif
+                        </td>
                         <td class="desktop">{{ $voucher->type }}</td>
                         <td class="desktop">{{ $voucher->amount }}</td>
                         <td class="desktop">{{ $voucher->use_count }}</td>

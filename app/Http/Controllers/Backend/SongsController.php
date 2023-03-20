@@ -86,7 +86,7 @@ class SongsController
             $songs = $songs->where('created_at', '>=', Carbon::parse($this->request->input('created_from')));
         }
 
-        if ($this->request->has('created_until'))
+        if ($this->request->input('created_until') != '')
         {
             $songs = $songs->where('created_at', '<=', Carbon::parse($this->request->input('created_until')));
         }
@@ -96,7 +96,7 @@ class SongsController
             $songs = $songs->where('comment_count', '>=', intval($this->request->input('comment_count_from')));
         }
 
-        if ($this->request->has('comment_count_until'))
+        if ($this->request->input('comment_count_until') != '')
         {
             $songs = $songs->where('comment_count', '<=', intval($this->request->input('comment_count_until')));
         }

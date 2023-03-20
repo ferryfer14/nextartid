@@ -45,6 +45,7 @@ class VouchersController
         $this->request->validate([
             'code' => 'required|unique:vouchers',
             'amount' => 'nullable|int',
+            'user' => 'nullable',
             'meta_title' => 'nullable|int',
             'usage_limit' => 'nullable|int',
         ]);
@@ -52,6 +53,11 @@ class VouchersController
         $vouchers = new Voucher();
         $vouchers->fill($this->request->except('_token'));
 
+        if (is_array($this->request->input('user')))
+        {
+            $user = implode(',', $this->request->input('user'));
+        }
+        $vouchers->user = $user ? $user :null;
         $vouchers->approved = $this->request->input('approved') ? 1 : 0;
 
         $vouchers->save();
