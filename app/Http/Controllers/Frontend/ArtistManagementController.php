@@ -1231,6 +1231,56 @@ class ArtistManagementController extends Controller
         return $view;
     }
 
+    public function vouchers()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->orderBy('inserted_at','desc')->paginate(20));
+        $voucher =  Voucher::withoutGlobalScopes()->where('expired_at', '>=', Date('Y-m-d'))->where("user", null)->where("approved", 1)->get();
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
+        $view = View::make('artist-management.voucher')
+            ->with('artist', $this->artist)
+            ->with('voucher', $voucher)
+            ->with('my_artist', $my_artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            return $sections['content'];
+        }
+
+        return $view;
+    }
+
+    public function voucherSpecial()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('albums', $this->artist->albums()->withoutGlobalScopes()->orderBy('inserted_at','desc')->paginate(20));
+        $voucher =  Voucher::withoutGlobalScopes()->where('expired_at', '>=', Date('Y-m-d'))->where("user",'!=', null)->where("approved", 1)->get();
+        foreach($voucher as $key => $v){
+            if(!in_array(auth()->user()->id, explode(",", $v->user))){
+                unset($voucher[$key]);
+            }
+        }
+        $artists = Artist::where('user_id', auth()->user()->id)->get();
+        $my_artist = array();
+        foreach($artists as $ar){
+            array_push($my_artist,$ar['name']);
+        }
+        $view = View::make('artist-management.voucher-special')
+            ->with('artist', $this->artist)
+            ->with('voucher', $voucher)
+            ->with('my_artist', $my_artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            return $sections['content'];
+        }
+
+        return $view;
+    }
     public function release()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);

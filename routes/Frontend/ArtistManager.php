@@ -80,4 +80,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/chart/overview', 'ArtistManagementController@artistChart')->name('auth.user.artist.manager.chart.overview');
     Route::post('artist-management/chart/dsp', 'ArtistManagementController@dspChart')->name('auth.user.artist.manager.chart.dsp');
     Route::post('artist-management/chart/song/{id}', 'ArtistManagementController@songChart')->name('auth.user.artist.manager.chart.song');
+
+    Route::get('artist-management/vouchers', 'ArtistManagementController@vouchers')->name('auth.user.artist.manager.vouchers');
+    Route::get('artist-management/voucher-special', 'ArtistManagementController@voucherSpecial')->name('auth.user.artist.manager.voucher.special');
+    
 });

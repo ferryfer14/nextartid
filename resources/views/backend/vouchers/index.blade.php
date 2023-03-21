@@ -17,6 +17,7 @@
             <table class="mt-4 table table-striped">
                 <thead>
                 <tr>
+                    <th class="th-wide-image"></th>
                     <th>Code</th>
                     <th class="desktop">Spesific User</th>
                     <th class="desktop">Type</th>
@@ -29,7 +30,7 @@
                 </tr>
                 </thead>
                 @foreach ($vouchers as $index => $voucher)
-                    <tr>
+                    <tr><td><img src="{{ $voucher->artwork_url }}"></td>
                         <td><a href="{{ route('backend.vouchers.edit', ['id' => $voucher->id]) }}">{{ $voucher->code }}</a></td>
                         <td class="desktop">
                             @if($voucher->user != null)

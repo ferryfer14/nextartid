@@ -52,7 +52,7 @@
           spaceBetween: 0,
           watchSlidesProgress: !0,
           watchSlidesVisibility: !0,
-          loop: true,
+          loop: false,
           simulateTouch: false,
           slidesPerGroup: 1,
           autoplay: {
