@@ -1627,9 +1627,15 @@ class ArtistManagementController extends Controller
         ]);
 
         $transaction = Transaction::where('album_id', $this->request->input('id'))->first();
-        $voucher = Voucher::where('code', $this->request->input('code'))->first();
+        $voucher = Voucher::where('code', $this->request->input('code'))->where("approved", 1)->first();
 
         if(isset($voucher->id)) {
+            if(!in_array(auth()->user()->id, explode(",", $voucher->user))){
+                return response()->json([
+                    'message' => 'failed',
+                    'errors' => array('message' => array(__('web.COUPON_NOT_EXIST')))
+                ], 403);
+            }
             if($voucher->expired_at && $voucher->expired_at < Carbon::now()) {
                 return response()->json([
                     'message' => 'failed',
@@ -1800,6 +1806,22 @@ class ArtistManagementController extends Controller
         $pdf = PDF::loadview('artist-management.invoice', ['transaction' => $transaction]);
         $pdf->setPaper('a4', 'portrait');
         return $pdf->stream('Invoice-'.$transaction->transaction_id.'.pdf');
+    }
+
+    public function invoiceRoyalti()
+    {
+        $transaction = ConvertRoyalti::withoutGlobalScopes()->where('id', $this->request->route('id'))->first();
+        $pdf = PDF::loadview('artist-management.invoice-convert', ['transaction' => $transaction]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('InvoiceRoyalti-'.$transaction->transaction_id.'.pdf');
+    }
+
+    public function invoiceWithdraw()
+    {
+        $transaction = WithdrawRoyalti::withoutGlobalScopes()->where('id', $this->request->route('id'))->first();
+        $pdf = PDF::loadview('artist-management.invoice-withdraw', ['transaction' => $transaction]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('invoiceWithdraw-'.$transaction->transaction_id.'.pdf');
     }
 
     public function editPatner()
