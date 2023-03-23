@@ -1630,7 +1630,7 @@ class ArtistManagementController extends Controller
         $voucher = Voucher::where('code', $this->request->input('code'))->where("approved", 1)->first();
 
         if(isset($voucher->id)) {
-            if(!in_array(auth()->user()->id, explode(",", $voucher->user))){
+            if($voucher->user != null && !in_array(auth()->user()->id, explode(",", $voucher->user))){
                 return response()->json([
                     'message' => 'failed',
                     'errors' => array('message' => array(__('web.COUPON_NOT_EXIST')))
