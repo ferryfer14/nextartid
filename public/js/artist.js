@@ -790,6 +790,110 @@
                 });
             }
         },
+        barChart: {
+            loadData: function () {
+                var a = window.location.href.toString().split(window.location.host)[1];
+                var b = a.split("/")[2];
+                a = a.split("/")[1];
+                if (a !== "artist-management" && a !== "song") return false;
+                if (!$(".artist-management-barchart").length) return false;
+                __DEV__ && console.log("Loading stats barchart");
+                var url = route.route('frontend.auth.user.artist.manager') + "/chart/pendapatan";
+                $.ajax({
+                    url: url,
+                    type: "post",
+                    success: function (response) {
+                        console.log(response);
+                        Artist.barChart.buildChart(response.data);
+                    }
+                });
+            },
+            buildChart: function (data) {
+                $("#artist-management-barchart").empty();
+                var chartEl = document.getElementById('artistManagerBarChart');
+                window.chartColor = [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                    'rgb(255,255,255)',
+                    'rgb(5, 237, 245)',
+                    'rgb(21, 0, 247)',
+                    'rgb(247, 5, 235)',
+                    'rgb(28, 235, 5)',
+                    'rgb(13, 117, 1)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                    'rgb(255,255,255)',
+                    'rgb(5, 237, 245)',
+                    'rgb(21, 0, 247)',
+                    'rgb(247, 5, 235)',
+                    'rgb(28, 235, 5)',
+                    'rgb(13, 117, 1)',
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)',
+                    'rgb(255,255,255)',
+                    'rgb(5, 237, 245)',
+                    'rgb(21, 0, 247)',
+                    'rgb(247, 5, 235)',
+                    'rgb(28, 235, 5)',
+                    'rgb(13, 117, 1)'
+                ];
+                var labelBar = [];
+                var dataRoyalti = [];
+                for(var i = 0; i < data.length; i++){
+                    labelBar.push(data[i].date);
+                    dataRoyalti.push(data[i].total);
+                }
+                var lineChartData = {
+                    labels: labelBar,
+                    datasets: [{
+                        borderColor: window.chartColor,
+                        backgroundColor: window.chartColor,
+                        borderWidth: 0,
+                        data: dataRoyalti,
+                    }]
+                };
+                window.myLine = new Chart(chartEl, 
+                {
+                    type: 'bar',
+                    data: lineChartData,
+                    options: {
+                        title: {
+                            display: false,
+                        },
+                        animation: {
+                            animateScale: true,
+                            animateRotate: true
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true,                            
+                        legend: {
+                            display: false,
+                            position: 'right',
+                            labels: {
+                                boxWidth: 10,
+                                padding: 12
+                            }
+                        },
+                        cutoutPercentage: 50,
+                    }
+                });
+            }
+        },
         loadGenres: function (el, object_type, id) {
             el.find("option").remove();
             $.ajax({
@@ -2451,6 +2555,7 @@
         if (a === '/artist-management') {
             Artist.chart.loadData();
             Artist.donutChart.loadData();
+            Artist.barChart.loadData();
         }
     });
     $(document).on('change', '.custom-file-input', function (event) {

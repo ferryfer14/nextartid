@@ -257,6 +257,17 @@
                         </div>
                     </div>
                 </div>
+                <br/>
+                <div class="card shadow mb-5">
+                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                        <h2 class="m-0 font-weight-bold">Pendapatan User Chart</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="artist-management-barchart-block">
+                            <canvas id="artistManagerBarChart" class="artist-management-barchart"></canvas>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -1171,6 +1171,35 @@ class ArtistManagementController extends Controller
             'data' => $data
         ));
     }
+    public function pendapatanChart()
+    {   
+        $data = array();
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $startDate = date('Y-m');
+        $endDate = date('Y-m');
+        for($i = 0; $i< count($this->artist->royalti_tanggal); $i++){
+            if($i==0){
+                $startDate = $this->artist->royalti_tanggal[$i];
+            }else{
+                $endDate = $this->artist->royalti_tanggal[$i];
+            }
+        }
+        $period = new CarbonPeriod($startDate, '1 month', $endDate);
+
+        $dateWhere = array();
+        foreach ($period as $date) {
+            $dateString = date('Y-m', strtotime($date->toDateString()));
+            array_push($dateWhere, $dateString);
+        }
+        
+        // Convert to associative array
+        $royalti = Royalti::withoutGlobalScopes()->selectRaw("SUM(value) as total, DATE_FORMAT(start_date,'%Y-%m') as date")->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',auth()->user()->artist_id)->pluck('id'))->whereIn(DB::raw("DATE_FORMAT(start_date,'%Y-%m')"), $dateWhere)->whereRaw('value > 0')->groupBy('date')->get();
+
+        return response()->json(array(
+            'success' => true,
+            'data' => $royalti
+        ));
+    }
     public function artistChart()
     {   
         $data = array();

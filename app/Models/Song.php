@@ -313,7 +313,7 @@ class Song extends Model implements HasMedia
 
     public function getRoyaltiCountryAttribute($value)
     {
-        return Royalti::withoutGlobalScopes()->select('id','country')->selectRaw('Count(id) as total')->where('song_id', $this->id)->groupBy('country')->orderBy('total','Desc')->limit(3)->get();
+        return Royalti::withoutGlobalScopes()->select('id','country')->selectRaw('Count(id) as total')->where('song_id', $this->id)->groupBy('country')->orderBy('total','Desc')->limit(5)->get();
     }
 
     public function getRoyaltiDetailAttribute($value)
