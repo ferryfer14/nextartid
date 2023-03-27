@@ -20,11 +20,19 @@
                     <select class="form-control" name="affiliation" required>
                         <option value="Artist/Band Member" {{ isset($user) ? ($user->affiliation == "Artist/Band Member" ? "selected" : "") : "" }}>Artist/Band Member</option>
                         <option value="Producer" {{ isset($user) ? ($user->affiliation == "Producer" ? "selected" : "") : "" }}>Producer</option>
+                        <option value="Subscribe" {{ isset($user) ? ($user->affiliation == "Subscribe" ? "selected" : "") : "" }} hidden>Subscribe</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label>Max Artist</label>
                     <input class="form-control" type="number" name="max_artist" value="{{ isset($user) && ! old('max_artist') ? $user->max_artist : old('max_artist') }}" required>
+                </div>
+                <div class="form-group">
+                    <label>Payment Album</label>
+                    <select class="form-control" name="album_pay" required>
+                        <option value="0" {{ isset($user) ? ($user->album_pay == "0" ? "selected" : "") : "" }}>Tetep Bayar</option>
+                        <option value="1" {{ isset($user) ? ($user->album_pay == "1" ? "selected" : "") : "" }}>Gratis</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-primary" value="Save">

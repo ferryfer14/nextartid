@@ -4,11 +4,11 @@
         <li class="breadcrumb-item">
             <a href="{{ route('backend.dashboard') }}">Control Panel</a>
         </li>
-        <li class="breadcrumb-item active">Paid ({{ $paid->total() }})</li>
+        <li class="breadcrumb-item active">Paid ({{ $transaction->total() }})</li>
     </ol>
     <div class="row">
         <div class="col-lg-12">
-            <a class="btn btn-warning mb-2" href="{{ route('backend.pending') }}">Pending</a>
+            <a class="btn btn-warning mb-2" href="{{ route('backend.transaction.subscribe') }}">Pending</a>
             <div class="card shadow mb-4">
                 <div class="card-header py-3 border-0">
                     <button class="btn btn-link p-0 m-0" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -18,7 +18,7 @@
                 <div class="card-body p-0">
                     <div class="accordion" id="collapseMetaTags">
                         <div id="collapseOne" class="collapse p-4" aria-labelledby="headingOne" data-parent="#collapseMetaTags">
-                            <form class="search-form" action="{{ route('backend.paid') }}">
+                            <form class="search-form" action="{{ route('backend.transaction.subscribe.paid') }}">
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Keyword</label>
                                     <div class="col-sm-10">
@@ -46,7 +46,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Find</button>
                                 <button type="reset" class="btn btn-danger">Reset</button>
-                                <a href="{{ route('backend.paid') }}" class="btn btn-secondary">Clear</a>
+                                <a href="{{ route('backend.transaction.subscribe.paid') }}" class="btn btn-secondary">Clear</a>
                             </form>
                         </div>
                     </div>
@@ -56,10 +56,8 @@
                 <thead>
                 <tr>
                     <th>Transaction Id</th>
-                    <th>Album Name</th>
+                    <th>User Email</th>
                     <th class="desktop">Amount</th>
-                    <th class="desktop">Coupon Value</th>
-                    <th class="desktop">Free Song Value</th>
                     <th class="desktop">Total Payment</th>
                     <th>Status</th>
                     <th>Payment Type</th>
@@ -67,27 +65,25 @@
                     <th width="150">Payment Date</th>
                 </tr>
                 </thead>
-                @foreach ($paid as $index => $pen )
-                    @if($pen->transaction_id)
+                @foreach ($transaction as $index => $trx )
+                    @if($trx->transaction_id)
                         <tr>
-                            <td>NEX{{ $pen->transaction_id }}</td>
-                            <td>{{ isset($pen->albums->title) ? $pen->albums->title : '' }}</td>
-                            <td><span>Rp {{ number_format((float)($pen->amount), 0, ',', '.') }}</span></td>
-                            <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_voucher), 0, ',', '.') }}</span></td>
-                            <td><span class="text-danger">Rp {{ number_format((float)($pen->nilai_free_song), 0, ',', '.') }}</span></td>
-                            <td><span class="text-success">Rp {{ number_format((float)($pen->amount-$pen->nilai_voucher-$pen->nilai_free_song), 0, ',', '.') }}</span></td>
+                            <td>NEX{{ $trx->transaction_id }}</td>
+                            <td>{{ isset($trx->users->email) ? $trx->users->email : '' }}</td>
+                            <td><span>Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
+                            <td><span class="text-success">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
                             <td>
                                 <span class="badge badge-success">Paid</span>
                             </td>
-                            <td>{{ $pen->payment_type }}</td>
-                            <td>{{ $pen->note }}</td>
-                            <td>{{ \Carbon\Carbon::parse($pen->updated_at)->format('M j, Y') }}</td>
+                            <td>{{ $trx->payment_type }}</td>
+                            <td>{{ $trx->note }}</td>
+                            <td>{{ \Carbon\Carbon::parse($trx->updated_at)->format('M j, Y') }}</td>
                         </tr>
                     @endif
                 @endforeach
             </table>
             <div class="pagination pagination-right">
-                {{ $paid->appends(request()->input())->links() }}
+                {{ $transaction->appends(request()->input())->links() }}
             </div>
         </div>
     </div>

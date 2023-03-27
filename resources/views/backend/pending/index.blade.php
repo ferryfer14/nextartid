@@ -8,6 +8,7 @@
     </ol>
     <div class="row">
         <div class="col-lg-12">
+            <a class="btn btn-success mb-2" href="{{ route('backend.paid') }}">Paid</a>
             <form mothod="GET" action="">
                 <div class="form-group input-group">
                     <input type="text" class="form-control" name="q" value="{{ $term }}" placeholder="Enter album name or transaction id without prefix NEX">

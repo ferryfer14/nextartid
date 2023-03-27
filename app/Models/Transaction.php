@@ -24,7 +24,7 @@ class Transaction extends Model
 
     public function getPaymentsAttribute($value)
     {
-        return Payment::where('transaction_id', $this->attributes['transaction_id'])->orderBy('created_at','DESC')->groupBy('transaction_id')->first();
+        return Payment::where('transaction_type', 1)->where('transaction_id', $this->attributes['transaction_id'])->orderBy('created_at','DESC')->groupBy('transaction_id')->first();
     }
 
     public function getVouchersAttribute($value)

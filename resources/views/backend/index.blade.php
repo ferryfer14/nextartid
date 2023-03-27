@@ -234,8 +234,8 @@
                 </a>
                 <div id="collapseTransactions" class="collapse" aria-labelledby="headingPlans" data-parent="#accordionSidebar">
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Pending', 'icon' => 'fa-cart-arrow-down', 'permission' => 'admin_transactions', 'route' => 'backend.pending'])
-                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Paid', 'icon' => 'fa-university', 'permission' => 'admin_transactions', 'route' => 'backend.paid'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Album', 'icon' => 'fa-cart-arrow-down', 'permission' => 'admin_transactions', 'route' => 'backend.pending'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Subscribe', 'icon' => 'fa-user', 'permission' => 'admin_transactions', 'route' => 'backend.transaction.subscribe'])
                     </div>
                 </div>
             </li>

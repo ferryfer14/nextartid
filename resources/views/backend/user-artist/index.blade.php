@@ -27,6 +27,7 @@
                         <th class="desktop">Email</th>
                         <th class="desktop">Affiliation</th>
                         <th class="desktop">Max Artist</th>
+                        <th class="desktop">Album Pay</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -38,6 +39,7 @@
                             <td class="desktop"><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
                             <td>{{ $user->affiliation }}</td>
                             <td>{{ $user->max_artist }}</td>
+                            <td>{{ $user->album_pay == 0 ? "Tetep Bayar" : "Gratis" }}</td>
                             <td class="desktop">
                                 <a href="{{ route('backend.user.artist.edit', ['id' => $user->id]) }}" class="row-button edit"><i class="fas fa-fw fa-edit"></i></a>
                             </td>
