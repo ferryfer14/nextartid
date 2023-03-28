@@ -31,15 +31,14 @@ class TransactionSubscribeController
 
     public function index()
     {
-        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('status','0')->orderBy('transactions_subscribe.id', 'desc');
+        $transaction = TransactionSubscribe::withoutGlobalScopes();
 
         isset($_GET['q']) ? $term = $_GET['q'] : $term = '';
         $transaction = $transaction->join('users','users.id','transactions_subscribe.user_id');
-        if($term) {
-            $transaction = $transaction->whereRaw('users.email LIKE "%' . $term . '%" or transactions_subscribe.transaction_id LIKE "%' . $term . '%"');
-        }
+        $transaction = $transaction->whereRaw('transactions_subscribe.status = 0 AND users.email LIKE "%' . $term . '%" or transactions_subscribe.status = 0 AND transactions_subscribe.transaction_id LIKE "%' . $term . '%"');
+        
 
-        $transaction = $transaction->paginate(20);
+        $transaction = $transaction->orderBy('transactions_subscribe.id', 'desc')->paginate(20);
 
         return view('backend.transaction-subscribe.index')
             ->with('term', $term)
@@ -48,17 +47,17 @@ class TransactionSubscribeController
 
     public function paid()
     {
-        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('status','10')->orderBy('transactions_subscribe.id', 'desc');
+        $transaction = TransactionSubscribe::withoutGlobalScopes();
 
         isset($_GET['term']) ? $term = $_GET['term'] : $term = '';
         isset($_GET['created_from']) ? $created_from = date('Y-m-d',strtotime($_GET['created_from'])) : $created_from = '1970-01-01';
         isset($_GET['created_until']) ? $created_until = date('Y-m-d', strtotime($_GET['created_until'])) : $created_until = date('Y-m-d');
         
         $transaction = $transaction->join('users','users.id','transactions_subscribe.user_id');
-        $transaction = $transaction->whereRaw('users.email LIKE "%' . $term . '%" and date(transactions_subscribe.updated_at) >= "'.$created_from.'" and date(transactions_subscribe.updated_at) <= "'.$created_until.'"  or transactions_subscribe.transaction_id LIKE "%' . $term . '%" and date(transactions_subscribe.updated_at) >= "'.$created_from.'" and date(transactions_subscribe.updated_at) <= "'.$created_until.'"');
+        $transaction = $transaction->whereRaw('transactions_subscribe.status = 1 AND users.email LIKE "%' . $term . '%" and date(transactions_subscribe.updated_at) >= "'.$created_from.'" and date(transactions_subscribe.updated_at) <= "'.$created_until.'"  or transactions_subscribe.status = 1 AND transactions_subscribe.transaction_id LIKE "%' . $term . '%" and date(transactions_subscribe.updated_at) >= "'.$created_from.'" and date(transactions_subscribe.updated_at) <= "'.$created_until.'"');
         
 
-        $transaction = $transaction->paginate(20);
+        $transaction = $transaction->orderBy('transactions_subscribe.id', 'desc')->paginate(20);
 
         return view('backend.transaction-subscribe.paid')
             ->with('term', $term)
@@ -93,7 +92,7 @@ class TransactionSubscribeController
 
     public function edit()
     {
-        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('id',$this->request->route('id'))->first();
+        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('transaction_id',$this->request->route('id'))->first();
 
         return view('backend.transaction-subscribe.form')
             ->with('transaction', $transaction);

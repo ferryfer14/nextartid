@@ -33,6 +33,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/albums/sort', 'ArtistManagementController@sortAlbumSongs')->name('auth.user.artist.manager.albums.sort');
     Route::get('artist-management/albums/{id}', 'ArtistManagementController@showAlbum')->name('auth.user.artist.manager.albums.show');
     Route::get('artist-management/invoice/{id}', 'ArtistManagementController@invoiceAlbum')->name('auth.user.artist.manager.albums.invoice');
+    Route::get('artist-management/invoiceSubscribe/{id}', 'ArtistManagementController@invoiceSubscribe')->name('auth.user.artist.manager.albums.invoice.subscribe');
     Route::get('artist-management/invoiceWithdraw/{id}', 'ArtistManagementController@invoiceWithdraw')->name('auth.user.artist.manager.albums.invoice.withdraw');
     Route::get('artist-management/invoiceRoyalti/{id}', 'ArtistManagementController@invoiceRoyalti')->name('auth.user.artist.manager.albums.invoice.royalti');
     Route::get('artist-management/albums/{id}/upload', 'ArtistManagementController@uploadAlbum')->name('auth.user.artist.manager.albums.upload');
@@ -70,9 +71,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('artist-management/profile', 'ArtistManagementController@saveProfile')->name('auth.user.artist.manager.profile.save');
     
     Route::get('artist-management/transaction', 'ArtistManagementController@transaction')->name('auth.user.artist.manager.transaction');
+    Route::get('artist-management/subscribe', 'ArtistManagementController@subscribe')->name('auth.user.artist.manager.subscribe');
     Route::get('artist-management/convert-list', 'ArtistManagementController@convertList')->name('auth.user.artist.manager.convert.list');
     Route::get('artist-management/withdraw-list', 'ArtistManagementController@withdrawList')->name('auth.user.artist.manager.withdraw.list');
-   
+    Route::get('artist-management/paySubscribe/{id}', 'ArtistManagementController@paySubscribe')->name('auth.user.artist.manager.pay.subscribe');
+    Route::get('artist-management/statusSubscribe/{id}', 'ArtistManagementController@statusSubscribe')->name('auth.user.artist.manager.statusSubscribe');
+    
     Route::post('artist-management/genres', 'ArtistManagementController@genres')->name('auth.user.artist.manager.genres');
     Route::post('artist-management/moods', 'ArtistManagementController@moods')->name('auth.user.artist.manager.moods');
     Route::post('artist-management/categories ', 'ArtistManagementController@categories')->name('auth.user.artist.manager.categories ');

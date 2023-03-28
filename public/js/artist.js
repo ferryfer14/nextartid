@@ -29,6 +29,7 @@
         addArtistForm: $("#add-artist-form"),
         withdrawBalanceForm: $("#withdraw-balance-form"),
         patnerAlbumForm: $("#patner-album-form"),
+        paySubscribeForm: $("#pay-subscribe-form"),
         podcastCategories: [],
         countries: [],
         init: function () {
@@ -1478,6 +1479,64 @@
                     reader.readAsDataURL(input.files[0]);
                 }
             });
+        },
+        paySubscribe: function (el) {
+            var transaction_id = el.data('id');
+            if(Artist.paySubscribeForm.find("[name='payment']").val() == ''){
+                $.ajax({
+                    url: route.route('frontend.homepage') + "artist-management/paySubscribe/"+transaction_id,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (response) {
+                        $.engineUtils.cleanStorage();
+                        if(response.status_code == 0){
+                            Artist.paySubscribeForm.find("[name='payment']").val('1');
+                            $.engineLightBox.show("lightbox-pay-subscribe");
+                            Artist.paySubscribeForm.find('.lightbox-with-artwork-block').html("");
+                            Artist.paySubscribeForm.find('.lightbox-with-artwork-block').addClass("text-center");
+                            Artist.paySubscribeForm.find('.lightbox-with-artwork-block').append("<img id='qr' class='bg-white' width='300px' height='300px' src='"+response.image+"'/>");
+                            var timer2 = "5:01";
+                            var timing = setInterval(function() {
+                                $.ajax({
+                                    url: route.route('frontend.homepage') + "artist-management/statusSubscribe/"+response.trx_id,
+                                    type: 'get',
+                                    dataType: 'json',
+                                    success: function (response) {
+                                        $.engineUtils.cleanStorage();
+                                        if(response.status == 1){
+                                            Toast.show("success", "Payment Success");
+                                            location.reload();
+                                        }
+                                    },
+                                });
+                                var timer = timer2.split(':');
+                                //by parsing integer, I avoid all extra string processing
+                                var minutes = parseInt(timer[0], 10);
+                                var seconds = parseInt(timer[1], 10);
+                                --seconds;
+                                minutes = (seconds < 0) ? --minutes : minutes;
+                                if (minutes < 0) clearInterval(interval);
+                                seconds = (seconds < 0) ? 59 : seconds;
+                                seconds = (seconds < 10) ? '0' + seconds : seconds;
+                                //minutes = (minutes < 10) ?  minutes : minutes;
+                                Artist.patnerAlbumForm.find('.lightbox-footer .right').html(minutes + ':' + seconds);
+                                timer2 = minutes + ':' + seconds;
+                            }, 1000);
+                            setTimeout(function() {
+                                //location.reload();
+                                clearInterval(timing);
+                                $.engineLightBox.hide();
+                                Artist.patnerAlbumForm.find("[name='payment']").val('');
+                                Artist.patnerAlbumForm.find('.lightbox-footer .right').html('<button class="btn btn-primary" type="submit" data-translate-text="SAVE">Save</button>');
+                            }, 130000);
+                        }else{
+                            Toast.show("error", "Error");
+                        }
+                    },
+                });
+            }else{
+                $.engineLightBox.show("lightbox-pay-subscribe");
+            }
         },
         payAlbum: function (el) {
             var album = window['album_data_' + el.data('id')];

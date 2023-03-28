@@ -35,21 +35,19 @@
                 </tr>
                 </thead>
                 @foreach ($transaction as $index => $trx )
-                    @if($trx->transaction_id)
-                        <tr>
-                            <td>NEX{{ $trx->transaction_id }}</td>
-                            <td>{{ isset($trx->users->email) ? $trx->users->email : '' }}</td>
-                            <td><span>Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
-                            <td><span class="text-success">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
-                            <td>
-                                <span class="badge badge-danger">Pending</span>
-                            </td>
-                            <td>{{ \Carbon\Carbon::parse($trx->created_at)->format('M j, Y') }}</td>
-                            <td>
-                                <a href="{{ route('backend.transaction.subscribe.edit', ['id' => $trx->id]) }}" class="row-button edit"><i class="fas fa-fw fa-edit"></i></a>
-                            </td>
-                        </tr>
-                    @endif
+                    <tr>
+                        <td>NEX{{ $trx->transaction_id }}</td>
+                        <td>{{ isset($trx->users->email) ? $trx->users->email : '' }}</td>
+                        <td><span>Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
+                        <td><span class="text-success">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</span></td>
+                        <td>
+                            <span class="badge badge-danger">Pending</span>
+                        </td>
+                        <td>{{ \Carbon\Carbon::parse($trx->created_at)->format('M j, Y') }}</td>
+                        <td>
+                            <a href="{{ route('backend.transaction.subscribe.edit', ['id' => $trx->transaction_id]) }}" class="row-button edit"><i class="fas fa-fw fa-edit"></i></a>
+                        </td>
+                    </tr>
                 @endforeach
             </table>
             <div class="pagination pagination-right">

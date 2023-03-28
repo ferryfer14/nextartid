@@ -54,6 +54,7 @@ use PDF;
 use Dompdf\Options;
 use App\Exports\AlbumsExport;
 use App\Exports\RoyaltiExport;
+use App\Models\TransactionSubscribe;
 use Excel;
 
 class ArtistManagementController extends Controller
@@ -356,6 +357,75 @@ class ArtistManagementController extends Controller
         $this->transaction = Transaction::withoutGlobalScopes()->where('transaction.user_id','=', auth()->user()->id)->paginate(20);
         $view = View::make('artist-management.transaction')
             ->with('transaction', $this->transaction)
+            ->with('artist', $this->artist);
+
+        if($this->request->ajax()) {
+            $sections = $view->renderSections();
+            if($this->request->input('page') && intval($this->request->input('page')) > 1)
+            {
+                return $sections['pagination'];
+            } else {
+                return $sections['content'];
+            }
+        }
+
+        return $view;
+    }
+    public function paySubscribe()
+    {
+        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('transaction_id', $this->request->route('id'))->first();
+        if(isset($transaction->id)){
+            $token_youtap = token_youtap();
+            $timestamp = date('YMdHis');
+            $amount = $transaction->amount;
+            $trx_id = $transaction->transaction_id;
+            $merchant_bill_ref = ($timestamp . $trx_id);
+            $amount_payment = $amount;
+            $res_signature = signature_youtap($trx_id, $amount_payment, $timestamp, $merchant_bill_ref);
+            $signature = $res_signature['signature'];
+            $minify_body = $res_signature['minify_body'];
+            if($amount_payment > 0){
+                $res_qr = qris_youtap($timestamp, $signature, $token_youtap, $minify_body);
+                    
+                $payment = new Payment();
+                $payment->transaction_type = 2;
+                $payment->transaction_id = $trx_id;
+                $payment->merchant_bill_ref = $merchant_bill_ref;
+                $payment->minify_body = $minify_body;
+                $payment->signature = $signature;
+                $payment->amount = $amount_payment;
+                $payment->open_bill_id = $res_qr['open_bill_id'];
+                $payment->bill_status = $res_qr['bill_status'];
+                $payment->save();
+                $url_qr = (new QRCode)->render($res_qr['merchant_qr_code']);
+                return response()->json([
+                    'status_code' => 0,
+                    'image' => $url_qr,
+                    'trx_id' => $trx_id
+                ]);
+            }else{
+                return response()->json('');
+            }
+        }else {
+            abort(403, 'Not your subscribe.');
+        }
+    }
+
+    public function statusSubscribe()
+    {
+        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('transaction_id', $this->request->route('id'))->first();
+        if($transaction->status == 1){
+            (new Email)->paymentHasBeenPaid(auth()->user(), 'Rp ' . number_format((float)($transaction->amount), 0, ',', '.'));
+        }
+        return response()->json($transaction);
+    }
+
+    public function subscribe()
+    {
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $subscribe = TransactionSubscribe::withoutGlobalScopes()->where('transactions_subscribe.user_id','=', auth()->user()->id)->paginate(20);
+        $view = View::make('artist-management.subscribe')
+            ->with('transaction', $subscribe)
             ->with('artist', $this->artist);
 
         if($this->request->ajax()) {
@@ -1825,7 +1895,7 @@ class ArtistManagementController extends Controller
     {
         $transaction = Transaction::withoutGlobalScopes()->where('transaction_id', $this->request->route('id'))->first();
         if($transaction->status == 1){
-            (new Email)->paymentHasBeenPaid(auth()->user(), 'Rp ' . number_format((float)($amount_payment), 0, ',', '.'));
+            (new Email)->paymentHasBeenPaid(auth()->user(), 'Rp ' . number_format((float)($transaction->amount - $transaction->nilai_voucher - $transaction->nilai_free_song), 0, ',', '.'));
         }
         return response()->json($transaction);
     }
@@ -1851,6 +1921,14 @@ class ArtistManagementController extends Controller
         $pdf = PDF::loadview('artist-management.invoice-withdraw', ['transaction' => $transaction]);
         $pdf->setPaper('a4', 'portrait');
         return $pdf->stream('invoiceWithdraw-'.$transaction->transaction_id.'.pdf');
+    }
+
+    public function invoiceSubscribe()
+    {
+        $transaction = TransactionSubscribe::withoutGlobalScopes()->where('id', $this->request->route('id'))->first();
+        $pdf = PDF::loadview('artist-management.invoice-subscribe', ['transaction' => $transaction]);
+        $pdf->setPaper('a4', 'portrait');
+        return $pdf->stream('invoiceSubscribe-'.$transaction->transaction_id.'.pdf');
     }
 
     public function editPatner()

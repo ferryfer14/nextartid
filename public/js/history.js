@@ -177,6 +177,8 @@
             }
           } else if (a.hasClass("pay") === true) {
             Artist.payAlbum(a);
+          } else if (a.hasClass("pay_subscribe") === true) {
+            Artist.paySubscribe(a);
           } else if (a.hasClass("delete-event-cta") === true) {
             User.Actions.removeActivity(a);
           } else if (a.hasClass("play-station") === true) {

@@ -2129,6 +2129,30 @@
             </div>
         </div>
     </div>
+    <div class="lightbox lightbox-pay-subscribe hide">
+        <div class="lbcontainer">
+            <div id="pay-playlist">
+                <form id="pay-subscribe-form" class="ajax-form" method="post" action="#" enctype="multipart/form-data" novalidate>
+                    <div class="lightbox-header">
+                        <h2 class="title">Scan QR Code for pay this subscribe</h2>
+                        @yield('lightbox-close')
+                    </div>
+                    <div class="lightbox-content">
+                        <div class="lightbox-content-block">
+                            <div class="error hide">
+                                <div class="message"></div>
+                            </div>
+                            <input name="payment" type="hidden">
+                            <div class="lightbox-with-artwork-block">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="lightbox-footer">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-pay-album hide">
         <div class="lbcontainer">
             <div id="pay-playlist">

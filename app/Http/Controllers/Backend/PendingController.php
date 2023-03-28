@@ -29,15 +29,14 @@ class PendingController
 
     public function index()
     {
-        $transaction = Transaction::withoutGlobalScopes()->where('status','0')->orderBy('transaction.id', 'desc');
+        $transaction = Transaction::withoutGlobalScopes();
 
         isset($_GET['q']) ? $term = $_GET['q'] : $term = '';
         $transaction = $transaction->join('albums','albums.id','transaction.album_id');
-        if($term) {
-            $transaction = $transaction->whereRaw('albums.title LIKE "%' . $term . '%" or transaction.transaction_id LIKE "%' . $term . '%"');
-        }
+        $transaction = $transaction->whereRaw('transaction.status = 0 AND albums.title LIKE "%' . $term . '%" or transaction.status = 0 AND transaction.transaction_id LIKE "%' . $term . '%"');
+        
 
-        $transaction = $transaction->paginate(20);
+        $transaction = $transaction->orderBy('transaction.id', 'desc')->paginate(20);
 
         return view('backend.pending.index')
             ->with('term', $term)
