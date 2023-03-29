@@ -259,7 +259,12 @@ class Upload
                 $song->save();
 
                 $album = Album::withoutGlobalScopes()->findOrFail($album_id);
-                $amount = $album->price->harga_discount*$album->song_count;
+                $user = auth()->user();
+                if($user->album_pay == 0){
+                    $amount = $album->price->harga_discount*$album->song_count;
+                }else{
+                    $amount = 0;
+                }
 
                 if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->exists()) {
                     $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album_id)->firstOrFail();
@@ -298,7 +303,7 @@ class Upload
                         }else{
                             $trx_id = new_transaction();
                             $transaction = new Transaction();
-                            $transaction->user_id = auth()->user()->id;
+                            $transaction->user_id = $row->user_id;
                             $transaction->album_id = $row->id;
                             $transaction->transaction_id = $trx_id;
                             $transaction->amount = $amount;

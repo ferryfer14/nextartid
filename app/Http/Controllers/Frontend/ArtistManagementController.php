@@ -354,9 +354,9 @@ class ArtistManagementController extends Controller
     public function transaction()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
-        $this->transaction = Transaction::withoutGlobalScopes()->where('transaction.user_id','=', auth()->user()->id)->paginate(20);
+        $transaction = Transaction::withoutGlobalScopes()->where('user_id', auth()->user()->id)->orderBy('status', 'asc')->paginate(20);
         $view = View::make('artist-management.transaction')
-            ->with('transaction', $this->transaction)
+            ->with('transaction', $transaction)
             ->with('artist', $this->artist);
 
         if($this->request->ajax()) {
@@ -1669,12 +1669,17 @@ class ArtistManagementController extends Controller
             ->get();
             $s->roles_song = $song_roles;
         }
+        $user = auth()->user();
         $transaction = Transaction::withoutGlobalScopes()->where('album_id', $album->id)->first();
-        if(isset($album->free_song)){
+        if(isset($album->free_song) && $user->album_pay == 0){
             $transaction->free_song_id = $album->free_song->id;
             $transaction->nilai_free_song = $album->free_song->free*$album->price->harga_discount;
             $transaction->save();
         }else{
+            if($user->album_pay == 1){
+                $transaction->amount = 0;
+                $transaction->save();
+            }
             if(isset($transaction->free_song_id))
             {
                 $transaction->free_song_id = NULL;
@@ -1965,7 +1970,12 @@ class ArtistManagementController extends Controller
                 $album->save();
                 $token_youtap = token_youtap();
                 $timestamp = date('YMdHis');
-                $amount = $album->price->harga_discount*$album->song_count;
+                $user = auth()->user();
+                if($user->album_pay == 0){
+                    $amount = $album->price->harga_discount*$album->song_count;
+                }else{
+                    $amount = 0;
+                }
                 if(Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->exists()) {
                     $transaction = Transaction::withoutGlobalScopes()->where('album_id', '=', $album->id)->firstOrFail();
                     $transaction->amount = $amount;

@@ -1,10 +1,10 @@
 @extends('index')
 @section('pagination')
     @foreach ($transaction as $trx)
-        @if(isset($trx->payments))
+        @if(isset($trx->albums->id))
             <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="transaction" data-id="{{ $trx->id }}">
                 <td class="text-center desktop"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">NEX{{ $trx->transaction_id }}</a></td>
-                <td class="text-center"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">{{$trx->albums->title}}</a></td>
+                <td class="text-center"><a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">{{$trx->albums->title ?? ''}}</a></td>
                 <td class="text-center">Rp {{ number_format((float)($trx->amount), 0, ',', '.') }}</td>
                 <td class="text-center text-danger">Rp {{ number_format((float)($trx->nilai_voucher), 0, ',', '.') }}</td>
                 <td class="text-center text-danger">Rp {{ number_format((float)($trx->nilai_free_song), 0, ',', '.') }}</td>
@@ -17,13 +17,19 @@
                     @endif
                 </td>
                 <td class="text-center">{{ $trx->payment_type }}</td>
-                <td class="text-center">{{\Carbon\Carbon::parse($trx->payments->created_at)->format('M j, Y')}}</td>
+                <td class="text-center">{{\Carbon\Carbon::parse($trx->created_at)->format('M j, Y')}}</td>
                 <td>
-                    <a class="btn options" target="_blank" href="{{ route('frontend.auth.user.artist.manager.albums.invoice', ['id' => $trx->id]) }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
-                            <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
-                        </svg>
-                    </a>
+                    @if($trx->status == 0)
+                        <a class="btn options" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $trx->albums->id]) }}">
+                            Pay
+                        </a>
+                    @else
+                        <a class="btn options" target="_blank" href="{{ route('frontend.auth.user.artist.manager.albums.invoice', ['id' => $trx->id]) }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark" viewBox="0 0 16 16">
+                                <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                            </svg>
+                        </a>
+                    @endif
                 </td>
             </tr>
         @endif
