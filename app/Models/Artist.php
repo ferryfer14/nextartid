@@ -27,7 +27,7 @@ class Artist extends Model implements HasMedia
 
     protected $hidden = ['media', 'bio', 'visibility', 'created_at', 'updated_at'];
 
-    protected $appends = ['artwork_url','royalti_tanggal', 'royalti','royalti_total_dsp','royalti_month','royalti_dsp','unconfirm','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm','balance_unconfirm'];
+    protected $appends = ['artwork_url','royalti_tanggal', 'royalti','royalti_total_dsp','royalti_month','royalti_dsp','unconfirm','balance_idr' , 'sum_withdraw' , 'favorite','album_count', 'permalink_url','album_count_paid','album_count_unpaid','balance_confirm','balance_unconfirm','balance_confirm_artist','balance_unconfirm_artist'];
 
     protected static function boot()
     {
@@ -83,6 +83,15 @@ class Artist extends Model implements HasMedia
         return RoyaltiUnconfirm::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('artistIds',$this->id)->pluck('id'))->sum('value');
     }
 
+    public function getBalanceConfirmArtistAttribute($value)
+    {
+        return Royalti::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('display_artist',$this->id)->pluck('id'))->sum('value');
+    }
+
+    public function getBalanceUnconfirmArtistAttribute($value)
+    {
+        return RoyaltiUnconfirm::withoutGlobalScopes()->whereIn('song_id', Song::withoutGlobalScopes()->where('display_artist',$this->id)->pluck('id'))->sum('value');
+    }
     public function getBalanceIdrAttribute($value)
     {
         return Balance::withoutGlobalScopes()->where('user_id', $this->attributes['user_id'])->sum('value');

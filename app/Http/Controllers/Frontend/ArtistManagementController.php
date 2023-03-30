@@ -190,9 +190,13 @@ class ArtistManagementController extends Controller
 
     public function royaltiArtist()
     {
-        $this->artist = Artist::withoutGlobalScopes()->where('user_id',auth()->user()->id)->get();
+        $this->artist = Artist::findOrFail(auth()->user()->artist_id);
+        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->get());
+
+        $artists = Artist::where('user_id',auth()->user()->id)->paginate(20);
         
         $view = View::make('artist-management.royalti-artist')
+            ->with('artists', $artists)
             ->with('artist', $this->artist);
 
         if($this->request->ajax()) {
@@ -494,9 +498,9 @@ class ArtistManagementController extends Controller
     public function artists()
     {
         $this->artist = Artist::findOrFail(auth()->user()->artist_id);
-        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->paginate(20));
+        $this->artist->setRelation('songs', $this->artist->songs()->withoutGlobalScopes()->with('tags')->orderBy('approved', 'asc')->latest()->get());
 
-        $artists = Artist::where('user_id',auth()->user()->id)->get();
+        $artists = Artist::where('user_id',auth()->user()->id)->paginate(20);
         
         $view = View::make('artist-management.artists')
             ->with('artists', $artists)

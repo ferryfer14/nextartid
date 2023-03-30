@@ -1,20 +1,20 @@
 @extends('index')
 @section('pagination')      
-    @foreach ($artist as $index => $artist)
+    @foreach ($artists as $index => $art)
         <tr class="module" data-toggle="contextmenu" data-trigger="right" data-type="artist" data-id="{{ $artist->id }}">
-            <td class="text-center desktop">{{ $artist->name }}</td>
-            <td class="text-center desktop">${{ round($artist->balance_confirm,2) }}</td>
-            <td class="text-center desktop">${{ round($artist->balance_unconfirm,2) }}</td>
+            <td class="text-center desktop">{{ $art->name }}</td>
+            <td class="text-center desktop">${{ round($art->balance_confirm_artist,2) }}</td>
+            <td class="text-center desktop">${{ round($art->balance_unconfirm_artist,2) }}</td>
             <td class="text-center desktop"></td>
             <td class="text-center secondary-actions-container">
                 <div class="row-actions secondary align-items-stretch">
-                    <a class="btn options artist-royalti basic-tooltip" tooltip="Confirmed Royalty Details"  data-type="artist" data-id="{{ $artist->id }}">
+                    <a class="btn options artist-royalti basic-tooltip" tooltip="Confirmed Royalty Details"  data-type="artist" data-id="{{ $art->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
                         </svg>
                     </a>
-                    <a class="btn options artist-unconfirm basic-tooltip" tooltip="Unconfirmed Royalty Details"  data-type="artist" data-id="{{ $artist->id }}">
+                    <a class="btn options artist-unconfirm basic-tooltip" tooltip="Unconfirmed Royalty Details"  data-type="artist" data-id="{{ $art->id }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
                             <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
                             <path d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V4zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2H3z"/>
@@ -26,7 +26,7 @@
                 </div>
             </td>
         </tr>
-        <script>var artist_data_{{ $artist->id }} = {!! json_encode($artist) !!}</script>
+        <script>var artist_data_{{ $art->id }} = {!! json_encode($art) !!}</script>
     @endforeach
 @stop
 @section('content')
@@ -53,27 +53,31 @@
             </div>
             @include('artist-management.nav-royalti')
             <br/>
-            <div id="column1" class="full">  
-                <div class="card shadow">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Artists</h2>
-                    </div>
-                    <div class="card-body">
-                        <table class="table artist-management">
-                            <thead>
-                            <tr>
-                                <th class="text-center">Artist Name</th>
-                                <th class="text-center basic-tooltip" tooltip="Upto Today Royalty">Confirmed Royalty</th>
-                                <th class="text-center basic-tooltip" tooltip="Unconfirmed Royalty">Unconfirmed Royalty</th>
-                                <th class="text-center"></th>
-                                <th class="text-center"></th>
-                            </tr>
-                            </thead>
-                            <tbody class="infinity-load-more">
-                                @yield('pagination')
-                            </tbody>
-                        </table>
-                    </div>
+            <div id="page-content" class="p-0">
+                <div id="column1" class="full">  
+                    @if(count($artists))
+                        <div class="card shadow">
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h2 class="m-0 font-weight-bold" data-translate-text="Artists">Artists</h2>
+                            </div>
+                            <div class="card-body">
+                                <table class="table artist-management">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">Artist Name</th>
+                                        <th class="text-center basic-tooltip" tooltip="Upto Today Royalty">Confirmed Royalty</th>
+                                        <th class="text-center basic-tooltip" tooltip="Unconfirmed Royalty">Unconfirmed Royalty</th>
+                                        <th class="text-center"></th>
+                                        <th class="text-center"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody class="infinity-load-more">
+                                        @yield('pagination')
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
