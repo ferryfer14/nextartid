@@ -1329,10 +1329,16 @@ class ArtistManagementController extends Controller
             ->with('albums', $albums)
             ->with('my_artist', $my_artist);
 
-        if($this->request->ajax()) {
-            $sections = $view->renderSections();
-            return $sections['content'];
-        }
+        
+            if($this->request->ajax()) {
+                $sections = $view->renderSections();
+                if($this->request->input('page') && intval($this->request->input('page')) > 1)
+                {
+                    return $sections['pagination'];
+                } else {
+                    return $sections['content'];
+                }
+            }
 
         return $view;
     }

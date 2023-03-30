@@ -64,6 +64,35 @@
                 <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{$artist->permalink_url}}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
             </div>
         </div>
+    @elseif($element == "grid_albums")
+        <div class="module module-cell small grid-item" >
+            <div class="img-container {{ $album->takedown == 1 ? "basic-tooltip" : "" }}" tooltip="{{ $album->takedown == 1 ? "Take Down" : "" }}">
+                @if($album->takedown == 1)
+                    <div class="img-overlay"></div>
+                @endif
+                <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
+                <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
+                <div class="actions primary">
+                    <a class="btn btn-secondary btn-icon-only btn-options" data-toggle="contextmenu" data-trigger="left" data-type="album" data-id="{{ $album->id }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                    </a>
+                    <a class="btn btn-secondary btn-icon-only btn-rounded btn-play play-or-add play-object" data-type="album" data-id="{{ $album->id }}">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="26" width="20"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
+                    </a>
+                </div>
+            </div>
+            <div class="module-inner">
+                <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline" style="white-space: pre-wrap;"><h2 style="margin-bottom: 10px;">{!! $album->title !!}</h2></a>
+                <p>
+                    Display Artist : {{ $album->primary_artist }}<br/>
+                    UPC : {{ $album->upc }}<br/>
+                    Digital Release : {{ Date('Y-m-d', strtotime($album->released_at)) }}<br/>
+                    Posting Date : {{ Date('Y-m-d', strtotime($album->created_at)) }}
+                </p>
+            </div>
+        </div>
+        @if(!$loop->last)
+        @endif
     @elseif($element == "activity")
         @if (count($albums) > 1)
             <a href="{{ $album->permalink_url }}" class="feed-item-img small " data-toggle="contextmenu" data-trigger="right" data-type="album" data-id="{{ $album->id }}">

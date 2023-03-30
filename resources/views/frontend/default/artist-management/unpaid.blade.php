@@ -1,4 +1,7 @@
 @extends('index')
+@section('pagination')
+    @include('commons.album', ['albums' => $artist->albums, 'element' => 'grid_albums'])
+@stop
 @section('content')
     @include('artist-management.nav', ['artist' => $artist])
     <div id="page-content" class="artist">
@@ -41,31 +44,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="grid" class="row">
-                            @foreach($artist->albums as $album)
-                                <script>var album_data_{{ $album->id }} = {!! json_encode($album) !!}</script>
-                                <div class="module module-cell small grid-item">
-                                    <div class="img-container {{ $album->takedown == 1 ? "basic-tooltip" : "" }}" tooltip="{{ $album->takedown == 1 ? "Take Down" : "" }}">
-                                        @if($album->takedown == 1)
-                                            <div class="img-overlay"></div>
-                                        @endif
-                                        <img class="img" src="{{ $album->artwork_url }}" alt="{!! $album->title !!}">
-                                        <a class="overlay-link" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}"></a>
-                                        <div class="actions primary">
-                                            <a class="btn btn-secondary btn-icon-only btn-options" data-toggle="contextmenu" data-trigger="left" data-type="album" data-id="{{ $album->id }}">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
-                                            </a>
-                                            <a class="btn btn-secondary btn-icon-only btn-rounded btn-play play-or-add play-object" data-type="album" data-id="{{ $album->id }}">
-                                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" height="26" width="20"><path d="M8 5v14l11-7z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="module-inner">
-                                        <a href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" class="headline">{!! $album->title !!}</a>
-                                        <span class="byline">by @foreach($album->artists as $artist)<a class="secondary-text" href="{{ route('frontend.auth.user.artist.manager.albums.show', ['id' => $album->id]) }}" title="{!! $artist->name !!}">{!! $artist->name !!}</a>@if(!$loop->last), @endif @endforeach</span>
-                                    </div>
-                                </div>
-                            @endforeach
+                        <div id="grid" class="no-artist-column albums grid-albums-vertical infinity-load-more" data-total-page="{{ ceil($artist->albums->total()/20) }}">
+                            @yield('pagination')
                         </div>
                     @else
                         <div class="empty-page followers">
