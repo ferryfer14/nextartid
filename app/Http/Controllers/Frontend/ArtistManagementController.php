@@ -45,7 +45,6 @@ use App\Models\Patner;
 use App\Models\Transaction;
 use App\Models\Payment;
 use App\Models\Royalti;
-use App\Models\Session;
 use App\Models\Voucher;
 use App\Models\WithdrawRoyalti;
 use Carbon\CarbonPeriod;
@@ -61,10 +60,18 @@ class ArtistManagementController extends Controller
 {
     private $request;
     private $artist;
+    private $email;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+
+        $this->middleware(function ($request, $next) {
+            // fetch session and use it in entire class with constructor
+            $this->email = \Session::get('login_user');
+            renewal_subscribe($this->email);
+            return $next($request);
+        });
     }
 
     public function index()
@@ -1971,6 +1978,12 @@ class ArtistManagementController extends Controller
                 $token_youtap = token_youtap();
                 $timestamp = date('YMdHis');
                 $user = auth()->user();
+                if($user->affiliation == 'Subscribe' && $user->status_suspend_subs == 1){
+                    return response()->json([
+                        'message' => 'failed',
+                        'errors' => array('message' => array(__('Your account has been suspended, please pay your subscription on page Transaction')))
+                    ], 403);
+                }
                 if($user->album_pay == 0){
                     $amount = $album->price->harga_discount*$album->song_count;
                 }else{

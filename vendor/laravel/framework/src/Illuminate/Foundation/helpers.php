@@ -21,6 +21,8 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\HtmlString;
 use Symfony\Component\HttpFoundation\Response;
 use App\Models\Transaction;
+use App\Models\TransactionSubscribe;
+use App\Models\User;
 
 if (! function_exists('abort')) {
     /**
@@ -987,6 +989,39 @@ if (! function_exists('new_transaction')) {
             $randnum = rand(1111111111,9999999999);
             return $randnum;
         }    
+    }
+}
+
+if (! function_exists('renewal_subscribe')) {
+
+    function renewal_subscribe($email){
+        if($email != null){
+            $user = User::withoutGlobalScopes()->where('email',$email)->first();
+            $user_id = $user->id;
+            if($user->affiliation == 'Subscribe'){
+                $exp = new DateTime($user->expired_date_subscribe);
+                $now = new DateTime(date('Y-m-d'));
+                //exp kurang berapa lagi ke now
+                $selisih = $now->diff($exp)->format("%r%a");
+                if($selisih <= 0){
+                    if(!TransactionSubscribe::withoutGlobalScopes()->where('user_id', $user_id)->where('status', 0)->exists()){
+                        $transaction = new TransactionSubscribe();
+                        $transaction->user_id = $user_id;
+                        $transaction->amount = $user->subscribe_amount;
+                        $transaction->max_artist = $user->max_artist;
+                        $transaction->album_pay = $user->album_pay;
+                        $transaction->month = $user->subscribe_month;
+                        $transaction->save();
+                        $transaction->transaction_id = date('Ymd').$transaction->id;
+                        $transaction->save();
+                    }
+                    if($selisih < 0){
+                        $user->status_suspend_subs = 1;
+                        $user->save();
+                    }
+                }
+            }
+        }
     }
 }
 

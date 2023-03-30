@@ -427,6 +427,7 @@ class AuthController
         header('Access-Control-Allow-Origin: *');
         $tokenjwt = $this->generate_jwt($payload, '2sjawbSLpPvA5fXNSpUQ7Kn49Jsg4vj0vVWdZl9mAuQjnCf3hbJEnvvDkk37g2ds');
         if($tokenjwt){
+            \Session::put('login_user', $this->request->email);
             \Session::put('musictoken', $tokenjwt);
             //dd($tokenjwt);
             // return Redirect::to("https://music.nextart.id/albums?jwt=".$tokenjwt);;

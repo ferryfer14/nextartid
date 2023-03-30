@@ -111,6 +111,7 @@ class TransactionSubscribeController
             $user->affiliation = 'Subscribe';
             $user->max_artist = $transaction->max_artist; 
             $user->album_pay = $transaction->album_pay; 
+            $user->subscribe_amount = $transaction->amount;
             $user->subscribe_month = $transaction->month; 
             $user->expired_date_subscribe = Carbon::now()->addMonths($transaction->month); 
             $user->save();
