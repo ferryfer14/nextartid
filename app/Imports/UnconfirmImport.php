@@ -34,7 +34,8 @@ class UnconfirmImport implements ToModel, WithHeadingRow
                 "value" => $row['net_total_client_currency'],
                 "start_date" => $row['start_date'],
                 "end_date" => $row['end_date'],
-                "country" => $row['country']
+                "country" => $row['country'],
+                "units" => $row['units']
             ]);
         }
     }

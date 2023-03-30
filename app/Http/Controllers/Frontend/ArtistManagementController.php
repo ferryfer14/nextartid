@@ -1747,7 +1747,7 @@ class ArtistManagementController extends Controller
                     'errors' => array('message' => array(__('web.COUPON_NOT_EXIST')))
                 ], 403);
             }
-            if($voucher->expired_at && $voucher->expired_at < Carbon::now()) {
+            if($voucher->expired_at != null && Carbon::parse($voucher->expired_at) < Carbon::now()->toDateString()) {
                 return response()->json([
                     'message' => 'failed',
                     'errors' => array('message' => array(__('web.COUPON_EXPIRED')))

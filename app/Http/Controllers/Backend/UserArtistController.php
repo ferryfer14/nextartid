@@ -62,6 +62,7 @@ class UserArtistController
         $user = User::findOrFail($this->request->route('id'));
         $user->affiliation = $this->request->input('affiliation');
         $user->max_artist = $this->request->input('max_artist');
+        $user->album_pay = $this->request->input('album_pay');
         $user->save();
         return redirect()->route('backend.user.artist')->with('status', 'success')->with('message', 'User Artist successfully edited!');
     }
