@@ -144,13 +144,14 @@ class AuthController
             //'artist-phone-ext1' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation1' => 'required|string',
             'artist2' => 'nullable|string|min:3|max:30',
+            'referal' => 'nullable|string|min:3|max:10',
             //'artist-phone2' => 'required_unless:artist2,""|nullable|string|min:5|max:15',
             //'artist-phone-ext2' => 'nullable|numeric|digits_between:1,3',
             //'artist-affiliation2' => 'required_unless:artist2,""|nullable|string',
         ]);
         
         $verifyCoder = Str::random(32);
-        
+        $user_ref = User::where('kode_ref', $this->request->referal)->first();
         $user = new User();
         
         $user->email = $this->request->email;
@@ -159,6 +160,7 @@ class AuthController
         $user->phone = $this->request->phone;
         $user->password = bcrypt($this->request->password);
         $user->email_verified_code = $verifyCoder;
+        $user->reference_by = $user_ref->id;
         
         if(config('settings.dob_signup') && ! $this->request->is('api*')) {
             $this->request->validate([

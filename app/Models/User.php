@@ -25,7 +25,7 @@ class User extends Authenticatable implements HasMedia
     ];
 
     protected $appends = [
-        'artwork_url','artwork_ktp_url','artwork_npwp_url', 'permalink_url', 'favorite'
+        'artwork_url','artwork_ktp_url','artwork_npwp_url', 'permalink_url', 'favorite', 'referal_by'
     ];
 
     protected $hidden = [
@@ -376,8 +376,19 @@ class User extends Authenticatable implements HasMedia
         return Artist::where('user_id', $this->id)->count();
     }
 
+    public function getReferalByAttribute($value)
+    {
+        if(isset($this->attributes['reference_by'])){
+            return User::where('id', $this->attributes['reference_by'])->first()->email;
+        }
+        return null;
+    }
+
     public function delete()
     {
+        DB::table('users')
+            ->where('reference_by', $this->id)
+            ->update(['reference_by' => NULL]);
         Comment::where('commentable_type', $this->getMorphClass())->where('commentable_id', $this->id)->delete();
         Love::where('loveable_type', $this->getMorphClass())->where('loveable_id', $this->id)->delete();
         Notification::where('notificationable_type', $this->getMorphClass())->where('notificationable_id', $this->id)->delete();

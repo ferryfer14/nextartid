@@ -240,6 +240,20 @@
                 </div>
             </li>
         @endif
+        @if(\App\Models\Role::getValue('admin_users'))
+            <hr class="sidebar-divider">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseReferal" aria-expanded="false" aria-controls="collapseReferal">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Referal</span>
+                </a>
+                <div id="collapseReferal" class="collapse" aria-labelledby="headingPlans" data-parent="#accordionSidebar">
+                    <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage User Referal', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.referal'])
+                    </div>
+                </div>
+            </li>
+        @endif
         <hr class="sidebar-divider">
         @include('backend.commons.sidebar-menu', ['name' => 'Withdraw', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_transactions', 'route' => 'backend.withdraw.royalti'])
         <hr class="sidebar-divider">

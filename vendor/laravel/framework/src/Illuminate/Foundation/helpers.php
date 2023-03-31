@@ -1025,6 +1025,37 @@ if (! function_exists('renewal_subscribe')) {
     }
 }
 
+if (! function_exists('create_code_ref')) {
+
+    function create_code_ref($email){
+        if($email != null){
+            if(User::withoutGlobalScopes()->where('email',$email)->where('kode_ref',null)->exists()){    
+                $data_ref = DB::table('users')->where('kode_ref','!=',null)->count();
+                if($data_ref > 0){
+                    $code = DB::table('users')->select(DB::raw("SUBSTR(MD5(RAND()), 1, 10) as random"))->havingRaw('random NOT IN (SELECT kode_ref FROM users)')->first();
+                    $kode = $code->random;
+                }else{
+                    $kode = generateRandomString(10);
+                }    
+                $user = User::withoutGlobalScopes()->where('email',$email)->where('kode_ref',null)->first();
+                $user->kode_ref = $kode;
+                $user->save();
+            }
+        }
+    }
+}
+if (! function_exists('generateRandomString')) {
+
+    function generateRandomString($length = 10) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[random_int(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+}
 if (! function_exists('qris_youtap')) {
 
     function qris_youtap($Timestamp, $Signature, $access_token, $minifyBody)

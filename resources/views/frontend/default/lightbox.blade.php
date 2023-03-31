@@ -467,6 +467,10 @@
                                         <label class="control-label" for="artist-2" data-translate-text="FORM_ARTIST2">{{ __('web.FORM_ARTIST2') }}</label>
                                         <div class="controls"><input class="signup-text" id="artist2" name="artist2" type="text" autocapitalize="words"></div>
                                     </div>
+                                    <div class="control control-group col-lg-6 col-12">
+                                        <label class="control-label" for="kode-ref">Code Referal</label>
+                                        <div class="controls"><input class="signup-text" id="referal" name="referal" type="text" autocapitalize="words"></div>
+                                    </div>
                                     <!--<div class="control control-group col-lg-6 col-12">
                                         <label class="control-label" for="artist-phone2" data-translate-text="FORM_PHONE">{{ __('web.FORM_PHONE') }}</label>
                                         <input type="text" id="artist-phone2" name="artist-phone2" value="">

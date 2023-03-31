@@ -70,6 +70,7 @@ class ArtistManagementController extends Controller
             // fetch session and use it in entire class with constructor
             $this->email = \Session::get('login_user');
             renewal_subscribe($this->email);
+            create_code_ref($this->email);
             return $next($request);
         });
     }
