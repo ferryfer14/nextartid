@@ -38,7 +38,6 @@ class ConfigPointController
             'idr' => 'required|numeric',
             'cal_idr' => 'required|numeric',
         ]);
-
         $point = ConfigPoint::findOrFail($this->request->route('id'));
         $point->fill($this->request->except('_token'));
         $point->save();
