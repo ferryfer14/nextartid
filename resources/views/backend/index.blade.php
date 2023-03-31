@@ -250,6 +250,7 @@
                 <div id="collapseReferal" class="collapse" aria-labelledby="headingPlans" data-parent="#accordionSidebar">
                     <div class="@if(config('settings.admin_dark_mode')) bg-dark @else bg-white @endif py-2 collapse-inner rounded">
                         @include('backend.commons.sidebar-sub-menu', ['name' => 'Manage User Referal', 'icon' => 'fa-user', 'permission' => 'admin_users', 'route' => 'backend.user.referal'])
+                        @include('backend.commons.sidebar-sub-menu', ['name' => 'Config Point', 'icon' => 'fa-money-check-alt', 'permission' => 'admin_users', 'route' => 'backend.config.point.edit', 'params' => ['id' => '1']])
                     </div>
                 </div>
             </li>
