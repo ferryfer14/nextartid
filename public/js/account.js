@@ -149,6 +149,7 @@
                             $("#signup-stage-profile").addClass("hide");
                             $("#signup-stage-verify").removeClass("hide");
                         } else {
+                            Toast.show("success", 'Your Account Success be created Please check your email for verify');       
                             User.SignIn.me();
                             $(".lightbox-signup .lb-nav-outer").addClass("hide");
                             $(".lightbox-signup .continue.finished").addClass("hide");
