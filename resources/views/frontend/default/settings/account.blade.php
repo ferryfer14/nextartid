@@ -56,7 +56,7 @@
                             <div class="control">
                                 <label class="control-label" for="make_a_user_nft">Make me NFT Account User</label>
                                 @if (auth()->user()->user_nextverse == 0)
-                                    <a class="btn make-account-nft">
+                                    <a class="btn make-account-nft" data-url="{{ config('settings.url_nextverse') }}">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-person-add" viewBox="0 0 16 16">
                                             <path
@@ -67,13 +67,13 @@
                                         <span>Make account NFT</span>
                                     </a>
                                 @else
-                                    <a class="btn">
+                                    <a class="btn" href="{{ config('settings.url_nextverse') }}" target="#_blank">
                                         <svg height="24" viewBox="0 0 24 24" width="18"
                                             xmlns="http://www.w3.org/2000/svg">
                                             <path d="M0 0h24v24H0z" fill="none" />
                                             <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                                         </svg>
-                                        <span class="text-success">My Account registered in NextVerse</span>
+                                        <span class="text-success">Open NextVerse</span>
                                     </a>
                                 @endif
                             </div>

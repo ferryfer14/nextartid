@@ -144,6 +144,14 @@
                                                 <input class="form-control" placeholder="ex: musicengine" name="save_con[deeplink_scheme]" value="{{ config('settings.deeplink_scheme', 'musicengine') }}">
                                             </div>
                                         </div>
+                                        <div class="form-group row border-bottom mb-0 pt-3 pb-3">
+                                            <label class="col-sm-8 mb-0">URL NextVerse
+                                                <p class="small mb-0">This url for open portal NextVerse</p>
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <input class="form-control" placeholder="ex: https://google.com" name="save_con[url_nextverse]" value="{{ config('settings.url_nextverse') }}">
+                                            </div>
+                                        </div>
                                         <!-- <div class="form-group row border-bottom mb-0 pt-3 pb-3">
                                             <label class="col-sm-8 mb-0">Website description
                                                 <p class="small mb-0">A short description of your site. Keep it under 200 characters!</p>

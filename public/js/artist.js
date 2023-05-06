@@ -57,7 +57,17 @@
                     success: function (response){
                         $.engineUtils.cleanStorage();
                         Toast.show("success", 'Your Account Success be created in NextVerse');  
-                        location.reload(); 
+                        setTimeout(function () {
+                            var win = window.open(el.data('url'), '_blank');
+                            if (win) {
+                                //Browser has allowed it to be opened
+                                win.focus();
+                            } else {
+                                //Browser has blocked it
+                                alert('Please allow popups for this website');
+                            }
+                            location.reload(); 
+                        }, 2000);
                     }
                 }); 
             });
