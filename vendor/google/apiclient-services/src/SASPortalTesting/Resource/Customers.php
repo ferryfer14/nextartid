@@ -18,8 +18,9 @@
 namespace Google\Service\SASPortalTesting\Resource;
 
 use Google\Service\SASPortalTesting\SasPortalCustomer;
-use Google\Service\SASPortalTesting\SasPortalEmpty;
 use Google\Service\SASPortalTesting\SasPortalListCustomersResponse;
+use Google\Service\SASPortalTesting\SasPortalProvisionDeploymentRequest;
+use Google\Service\SASPortalTesting\SasPortalProvisionDeploymentResponse;
 
 /**
  * The "customers" collection of methods.
@@ -31,32 +32,6 @@ use Google\Service\SASPortalTesting\SasPortalListCustomersResponse;
  */
 class Customers extends \Google\Service\Resource
 {
-  /**
-   * Creates a new SAS customer. (customers.create)
-   *
-   * @param SasPortalCustomer $postBody
-   * @param array $optParams Optional parameters.
-   * @return SasPortalCustomer
-   */
-  public function create(SasPortalCustomer $postBody, $optParams = [])
-  {
-    $params = ['postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('create', [$params], SasPortalCustomer::class);
-  }
-  /**
-   * Deletes a customer. (customers.delete)
-   *
-   * @param string $name Required. The name of the customer.
-   * @param array $optParams Optional parameters.
-   * @return SasPortalEmpty
-   */
-  public function delete($name, $optParams = [])
-  {
-    $params = ['name' => $name];
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', [$params], SasPortalEmpty::class);
-  }
   /**
    * Returns a requested customer. (customers.get)
    *
@@ -102,6 +77,21 @@ class Customers extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], SasPortalCustomer::class);
+  }
+  /**
+   * Creates a new SAS deployment through the GCP workflow. Creates a SAS
+   * organization if an organization match is not found.
+   * (customers.provisionDeployment)
+   *
+   * @param SasPortalProvisionDeploymentRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return SasPortalProvisionDeploymentResponse
+   */
+  public function provisionDeployment(SasPortalProvisionDeploymentRequest $postBody, $optParams = [])
+  {
+    $params = ['postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('provisionDeployment', [$params], SasPortalProvisionDeploymentResponse::class);
   }
 }
 

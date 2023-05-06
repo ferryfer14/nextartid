@@ -1713,6 +1713,27 @@
             </div>
         </div>
     </div>
+    <div class="lightbox lightbox-make-account-nft hide">
+        <div class="lbcontainer">
+            <div class="lightbox-header">
+                <h2 class="title" data-translate-text="TERM_OF_SERVICE">{{ __('web.TERM_OF_SERVICE') }}</h2>
+            </div>
+            <div class="lightbox-content">
+                <div class="lightbox-error error hide"></div>
+                <div class="row">
+                    <div id="page-content" class="pages">
+                    </div>
+                </div>
+            </div>
+            <div class="lightbox-footer">
+                <div class="right">
+                    <button class="btn btn-secondary cancel" data-translate-text="CANCEL">{{ __('web.CANCEL') }}</button>
+                    <button class="btn btn-primary accept" data-translate-text="ACCEPT">{{ __('web.ACCEPT') }}</button>
+                </div>
+                <div class="left"></div>
+            </div>
+        </div>
+    </div>
     <div class="lightbox lightbox-new-artist hide">
         <div class="lbcontainer">
             <div id="create-playlist">

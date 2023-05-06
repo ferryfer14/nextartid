@@ -111,6 +111,10 @@ class Product extends \Google\Collection
   /**
    * @var string
    */
+  public $disclosureDate;
+  /**
+   * @var string
+   */
   public $displayAdsId;
   /**
    * @var string
@@ -137,6 +141,14 @@ class Product extends \Google\Collection
    * @var string
    */
   public $expirationDate;
+  /**
+   * @var string
+   */
+  public $externalSellerId;
+  /**
+   * @var string
+   */
+  public $feedLabel;
   /**
    * @var string
    */
@@ -179,6 +191,10 @@ class Product extends \Google\Collection
    * @var string
    */
   public $kind;
+  /**
+   * @var string[]
+   */
+  public $lifestyleImageLinks;
   /**
    * @var string
    */
@@ -233,6 +249,10 @@ class Product extends \Google\Collection
    * @var string
    */
   public $pattern;
+  /**
+   * @var string
+   */
+  public $pause;
   /**
    * @var string
    */
@@ -659,6 +679,20 @@ class Product extends \Google\Collection
   /**
    * @param string
    */
+  public function setDisclosureDate($disclosureDate)
+  {
+    $this->disclosureDate = $disclosureDate;
+  }
+  /**
+   * @return string
+   */
+  public function getDisclosureDate()
+  {
+    return $this->disclosureDate;
+  }
+  /**
+   * @param string
+   */
   public function setDisplayAdsId($displayAdsId)
   {
     $this->displayAdsId = $displayAdsId;
@@ -761,6 +795,34 @@ class Product extends \Google\Collection
   public function getExpirationDate()
   {
     return $this->expirationDate;
+  }
+  /**
+   * @param string
+   */
+  public function setExternalSellerId($externalSellerId)
+  {
+    $this->externalSellerId = $externalSellerId;
+  }
+  /**
+   * @return string
+   */
+  public function getExternalSellerId()
+  {
+    return $this->externalSellerId;
+  }
+  /**
+   * @param string
+   */
+  public function setFeedLabel($feedLabel)
+  {
+    $this->feedLabel = $feedLabel;
+  }
+  /**
+   * @return string
+   */
+  public function getFeedLabel()
+  {
+    return $this->feedLabel;
   }
   /**
    * @param string
@@ -915,6 +977,20 @@ class Product extends \Google\Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * @param string[]
+   */
+  public function setLifestyleImageLinks($lifestyleImageLinks)
+  {
+    $this->lifestyleImageLinks = $lifestyleImageLinks;
+  }
+  /**
+   * @return string[]
+   */
+  public function getLifestyleImageLinks()
+  {
+    return $this->lifestyleImageLinks;
   }
   /**
    * @param string
@@ -1111,6 +1187,20 @@ class Product extends \Google\Collection
   public function getPattern()
   {
     return $this->pattern;
+  }
+  /**
+   * @param string
+   */
+  public function setPause($pause)
+  {
+    $this->pause = $pause;
+  }
+  /**
+   * @return string
+   */
+  public function getPause()
+  {
+    return $this->pause;
   }
   /**
    * @param string

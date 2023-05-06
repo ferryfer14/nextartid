@@ -24,10 +24,14 @@ class JobStatistics extends \Google\Collection
         "reservationId" => "reservation_id",
   ];
   public $completionRatio;
+  protected $copyType = JobStatistics5::class;
+  protected $copyDataType = '';
   /**
    * @var string
    */
   public $creationTime;
+  protected $dataMaskingStatisticsType = DataMaskingStatistics::class;
+  protected $dataMaskingStatisticsDataType = '';
   /**
    * @var string
    */
@@ -86,6 +90,20 @@ class JobStatistics extends \Google\Collection
     return $this->completionRatio;
   }
   /**
+   * @param JobStatistics5
+   */
+  public function setCopy(JobStatistics5 $copy)
+  {
+    $this->copy = $copy;
+  }
+  /**
+   * @return JobStatistics5
+   */
+  public function getCopy()
+  {
+    return $this->copy;
+  }
+  /**
    * @param string
    */
   public function setCreationTime($creationTime)
@@ -98,6 +116,20 @@ class JobStatistics extends \Google\Collection
   public function getCreationTime()
   {
     return $this->creationTime;
+  }
+  /**
+   * @param DataMaskingStatistics
+   */
+  public function setDataMaskingStatistics(DataMaskingStatistics $dataMaskingStatistics)
+  {
+    $this->dataMaskingStatistics = $dataMaskingStatistics;
+  }
+  /**
+   * @return DataMaskingStatistics
+   */
+  public function getDataMaskingStatistics()
+  {
+    return $this->dataMaskingStatistics;
   }
   /**
    * @param string

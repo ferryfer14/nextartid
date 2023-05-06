@@ -19,6 +19,8 @@ namespace Google\Service\DatabaseMigrationService;
 
 class MigrationJob extends \Google\Model
 {
+  protected $conversionWorkspaceType = ConversionWorkspaceInfo::class;
+  protected $conversionWorkspaceDataType = '';
   /**
    * @var string
    */
@@ -33,6 +35,8 @@ class MigrationJob extends \Google\Model
    * @var string
    */
   public $displayName;
+  protected $dumpFlagsType = DumpFlags::class;
+  protected $dumpFlagsDataType = '';
   /**
    * @var string
    */
@@ -47,6 +51,10 @@ class MigrationJob extends \Google\Model
   public $endTime;
   protected $errorType = Status::class;
   protected $errorDataType = '';
+  /**
+   * @var string
+   */
+  public $filter;
   /**
    * @var string[]
    */
@@ -84,6 +92,20 @@ class MigrationJob extends \Google\Model
   protected $vpcPeeringConnectivityType = VpcPeeringConnectivity::class;
   protected $vpcPeeringConnectivityDataType = '';
 
+  /**
+   * @param ConversionWorkspaceInfo
+   */
+  public function setConversionWorkspace(ConversionWorkspaceInfo $conversionWorkspace)
+  {
+    $this->conversionWorkspace = $conversionWorkspace;
+  }
+  /**
+   * @return ConversionWorkspaceInfo
+   */
+  public function getConversionWorkspace()
+  {
+    return $this->conversionWorkspace;
+  }
   /**
    * @param string
    */
@@ -141,6 +163,20 @@ class MigrationJob extends \Google\Model
     return $this->displayName;
   }
   /**
+   * @param DumpFlags
+   */
+  public function setDumpFlags(DumpFlags $dumpFlags)
+  {
+    $this->dumpFlags = $dumpFlags;
+  }
+  /**
+   * @return DumpFlags
+   */
+  public function getDumpFlags()
+  {
+    return $this->dumpFlags;
+  }
+  /**
    * @param string
    */
   public function setDumpPath($dumpPath)
@@ -195,6 +231,20 @@ class MigrationJob extends \Google\Model
   public function getError()
   {
     return $this->error;
+  }
+  /**
+   * @param string
+   */
+  public function setFilter($filter)
+  {
+    $this->filter = $filter;
+  }
+  /**
+   * @return string
+   */
+  public function getFilter()
+  {
+    return $this->filter;
   }
   /**
    * @param string[]

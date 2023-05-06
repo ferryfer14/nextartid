@@ -19,14 +19,28 @@ namespace Google\Service\BigQueryReservation;
 
 class Reservation extends \Google\Model
 {
+  protected $autoscaleType = Autoscale::class;
+  protected $autoscaleDataType = '';
+  /**
+   * @var string
+   */
+  public $concurrency;
   /**
    * @var string
    */
   public $creationTime;
   /**
+   * @var string
+   */
+  public $edition;
+  /**
    * @var bool
    */
   public $ignoreIdleSlots;
+  /**
+   * @var bool
+   */
+  public $multiRegionAuxiliary;
   /**
    * @var string
    */
@@ -40,6 +54,34 @@ class Reservation extends \Google\Model
    */
   public $updateTime;
 
+  /**
+   * @param Autoscale
+   */
+  public function setAutoscale(Autoscale $autoscale)
+  {
+    $this->autoscale = $autoscale;
+  }
+  /**
+   * @return Autoscale
+   */
+  public function getAutoscale()
+  {
+    return $this->autoscale;
+  }
+  /**
+   * @param string
+   */
+  public function setConcurrency($concurrency)
+  {
+    $this->concurrency = $concurrency;
+  }
+  /**
+   * @return string
+   */
+  public function getConcurrency()
+  {
+    return $this->concurrency;
+  }
   /**
    * @param string
    */
@@ -55,6 +97,20 @@ class Reservation extends \Google\Model
     return $this->creationTime;
   }
   /**
+   * @param string
+   */
+  public function setEdition($edition)
+  {
+    $this->edition = $edition;
+  }
+  /**
+   * @return string
+   */
+  public function getEdition()
+  {
+    return $this->edition;
+  }
+  /**
    * @param bool
    */
   public function setIgnoreIdleSlots($ignoreIdleSlots)
@@ -67,6 +123,20 @@ class Reservation extends \Google\Model
   public function getIgnoreIdleSlots()
   {
     return $this->ignoreIdleSlots;
+  }
+  /**
+   * @param bool
+   */
+  public function setMultiRegionAuxiliary($multiRegionAuxiliary)
+  {
+    $this->multiRegionAuxiliary = $multiRegionAuxiliary;
+  }
+  /**
+   * @return bool
+   */
+  public function getMultiRegionAuxiliary()
+  {
+    return $this->multiRegionAuxiliary;
   }
   /**
    * @param string

@@ -21,11 +21,23 @@ class AccessApprovalSettings extends \Google\Collection
 {
   protected $collection_key = 'notificationEmails';
   /**
+   * @var string
+   */
+  public $activeKeyVersion;
+  /**
+   * @var bool
+   */
+  public $ancestorHasActiveKeyVersion;
+  /**
    * @var bool
    */
   public $enrolledAncestor;
   protected $enrolledServicesType = EnrolledService::class;
   protected $enrolledServicesDataType = 'array';
+  /**
+   * @var bool
+   */
+  public $invalidKeyVersion;
   /**
    * @var string
    */
@@ -34,7 +46,43 @@ class AccessApprovalSettings extends \Google\Collection
    * @var string[]
    */
   public $notificationEmails;
+  /**
+   * @var bool
+   */
+  public $preferNoBroadApprovalRequests;
+  /**
+   * @var int
+   */
+  public $preferredRequestExpirationDays;
 
+  /**
+   * @param string
+   */
+  public function setActiveKeyVersion($activeKeyVersion)
+  {
+    $this->activeKeyVersion = $activeKeyVersion;
+  }
+  /**
+   * @return string
+   */
+  public function getActiveKeyVersion()
+  {
+    return $this->activeKeyVersion;
+  }
+  /**
+   * @param bool
+   */
+  public function setAncestorHasActiveKeyVersion($ancestorHasActiveKeyVersion)
+  {
+    $this->ancestorHasActiveKeyVersion = $ancestorHasActiveKeyVersion;
+  }
+  /**
+   * @return bool
+   */
+  public function getAncestorHasActiveKeyVersion()
+  {
+    return $this->ancestorHasActiveKeyVersion;
+  }
   /**
    * @param bool
    */
@@ -64,6 +112,20 @@ class AccessApprovalSettings extends \Google\Collection
     return $this->enrolledServices;
   }
   /**
+   * @param bool
+   */
+  public function setInvalidKeyVersion($invalidKeyVersion)
+  {
+    $this->invalidKeyVersion = $invalidKeyVersion;
+  }
+  /**
+   * @return bool
+   */
+  public function getInvalidKeyVersion()
+  {
+    return $this->invalidKeyVersion;
+  }
+  /**
    * @param string
    */
   public function setName($name)
@@ -90,6 +152,34 @@ class AccessApprovalSettings extends \Google\Collection
   public function getNotificationEmails()
   {
     return $this->notificationEmails;
+  }
+  /**
+   * @param bool
+   */
+  public function setPreferNoBroadApprovalRequests($preferNoBroadApprovalRequests)
+  {
+    $this->preferNoBroadApprovalRequests = $preferNoBroadApprovalRequests;
+  }
+  /**
+   * @return bool
+   */
+  public function getPreferNoBroadApprovalRequests()
+  {
+    return $this->preferNoBroadApprovalRequests;
+  }
+  /**
+   * @param int
+   */
+  public function setPreferredRequestExpirationDays($preferredRequestExpirationDays)
+  {
+    $this->preferredRequestExpirationDays = $preferredRequestExpirationDays;
+  }
+  /**
+   * @return int
+   */
+  public function getPreferredRequestExpirationDays()
+  {
+    return $this->preferredRequestExpirationDays;
   }
 }
 

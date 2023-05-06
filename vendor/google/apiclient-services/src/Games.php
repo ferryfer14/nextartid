@@ -400,7 +400,25 @@ class Games extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'playerIdConsistencyToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
+            ],'getMultipleApplicationPlayerIds' => [
+              'path' => 'games/v1/players/me/multipleApplicationPlayerIds',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'applicationIds' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
+              ],
+            ],'getScopedPlayerIds' => [
+              'path' => 'games/v1/players/me/scopedIds',
+              'httpMethod' => 'GET',
+              'parameters' => [],
             ],'list' => [
               'path' => 'games/v1/players/me/players/{collection}',
               'httpMethod' => 'GET',

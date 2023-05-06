@@ -35,6 +35,10 @@ class TrainingOptions extends \Google\Collection
   /**
    * @var string
    */
+  public $autoArimaMinOrder;
+  /**
+   * @var string
+   */
   public $batchSize;
   /**
    * @var string
@@ -43,7 +47,15 @@ class TrainingOptions extends \Google\Collection
   /**
    * @var bool
    */
+  public $calculatePValues;
+  /**
+   * @var bool
+   */
   public $cleanSpikesAndDips;
+  /**
+   * @var string
+   */
+  public $colorSpace;
   public $colsampleBylevel;
   public $colsampleBynode;
   public $colsampleBytree;
@@ -78,6 +90,10 @@ class TrainingOptions extends \Google\Collection
    */
   public $earlyStop;
   /**
+   * @var bool
+   */
+  public $enableGlobalExplain;
+  /**
    * @var string
    */
   public $feedbackType;
@@ -94,6 +110,10 @@ class TrainingOptions extends \Google\Collection
    */
   public $horizon;
   /**
+   * @var string[]
+   */
+  public $hparamTuningObjectives;
+  /**
    * @var bool
    */
   public $includeDrift;
@@ -102,6 +122,14 @@ class TrainingOptions extends \Google\Collection
    * @var string[]
    */
   public $inputLabelColumns;
+  /**
+   * @var string
+   */
+  public $instanceWeightColumn;
+  /**
+   * @var string
+   */
+  public $integratedGradientsNumSteps;
   /**
    * @var string
    */
@@ -133,9 +161,21 @@ class TrainingOptions extends \Google\Collection
   /**
    * @var string
    */
+  public $maxParallelTrials;
+  /**
+   * @var string
+   */
+  public $maxTimeSeriesLength;
+  /**
+   * @var string
+   */
   public $maxTreeDepth;
   public $minRelativeProgress;
   public $minSplitLoss;
+  /**
+   * @var string
+   */
+  public $minTimeSeriesLength;
   /**
    * @var string
    */
@@ -161,12 +201,24 @@ class TrainingOptions extends \Google\Collection
   /**
    * @var string
    */
+  public $numTrials;
+  /**
+   * @var string
+   */
   public $optimizationStrategy;
   /**
    * @var bool
    */
   public $preserveInputStructs;
+  /**
+   * @var string
+   */
+  public $sampledShapleyNumPaths;
   public $subsample;
+  /**
+   * @var string
+   */
+  public $tfVersion;
   /**
    * @var string
    */
@@ -179,6 +231,7 @@ class TrainingOptions extends \Google\Collection
    * @var string[]
    */
   public $timeSeriesIdColumns;
+  public $timeSeriesLengthFraction;
   /**
    * @var string
    */
@@ -190,12 +243,20 @@ class TrainingOptions extends \Google\Collection
   /**
    * @var string
    */
+  public $trendSmoothingWindowSize;
+  /**
+   * @var string
+   */
   public $userColumn;
   public $walsAlpha;
   /**
    * @var bool
    */
   public $warmStart;
+  /**
+   * @var string
+   */
+  public $xgboostVersion;
 
   /**
    * @param bool
@@ -242,6 +303,20 @@ class TrainingOptions extends \Google\Collection
   /**
    * @param string
    */
+  public function setAutoArimaMinOrder($autoArimaMinOrder)
+  {
+    $this->autoArimaMinOrder = $autoArimaMinOrder;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoArimaMinOrder()
+  {
+    return $this->autoArimaMinOrder;
+  }
+  /**
+   * @param string
+   */
   public function setBatchSize($batchSize)
   {
     $this->batchSize = $batchSize;
@@ -270,6 +345,20 @@ class TrainingOptions extends \Google\Collection
   /**
    * @param bool
    */
+  public function setCalculatePValues($calculatePValues)
+  {
+    $this->calculatePValues = $calculatePValues;
+  }
+  /**
+   * @return bool
+   */
+  public function getCalculatePValues()
+  {
+    return $this->calculatePValues;
+  }
+  /**
+   * @param bool
+   */
   public function setCleanSpikesAndDips($cleanSpikesAndDips)
   {
     $this->cleanSpikesAndDips = $cleanSpikesAndDips;
@@ -280,6 +369,20 @@ class TrainingOptions extends \Google\Collection
   public function getCleanSpikesAndDips()
   {
     return $this->cleanSpikesAndDips;
+  }
+  /**
+   * @param string
+   */
+  public function setColorSpace($colorSpace)
+  {
+    $this->colorSpace = $colorSpace;
+  }
+  /**
+   * @return string
+   */
+  public function getColorSpace()
+  {
+    return $this->colorSpace;
   }
   public function setColsampleBylevel($colsampleBylevel)
   {
@@ -420,6 +523,20 @@ class TrainingOptions extends \Google\Collection
     return $this->earlyStop;
   }
   /**
+   * @param bool
+   */
+  public function setEnableGlobalExplain($enableGlobalExplain)
+  {
+    $this->enableGlobalExplain = $enableGlobalExplain;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnableGlobalExplain()
+  {
+    return $this->enableGlobalExplain;
+  }
+  /**
    * @param string
    */
   public function setFeedbackType($feedbackType)
@@ -476,6 +593,20 @@ class TrainingOptions extends \Google\Collection
     return $this->horizon;
   }
   /**
+   * @param string[]
+   */
+  public function setHparamTuningObjectives($hparamTuningObjectives)
+  {
+    $this->hparamTuningObjectives = $hparamTuningObjectives;
+  }
+  /**
+   * @return string[]
+   */
+  public function getHparamTuningObjectives()
+  {
+    return $this->hparamTuningObjectives;
+  }
+  /**
    * @param bool
    */
   public function setIncludeDrift($includeDrift)
@@ -510,6 +641,34 @@ class TrainingOptions extends \Google\Collection
   public function getInputLabelColumns()
   {
     return $this->inputLabelColumns;
+  }
+  /**
+   * @param string
+   */
+  public function setInstanceWeightColumn($instanceWeightColumn)
+  {
+    $this->instanceWeightColumn = $instanceWeightColumn;
+  }
+  /**
+   * @return string
+   */
+  public function getInstanceWeightColumn()
+  {
+    return $this->instanceWeightColumn;
+  }
+  /**
+   * @param string
+   */
+  public function setIntegratedGradientsNumSteps($integratedGradientsNumSteps)
+  {
+    $this->integratedGradientsNumSteps = $integratedGradientsNumSteps;
+  }
+  /**
+   * @return string
+   */
+  public function getIntegratedGradientsNumSteps()
+  {
+    return $this->integratedGradientsNumSteps;
   }
   /**
    * @param string
@@ -630,6 +789,34 @@ class TrainingOptions extends \Google\Collection
   /**
    * @param string
    */
+  public function setMaxParallelTrials($maxParallelTrials)
+  {
+    $this->maxParallelTrials = $maxParallelTrials;
+  }
+  /**
+   * @return string
+   */
+  public function getMaxParallelTrials()
+  {
+    return $this->maxParallelTrials;
+  }
+  /**
+   * @param string
+   */
+  public function setMaxTimeSeriesLength($maxTimeSeriesLength)
+  {
+    $this->maxTimeSeriesLength = $maxTimeSeriesLength;
+  }
+  /**
+   * @return string
+   */
+  public function getMaxTimeSeriesLength()
+  {
+    return $this->maxTimeSeriesLength;
+  }
+  /**
+   * @param string
+   */
   public function setMaxTreeDepth($maxTreeDepth)
   {
     $this->maxTreeDepth = $maxTreeDepth;
@@ -656,6 +843,20 @@ class TrainingOptions extends \Google\Collection
   public function getMinSplitLoss()
   {
     return $this->minSplitLoss;
+  }
+  /**
+   * @param string
+   */
+  public function setMinTimeSeriesLength($minTimeSeriesLength)
+  {
+    $this->minTimeSeriesLength = $minTimeSeriesLength;
+  }
+  /**
+   * @return string
+   */
+  public function getMinTimeSeriesLength()
+  {
+    return $this->minTimeSeriesLength;
   }
   /**
    * @param string
@@ -744,6 +945,20 @@ class TrainingOptions extends \Google\Collection
   /**
    * @param string
    */
+  public function setNumTrials($numTrials)
+  {
+    $this->numTrials = $numTrials;
+  }
+  /**
+   * @return string
+   */
+  public function getNumTrials()
+  {
+    return $this->numTrials;
+  }
+  /**
+   * @param string
+   */
   public function setOptimizationStrategy($optimizationStrategy)
   {
     $this->optimizationStrategy = $optimizationStrategy;
@@ -769,6 +984,20 @@ class TrainingOptions extends \Google\Collection
   {
     return $this->preserveInputStructs;
   }
+  /**
+   * @param string
+   */
+  public function setSampledShapleyNumPaths($sampledShapleyNumPaths)
+  {
+    $this->sampledShapleyNumPaths = $sampledShapleyNumPaths;
+  }
+  /**
+   * @return string
+   */
+  public function getSampledShapleyNumPaths()
+  {
+    return $this->sampledShapleyNumPaths;
+  }
   public function setSubsample($subsample)
   {
     $this->subsample = $subsample;
@@ -776,6 +1005,20 @@ class TrainingOptions extends \Google\Collection
   public function getSubsample()
   {
     return $this->subsample;
+  }
+  /**
+   * @param string
+   */
+  public function setTfVersion($tfVersion)
+  {
+    $this->tfVersion = $tfVersion;
+  }
+  /**
+   * @return string
+   */
+  public function getTfVersion()
+  {
+    return $this->tfVersion;
   }
   /**
    * @param string
@@ -819,6 +1062,14 @@ class TrainingOptions extends \Google\Collection
   {
     return $this->timeSeriesIdColumns;
   }
+  public function setTimeSeriesLengthFraction($timeSeriesLengthFraction)
+  {
+    $this->timeSeriesLengthFraction = $timeSeriesLengthFraction;
+  }
+  public function getTimeSeriesLengthFraction()
+  {
+    return $this->timeSeriesLengthFraction;
+  }
   /**
    * @param string
    */
@@ -846,6 +1097,20 @@ class TrainingOptions extends \Google\Collection
   public function getTreeMethod()
   {
     return $this->treeMethod;
+  }
+  /**
+   * @param string
+   */
+  public function setTrendSmoothingWindowSize($trendSmoothingWindowSize)
+  {
+    $this->trendSmoothingWindowSize = $trendSmoothingWindowSize;
+  }
+  /**
+   * @return string
+   */
+  public function getTrendSmoothingWindowSize()
+  {
+    return $this->trendSmoothingWindowSize;
   }
   /**
    * @param string
@@ -882,6 +1147,20 @@ class TrainingOptions extends \Google\Collection
   public function getWarmStart()
   {
     return $this->warmStart;
+  }
+  /**
+   * @param string
+   */
+  public function setXgboostVersion($xgboostVersion)
+  {
+    $this->xgboostVersion = $xgboostVersion;
+  }
+  /**
+   * @return string
+   */
+  public function getXgboostVersion()
+  {
+    return $this->xgboostVersion;
   }
 }
 

@@ -27,11 +27,21 @@ class Instance extends \Google\Collection
   /**
    * @var string
    */
+  public $createTime;
+  /**
+   * @var string
+   */
   public $displayName;
   /**
    * @var string[]
    */
   public $endpointUris;
+  protected $freeInstanceMetadataType = FreeInstanceMetadata::class;
+  protected $freeInstanceMetadataDataType = '';
+  /**
+   * @var string
+   */
+  public $instanceType;
   /**
    * @var string[]
    */
@@ -52,6 +62,10 @@ class Instance extends \Google\Collection
    * @var string
    */
   public $state;
+  /**
+   * @var string
+   */
+  public $updateTime;
 
   /**
    * @param string
@@ -66,6 +80,20 @@ class Instance extends \Google\Collection
   public function getConfig()
   {
     return $this->config;
+  }
+  /**
+   * @param string
+   */
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  /**
+   * @return string
+   */
+  public function getCreateTime()
+  {
+    return $this->createTime;
   }
   /**
    * @param string
@@ -94,6 +122,34 @@ class Instance extends \Google\Collection
   public function getEndpointUris()
   {
     return $this->endpointUris;
+  }
+  /**
+   * @param FreeInstanceMetadata
+   */
+  public function setFreeInstanceMetadata(FreeInstanceMetadata $freeInstanceMetadata)
+  {
+    $this->freeInstanceMetadata = $freeInstanceMetadata;
+  }
+  /**
+   * @return FreeInstanceMetadata
+   */
+  public function getFreeInstanceMetadata()
+  {
+    return $this->freeInstanceMetadata;
+  }
+  /**
+   * @param string
+   */
+  public function setInstanceType($instanceType)
+  {
+    $this->instanceType = $instanceType;
+  }
+  /**
+   * @return string
+   */
+  public function getInstanceType()
+  {
+    return $this->instanceType;
   }
   /**
    * @param string[]
@@ -164,6 +220,20 @@ class Instance extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * @param string
+   */
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  /**
+   * @return string
+   */
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
   }
 }
 

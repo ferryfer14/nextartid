@@ -140,6 +140,10 @@ class CertificateAuthorityService extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'ignoreDependentResources' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'requestId' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -294,9 +298,17 @@ class CertificateAuthorityService extends \Google\Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ],
+                'ignoreDependentResources' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'requestId' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+                'skipGracePeriod' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ],
               ],
             ],'disable' => [

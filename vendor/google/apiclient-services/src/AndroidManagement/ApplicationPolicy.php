@@ -27,6 +27,10 @@ class ApplicationPolicy extends \Google\Collection
   /**
    * @var string
    */
+  public $alwaysOnVpnLockdownExemption;
+  /**
+   * @var string
+   */
   public $autoUpdateMode;
   /**
    * @var string
@@ -70,6 +74,10 @@ class ApplicationPolicy extends \Google\Collection
   public $packageName;
   protected $permissionGrantsType = PermissionGrant::class;
   protected $permissionGrantsDataType = 'array';
+  /**
+   * @var string
+   */
+  public $workProfileWidgets;
 
   /**
    * @param string[]
@@ -84,6 +92,20 @@ class ApplicationPolicy extends \Google\Collection
   public function getAccessibleTrackIds()
   {
     return $this->accessibleTrackIds;
+  }
+  /**
+   * @param string
+   */
+  public function setAlwaysOnVpnLockdownExemption($alwaysOnVpnLockdownExemption)
+  {
+    $this->alwaysOnVpnLockdownExemption = $alwaysOnVpnLockdownExemption;
+  }
+  /**
+   * @return string
+   */
+  public function getAlwaysOnVpnLockdownExemption()
+  {
+    return $this->alwaysOnVpnLockdownExemption;
   }
   /**
    * @param string
@@ -266,6 +288,20 @@ class ApplicationPolicy extends \Google\Collection
   public function getPermissionGrants()
   {
     return $this->permissionGrants;
+  }
+  /**
+   * @param string
+   */
+  public function setWorkProfileWidgets($workProfileWidgets)
+  {
+    $this->workProfileWidgets = $workProfileWidgets;
+  }
+  /**
+   * @return string
+   */
+  public function getWorkProfileWidgets()
+  {
+    return $this->workProfileWidgets;
   }
 }
 

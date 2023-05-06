@@ -17,8 +17,9 @@
 
 namespace Google\Service\SecurityCommandCenter;
 
-class Finding extends \Google\Model
+class Finding extends \Google\Collection
 {
+  protected $collection_key = 'processes';
   protected $accessType = Access::class;
   protected $accessDataType = '';
   /**
@@ -29,28 +30,60 @@ class Finding extends \Google\Model
    * @var string
    */
   public $category;
+  protected $cloudDlpDataProfileType = CloudDlpDataProfile::class;
+  protected $cloudDlpDataProfileDataType = '';
+  protected $cloudDlpInspectionType = CloudDlpInspection::class;
+  protected $cloudDlpInspectionDataType = '';
+  protected $compliancesType = Compliance::class;
+  protected $compliancesDataType = 'array';
+  protected $connectionsType = Connection::class;
+  protected $connectionsDataType = 'array';
+  protected $contactsType = ContactDetails::class;
+  protected $contactsDataType = 'map';
+  protected $containersType = Container::class;
+  protected $containersDataType = 'array';
   /**
    * @var string
    */
   public $createTime;
+  protected $databaseType = Database::class;
+  protected $databaseDataType = '';
+  /**
+   * @var string
+   */
+  public $description;
   /**
    * @var string
    */
   public $eventTime;
+  protected $exfiltrationType = Exfiltration::class;
+  protected $exfiltrationDataType = '';
   protected $externalSystemsType = GoogleCloudSecuritycenterV1ExternalSystem::class;
   protected $externalSystemsDataType = 'map';
   /**
    * @var string
    */
   public $externalUri;
+  protected $filesType = SecuritycenterFile::class;
+  protected $filesDataType = 'array';
   /**
    * @var string
    */
   public $findingClass;
+  protected $iamBindingsType = IamBinding::class;
+  protected $iamBindingsDataType = 'array';
   protected $indicatorType = Indicator::class;
   protected $indicatorDataType = '';
+  protected $kernelRootkitType = KernelRootkit::class;
+  protected $kernelRootkitDataType = '';
+  protected $kubernetesType = Kubernetes::class;
+  protected $kubernetesDataType = '';
   protected $mitreAttackType = MitreAttack::class;
   protected $mitreAttackDataType = '';
+  /**
+   * @var string
+   */
+  public $moduleName;
   /**
    * @var string
    */
@@ -70,7 +103,17 @@ class Finding extends \Google\Model
   /**
    * @var string
    */
+  public $nextSteps;
+  /**
+   * @var string
+   */
   public $parent;
+  /**
+   * @var string
+   */
+  public $parentDisplayName;
+  protected $processesType = Process::class;
+  protected $processesDataType = 'array';
   /**
    * @var string
    */
@@ -135,6 +178,90 @@ class Finding extends \Google\Model
     return $this->category;
   }
   /**
+   * @param CloudDlpDataProfile
+   */
+  public function setCloudDlpDataProfile(CloudDlpDataProfile $cloudDlpDataProfile)
+  {
+    $this->cloudDlpDataProfile = $cloudDlpDataProfile;
+  }
+  /**
+   * @return CloudDlpDataProfile
+   */
+  public function getCloudDlpDataProfile()
+  {
+    return $this->cloudDlpDataProfile;
+  }
+  /**
+   * @param CloudDlpInspection
+   */
+  public function setCloudDlpInspection(CloudDlpInspection $cloudDlpInspection)
+  {
+    $this->cloudDlpInspection = $cloudDlpInspection;
+  }
+  /**
+   * @return CloudDlpInspection
+   */
+  public function getCloudDlpInspection()
+  {
+    return $this->cloudDlpInspection;
+  }
+  /**
+   * @param Compliance[]
+   */
+  public function setCompliances($compliances)
+  {
+    $this->compliances = $compliances;
+  }
+  /**
+   * @return Compliance[]
+   */
+  public function getCompliances()
+  {
+    return $this->compliances;
+  }
+  /**
+   * @param Connection[]
+   */
+  public function setConnections($connections)
+  {
+    $this->connections = $connections;
+  }
+  /**
+   * @return Connection[]
+   */
+  public function getConnections()
+  {
+    return $this->connections;
+  }
+  /**
+   * @param ContactDetails[]
+   */
+  public function setContacts($contacts)
+  {
+    $this->contacts = $contacts;
+  }
+  /**
+   * @return ContactDetails[]
+   */
+  public function getContacts()
+  {
+    return $this->contacts;
+  }
+  /**
+   * @param Container[]
+   */
+  public function setContainers($containers)
+  {
+    $this->containers = $containers;
+  }
+  /**
+   * @return Container[]
+   */
+  public function getContainers()
+  {
+    return $this->containers;
+  }
+  /**
    * @param string
    */
   public function setCreateTime($createTime)
@@ -149,6 +276,34 @@ class Finding extends \Google\Model
     return $this->createTime;
   }
   /**
+   * @param Database
+   */
+  public function setDatabase(Database $database)
+  {
+    $this->database = $database;
+  }
+  /**
+   * @return Database
+   */
+  public function getDatabase()
+  {
+    return $this->database;
+  }
+  /**
+   * @param string
+   */
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  /**
+   * @return string
+   */
+  public function getDescription()
+  {
+    return $this->description;
+  }
+  /**
    * @param string
    */
   public function setEventTime($eventTime)
@@ -161,6 +316,20 @@ class Finding extends \Google\Model
   public function getEventTime()
   {
     return $this->eventTime;
+  }
+  /**
+   * @param Exfiltration
+   */
+  public function setExfiltration(Exfiltration $exfiltration)
+  {
+    $this->exfiltration = $exfiltration;
+  }
+  /**
+   * @return Exfiltration
+   */
+  public function getExfiltration()
+  {
+    return $this->exfiltration;
   }
   /**
    * @param GoogleCloudSecuritycenterV1ExternalSystem[]
@@ -191,6 +360,20 @@ class Finding extends \Google\Model
     return $this->externalUri;
   }
   /**
+   * @param SecuritycenterFile[]
+   */
+  public function setFiles($files)
+  {
+    $this->files = $files;
+  }
+  /**
+   * @return SecuritycenterFile[]
+   */
+  public function getFiles()
+  {
+    return $this->files;
+  }
+  /**
    * @param string
    */
   public function setFindingClass($findingClass)
@@ -203,6 +386,20 @@ class Finding extends \Google\Model
   public function getFindingClass()
   {
     return $this->findingClass;
+  }
+  /**
+   * @param IamBinding[]
+   */
+  public function setIamBindings($iamBindings)
+  {
+    $this->iamBindings = $iamBindings;
+  }
+  /**
+   * @return IamBinding[]
+   */
+  public function getIamBindings()
+  {
+    return $this->iamBindings;
   }
   /**
    * @param Indicator
@@ -219,6 +416,34 @@ class Finding extends \Google\Model
     return $this->indicator;
   }
   /**
+   * @param KernelRootkit
+   */
+  public function setKernelRootkit(KernelRootkit $kernelRootkit)
+  {
+    $this->kernelRootkit = $kernelRootkit;
+  }
+  /**
+   * @return KernelRootkit
+   */
+  public function getKernelRootkit()
+  {
+    return $this->kernelRootkit;
+  }
+  /**
+   * @param Kubernetes
+   */
+  public function setKubernetes(Kubernetes $kubernetes)
+  {
+    $this->kubernetes = $kubernetes;
+  }
+  /**
+   * @return Kubernetes
+   */
+  public function getKubernetes()
+  {
+    return $this->kubernetes;
+  }
+  /**
    * @param MitreAttack
    */
   public function setMitreAttack(MitreAttack $mitreAttack)
@@ -231,6 +456,20 @@ class Finding extends \Google\Model
   public function getMitreAttack()
   {
     return $this->mitreAttack;
+  }
+  /**
+   * @param string
+   */
+  public function setModuleName($moduleName)
+  {
+    $this->moduleName = $moduleName;
+  }
+  /**
+   * @return string
+   */
+  public function getModuleName()
+  {
+    return $this->moduleName;
   }
   /**
    * @param string
@@ -291,6 +530,20 @@ class Finding extends \Google\Model
   /**
    * @param string
    */
+  public function setNextSteps($nextSteps)
+  {
+    $this->nextSteps = $nextSteps;
+  }
+  /**
+   * @return string
+   */
+  public function getNextSteps()
+  {
+    return $this->nextSteps;
+  }
+  /**
+   * @param string
+   */
   public function setParent($parent)
   {
     $this->parent = $parent;
@@ -301,6 +554,34 @@ class Finding extends \Google\Model
   public function getParent()
   {
     return $this->parent;
+  }
+  /**
+   * @param string
+   */
+  public function setParentDisplayName($parentDisplayName)
+  {
+    $this->parentDisplayName = $parentDisplayName;
+  }
+  /**
+   * @return string
+   */
+  public function getParentDisplayName()
+  {
+    return $this->parentDisplayName;
+  }
+  /**
+   * @param Process[]
+   */
+  public function setProcesses($processes)
+  {
+    $this->processes = $processes;
+  }
+  /**
+   * @return Process[]
+   */
+  public function getProcesses()
+  {
+    return $this->processes;
   }
   /**
    * @param string

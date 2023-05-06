@@ -1289,6 +1289,16 @@ class CloudHealthcare extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'getFHIRStoreMetrics' => [
+              'path' => 'v1/{+name}:getFHIRStoreMetrics',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'getIamPolicy' => [
               'path' => 'v1/{+resource}:getIamPolicy',
               'httpMethod' => 'GET',
@@ -1421,6 +1431,25 @@ class CloudHealthcare extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],'Resource-validate' => [
+              'path' => 'v1/{+parent}/fhir/{+type}/$validate',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'type' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'profile' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],'capabilities' => [

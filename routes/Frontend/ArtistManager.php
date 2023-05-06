@@ -91,4 +91,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('artist-management/vouchers', 'ArtistManagementController@vouchers')->name('auth.user.artist.manager.vouchers');
     Route::get('artist-management/voucher-special', 'ArtistManagementController@voucherSpecial')->name('auth.user.artist.manager.voucher.special');
     
+    Route::post('artist-management/register/nextverse', 'ArtistManagementController@registerNextverse')->name('auth.user.artist.manager.register.nextverse');
 });

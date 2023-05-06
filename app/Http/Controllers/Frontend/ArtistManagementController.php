@@ -226,6 +226,19 @@ class ArtistManagementController extends Controller
         return response()->json($json);
     }
 
+    public function registerNextverse()
+    {
+        $this->request->validate([
+            'register_nextverse'              => 'required|numeric',
+        ]);
+        $user = User::findOrFail(auth()->user()->id);
+        $user->user_nextverse = 1;
+        $user->save();
+        return response()->json([
+            'status' => 'success'
+        ], 200);
+    }
+
     public function convertRoyalti()
     {
         $nominal_fee = NominalFee::withoutGlobalScopes()->Where('id',1)->first();
@@ -264,8 +277,7 @@ class ArtistManagementController extends Controller
             $convert->value_total = $this->request->input('value_total');
             $convert->save();
     
-            return response()->json([
-                'statu' => 'success'
+            return response()->json(['status' => 'success'
             ],200);
         }else{
             return response()->json([

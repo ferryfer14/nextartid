@@ -27,8 +27,16 @@ class CapacityCommitment extends \Google\Model
    * @var string
    */
   public $commitmentStartTime;
+  /**
+   * @var string
+   */
+  public $edition;
   protected $failureStatusType = Status::class;
   protected $failureStatusDataType = '';
+  /**
+   * @var bool
+   */
+  public $multiRegionAuxiliary;
   /**
    * @var string
    */
@@ -79,6 +87,20 @@ class CapacityCommitment extends \Google\Model
     return $this->commitmentStartTime;
   }
   /**
+   * @param string
+   */
+  public function setEdition($edition)
+  {
+    $this->edition = $edition;
+  }
+  /**
+   * @return string
+   */
+  public function getEdition()
+  {
+    return $this->edition;
+  }
+  /**
    * @param Status
    */
   public function setFailureStatus(Status $failureStatus)
@@ -91,6 +113,20 @@ class CapacityCommitment extends \Google\Model
   public function getFailureStatus()
   {
     return $this->failureStatus;
+  }
+  /**
+   * @param bool
+   */
+  public function setMultiRegionAuxiliary($multiRegionAuxiliary)
+  {
+    $this->multiRegionAuxiliary = $multiRegionAuxiliary;
+  }
+  /**
+   * @return bool
+   */
+  public function getMultiRegionAuxiliary()
+  {
+    return $this->multiRegionAuxiliary;
   }
   /**
    * @param string

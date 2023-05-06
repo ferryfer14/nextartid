@@ -22,7 +22,7 @@ class VerifyChallengeResponseResult extends \Google\Model
   /**
    * @var string
    */
-  public $deviceEnrollmentId;
+  public $customerId;
   /**
    * @var string
    */
@@ -30,25 +30,33 @@ class VerifyChallengeResponseResult extends \Google\Model
   /**
    * @var string
    */
+  public $deviceSignal;
+  /**
+   * @var string
+   */
+  public $keyTrustLevel;
+  /**
+   * @var string
+   */
   public $signedPublicKeyAndChallenge;
   /**
    * @var string
    */
-  public $verificationOutput;
+  public $virtualDeviceId;
 
   /**
    * @param string
    */
-  public function setDeviceEnrollmentId($deviceEnrollmentId)
+  public function setCustomerId($customerId)
   {
-    $this->deviceEnrollmentId = $deviceEnrollmentId;
+    $this->customerId = $customerId;
   }
   /**
    * @return string
    */
-  public function getDeviceEnrollmentId()
+  public function getCustomerId()
   {
-    return $this->deviceEnrollmentId;
+    return $this->customerId;
   }
   /**
    * @param string
@@ -67,6 +75,34 @@ class VerifyChallengeResponseResult extends \Google\Model
   /**
    * @param string
    */
+  public function setDeviceSignal($deviceSignal)
+  {
+    $this->deviceSignal = $deviceSignal;
+  }
+  /**
+   * @return string
+   */
+  public function getDeviceSignal()
+  {
+    return $this->deviceSignal;
+  }
+  /**
+   * @param string
+   */
+  public function setKeyTrustLevel($keyTrustLevel)
+  {
+    $this->keyTrustLevel = $keyTrustLevel;
+  }
+  /**
+   * @return string
+   */
+  public function getKeyTrustLevel()
+  {
+    return $this->keyTrustLevel;
+  }
+  /**
+   * @param string
+   */
   public function setSignedPublicKeyAndChallenge($signedPublicKeyAndChallenge)
   {
     $this->signedPublicKeyAndChallenge = $signedPublicKeyAndChallenge;
@@ -81,16 +117,16 @@ class VerifyChallengeResponseResult extends \Google\Model
   /**
    * @param string
    */
-  public function setVerificationOutput($verificationOutput)
+  public function setVirtualDeviceId($virtualDeviceId)
   {
-    $this->verificationOutput = $verificationOutput;
+    $this->virtualDeviceId = $virtualDeviceId;
   }
   /**
    * @return string
    */
-  public function getVerificationOutput()
+  public function getVirtualDeviceId()
   {
-    return $this->verificationOutput;
+    return $this->virtualDeviceId;
   }
 }
 

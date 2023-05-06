@@ -22,6 +22,10 @@ class PrivateEnvironmentConfig extends \Google\Model
   /**
    * @var string
    */
+  public $cloudComposerConnectionSubnetwork;
+  /**
+   * @var string
+   */
   public $cloudComposerNetworkIpv4CidrBlock;
   /**
    * @var string
@@ -35,6 +39,12 @@ class PrivateEnvironmentConfig extends \Google\Model
    * @var bool
    */
   public $enablePrivateEnvironment;
+  /**
+   * @var bool
+   */
+  public $enablePrivatelyUsedPublicIps;
+  protected $networkingConfigType = NetworkingConfig::class;
+  protected $networkingConfigDataType = '';
   protected $privateClusterConfigType = PrivateClusterConfig::class;
   protected $privateClusterConfigDataType = '';
   /**
@@ -46,6 +56,20 @@ class PrivateEnvironmentConfig extends \Google\Model
    */
   public $webServerIpv4ReservedRange;
 
+  /**
+   * @param string
+   */
+  public function setCloudComposerConnectionSubnetwork($cloudComposerConnectionSubnetwork)
+  {
+    $this->cloudComposerConnectionSubnetwork = $cloudComposerConnectionSubnetwork;
+  }
+  /**
+   * @return string
+   */
+  public function getCloudComposerConnectionSubnetwork()
+  {
+    return $this->cloudComposerConnectionSubnetwork;
+  }
   /**
    * @param string
    */
@@ -101,6 +125,34 @@ class PrivateEnvironmentConfig extends \Google\Model
   public function getEnablePrivateEnvironment()
   {
     return $this->enablePrivateEnvironment;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnablePrivatelyUsedPublicIps($enablePrivatelyUsedPublicIps)
+  {
+    $this->enablePrivatelyUsedPublicIps = $enablePrivatelyUsedPublicIps;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnablePrivatelyUsedPublicIps()
+  {
+    return $this->enablePrivatelyUsedPublicIps;
+  }
+  /**
+   * @param NetworkingConfig
+   */
+  public function setNetworkingConfig(NetworkingConfig $networkingConfig)
+  {
+    $this->networkingConfig = $networkingConfig;
+  }
+  /**
+   * @return NetworkingConfig
+   */
+  public function getNetworkingConfig()
+  {
+    return $this->networkingConfig;
   }
   /**
    * @param PrivateClusterConfig

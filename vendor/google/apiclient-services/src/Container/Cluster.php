@@ -38,6 +38,8 @@ class Cluster extends \Google\Collection
   protected $conditionsDataType = 'array';
   protected $confidentialNodesType = ConfidentialNodes::class;
   protected $confidentialNodesDataType = '';
+  protected $costManagementConfigType = CostManagementConfig::class;
+  protected $costManagementConfigDataType = '';
   /**
    * @var string
    */
@@ -77,11 +79,19 @@ class Cluster extends \Google\Collection
   /**
    * @var string
    */
+  public $etag;
+  /**
+   * @var string
+   */
   public $expireTime;
+  protected $fleetType = Fleet::class;
+  protected $fleetDataType = '';
   /**
    * @var string
    */
   public $id;
+  protected $identityServiceConfigType = IdentityServiceConfig::class;
+  protected $identityServiceConfigDataType = '';
   /**
    * @var string
    */
@@ -148,6 +158,8 @@ class Cluster extends \Google\Collection
    * @var int
    */
   public $nodeIpv4CidrSize;
+  protected $nodePoolAutoConfigType = NodePoolAutoConfig::class;
+  protected $nodePoolAutoConfigDataType = '';
   protected $nodePoolDefaultsType = NodePoolDefaults::class;
   protected $nodePoolDefaultsDataType = '';
   protected $nodePoolsType = NodePool::class;
@@ -312,6 +324,20 @@ class Cluster extends \Google\Collection
     return $this->confidentialNodes;
   }
   /**
+   * @param CostManagementConfig
+   */
+  public function setCostManagementConfig(CostManagementConfig $costManagementConfig)
+  {
+    $this->costManagementConfig = $costManagementConfig;
+  }
+  /**
+   * @return CostManagementConfig
+   */
+  public function getCostManagementConfig()
+  {
+    return $this->costManagementConfig;
+  }
+  /**
    * @param string
    */
   public function setCreateTime($createTime)
@@ -454,6 +480,20 @@ class Cluster extends \Google\Collection
   /**
    * @param string
    */
+  public function setEtag($etag)
+  {
+    $this->etag = $etag;
+  }
+  /**
+   * @return string
+   */
+  public function getEtag()
+  {
+    return $this->etag;
+  }
+  /**
+   * @param string
+   */
   public function setExpireTime($expireTime)
   {
     $this->expireTime = $expireTime;
@@ -464,6 +504,20 @@ class Cluster extends \Google\Collection
   public function getExpireTime()
   {
     return $this->expireTime;
+  }
+  /**
+   * @param Fleet
+   */
+  public function setFleet(Fleet $fleet)
+  {
+    $this->fleet = $fleet;
+  }
+  /**
+   * @return Fleet
+   */
+  public function getFleet()
+  {
+    return $this->fleet;
   }
   /**
    * @param string
@@ -478,6 +532,20 @@ class Cluster extends \Google\Collection
   public function getId()
   {
     return $this->id;
+  }
+  /**
+   * @param IdentityServiceConfig
+   */
+  public function setIdentityServiceConfig(IdentityServiceConfig $identityServiceConfig)
+  {
+    $this->identityServiceConfig = $identityServiceConfig;
+  }
+  /**
+   * @return IdentityServiceConfig
+   */
+  public function getIdentityServiceConfig()
+  {
+    return $this->identityServiceConfig;
   }
   /**
    * @param string
@@ -786,6 +854,20 @@ class Cluster extends \Google\Collection
   public function getNodeIpv4CidrSize()
   {
     return $this->nodeIpv4CidrSize;
+  }
+  /**
+   * @param NodePoolAutoConfig
+   */
+  public function setNodePoolAutoConfig(NodePoolAutoConfig $nodePoolAutoConfig)
+  {
+    $this->nodePoolAutoConfig = $nodePoolAutoConfig;
+  }
+  /**
+   * @return NodePoolAutoConfig
+   */
+  public function getNodePoolAutoConfig()
+  {
+    return $this->nodePoolAutoConfig;
   }
   /**
    * @param NodePoolDefaults

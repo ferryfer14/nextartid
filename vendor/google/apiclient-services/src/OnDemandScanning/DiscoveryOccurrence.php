@@ -17,14 +17,23 @@
 
 namespace Google\Service\OnDemandScanning;
 
-class DiscoveryOccurrence extends \Google\Model
+class DiscoveryOccurrence extends \Google\Collection
 {
+  protected $collection_key = 'analysisError';
+  protected $analysisCompletedType = AnalysisCompleted::class;
+  protected $analysisCompletedDataType = '';
+  protected $analysisErrorType = Status::class;
+  protected $analysisErrorDataType = 'array';
   /**
    * @var string
    */
   public $analysisStatus;
   protected $analysisStatusErrorType = Status::class;
   protected $analysisStatusErrorDataType = '';
+  /**
+   * @var string
+   */
+  public $archiveTime;
   /**
    * @var string
    */
@@ -38,6 +47,34 @@ class DiscoveryOccurrence extends \Google\Model
    */
   public $lastScanTime;
 
+  /**
+   * @param AnalysisCompleted
+   */
+  public function setAnalysisCompleted(AnalysisCompleted $analysisCompleted)
+  {
+    $this->analysisCompleted = $analysisCompleted;
+  }
+  /**
+   * @return AnalysisCompleted
+   */
+  public function getAnalysisCompleted()
+  {
+    return $this->analysisCompleted;
+  }
+  /**
+   * @param Status[]
+   */
+  public function setAnalysisError($analysisError)
+  {
+    $this->analysisError = $analysisError;
+  }
+  /**
+   * @return Status[]
+   */
+  public function getAnalysisError()
+  {
+    return $this->analysisError;
+  }
   /**
    * @param string
    */
@@ -65,6 +102,20 @@ class DiscoveryOccurrence extends \Google\Model
   public function getAnalysisStatusError()
   {
     return $this->analysisStatusError;
+  }
+  /**
+   * @param string
+   */
+  public function setArchiveTime($archiveTime)
+  {
+    $this->archiveTime = $archiveTime;
+  }
+  /**
+   * @return string
+   */
+  public function getArchiveTime()
+  {
+    return $this->archiveTime;
   }
   /**
    * @param string

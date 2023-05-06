@@ -47,6 +47,10 @@ class GoogleCloudDialogflowCxV3Agent extends \Google\Collection
    */
   public $enableStackdriverLogging;
   /**
+   * @var bool
+   */
+  public $locked;
+  /**
    * @var string
    */
   public $name;
@@ -64,6 +68,8 @@ class GoogleCloudDialogflowCxV3Agent extends \Google\Collection
    * @var string[]
    */
   public $supportedLanguageCodes;
+  protected $textToSpeechSettingsType = GoogleCloudDialogflowCxV3TextToSpeechSettings::class;
+  protected $textToSpeechSettingsDataType = '';
   /**
    * @var string
    */
@@ -168,6 +174,20 @@ class GoogleCloudDialogflowCxV3Agent extends \Google\Collection
     return $this->enableStackdriverLogging;
   }
   /**
+   * @param bool
+   */
+  public function setLocked($locked)
+  {
+    $this->locked = $locked;
+  }
+  /**
+   * @return bool
+   */
+  public function getLocked()
+  {
+    return $this->locked;
+  }
+  /**
    * @param string
    */
   public function setName($name)
@@ -236,6 +256,20 @@ class GoogleCloudDialogflowCxV3Agent extends \Google\Collection
   public function getSupportedLanguageCodes()
   {
     return $this->supportedLanguageCodes;
+  }
+  /**
+   * @param GoogleCloudDialogflowCxV3TextToSpeechSettings
+   */
+  public function setTextToSpeechSettings(GoogleCloudDialogflowCxV3TextToSpeechSettings $textToSpeechSettings)
+  {
+    $this->textToSpeechSettings = $textToSpeechSettings;
+  }
+  /**
+   * @return GoogleCloudDialogflowCxV3TextToSpeechSettings
+   */
+  public function getTextToSpeechSettings()
+  {
+    return $this->textToSpeechSettings;
   }
   /**
    * @param string

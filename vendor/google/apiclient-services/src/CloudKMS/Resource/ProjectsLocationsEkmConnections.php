@@ -17,28 +17,64 @@
 
 namespace Google\Service\CloudKMS\Resource;
 
+use Google\Service\CloudKMS\EkmConnection;
+use Google\Service\CloudKMS\ListEkmConnectionsResponse;
 use Google\Service\CloudKMS\Policy;
 use Google\Service\CloudKMS\SetIamPolicyRequest;
 use Google\Service\CloudKMS\TestIamPermissionsRequest;
 use Google\Service\CloudKMS\TestIamPermissionsResponse;
+use Google\Service\CloudKMS\VerifyConnectivityResponse;
 
 /**
  * The "ekmConnections" collection of methods.
  * Typical usage is:
  *  <code>
  *   $cloudkmsService = new Google\Service\CloudKMS(...);
- *   $ekmConnections = $cloudkmsService->ekmConnections;
+ *   $ekmConnections = $cloudkmsService->projects_locations_ekmConnections;
  *  </code>
  */
 class ProjectsLocationsEkmConnections extends \Google\Service\Resource
 {
   /**
+   * Creates a new EkmConnection in a given Project and Location.
+   * (ekmConnections.create)
+   *
+   * @param string $parent Required. The resource name of the location associated
+   * with the EkmConnection, in the format `projects/locations`.
+   * @param EkmConnection $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string ekmConnectionId Required. It must be unique within a
+   * location and match the regular expression `[a-zA-Z0-9_-]{1,63}`.
+   * @return EkmConnection
+   */
+  public function create($parent, EkmConnection $postBody, $optParams = [])
+  {
+    $params = ['parent' => $parent, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('create', [$params], EkmConnection::class);
+  }
+  /**
+   * Returns metadata for a given EkmConnection. (ekmConnections.get)
+   *
+   * @param string $name Required. The name of the EkmConnection to get.
+   * @param array $optParams Optional parameters.
+   * @return EkmConnection
+   */
+  public function get($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('get', [$params], EkmConnection::class);
+  }
+  /**
    * Gets the access control policy for a resource. Returns an empty policy if the
    * resource exists and does not have a policy set. (ekmConnections.getIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
-   * requested. See the operation documentation for the appropriate value for this
-   * field.
+   * requested. See [Resource
+   * names](https://cloud.google.com/apis/design/resource_names) for the
+   * appropriate value for this field.
    * @param array $optParams Optional parameters.
    *
    * @opt_param int options.requestedPolicyVersion Optional. The maximum policy
@@ -62,13 +98,61 @@ class ProjectsLocationsEkmConnections extends \Google\Service\Resource
     return $this->call('getIamPolicy', [$params], Policy::class);
   }
   /**
+   * Lists EkmConnections. (ekmConnections.listProjectsLocationsEkmConnections)
+   *
+   * @param string $parent Required. The resource name of the location associated
+   * with the EkmConnections to list, in the format `projects/locations`.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter Optional. Only include resources that match the
+   * filter in the response. For more information, see [Sorting and filtering list
+   * results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+   * @opt_param string orderBy Optional. Specify how the results should be sorted.
+   * If not specified, the results will be sorted in the default order. For more
+   * information, see [Sorting and filtering list
+   * results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+   * @opt_param int pageSize Optional. Optional limit on the number of
+   * EkmConnections to include in the response. Further EkmConnections can
+   * subsequently be obtained by including the
+   * ListEkmConnectionsResponse.next_page_token in a subsequent request. If
+   * unspecified, the server will pick an appropriate default.
+   * @opt_param string pageToken Optional. Optional pagination token, returned
+   * earlier via ListEkmConnectionsResponse.next_page_token.
+   * @return ListEkmConnectionsResponse
+   */
+  public function listProjectsLocationsEkmConnections($parent, $optParams = [])
+  {
+    $params = ['parent' => $parent];
+    $params = array_merge($params, $optParams);
+    return $this->call('list', [$params], ListEkmConnectionsResponse::class);
+  }
+  /**
+   * Updates an EkmConnection's metadata. (ekmConnections.patch)
+   *
+   * @param string $name Output only. The resource name for the EkmConnection in
+   * the format `projects/locations/ekmConnections`.
+   * @param EkmConnection $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Required. List of fields to be updated in this
+   * request.
+   * @return EkmConnection
+   */
+  public function patch($name, EkmConnection $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', [$params], EkmConnection::class);
+  }
+  /**
    * Sets the access control policy on the specified resource. Replaces any
    * existing policy. Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and
    * `PERMISSION_DENIED` errors. (ekmConnections.setIamPolicy)
    *
    * @param string $resource REQUIRED: The resource for which the policy is being
-   * specified. See the operation documentation for the appropriate value for this
-   * field.
+   * specified. See [Resource
+   * names](https://cloud.google.com/apis/design/resource_names) for the
+   * appropriate value for this field.
    * @param SetIamPolicyRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Policy
@@ -88,8 +172,9 @@ class ProjectsLocationsEkmConnections extends \Google\Service\Resource
    * (ekmConnections.testIamPermissions)
    *
    * @param string $resource REQUIRED: The resource for which the policy detail is
-   * being requested. See the operation documentation for the appropriate value
-   * for this field.
+   * being requested. See [Resource
+   * names](https://cloud.google.com/apis/design/resource_names) for the
+   * appropriate value for this field.
    * @param TestIamPermissionsRequest $postBody
    * @param array $optParams Optional parameters.
    * @return TestIamPermissionsResponse
@@ -99,6 +184,24 @@ class ProjectsLocationsEkmConnections extends \Google\Service\Resource
     $params = ['resource' => $resource, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('testIamPermissions', [$params], TestIamPermissionsResponse::class);
+  }
+  /**
+   * Verifies that Cloud KMS can successfully connect to the external key manager
+   * specified by an EkmConnection. If there is an error connecting to the EKM,
+   * this method returns a FAILED_PRECONDITION status containing structured
+   * information as described at
+   * https://cloud.google.com/kms/docs/reference/ekm_errors.
+   * (ekmConnections.verifyConnectivity)
+   *
+   * @param string $name Required. The name of the EkmConnection to verify.
+   * @param array $optParams Optional parameters.
+   * @return VerifyConnectivityResponse
+   */
+  public function verifyConnectivity($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('verifyConnectivity', [$params], VerifyConnectivityResponse::class);
   }
 }
 

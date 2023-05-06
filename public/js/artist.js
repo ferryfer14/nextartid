@@ -35,6 +35,37 @@
         init: function () {
 
         },
+        makeAccountNft: function(el){
+            $.ajax({
+                url: route.route('frontend.page', { 'slug':'make-account-nft','id' : '7'}),
+                method: 'GET',
+                success: function (data){
+                    $.engineUtils.cleanStorage();
+                    $(".lightbox-make-account-nft").find('#page-content').html(data);
+                }
+            });
+            $.engineLightBox.show("lightbox-make-account-nft");
+            
+            $(".lightbox-make-account-nft").find('.accept').bind('click', function() {
+                $.engineUtils.cleanStorage();     
+                $.ajax({
+                    url: route.route('frontend.auth.user.artist.manager') + "/register/nextverse",
+                    data: {
+                        'register_nextverse': 0
+                    },
+                    type: 'post',
+                    success: function (response){
+                        $.engineUtils.cleanStorage();
+                        Toast.show("success", 'Your Account Success be created in NextVerse');  
+                        location.reload(); 
+                    }
+                }); 
+            });
+            $(".lightbox-make-account-nft").find('.cancel').bind('click', function() {
+                $.engineUtils.cleanStorage();
+                $.engineLightBox.hide("lightbox-make-account-nft");   
+            });
+        },
         withdrawBalance: function(el){
             /*var max = parseInt(el.data('max'));
             var min = parseInt(el.data('min'));

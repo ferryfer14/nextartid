@@ -63,6 +63,12 @@ class Instance extends \Google\Collection
    */
   public $enableStackdriverMonitoring;
   /**
+   * @var bool
+   */
+  public $enableZoneSeparation;
+  protected $eventPublishConfigType = EventPublishConfig::class;
+  protected $eventPublishConfigDataType = '';
+  /**
    * @var string
    */
   public $gcsBucket;
@@ -292,6 +298,34 @@ class Instance extends \Google\Collection
   public function getEnableStackdriverMonitoring()
   {
     return $this->enableStackdriverMonitoring;
+  }
+  /**
+   * @param bool
+   */
+  public function setEnableZoneSeparation($enableZoneSeparation)
+  {
+    $this->enableZoneSeparation = $enableZoneSeparation;
+  }
+  /**
+   * @return bool
+   */
+  public function getEnableZoneSeparation()
+  {
+    return $this->enableZoneSeparation;
+  }
+  /**
+   * @param EventPublishConfig
+   */
+  public function setEventPublishConfig(EventPublishConfig $eventPublishConfig)
+  {
+    $this->eventPublishConfig = $eventPublishConfig;
+  }
+  /**
+   * @return EventPublishConfig
+   */
+  public function getEventPublishConfig()
+  {
+    return $this->eventPublishConfig;
   }
   /**
    * @param string

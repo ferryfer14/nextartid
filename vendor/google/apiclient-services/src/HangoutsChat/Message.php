@@ -19,7 +19,7 @@ namespace Google\Service\HangoutsChat;
 
 class Message extends \Google\Collection
 {
-  protected $collection_key = 'cards';
+  protected $collection_key = 'cardsV2';
   protected $actionResponseType = ActionResponse::class;
   protected $actionResponseDataType = '';
   protected $annotationsType = Annotation::class;
@@ -32,6 +32,12 @@ class Message extends \Google\Collection
   protected $attachmentDataType = 'array';
   protected $cardsType = Card::class;
   protected $cardsDataType = 'array';
+  protected $cardsV2Type = CardWithId::class;
+  protected $cardsV2DataType = 'array';
+  /**
+   * @var string
+   */
+  public $clientAssignedMessageId;
   /**
    * @var string
    */
@@ -50,10 +56,6 @@ class Message extends \Google\Collection
    * @var string
    */
   public $name;
-  /**
-   * @var string
-   */
-  public $previewText;
   protected $senderType = User::class;
   protected $senderDataType = '';
   protected $slashCommandType = SlashCommand::class;
@@ -66,6 +68,10 @@ class Message extends \Google\Collection
   public $text;
   protected $threadType = Thread::class;
   protected $threadDataType = '';
+  /**
+   * @var bool
+   */
+  public $threadReply;
 
   /**
    * @param ActionResponse
@@ -138,6 +144,34 @@ class Message extends \Google\Collection
     return $this->cards;
   }
   /**
+   * @param CardWithId[]
+   */
+  public function setCardsV2($cardsV2)
+  {
+    $this->cardsV2 = $cardsV2;
+  }
+  /**
+   * @return CardWithId[]
+   */
+  public function getCardsV2()
+  {
+    return $this->cardsV2;
+  }
+  /**
+   * @param string
+   */
+  public function setClientAssignedMessageId($clientAssignedMessageId)
+  {
+    $this->clientAssignedMessageId = $clientAssignedMessageId;
+  }
+  /**
+   * @return string
+   */
+  public function getClientAssignedMessageId()
+  {
+    return $this->clientAssignedMessageId;
+  }
+  /**
    * @param string
    */
   public function setCreateTime($createTime)
@@ -208,20 +242,6 @@ class Message extends \Google\Collection
     return $this->name;
   }
   /**
-   * @param string
-   */
-  public function setPreviewText($previewText)
-  {
-    $this->previewText = $previewText;
-  }
-  /**
-   * @return string
-   */
-  public function getPreviewText()
-  {
-    return $this->previewText;
-  }
-  /**
    * @param User
    */
   public function setSender(User $sender)
@@ -290,6 +310,20 @@ class Message extends \Google\Collection
   public function getThread()
   {
     return $this->thread;
+  }
+  /**
+   * @param bool
+   */
+  public function setThreadReply($threadReply)
+  {
+    $this->threadReply = $threadReply;
+  }
+  /**
+   * @return bool
+   */
+  public function getThreadReply()
+  {
+    return $this->threadReply;
   }
 }
 

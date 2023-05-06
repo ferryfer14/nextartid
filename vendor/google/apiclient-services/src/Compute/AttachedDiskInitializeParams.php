@@ -23,6 +23,10 @@ class AttachedDiskInitializeParams extends \Google\Collection
   /**
    * @var string
    */
+  public $architecture;
+  /**
+   * @var string
+   */
   public $description;
   /**
    * @var string
@@ -55,6 +59,14 @@ class AttachedDiskInitializeParams extends \Google\Collection
   /**
    * @var string[]
    */
+  public $replicaZones;
+  /**
+   * @var string[]
+   */
+  public $resourceManagerTags;
+  /**
+   * @var string[]
+   */
   public $resourcePolicies;
   /**
    * @var string
@@ -69,6 +81,20 @@ class AttachedDiskInitializeParams extends \Google\Collection
   protected $sourceSnapshotEncryptionKeyType = CustomerEncryptionKey::class;
   protected $sourceSnapshotEncryptionKeyDataType = '';
 
+  /**
+   * @param string
+   */
+  public function setArchitecture($architecture)
+  {
+    $this->architecture = $architecture;
+  }
+  /**
+   * @return string
+   */
+  public function getArchitecture()
+  {
+    return $this->architecture;
+  }
   /**
    * @param string
    */
@@ -180,6 +206,34 @@ class AttachedDiskInitializeParams extends \Google\Collection
   public function getProvisionedIops()
   {
     return $this->provisionedIops;
+  }
+  /**
+   * @param string[]
+   */
+  public function setReplicaZones($replicaZones)
+  {
+    $this->replicaZones = $replicaZones;
+  }
+  /**
+   * @return string[]
+   */
+  public function getReplicaZones()
+  {
+    return $this->replicaZones;
+  }
+  /**
+   * @param string[]
+   */
+  public function setResourceManagerTags($resourceManagerTags)
+  {
+    $this->resourceManagerTags = $resourceManagerTags;
+  }
+  /**
+   * @return string[]
+   */
+  public function getResourceManagerTags()
+  {
+    return $this->resourceManagerTags;
   }
   /**
    * @param string[]

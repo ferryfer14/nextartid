@@ -30,7 +30,7 @@ use Google\Service\SecurityCommandCenter\SetMuteRequest;
  * Typical usage is:
  *  <code>
  *   $securitycenterService = new Google\Service\SecurityCommandCenter(...);
- *   $findings = $securitycenterService->findings;
+ *   $findings = $securitycenterService->organizations_sources_findings;
  *  </code>
  */
 class OrganizationsSourcesFindings extends \Google\Service\Resource
@@ -174,10 +174,11 @@ class OrganizationsSourcesFindings extends \Google\Service\Resource
    * Creates or updates a finding. The corresponding source must exist for a
    * finding creation to succeed. (findings.patch)
    *
-   * @param string $name The relative resource name of this finding. See:
-   * https://cloud.google.com/apis/design/resource_names#relative_resource_name
-   * Example:
-   * "organizations/{organization_id}/sources/{source_id}/findings/{finding_id}"
+   * @param string $name The [relative resource name](https://cloud.google.com/api
+   * s/design/resource_names#relative_resource_name) of the finding. Example:
+   * "organizations/{organization_id}/sources/{source_id}/findings/{finding_id}",
+   * "folders/{folder_id}/sources/{source_id}/findings/{finding_id}",
+   * "projects/{project_id}/sources/{source_id}/findings/{finding_id}".
    * @param Finding $postBody
    * @param array $optParams Optional parameters.
    *
@@ -197,12 +198,12 @@ class OrganizationsSourcesFindings extends \Google\Service\Resource
   /**
    * Updates the mute state of a finding. (findings.setMute)
    *
-   * @param string $name Required. The relative resource name of the finding. See:
-   * https://cloud.google.com/apis/design/resource_names#relative_resource_name
+   * @param string $name Required. The [relative resource name](https://cloud.goog
+   * le.com/apis/design/resource_names#relative_resource_name) of the finding.
    * Example:
-   * "organizations/{organization_id}/sources/{source_id}/finding/{finding_id}",
-   * "folders/{folder_id}/sources/{source_id}/finding/{finding_id}",
-   * "projects/{project_id}/sources/{source_id}/finding/{finding_id}".
+   * "organizations/{organization_id}/sources/{source_id}/findings/{finding_id}",
+   * "folders/{folder_id}/sources/{source_id}/findings/{finding_id}",
+   * "projects/{project_id}/sources/{source_id}/findings/{finding_id}".
    * @param SetMuteRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Finding
@@ -216,10 +217,12 @@ class OrganizationsSourcesFindings extends \Google\Service\Resource
   /**
    * Updates the state of a finding. (findings.setState)
    *
-   * @param string $name Required. The relative resource name of the finding. See:
-   * https://cloud.google.com/apis/design/resource_names#relative_resource_name
+   * @param string $name Required. The [relative resource name](https://cloud.goog
+   * le.com/apis/design/resource_names#relative_resource_name) of the finding.
    * Example:
-   * "organizations/{organization_id}/sources/{source_id}/finding/{finding_id}".
+   * "organizations/{organization_id}/sources/{source_id}/findings/{finding_id}",
+   * "folders/{folder_id}/sources/{source_id}/findings/{finding_id}",
+   * "projects/{project_id}/sources/{source_id}/findings/{finding_id}".
    * @param SetFindingStateRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Finding
@@ -243,7 +246,8 @@ class OrganizationsSourcesFindings extends \Google\Service\Resource
    *
    * @opt_param string startTime The time at which the updated SecurityMarks take
    * effect. If not set uses current server time. Updates will be applied to the
-   * SecurityMarks that are active immediately preceding this time.
+   * SecurityMarks that are active immediately preceding this time. Must be
+   * earlier or equal to the server time.
    * @opt_param string updateMask The FieldMask to use when updating the security
    * marks resource. The field mask must not contain duplicate fields. If empty or
    * set to "marks", all marks will be replaced. Individual marks can be updated

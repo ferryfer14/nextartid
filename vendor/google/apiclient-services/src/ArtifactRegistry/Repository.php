@@ -27,6 +27,8 @@ class Repository extends \Google\Model
    * @var string
    */
   public $description;
+  protected $dockerConfigType = DockerRepositoryConfig::class;
+  protected $dockerConfigDataType = '';
   /**
    * @var string
    */
@@ -39,14 +41,32 @@ class Repository extends \Google\Model
    * @var string[]
    */
   public $labels;
+  protected $mavenConfigType = MavenRepositoryConfig::class;
+  protected $mavenConfigDataType = '';
+  /**
+   * @var string
+   */
+  public $mode;
   /**
    * @var string
    */
   public $name;
+  protected $remoteRepositoryConfigType = RemoteRepositoryConfig::class;
+  protected $remoteRepositoryConfigDataType = '';
+  /**
+   * @var bool
+   */
+  public $satisfiesPzs;
+  /**
+   * @var string
+   */
+  public $sizeBytes;
   /**
    * @var string
    */
   public $updateTime;
+  protected $virtualRepositoryConfigType = VirtualRepositoryConfig::class;
+  protected $virtualRepositoryConfigDataType = '';
 
   /**
    * @param string
@@ -75,6 +95,20 @@ class Repository extends \Google\Model
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * @param DockerRepositoryConfig
+   */
+  public function setDockerConfig(DockerRepositoryConfig $dockerConfig)
+  {
+    $this->dockerConfig = $dockerConfig;
+  }
+  /**
+   * @return DockerRepositoryConfig
+   */
+  public function getDockerConfig()
+  {
+    return $this->dockerConfig;
   }
   /**
    * @param string
@@ -119,6 +153,34 @@ class Repository extends \Google\Model
     return $this->labels;
   }
   /**
+   * @param MavenRepositoryConfig
+   */
+  public function setMavenConfig(MavenRepositoryConfig $mavenConfig)
+  {
+    $this->mavenConfig = $mavenConfig;
+  }
+  /**
+   * @return MavenRepositoryConfig
+   */
+  public function getMavenConfig()
+  {
+    return $this->mavenConfig;
+  }
+  /**
+   * @param string
+   */
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  /**
+   * @return string
+   */
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  /**
    * @param string
    */
   public function setName($name)
@@ -133,6 +195,48 @@ class Repository extends \Google\Model
     return $this->name;
   }
   /**
+   * @param RemoteRepositoryConfig
+   */
+  public function setRemoteRepositoryConfig(RemoteRepositoryConfig $remoteRepositoryConfig)
+  {
+    $this->remoteRepositoryConfig = $remoteRepositoryConfig;
+  }
+  /**
+   * @return RemoteRepositoryConfig
+   */
+  public function getRemoteRepositoryConfig()
+  {
+    return $this->remoteRepositoryConfig;
+  }
+  /**
+   * @param bool
+   */
+  public function setSatisfiesPzs($satisfiesPzs)
+  {
+    $this->satisfiesPzs = $satisfiesPzs;
+  }
+  /**
+   * @return bool
+   */
+  public function getSatisfiesPzs()
+  {
+    return $this->satisfiesPzs;
+  }
+  /**
+   * @param string
+   */
+  public function setSizeBytes($sizeBytes)
+  {
+    $this->sizeBytes = $sizeBytes;
+  }
+  /**
+   * @return string
+   */
+  public function getSizeBytes()
+  {
+    return $this->sizeBytes;
+  }
+  /**
    * @param string
    */
   public function setUpdateTime($updateTime)
@@ -145,6 +249,20 @@ class Repository extends \Google\Model
   public function getUpdateTime()
   {
     return $this->updateTime;
+  }
+  /**
+   * @param VirtualRepositoryConfig
+   */
+  public function setVirtualRepositoryConfig(VirtualRepositoryConfig $virtualRepositoryConfig)
+  {
+    $this->virtualRepositoryConfig = $virtualRepositoryConfig;
+  }
+  /**
+   * @return VirtualRepositoryConfig
+   */
+  public function getVirtualRepositoryConfig()
+  {
+    return $this->virtualRepositoryConfig;
   }
 }
 
